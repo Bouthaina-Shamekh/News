@@ -99,6 +99,13 @@ class CategoryController extends Controller
     }
 
 
+        $categories->update([
+         'image' => $img_name,
+          'name_en' => $request->name_en,
+           'name_ar' => $request->name_ar,
+       
+       ]);
+
 
        
         return redirect()->route('dashboard.category.index')->with('success', __('Category updated successfully.'));

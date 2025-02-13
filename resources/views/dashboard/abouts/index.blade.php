@@ -2,7 +2,7 @@
 
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{__('Hero Category')}}</li>
+        <li class="breadcrumb-item" aria-current="page">{{__('About')}}</li>
     </x-slot:breadcrumb>
 
 
@@ -12,10 +12,10 @@
     <div class="card table-card">
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
-                <h5 class="mb-3 sm:mb-0">{{__('Category')}}</h5>
+                <h5 class="mb-3 sm:mb-0">{{__('About')}}</h5>
                 <div>
-                    <a href="{{route('dashboard.category.create')}}" class="btn btn-primary" >
-                        {{__('Add Category')}}
+                    <a href="{{route('dashboard.about.create')}}" class="btn btn-primary" >
+                        {{__('Add About')}}
                     </a>
                 </div>
             </div>
@@ -34,21 +34,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category )
+                        @foreach ($abouts as $about )
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                
 
-                                <td>{{$category->name_ar}}</td>
-                                <td>{{$category->name_en}}</td>
+                                <td>{{$about->name_ar}}</td>
+                                <td>{{$about->name_en}}</td>
                                 
-                                <td><img width="30" src="{{ asset('uploads/categories/'.$category->image) }}" alt=""></td>
+                                <td><img width="30" src="{{ asset('uploads/about/'.$about->image) }}" alt=""></td>
 
                                 <td>
-                                    <a href="{{route('dashboard.category.edit',$category->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                    <a href="{{route('dashboard.about.edit',$about->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
-                                    <form action="{{route('dashboard.category.destroy',$category->id)}}" method="post">
+                                    <form action="{{route('dashboard.about.destroy',$about->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
