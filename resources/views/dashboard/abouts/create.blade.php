@@ -1,6 +1,8 @@
 <x-dashboard-layout>
     @push('styles')
     <link rel="stylesheet" href="{{asset('assets-dashboard/css/media.css')}}">
+
+
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
@@ -26,7 +28,8 @@
                                 <a href="{{route('dashboard.about.index')}}" class="btn btn-secondary col-1 mr-3">
                                     {{__('admin.Back')}}
                                 </a>
-                                <button type="submit" class="btn btn-primary col-1  mr-3">
+
+                               <button type="submit" class="btn btn-primary col-1  mr-3">
                                     {{$btn_label ?? __('admin.Add')}}
                                 </button>
                             </div>
@@ -37,4 +40,17 @@
             </div>
         </div>
 
+        @push('scripts')
+    <!-- Include jQuery first -->
+
+  
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.
+min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+      selector: '#mytextarea'
+    });
+  </script> -->
+    @endpush
 </x-dashboard-layout>

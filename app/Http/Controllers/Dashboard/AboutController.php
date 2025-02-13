@@ -59,6 +59,8 @@ class AboutController extends Controller
             'objective_en' => $request->objective_en,
             'mission_ar' => $request->mission_ar,
             'mission_en' => $request->mission_en,
+            'vission_ar' => $request->vission_ar,
+            'vission_en' => $request->vission_en,
             'goal_ar' => $request->goal_ar,
             'goal_en' => $request->goal_en,
          ]);
@@ -118,6 +120,8 @@ class AboutController extends Controller
             'objective_en' => $request->objective_en,
             'mission_ar' => $request->mission_ar,
             'mission_en' => $request->mission_en,
+            'vission_ar' => $request->vission_ar,
+            'vission_en' => $request->vission_en,
             'goal_ar' => $request->goal_ar,
             'goal_en' => $request->goal_en,
 

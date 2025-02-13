@@ -55,7 +55,6 @@
 
 
 
-
 <div class="form-group col-6 mb-3">
 <label for="image">Image</label>
 <input type="file" name="image" class="form-control" />

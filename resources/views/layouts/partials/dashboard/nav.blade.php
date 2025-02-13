@@ -63,13 +63,15 @@
                 {{-- <li class="pc-item pc-caption">
                     <label>{{__('Basic')}}</label>
                 </li> --}}
-                <!-- <li class="pc-item pc-hasmenu">
+
+
+                <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-h-square"></i>
+                            <i class="fas fa-puzzle-piece"></i>
                         </span>
                         <span class="pc-mtext">
-                            {{__('admin.Home Page')}}
+                            {{__('admin.Articale')}}
                         </span>
                         @if (App::getLocale() == 'en')
                         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
@@ -79,133 +81,290 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        
+                        @can('view', 'App\\Models\Artical')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.articale.index')}}">
+                                {{__('admin.View Articale')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\Artical')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.articale.create')}}">
+                                {{__('admin.Add Articale')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
                     </ul>
-                </li> -->
-
-                @can('view categories')
-                <li class="pc-item">
-                    <a href="{{route('dashboard.category.index')}}" class="pc-link">
-                        <span class="pc-micon">
-                            <i class="material-icons-two-tone pc-icon">grid_on</i>
-                        </span>
-                        <span class="pc-mtext">{{__('admin.Categories')}}</span>
-                    </a>
                 </li>
-                @endcan
 
 
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.News')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\Nw')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.nw.index')}}">
+                                {{__('admin.View News')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\Nw')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.nw.create')}}">
+                                {{__('admin.Add News')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
                 
 
-
-                @can('view publishers')
-                <li class="pc-item">
-                    <a href="{{route('dashboard.publisher.index')}}" class="pc-link">
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="material-icons-two-tone pc-icon">grid_on</i>
+                            <i class="fas fa-puzzle-piece"></i>
                         </span>
-                        <span class="pc-mtext">{{__('admin.publishers')}}</span>
+                        <span class="pc-mtext">
+                            {{__('admin.status')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
                     </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\Statu')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.status.index')}}">
+                                {{__('admin. View status')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\Statu')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.status.create')}}">
+                                {{__('admin.Add status')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
                 </li>
-                @endcan
 
 
-
-                @can('view articales')
-                <li class="pc-item">
-                    <a href="{{route('dashboard.articale.index')}}" class="pc-link">
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="material-icons-two-tone pc-icon">grid_on</i>
+                            <i class="fas fa-puzzle-piece"></i>
                         </span>
-                        <span class="pc-mtext">{{__('admin.articales')}}</span>
+                        <span class="pc-mtext">
+                            {{__('admin.Category')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
                     </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\Category')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.category.index')}}">
+                                {{__('admin. View Category')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\Category')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.category.create')}}">
+                                {{__('admin.Add Category')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
                 </li>
-                @endcan
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.Ad')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\Ad')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.ad.index')}}">
+                                {{__('admin. View Ad')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\Ad')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.ad.create')}}">
+                                {{__('admin.Add Ad')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
+
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.NewPlace')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\NewPlace')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.newplace.index')}}">
+                                {{__('admin.NewPlace')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\NewPlace')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.newplace.create')}}">
+                                {{__('admin.NewPlace')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.AdPlace')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\AdPlace')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.adplace.index')}}">
+                                {{__('admin.AdPlace')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\AdPlace')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.adplace.create')}}">
+                                {{__('admin.AdPlace')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
+
+
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.Publisher')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\\Models\Publisher')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.publisher.index')}}">
+                                {{__('admin.View Publisher')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('view', 'App\\Models\Publisher')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.publisher.create')}}">
+                                {{__('admin.Add Publisher')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
 
 
                
 
-                @can('view ads')
-                <li class="pc-item">
-                    <a href="{{route('dashboard.ad.index')}}" class="pc-link">
-                        <span class="pc-micon">
-                            <i class="material-icons-two-tone pc-icon">grid_on</i>
-                        </span>
-                        <span class="pc-mtext">{{__('admin.ads')}}</span> 
-                    </a>
-                </li>
-                @endcan
-
-
-                @can('view tags')
-                <li class="pc-item">
-                    <a href="{{route('dashboard.tag.index')}}" class="pc-link">
-                        <span class="pc-micon">
-                            <i class="material-icons-two-tone pc-icon">grid_on</i>
-                        </span>
-                        <span class="pc-mtext">{{__('admin.tags')}}</span>
-                    </a>
-                </li>
-                @endcan
-
-
                 
+ 
             </ul>
-            <ul class="pc-navbar">
-                @can('view', 'App\\Models\User')
-                <li class="pc-item pc-hasmenu">
-                    <a href="#!" class="pc-link">
-                        <span class="pc-micon">
-                            <i class="fas fa-users"></i>
-                        </span>
-                        <span class="pc-mtext">
-                            {{__('admin.Users')}}
-                        </span>
-                        @if (App::getLocale() == 'en')
-                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-                        @else
-                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
-                        @endif
-                    </a>
-                    <ul class="pc-submenu">
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{route('dashboard.users.index')}}">
-                                {{__('admin.Users')}}
-                            </a>
-                        </li>
-                        {{-- <li class="pc-item">
-                            <a class="pc-link" href="">
-                                {{__('admin.Roles')}}
-                            </a>
-                        </li> --}}
-                    </ul>
-                </li>
-                @endcan
-
-                {{-- @can('edit', 'App\\Models\Setting')
-                <li class="pc-item">
-                    <a href="{{route('dashboard.setting.index')}}" class="pc-link">
-                        <span class="pc-micon">
-                            <span class="pc-micon">
-                                <i class="text-lg leading-none ti ti-settings"></i>
-                            </span>
-                        </span>
-                        <span class="pc-mtext">{{__('admin.Settings')}}</span>
-                    </a>
-                </li>
-                <li class="pc-item">
-                    <a href="{{route('dashboard.setting.showsSection')}}" class="pc-link">
-                        <span class="pc-micon">
-                            <span class="pc-micon">
-                                <i class="text-lg leading-none ti ti-settings"></i>
-                            </span>
-                        </span>
-                        <span class="pc-mtext">{{__('admin.Settings Sections')}}</span>
-                    </a>
-                </li>
-                @endcan --}}
-
-            </ul>
+           
         </div>
     </div>
 </nav>
