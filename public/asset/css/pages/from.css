@@ -1,0 +1,9 @@
+/* edit input in forms */
+[data-twe-input-notch-ref] {
+    /* direction: rtl; */
+    border: none;
+}
+[data-twe-input-notch-leading-ref],[data-twe-input-notch-middle-ref],[data-twe-input-notch-trailing-ref]
+{
+    border: transparent !important;
+}

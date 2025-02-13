@@ -1,0 +1,50 @@
+/* لتصميم الخط المتقطع بين الدوائر */
+.progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 35px;
+}
+.progress-bar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border: 1px dashed #ddd;
+  z-index: -1;
+}
+
+.progress-step {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #b2b2b2;
+  border: 1px solid #b2b2b2;
+  z-index: 1;
+}
+
+.progress-step.completed {
+  background-color: #43516D; /* لون العنصر المكتمل */
+  color: white;
+}
+
+.progress-line {
+  height: 2px;
+}
+
+.progress-line.done{
+  background-color: #43516D;
+}
+
+
+.progress-step.completed + .progress-line {
+  background-color: #43516D; /* لون الخط بين العناصر المكتملة */
+}
+

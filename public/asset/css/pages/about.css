@@ -1,0 +1,25 @@
+.hexagon-container svg{
+    width: 620px;
+    height: 590px;
+}
+.card__about.hexagon-container svg{
+    width: 620px;
+    height: 300px;
+}
+@media (max-width: 780px) {
+    .hexagon-container{
+        width: 320px !important;
+        height: 300px !important;
+    }
+    .hexagon-container svg{
+        width: 320px !important;
+        height: 300px !important;
+    }
+    .hexagon-container .hexagon-content{
+        width: 285px !important;
+        height: 285px !important;
+    }
+    .\!w-\[70\%\]{
+        width: 70% !important;
+    }
+}
