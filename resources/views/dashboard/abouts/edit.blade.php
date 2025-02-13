@@ -4,9 +4,6 @@
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
-        @can('view', 'App\\Models\About')
-        <li class="breadcrumb-item"><a href="{{route('dashboard.about.index')}}">{{__('admin.Abouts')}}</a></li>
-        @endcan
         <li class="breadcrumb-item" aria-current="page">{{__('admin.About')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12 xl:col-span-12">
@@ -24,9 +21,6 @@
                         @method('PUT')
                         @include('dashboard.abouts._form')
                         <div class="row justify-content-end mt-3">
-                            <a href="{{route('dashboard.about.index')}}" class="btn btn-secondary col-1 mr-3">
-                                {{__('admin.Back')}}
-                            </a>
                             <button type="submit" class="btn btn-primary col-1  mr-3">
                                 {{__('admin.Update')}}
                             </button>

@@ -54,9 +54,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
             'adplace' => AdPlaceController::class,
             'newplace' =>NewPlaceController::class,
             'status' => StatusController::class,
-            'about' =>AboutController::class,
+           
 
         ]);
+
+        
+
+        Route::get('/about/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
+        Route::put('/about/{id}', [AboutController::class, 'update'])->name('about.update');
 
         Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');

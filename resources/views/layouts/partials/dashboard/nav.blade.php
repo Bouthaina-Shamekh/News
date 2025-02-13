@@ -5,7 +5,7 @@
                 <!-- ========   Change your logo from here   ============ -->
                 <img src="{{asset('assets-dashboard/images/logo-dark.svg')}}" class="img-fluid logo-lg" alt="logo" style="display: none"  />
                 <div  style="width: 232px;">
-                    <img src="{{asset('asset/img/logoBrand.png')}}" class="img-fluid logo-lg" alt="logo" />
+                    <img src="{{asset('asset/img/extra/marina.jpg')}}" class="img-fluid logo-lg" alt="logo" />
                 </div>
             </a>
         </div>
@@ -68,7 +68,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="fas fa-newspaper"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.Articale')}}
@@ -105,7 +105,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="far fa-file-alt"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.News')}}
@@ -142,7 +142,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="fas fa-toggle-on"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.status')}}
@@ -215,7 +215,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="fas fa-ad"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.Ad')}}
@@ -252,7 +252,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="fas fa-location-arrow"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.NewPlace')}}
@@ -288,7 +288,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="fas fa-map-marker"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.AdPlace')}}
@@ -325,7 +325,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <i class="fas fa-upload"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.Publisher')}}
@@ -357,6 +357,15 @@
 
                     </ul>
                 </li>
+
+                @can('edit', 'App\\Models\About')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.about.edit' , ['id' => 1] )}}">
+                              About
+                            </a>
+                        </li>
+                        @endcan
+
 
 
                

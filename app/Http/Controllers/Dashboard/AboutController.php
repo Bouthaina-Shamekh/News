@@ -10,65 +10,65 @@ use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
-    public function index()
-    {
-        $this->authorize('view', About::class);
+    // public function ()
+    // {
+    //     $this->authorize('view', About::class);
 
-        $abouts = About::all();
+    //     $abouts = About::all();
 
-        return view('dashboard.abouts.index',compact('abouts'));
+    //     return view('dashboard.abouts.index',compact('abouts'));
 
-    }
+    // }
 
 
 
-    public function create()
-    {
-        $this->authorize('create', About::class);
-        $abouts = new About();
-        return view('dashboard.abouts.create', compact('abouts'));
-    }
+    // public function create()
+    // {
+    //     $this->authorize('create', About::class);
+    //     $abouts = new About();
+    //     return view('dashboard.abouts.create', compact('abouts'));
+    // }
 
-    public function store(Request $request)
-    {
+    // public function store(Request $request)
+    // {
 
-        $request->validate([
-            'about_ar' => 'required',
-            'about_en' => 'required',
-            'objective_ar' => 'required',
-            'objective_en' => 'required',
-            'mission_ar' => 'required',
-            'mission_en' => 'required',
-            'vission_ar' => 'required',
-            'vission_en' => 'required',
-            'goal_ar' => 'required',
-            'goal_en' => 'required',
-            'image' => 'required|image',
+    //     $request->validate([
+    //         'about_ar' => 'required',
+    //         'about_en' => 'required',
+    //         'objective_ar' => 'required',
+    //         'objective_en' => 'required',
+    //         'mission_ar' => 'required',
+    //         'mission_en' => 'required',
+    //         'vission_ar' => 'required',
+    //         'vission_en' => 'required',
+    //         'goal_ar' => 'required',
+    //         'goal_en' => 'required',
+    //         'image' => 'required|image',
             
-        ]);
+    //     ]);
         
-        $img = $request->file('image');
-        $img_name = rand() . time() . $img->getClientOriginalName();
-        $img->move(public_path('uploads/abouts'), $img_name);
+    //     $img = $request->file('image');
+    //     $img_name = rand() . time() . $img->getClientOriginalName();
+    //     $img->move(public_path('uploads/abouts'), $img_name);
 
-        About::create([
-            'image' => $img_name,
-             'about_ar' => $request->about_ar,
-            'about_en' => $request->about_en,
-            'objective_ar' => $request->objective_ar,
-            'objective_en' => $request->objective_en,
-            'mission_ar' => $request->mission_ar,
-            'mission_en' => $request->mission_en,
-            'vission_ar' => $request->vission_ar,
-            'vission_en' => $request->vission_en,
-            'goal_ar' => $request->goal_ar,
-            'goal_en' => $request->goal_en,
-         ]);
+    //     About::create([
+    //         'image' => $img_name,
+    //          'about_ar' => $request->about_ar,
+    //         'about_en' => $request->about_en,
+    //         'objective_ar' => $request->objective_ar,
+    //         'objective_en' => $request->objective_en,
+    //         'mission_ar' => $request->mission_ar,
+    //         'mission_en' => $request->mission_en,
+    //         'vission_ar' => $request->vission_ar,
+    //         'vission_en' => $request->vission_en,
+    //         'goal_ar' => $request->goal_ar,
+    //         'goal_en' => $request->goal_en,
+    //      ]);
 
       
 
-        return redirect()->route('dashboard.about.index')->with('success', __('About created successfully.'));
-    }
+    //     return redirect()->route('dashboard.about.index')->with('success', __('About created successfully.'));
+    // }
 
     public function edit($id)
     {
@@ -94,7 +94,7 @@ class AboutController extends Controller
             'vission_en' => 'required',
             'goal_ar' => 'required',
             'goal_en' => 'required',
-            // 'image' => 'required|image',
+            'image' => 'required|image',
             
         ]);
 
@@ -112,7 +112,7 @@ class AboutController extends Controller
     }
 
 
-    $abouts->update([
+        $abouts::updat([
              'image' => $img_name,
              'about_ar' => $request->about_ar,
             'about_en' => $request->about_en,
@@ -131,7 +131,7 @@ class AboutController extends Controller
 
 
        
-        return redirect()->route('dashboard.about.index')->with('success', __('About updated successfully.'));
+        return redirect()->route('dashboard.about.edit')->with('success', __('About updated successfully.'));
     }
 
 
