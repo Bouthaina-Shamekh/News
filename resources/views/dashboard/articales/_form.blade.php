@@ -27,8 +27,6 @@
                             <textarea name="text_en" id="mytextarea" rows="3" class="form-control" required>{{$articals->text_en}}</textarea>
                         </div>
 
-                       
-
 
                         <div class="form-group col-6 mb-3">
                             <x-form.input name="place" label="{{__('admin.Place')}}" type="string" placeholder="{{__('admin.enter artical of place')}}" required :value="$articals->place" />
@@ -44,33 +42,33 @@
                             <label for="image">Image</label>
                             <input type="file" name="img_view" class="form-control" />
 
-                            <img src="{{ asset('uploads/artical/' . $articals->img_view) }}" alt="Current Image" height="60">
+                            <img src="{{ asset('storage/' . $articals->img_view) }}" alt="Current Image" width="50">
 
                         </div>
                         <div class="form-group col-6 mb-3">
                             <label for="image">Image</label>
                             <input type="file" name="img_article" class="form-control" />
-
-                            <img src="{{ asset('uploads/artical/' . $articals->img_article) }}" alt="Current Image" height="60">
-
+                            <img src="{{ asset('storage/' . $articals->img_article) }}" alt="Current Image" width="50">
                         </div>
 
                         <div class="form-group col-6 mb-3">
                             <label for="image">Vedio</label>
                             <input type="file" name="vedio" class="form-control" />
-                            <img src="{{ asset('uploads/artical/' . $articals->vedio) }}" alt="Current video" height="60">
+                            {{-- < src="{{ asset('storage/' . $articals->vedio) }}" alt="Current video" width="50"> --}}
+                            <video src="{{ asset('storage/' . $articals->vedio) }}" width="320" height="240" controls="controls">
+                            </video>
                         </div>
 
 
                         <div class="form-group col-6 mb-3">
-                        <label for="statu_id" class="form-label">{{__('admin.Status')}}</label>
-                        <select id="statu_id" name="statu_id" class="form-control">
-                            <option value="" disabled selected>{{__('admin.Choose')}}</option>
-                            @foreach ($status as $statu)
-                            <option value="{{$statu->id}}" @selected( $articals->statu_id == $statu->id)>{{$statu->name_en}}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                            <label for="statu_id" class="form-label">{{__('admin.Status')}}</label>
+                            <select id="statu_id" name="statu_id" class="form-control">
+                                <option value="" disabled selected>{{__('admin.Choose')}}</option>
+                                @foreach ($status as $statu)
+                                    <option value="{{$statu->id}}" @selected( $articals->statu_id == $statu->id)>{{$statu->name_en}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
 
                         <div class="form-group col-6 mb-3">

@@ -24,7 +24,7 @@
                             <input type="file" name="imageFile" class="form-control" />
 
                             @if ($ads->image) <!-- تأكد من أن المتغير صحيح -->
-                            <img src="{{ asset('storage/' . $ads->image) }}" alt="Current Image" height="60">
+                                <img src="{{ asset('storage/' . $ads->image) }}" alt="Current Image" width="60">
                             @else
                             <p>No image available</p>
                             @endif

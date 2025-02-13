@@ -21,8 +21,24 @@ class NwController extends Controller
         $this->authorize('view', Nw::class);
 
         $news = Nw::all();
+        $categories  = Category::get();
+        $request = request();
+        if($request->ajax()){
+            if($request->date  != null){
+                $news = $news->where('date','>=', $request->date);
+            }
+            if($request->to_date != null){
+                $news = $news->where('date','<=', $request->to_date);
+            }
+            if($request->category_id != null){
+                $news = $news->where('category_id', $request->category_id);
+            }
+            return response()->json([
+                'newss' => $news,
+            ]);
+        }
 
-        return view('dashboard.news.index', compact('news'));
+        return view('dashboard.news.index', compact('news', 'categories'));
     }
 
     /**
@@ -50,7 +66,6 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'vedio' => 'nullable|image',
             'img_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'img_article' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'text_ar' => 'required',
@@ -67,13 +82,14 @@ class NwController extends Controller
         // Handle image uploads
         $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         $imgArticlePath = $request->file('img_article')->store('uploads', 'public');
+        $vedioPath = $request->file('vedio')->store('uploads', 'public');
 
         // Create the news item
         Nw::create([
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
-            'vedio' => $request->vedio,
+            'vedio' => $vedioPath,
             'img_view' => $imgViewPath,
             'img_article' => $imgArticlePath,
             'text_ar' => $request->text_ar,
@@ -123,9 +139,8 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'vedio' => 'nullable|image',
-            'img_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'img_article' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'img_view' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'img_article' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'text_ar' => 'required',
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
@@ -142,20 +157,28 @@ class NwController extends Controller
         $news = Nw::findOrFail($id);
 
         // Handle image uploads
+        $imgViewPath = $news->img_view;
         if ($request->hasFile('img_view')) {
             // Delete the old image
             Storage::disk('public')->delete($news->img_view);
             // Store the new image
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
-            $news->img_view = $imgViewPath;
         }
 
+        $imgArticlePath = $news->img_article;
         if ($request->hasFile('img_article')) {
             // Delete the old image
             Storage::disk('public')->delete($news->img_article);
             // Store the new image
             $imgArticlePath = $request->file('img_article')->store('uploads', 'public');
-            $news->img_article = $imgArticlePath;
+        }
+
+        $vedioPath = $news->img_article;
+        if ($request->hasFile('vedio')) {
+            // Delete the old image
+            Storage::disk('public')->delete($news->img_article);
+            // Store the new image
+            $vedioPath = $request->file('vedio')->store('uploads', 'public');
         }
 
         // Update the news item
@@ -163,7 +186,6 @@ class NwController extends Controller
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
-            'vedio' => $request->vedio,
             'text_ar' => $request->text_ar,
             'text_en' => $request->text_en,
             'keyword_ar' => $request->keyword_ar,
@@ -173,6 +195,9 @@ class NwController extends Controller
             'category_id' => $request->category_id,
             'new_place_id' => $request->new_place_id,
             'publisher_id' => $request->publisher_id,
+            'img_view' => $imgViewPath,
+            'img_article' => $imgArticlePath,
+            'vedio' => $vedioPath,
         ]);
 
         return redirect()->route('dashboard.nw.index')->with('success', __('Item updated successfully.'));

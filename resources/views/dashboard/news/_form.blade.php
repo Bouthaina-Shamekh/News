@@ -46,21 +46,22 @@
                             <label for="image">Image</label>
                             <input type="file" name="img_view" class="form-control" />
 
-                            <img src="{{ asset('uploads/news/' . $news->img_view) }}" alt="Current Image" height="60">
+                            <img src="{{ asset('storage/' . $news->img_view) }}" alt="Current Image" width="50">
 
                         </div>
                         <div class="form-group col-6 mb-3">
                             <label for="image">Image</label>
                             <input type="file" name="img_article" class="form-control" />
 
-                            <img src="{{ asset('uploads/news/' . $news->img_article) }}" alt="Current Image" height="60">
+                            <img src="{{ asset('storage/' . $news->img_article) }}" alt="Current Image" width="50">
 
                         </div>
 
                         <div class="form-group col-6 mb-3">
                             <label for="image">Vedio</label>
                             <input type="file" name="vedio" class="form-control" />
-                            <img src="{{ asset('uploads/news/' . $news->vedio) }}" alt="Current video" height="60">
+                            <img src="{{ asset('storage/' . $news->vedio) }}" alt="Current video" height="60">
+                            <video src="{{ asset('storage/' . $news->vedio)  }}" width="320" height="240" controls="controls"></video>
                         </div>
 
 
@@ -69,7 +70,7 @@
                         <select id="statu_id" name="statu_id" class="form-control">
                             <option value="" disabled selected>{{__('admin.Choose')}}</option>
                             @foreach ($status as $statu)
-                            <option value="{{$statu->id}}" @selected( $news->statu_id == $statu->id)>{{$statu->name_en}}</option>
+                                <option value="{{$statu->id}}" @selected( $news->statu_id == $statu->id)>{{$statu->name_en}}</option>
                             @endforeach
                         </select>
                     </div>

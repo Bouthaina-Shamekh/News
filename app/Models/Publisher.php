@@ -13,7 +13,7 @@ class Publisher extends Model
         'name',
         'email',
         'password',
-        'avatar',
+        'image',
         'phone',
         'birth_of_date',
         'address',

@@ -24,6 +24,9 @@ class Nw extends Model
         'place_new',
         'status',
         'category_id',
+        'new_place_id',
+        'statu_id',
+        'publisher_id',
     ];
 
 

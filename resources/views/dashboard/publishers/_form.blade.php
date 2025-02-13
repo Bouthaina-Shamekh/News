@@ -20,7 +20,7 @@
     <label for="image">Image</label>
     <input type="file" name="imageFile" class="form-control" />
     @if(!empty($publishers->image))
-    <img src="{{ asset('storage/' . $publishers->image) }}" alt="Current Image" height="60">
+        <img src="{{ asset('storage/' . $publishers->image) }}" alt="Current Image" width="60">
     @endif
 </div>
 

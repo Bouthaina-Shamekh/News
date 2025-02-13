@@ -18,8 +18,7 @@ class PublisherController extends Controller
 
         $publishers = Publisher::all();
 
-        return view('dashboard.publishers.index',compact('publishers'));
-
+        return view('dashboard.publishers.index', compact('publishers'));
     }
 
     /**
@@ -42,7 +41,7 @@ class PublisherController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:publishers,email',
             'password' => 'required',
-           'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'phone' => 'required',
             'birth_of_date' => 'required|date',
             'address' => 'required',
@@ -50,24 +49,24 @@ class PublisherController extends Controller
             'status' => 'required',
             'visit' => 'required',
             'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            
+
         ]);
 
         if ($request->hasFile('imageFile')) {
-            $validated['image'] = $request->file('imageFile')->store('uploads', 'public');
+            $image = $request->file('imageFile')->store('uploads', 'public');
+            $request->merge(['avatar' => $image]);
         }
-    
+
         if ($request->hasFile('attachmentsFile')) {
-            $validated['attachments'] = $request->file('attachmentsFile')->store('uploads', 'public');
+            $attachments = $request->file('attachmentsFile')->store('uploads', 'public');
+            $request->merge(['attachments' => $attachments]);
         }
-    
-     
-        
+
+
+
         Publisher::create($request->all());
-    
+
         return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher created successfully.'));
-    
-        
     }
 
     /**
@@ -95,7 +94,7 @@ class PublisherController extends Controller
             'name' => 'required',
             'email' => 'required|email:publishers,email',
             'password' => 'required',
-           'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'phone' => 'required',
             'birth_of_date' => 'required|date',
             'address' => 'required',
@@ -103,10 +102,10 @@ class PublisherController extends Controller
             'status' => 'required',
             'visit' => 'required',
             'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            
+
         ]);
 
-       
+
 
         // if ($request->hasFile('imageFile')) {
         //     if ($publishers->image) {
@@ -114,7 +113,7 @@ class PublisherController extends Controller
         //     }
         //     $validated['image'] = $request->file('imageFile')->store('uploads', 'public');
         // }
-    
+
         // if ($request->hasFile('attachmentsFile')) {
         //     if ($publishers->attachments) {
         //         Storage::disk('public')->delete($publishers->attachments);
@@ -124,58 +123,57 @@ class PublisherController extends Controller
 
 
         // Get the old image and attachments paths
-    $old_image = $request->old_image;
-    $old_attachments = $request->old_attachments;
+        $old_image = $request->old_image;
+        $old_attachments = $request->old_attachments;
 
-    // Handle image file upload
-    if ($request->hasFile('imageFile')) {
-        $file = $request->file('imageFile'); // upload obj
-        $path = $file->store('uploads', [
-            'disk' => 'public'
-        ]);
-        $request->merge([
-            'image' => $path
-        ]);
-    }
+        // Handle image file upload
+        if ($request->hasFile('imageFile')) {
+            $file = $request->file('imageFile'); // upload obj
+            $path = $file->store('uploads', [
+                'disk' => 'public'
+            ]);
+            $request->merge([
+                'image' => $path
+            ]);
+        }
 
-    // Handle attachments file upload
-    if ($request->hasFile('attachmentsFile')) {
-        $file = $request->file('attachmentsFile'); // upload obj
-        $path = $file->store('uploads', [
-            'disk' => 'public'
-        ]);
-        $request->merge([
-            'attachments' => $path
-        ]);
-    }
-    
-    $publishers = Publisher::findOrFail($id);
+        // Handle attachments file upload
+        if ($request->hasFile('attachmentsFile')) {
+            $file = $request->file('attachmentsFile'); // upload obj
+            $path = $file->store('uploads', [
+                'disk' => 'public'
+            ]);
+            $request->merge([
+                'attachments' => $path
+            ]);
+        }
+
+        $publishers = Publisher::findOrFail($id);
         // Update the publisher with the validated data
         $publishers->update($request->all());
-    
-    
+
+
 
         return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher updated successfully.'));
     }
 
 
- 
+
     public function destroy($id)
-{
-    $this->authorize('delete', Publisher::class);
-    $publishers = Publisher::findOrFail($id);
+    {
+        $this->authorize('delete', Publisher::class);
+        $publishers = Publisher::findOrFail($id);
 
-    if ($publishers->image) {
-        Storage::disk('public')->delete($publishers->image);
+        if ($publishers->image) {
+            Storage::disk('public')->delete($publishers->image);
+        }
+
+        if ($publishers->attachments) {
+            Storage::disk('public')->delete($publishers->attachments);
+        }
+
+        $publishers->delete();
+
+        return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher deleted successfully.'));
     }
-
-    if ($publishers->attachments) {
-        Storage::disk('public')->delete($publishers->attachments);
-    }
-
-    $publishers->delete();
-
-    return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher deleted successfully.'));
-}
-    
 }

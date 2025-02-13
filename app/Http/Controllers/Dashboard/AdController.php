@@ -15,7 +15,7 @@ class AdController extends Controller
      */
     public function index()
     {
-        $this->authorize('view',Ad ::class);
+        $this->authorize('view',Ad::class);
 
         $ads = Ad::all();
 
@@ -60,10 +60,6 @@ class AdController extends Controller
             'disk' => 'public'
         ]);
     }
-
-   
-
-    
     Ad::create([
         'image' => $imagePath, // Use 'image' instead of 'imageFile'
         'title' => $request->title,

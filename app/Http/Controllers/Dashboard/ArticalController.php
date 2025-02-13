@@ -19,9 +19,27 @@ class ArticalController extends Controller
     {
         $this->authorize('view', Artical::class);
 
-        $articals = Artical::all();
+        $articals = Artical::get();
+        $categories  = Category::get();
+        $request = request();
+        if($request->ajax()){
+            if($request->date  != null){
+                $articals = $articals->where('date','>=', $request->date);
+            }
+            if($request->to_date != null){
+                $articals = $articals->where('date','<=', $request->to_date);
+            }
+            if($request->category_id != null){
+                $articals = $articals->where('category_id', $request->category_id);
+            }
+            return response()->json([
+                'articals' => $articals,
+                'date' => $request->date,
+                'to_date' => $request->to_date
+            ]);
+        }
 
-        return view('dashboard.articales.index', compact('articals'));
+        return view('dashboard.articales.index', compact('articals','categories'));
 
     }
 
@@ -73,15 +91,18 @@ class ArticalController extends Controller
             $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
         }
 
+        $vedioFilePath = null;
+        if ($request->hasFile('vedio')) {
+            $vedioFilePath = $request->file('vedio')->store('uploads', 'public');
+        }
 
-        // dd($request->all());
         // Create the article
         Artical::create([
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
             'visit' => $request->visit,
-            'vedio' => $request->vedio,
+            'vedio' => $vedioFilePath,
             'img_view' => $imgViewPath,
             'img_article' => $imgArticalPath,
             'text_ar' => $request->text_ar,
@@ -142,21 +163,28 @@ class ArticalController extends Controller
         // Find the article
         $articals = Artical::findOrFail($id);
 
+        $imgViewPath = $articals->img_view;
         // Handle image uploads
         if ($request->hasFile('img_view')) {
             // Delete the old image
             Storage::disk('public')->delete($articals->img_view);
             // Store the new image
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
-            $articals->img_view = $imgViewPath;
         }
 
+        $imgArticalPath = $articals->img_article;
         if ($request->hasFile('img_article')) {
             // Delete the old image
             Storage::disk('public')->delete($articals->img_article);
             // Store the new image
             $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
-            $articals->img_article = $imgArticalPath;
+        }
+        $vedioPath = $articals->vedio;
+        if ($request->hasFile('vedio')) {
+            // Delete the old image
+            Storage::disk('public')->delete($articals->vedio);
+            // Store the new image
+            $vedioPath = $request->file('vedio')->store('uploads', 'public');
         }
 
         // Update the article
@@ -165,13 +193,15 @@ class ArticalController extends Controller
             'title_en' => $request->title_en,
             'date' => $request->date,
             'visit' => $request->visit,
-            'vedio' => $request->vedio,
+            'vedio' => $vedioPath,
             'text_ar' => $request->text_ar,
             'text_en' => $request->text_en,
             'place' => $request->place,
             'statu_id' => $request->statu_id,
             'publisher_id' => $request->publisher_id,
             'category_id' => $request->category_id,
+            'img_view' => $imgViewPath,
+            'img_article' => $imgArticalPath,
         ]);
 
         return redirect()->route('dashboard.articale.index')->with('success', __('Item updated successfully.'));

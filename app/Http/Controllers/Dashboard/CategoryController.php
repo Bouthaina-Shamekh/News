@@ -18,8 +18,7 @@ class CategoryController extends Controller
 
         $categories = Category::all();
 
-        return view('dashboard.categories.index',compact('categories'));
-
+        return view('dashboard.categories.index', compact('categories'));
     }
 
 
@@ -38,7 +37,7 @@ class CategoryController extends Controller
             'name_en' => 'required',
             'name_ar' => 'required',
             'image' => 'required|image',
-            
+
         ]);
         // dd($request->all());
         $request->merge([
@@ -46,20 +45,14 @@ class CategoryController extends Controller
         ]);
 
 
-        $img = $request->file('image');
-        $img_name = rand() . time() . $img->getClientOriginalName();
-        $img->move(public_path('uploads/categories'), $img_name);
+        $img = $request->file('image')->store('uploads/categories', 'public');
 
         Category::create([
-            'image' => $img_name,
-             'name_en' => $request->name_en,
+            'image' => $img,
+            'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
             'slug' => $request->name_en,
-
-         ]);
-
-      
-
+        ]);
         return redirect()->route('dashboard.category.index')->with('success', __('Category created successfully.'));
     }
 
@@ -83,31 +76,29 @@ class CategoryController extends Controller
 
         $categories = Category::findOrFail($id);
 
-        
 
-      
 
-    if ($request->hasFile('image')) {
-        // حذف الصورة القديمة إذا كانت موجودة
-        if ($categories->image && Storage::exists('uploads/categories/' . $categories->image)) {
-            Storage::delete('uploads/categories/' . $categories->image);
+
+
+        $img = $categories->image;
+        if ($request->hasFile('image')) {
+            // حذف الصورة القديمة إذا كانت موجودة
+            if ($categories->image && Storage::exists($categories->image)) {
+                Storage::delete($categories->image);
+            }
+            $img = $request->file('image')->store('uploads/categories', 'public');
         }
-
-        // توليد اسم جديد للصورة وتخزينها
-        $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('uploads/categories'), $img_name);
-    }
 
 
         $categories->update([
-         'image' => $img_name,
-          'name_en' => $request->name_en,
-           'name_ar' => $request->name_ar,
-       
-       ]);
+            'image' => $img,
+            'name_en' => $request->name_en,
+            'name_ar' => $request->name_ar,
+
+        ]);
 
 
-       
+
         return redirect()->route('dashboard.category.index')->with('success', __('Category updated successfully.'));
     }
 
@@ -117,7 +108,9 @@ class CategoryController extends Controller
 
         $this->authorize('delete', Category::class);
         $categories = Category::findOrFail($id);
-        File::delete(public_path('uploads/Categories/'.$categories->image));
+        if ($categories->image && Storage::exists($categories->image)) {
+            Storage::delete($categories->image);
+        }        
         $categories->delete();
         $request = request();
         if ($request->ajax()) {

@@ -59,7 +59,7 @@
 <label for="image">Image</label>
 <input type="file" name="image" class="form-control" />
 
-<img src="{{ asset('uploads/about/' . $abouts->image) }}" alt="Current Image" height="60">
+<img src="{{ asset('storage/' . $abouts->image) }}" alt="Current Image" width="60">
 
 </div>
 

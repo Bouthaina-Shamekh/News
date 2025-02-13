@@ -100,20 +100,18 @@ class AboutController extends Controller
 
         $abouts = About::findOrFail($id); 
 
-    if ($request->hasFile('image')) {
-        // حذف الصورة القديمة إذا كانت موجودة
-        if ($abouts->image && Storage::exists('uploads/abouts/' . $abouts->image)) {
-            Storage::delete('uploads/abouts/' . $abouts->image);
+        $image = $abouts->image;
+        if ($request->hasFile('image')) {
+            if ($abouts->image && Storage::exists('uploads/abouts/' . $abouts->image)) {
+                Storage::delete('uploads/abouts/' . $abouts->image);
+            }
+            $image = $request->file('image')->store('uploads/abouts', 'public');
         }
 
-        // توليد اسم جديد للصورة وتخزينها
-        $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('uploads/abouts'), $img_name);
-    }
 
 
-        $abouts::updat([
-             'image' => $img_name,
+        $abouts->update([
+             'image' => $image,
              'about_ar' => $request->about_ar,
             'about_en' => $request->about_en,
             'objective_ar' => $request->objective_ar,
@@ -131,7 +129,7 @@ class AboutController extends Controller
 
 
        
-        return redirect()->route('dashboard.about.edit')->with('success', __('About updated successfully.'));
+        return redirect()->route('dashboard.about.edit',1)->with('success', __('About updated successfully.'));
     }
 
 
