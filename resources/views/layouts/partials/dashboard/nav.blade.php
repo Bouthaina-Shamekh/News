@@ -65,6 +65,38 @@
                 </li> --}}
 
 
+
+                @can('view', 'App\\Models\User')
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.Admin')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.users.index')}}">
+                                {{__('admin.Admin')}}
+                            </a>
+                        </li>
+                        {{-- <li class="pc-item">
+                            <a class="pc-link" href="">
+                                {{__('admin.Roles')}}
+                            </a>
+                        </li> --}}
+                    </ul>
+                </li>
+                @endcan
+
+
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -361,7 +393,16 @@
                 @can('edit', 'App\\Models\About')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.about.edit' , ['id' => 1] )}}">
-                              About
+                             {{__('admin.About')}}
+                            </a>
+                        </li>
+                        @endcan
+
+
+                        @can('edit', 'App\\Models\Setting')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.setting.index')}}">
+                             {{__('admin.Settings')}}
                             </a>
                         </li>
                         @endcan

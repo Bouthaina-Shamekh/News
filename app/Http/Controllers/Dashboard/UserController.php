@@ -13,10 +13,18 @@ class UserController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('view', User::class);
-        $users = User::paginate(10);
+        $query = User::query();
+
+    if ($request->has('search') && !empty($request->search)) {
+        $query->where('name', 'LIKE', '%' . $request->search . '%');
+    }
+
+    $users = $query->paginate(10);
+
+       
         return view('dashboard.users.index', compact('users'));
     }
 
@@ -58,7 +66,7 @@ class UserController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->route('admin.users.index')->with('success', 'تم اضافة مستخدم جديد');
+        return redirect()->route('dashboard.users.index')->with('success', 'تم اضافة مستخدم جديد');
     }
 
 
@@ -146,6 +154,6 @@ class UserController extends Controller
     {
         $this->authorize('delete', User::class);
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'تم حذف المستخدم');
+        return redirect()->route('dashboard.users.index')->with('success', 'تم حذف المستخدم');
     }
 }

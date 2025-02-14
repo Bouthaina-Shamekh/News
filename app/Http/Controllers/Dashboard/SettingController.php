@@ -14,7 +14,7 @@ class SettingController extends Controller
 
         // return "bou";
         $this->authorize('edit', Setting::class);
-        $settings = Setting::whereIn('key', ['linkedin','instagram','twitter','facebook','snapshat','whatsapp','titel_en', 'titel_ar', 'logo', 'contact_email','currency','policy_ar', 'policy_en','about_ar', 'about_en','phone','location'])->pluck('value', 'key');
+        $settings = Setting::whereIn('key', ['site_ar','site_en','facebook','instagram','youtube','phone','contact_email', 'about_ar', 'about_en','title_en','title_ar', 'logo','logo_icon'])->pluck('value', 'key');
 
         return view('dashboard.setting.index',compact('settings'));
     }
@@ -25,27 +25,23 @@ class SettingController extends Controller
 {
     $this->authorize('edit', Setting::class);
     $request->validate([
-        'linkedin' => 'required',
-        'instagram'=> 'required',
-        'twitter'=> 'required',
+        'site_ar' => 'required',
+        'site_en'=> 'required',
         'facebook' => 'required',
-        'snapshat' => 'required',
-        'whatsapp' => 'required',
+        'instagram' => 'required',
+        'youtube' => 'required',
+        'phone' => 'required',
+        'contact_email' => 'required',
+        'about_ar' => 'required',
+        'about_en' => 'required',
         'titel_ar' => 'required',
         'titel_en' => 'required',
         'logo' => 'nullable|image',
-        'contact_email' => 'required',
-        'currency' => 'required',
-        'policy_ar' => 'required',
-        'policy_en' => 'required',
-        'about_ar' => 'required',
-        'about_en' => 'required',
-        'phone' => 'required',
-        'location' => 'required',
+        'logo_icon' => 'nullable|image',
     ]);
 
 
-    $data = $request->except(['_token', '_method','logo']);
+    $data = $request->except(['_token', '_method','logo','logo_icon']);
 
 
 
@@ -57,37 +53,63 @@ class SettingController extends Controller
         return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
 
+    // if ($request->logo) {
+
+    //     $logos = Setting::Where('key','logo')->first();
+    //     if($logos){
+
+    //         $destination = 'uploads/logos/' . $logos->value;
+
+
+    //         if (Storage::exists($destination)) {
+    //             Storage::delete($destination);
+    //         }
+
+
+    //         }
+
+    //         $file = $request->file('logo');
+
+    //         $extention = $file->getClientOriginalExtension();
+    //         $filename = time() . '.' . $extention;
+    //         $file->move(public_path('uploads/logos'), $filename);
+
+
+    //         Setting::updateOrCreate(
+    //             ['key' => 'logo'],
+    //             ['value' => $filename]
+    //         );
+
+    //     }
+
+    // تحديث logo
+    if ($request->hasFile('logo')) {
+        $this->updateImage($request->file('logo'), 'logo');
+    }
+
+    // تحديث logo_icon
+    if ($request->hasFile('logo_icon')) {
+        $this->updateImage($request->file('logo_icon'), 'logo_icon');
+    }
+
+    return redirect()->back()->with('success', __('Updated successfully'));
+}
+
+private function updateImage($file, $key)
+{
+    $setting = Setting::where('key', $key)->first();
+
+    if ($setting && Storage::exists('uploads/logos/' . $setting->value)) {
+        Storage::delete('uploads/logos/' . $setting->value);
+    }
+
+    $filename = time() . '.' . $file->getClientOriginalExtension();
+    $file->move(public_path('uploads/logos'), $filename);
+
+    Setting::updateOrCreate(['key' => $key], ['value' => $filename]);
 
 
 
-    if ($request->logo) {
-
-        $logos = Setting::Where('key','logo')->first();
-        if($logos){
-
-            $destination = 'uploads/logos/' . $logos->value;
-
-
-            if (Storage::exists($destination)) {
-                Storage::delete($destination);
-            }
-
-
-            }
-
-            $file = $request->file('logo');
-
-            $extention = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extention;
-            $file->move(public_path('uploads/logos'), $filename);
-
-
-            Setting::updateOrCreate(
-                ['key' => 'logo'],
-                ['value' => $filename]
-            );
-
-        }
 
 
         return redirect()->back()->with('success', __('Updated successfully'));

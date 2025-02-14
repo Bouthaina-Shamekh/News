@@ -14,19 +14,23 @@ class SettingsTableSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            ['key' => 'linkedin', 'value' => 'https://www.linkedin.com/in/your-profile'],
-            ['key' => 'instagram', 'value' => 'https://www.instagram.com/your-profile'],
-            ['key' => 'twitter', 'value' => 'https://twitter.com/your-profile'],
-            ['key' => 'facebook', 'value' => 'https://www.facebook.com/your-profile'],
-            ['key' => 'snapshat', 'value' => 'https://www.snapchat.com/add/your-profile'],
-            ['key' => 'whatsapp', 'value' => 'https://wa.me/your-phone-number'],
-            ['key' => 'titel_en', 'value' => 'Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et Justo Duo'],
-            ['key' => 'titel_ar', 'value' => ' Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam Voluptua. At Vero Eos Et Accusam Et Justo Duo'],
-            ['key' => 'logo', 'value' => 'public/logos/public/uploads/logos/1733230449.png'],
-            ['key' => 'contact_email', 'value' => 'info@yourdomain.com'],
-            ['key' => 'currency', 'value' => 'USD'],
-            ['key' => 'policy_ar', 'value' => 'سياسة الخصوصية بالعربية'],
-            ['key' => 'policy_en', 'value' => 'Privacy Policy in English']
+
+            ['key' => 'site_ar', 'value' => 'مارينا بوست'],
+            ['key' => 'site_en', 'value' => 'Marena post'],
+            ['key' => 'instagram', 'value' => 'https://www.instagram.com/mrynbwst/?hl=ar'],
+            ['key' => 'facebook', 'value' => 'https://www.facebook.com/marena.post.news?locale=ar_AR'],
+            ['key' => 'youtube', 'value' => 'https://www.youtube.com/@marenapost'],
+            ['key' => 'phone', 'value' => '000000'],
+            ['key' => 'contact_email', 'value' => 'info@marenapost.com'],
+            ['key' => 'titel_en', 'value' => 'Palestine'],
+            ['key' => 'titel_ar', 'value' => 'فلسطين'],
+            ['key' => 'about_en', 'value' => 'The best news and articles. Learn about the latest news with high credibility. You can find the latest news on trending areas and more right here.'],
+            ['key' => 'about_ar', 'value' => ' افضل الأخبار والمقالات.  تعرف على احدث الأخبار بمصداقية عالية. يمكنك الاطّلاع على آخر الأخبار المتعلّقة بالمجالات الرائجة والمزيد من هنا مباشرةً.'],
+            ['key' => 'logo', 'value' => 'public/uploads/logos/marina.png'],
+
+           
+
+            ['key' => 'logo_icon', 'value' => 'public/uploads/logos/logos.png'],
         ];
 
         // Insert data into the settings table

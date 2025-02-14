@@ -25,20 +25,18 @@ class FortifyServiceProvider extends ServiceProvider
     {
         $request = request();
         $app_local = app()->getLocale();
+        Config::set('fortify.prefix',$app_local);
         if($request->is('dashboard/*')){
             Config::set('fortify.guard','admin');
-            Config::set('fortify.password','admins');
+            Config::set('fortify.passwords','admins');
             Config::set('fortify.prefix',$app_local . '/dashboard');
             Config::set('fortify.home','/dashboard/home');
-            Config::set('fortify.views',true);
-        }elseif($request->is('publisher/*')){
+        }
+        if($request->is('publisher/*')){
             Config::set('fortify.guard','publisher');
-            Config::set('fortify.password','publishers');
+            Config::set('fortify.passwords','publishers');
             Config::set('fortify.prefix',$app_local . '/publisher');
             Config::set('fortify.home','/publisher/home');
-            Config::set('fortify.views',true);
-        }else{
-            Config::set('fortify.prefix',$app_local);
         }
 
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
@@ -98,3 +96,4 @@ class FortifyServiceProvider extends ServiceProvider
         });
     }
 }
+

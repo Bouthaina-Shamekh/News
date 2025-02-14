@@ -15,6 +15,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="p-4">
+                <form method="GET" action="{{ route('dashboard.users.index') }}" class="flex items-center gap-2">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control w-1/4" placeholder="بحث حسب الاسم">
+                    <button type="submit" class="btn btn-danger">{{__('admin.Search')}}</button>
+                </form>
+            </div>
+
+
         <div class="card-body">
             <div class="table-responsive dt-responsive">
                 <table class="table table-striped table-bordered nowrap">
