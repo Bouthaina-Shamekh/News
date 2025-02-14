@@ -87,11 +87,11 @@
                                 {{__('admin.Admin')}}
                             </a>
                         </li>
-                        {{-- <li class="pc-item">
-                            <a class="pc-link" href="">
-                                {{__('admin.Roles')}}
+                       <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.users.create')}}">
+                                {{__('admin.Add Admin')}}
                             </a>
-                        </li> --}}
+                        </li> 
                     </ul>
                 </li>
                 @endcan
