@@ -4,7 +4,7 @@
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
-        @can('view', 'App\\Models\NewPlace')
+        @can('view', 'App\Models\NewPlace')
         <li class="breadcrumb-item"><a href="{{route('dashboard.newplace.index')}}">{{__('admin.NewPlaces')}}</a></li>
         @endcan
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit NewPlace')}}</li>
@@ -12,12 +12,12 @@
     <div class="col-span-12 xl:col-span-12">
         <div class="col-md-12">
             <div class="card">
-                @can('edit', 'App\\Models\NewPlace')
+                @can('edit', 'App\Models\NewPlace')
                 <div class="card-header">
                     <h5>{{__('admin.Edit NewPlace')}}</h5>
                 </div>
                  @endcan
-                 @can('edit', 'App\\Models\NewPlace')
+                 @can('edit', 'App\Models\NewPlace')
                 <div class="card-body">
                     <form action="{{route('dashboard.newplace.update',$newplaces->id) }}" method="post" enctype="multipart/form-data">
                         @csrf

@@ -35,6 +35,7 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Statu::class);
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
@@ -69,6 +70,7 @@ class StatusController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('edit', Statu::class);
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
@@ -79,7 +81,7 @@ class StatusController extends Controller
 
         $status->update($request->all());
 
-        return redirect()->route('dashboard.status.index')->with('success', __('Item updated successfully.'));
+        return redirect()->route('dashboard.status.index')->with('success', __('admin.Item updated successfully.'));
 
     }
 

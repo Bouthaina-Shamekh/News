@@ -12,12 +12,13 @@
         <div class="col-span-12 xl:col-span-12">
             <div class="col-md-12">
                 <div class="card">
-                    {{-- @can('add new') --}}
+                @can('create', 'App\Models\Artical')
                     <div class="card-header">
                         <h5>{{__('admin.Add Articals')}}</h5>
                     </div>
-                    {{-- @endcan --}}
-                    @can('create', 'App\\Models\Artical')
+                    @can('view', 'App\Models\Artical')
+                    
+                    @can('create', 'App\Models\Artical')
                     <div class="card-body">
                         <form action="{{route('dashboard.articale.store')}}" method="post" enctype="multipart/form-data">
                             @csrf

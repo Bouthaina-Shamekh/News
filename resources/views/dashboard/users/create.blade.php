@@ -6,6 +6,7 @@
     </x-slot:breadcrumb>
     <div class="col-span-12 xl:col-span-12">
         <div class="col-md-12">
+        @can('create', 'App\Models\User')
             <div class="card">
                 <div class="card-header">
                     <h5>{{__('admin.Add User')}}</h5>
@@ -17,6 +18,7 @@
                     </form>
                 </div>
             </div>
+            @can('view', 'App\Models\User')
         </div>
     </div>
 

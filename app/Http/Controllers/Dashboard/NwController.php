@@ -64,6 +64,7 @@ class NwController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Nw::class);
         $request->validate([
             'title_ar' => 'required',
             'title_en' => 'nullable',
@@ -138,6 +139,8 @@ class NwController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('edit', Nw::class);
+
         $request->validate([
             'title_ar' => 'required',
             'title_en' => 'nullable',
@@ -203,7 +206,7 @@ class NwController extends Controller
             'vedio' => $vedioPath,
         ]);
 
-        return redirect()->route('dashboard.nw.index')->with('success', __('Item updated successfully.'));
+        return redirect()->route('dashboard.nw.index')->with('success', __('admin.Item updated successfully.'));
     }
 
     /**

@@ -66,7 +66,7 @@
 
 
 
-                @can('view', 'App\\Models\User')
+                @can('view', 'App\Models\User')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -97,6 +97,7 @@
                 @endcan
 
 
+                @can('view', 'App\\Models\Artical')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -121,7 +122,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\Artical')
+                        @can('create', 'App\\Models\Artical')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.articale.create')}}">
                                 {{__('admin.Add Articale')}}
@@ -132,8 +133,10 @@
 
                     </ul>
                 </li>
+                @endcan
 
 
+                @can('view', 'App\Models\Nw')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -150,7 +153,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\Nw')
+                        @can('view', 'App\Models\Nw')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.nw.index')}}">
                                 {{__('admin.View News')}}
@@ -158,7 +161,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\Nw')
+                        @can('create', 'App\Models\Nw')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.nw.create')}}">
                                 {{__('admin.Add News')}}
@@ -169,8 +172,9 @@
 
                     </ul>
                 </li>
+                @endcan
                 
-
+                @can('view', 'App\Models\Statu')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -187,7 +191,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\Statu')
+                        @can('view', 'App\Models\Statu')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.status.index')}}">
                                 {{__('admin. View status')}}
@@ -195,7 +199,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\Statu')
+                        @can('create', 'App\Models\Statu')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.status.create')}}">
                                 {{__('admin.Add status')}}
@@ -206,8 +210,10 @@
 
                     </ul>
                 </li>
+                @endcan
 
 
+                @can('view', 'App\Models\Category')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -224,7 +230,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\Category')
+                        @can('view', 'App\Models\Category')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.category.index')}}">
                                 {{__('admin. View Category')}}
@@ -232,7 +238,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\Category')
+                        @can('create', 'App\Models\Category')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.category.create')}}">
                                 {{__('admin.Add Category')}}
@@ -243,7 +249,9 @@
 
                     </ul>
                 </li>
+                @endcan
 
+                @can('view', 'App\Models\Ad')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -260,7 +268,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\Ad')
+                        @can('view', 'App\Models\Ad')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.ad.index')}}">
                                 {{__('admin. View Ad')}}
@@ -268,7 +276,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\Ad')
+                        @can('create', 'App\Models\Ad')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.ad.create')}}">
                                 {{__('admin.Add Ad')}}
@@ -279,8 +287,9 @@
 
                     </ul>
                 </li>
+                @endcan
 
-
+                @can('view', 'App\Models\NewPlace')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -297,7 +306,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\NewPlace')
+                        @can('view', 'App\Models\NewPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.newplace.index')}}">
                                 {{__('admin.NewPlace')}}
@@ -305,7 +314,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\NewPlace')
+                        @can('create', 'App\Models\NewPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.newplace.create')}}">
                                 {{__('admin.NewPlace')}}
@@ -316,7 +325,9 @@
 
                     </ul>
                 </li>
+                @endcan
 
+                @can('view', 'App\Models\AdPlace')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -333,7 +344,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\AdPlace')
+                        @can('view', 'App\Models\AdPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.adplace.index')}}">
                                 {{__('admin.AdPlace')}}
@@ -341,7 +352,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\AdPlace')
+                        @can('create', 'App\Models\AdPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.adplace.create')}}">
                                 {{__('admin.AdPlace')}}
@@ -352,8 +363,12 @@
 
                     </ul>
                 </li>
+                @endcan
+
+               
 
 
+                @can('view', 'App\Models\Publisher')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -370,7 +385,7 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\\Models\Publisher')
+                        @can('view', 'App\Models\Publisher')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.publisher.index')}}">
                                 {{__('admin.View Publisher')}}
@@ -378,7 +393,7 @@
                         </li>
                         @endcan
 
-                        @can('view', 'App\\Models\Publisher')
+                        @can('create', 'App\Models\Publisher')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.publisher.create')}}">
                                 {{__('admin.Add Publisher')}}
@@ -389,12 +404,13 @@
 
                     </ul>
                 </li>
+                @endcan
 
                
                        
                        
 
-                        @can('edit', 'App\\Models\About')
+                        @can('edit', 'App\Models\About')
                         <li class="pc-item">
                     <a href="{{route('dashboard.about.edit' , ['id' => 1] )}}" class="pc-link">
                         <span class="pc-micon">
@@ -405,7 +421,7 @@
                 </li>
                 @endcan
 
-                @can('edit', 'App\\Models\Setting')
+                @can('edit', 'App\Models\Setting')
                         <li class="pc-item">
                     <a href="{{route('dashboard.setting.index')}}" class="pc-link">
                         <span class="pc-micon">

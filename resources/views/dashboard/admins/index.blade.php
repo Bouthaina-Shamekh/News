@@ -5,6 +5,7 @@
     </x-slot:breadcrumb>
     <div class="col-span-12">
     <div class="card">
+    @can('create', 'App\Models\User')
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
                 <h5 class="mb-3 mb-sm-0">{{__('Admins List')}}</h5>
@@ -15,6 +16,8 @@
                 </div>
             </div>
         </div>
+        @endcan
+        @can('view', 'App\Models\User')
         <div class="card-body">
             <div class="table-responsive dt-responsive">
                 <table class="table table-striped table-bordered nowrap">
@@ -71,6 +74,7 @@
                 </table>
             </div>
         </div>
+        @endcan
     </div>
     </div>
 

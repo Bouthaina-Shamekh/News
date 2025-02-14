@@ -64,6 +64,7 @@ class ArticalController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Artical::class);
         $request->validate([
             'title_ar' => 'required',
             'title_en' => 'required',
@@ -144,6 +145,8 @@ class ArticalController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('edit', Artical::class);
+
         $request->validate([
             'title_ar' => 'required',
             'title_en' => 'required',
@@ -204,7 +207,7 @@ class ArticalController extends Controller
             'img_article' => $imgArticalPath,
         ]);
 
-        return redirect()->route('dashboard.articale.index')->with('success', __('Item updated successfully.'));
+        return redirect()->route('dashboard.articale.index')->with('success', __('admin.Item updated successfully.'));
     }
 
     /**

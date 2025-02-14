@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-body">
 
-
+                @can('edit', 'App\Models\Setting')
                     <div class="card-body">
 
 
@@ -150,6 +150,7 @@
                           </form>
 
                       </div>
+                      @endcan
 
                 </div>
             </div>

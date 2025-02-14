@@ -36,7 +36,7 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->authorize('create', Publisher::class);
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:publishers,email',
@@ -66,7 +66,7 @@ class PublisherController extends Controller
 
         Publisher::create($request->all());
 
-        return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher created successfully.'));
+        return redirect()->route('dashboard.publisher.index')->with('success', __('admin.Iteam created successfully.'));
     }
 
     /**
@@ -107,19 +107,6 @@ class PublisherController extends Controller
 
 
 
-        // if ($request->hasFile('imageFile')) {
-        //     if ($publishers->image) {
-        //         Storage::disk('public')->delete($publishers->image);
-        //     }
-        //     $validated['image'] = $request->file('imageFile')->store('uploads', 'public');
-        // }
-
-        // if ($request->hasFile('attachmentsFile')) {
-        //     if ($publishers->attachments) {
-        //         Storage::disk('public')->delete($publishers->attachments);
-        //     }
-        //     $validated['attachments'] = $request->file('attachmentsFile')->store('uploads', 'public');
-        // }
 
 
         // Get the old image and attachments paths

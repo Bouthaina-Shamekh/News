@@ -23,12 +23,15 @@
                 <div class="row">
                     <h5>{{ __('admin.Category') }}</h5>
                 </div>
+                @can('create', 'App\Models\Category')
                 <div>
                     <a href="{{ route('dashboard.category.create') }}" class="btn btn-primary">
                         {{ __('Add Category') }}
                     </a>
                 </div>
+                @endcan
             </div>
+            @can('view', 'App\Models\Category')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -67,6 +70,7 @@
                     </table>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
     <!-- Both borders table end -->

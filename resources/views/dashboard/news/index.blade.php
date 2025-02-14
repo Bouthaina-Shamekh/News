@@ -28,12 +28,15 @@
                 <div class="row">
                     <h5>{{ __('admin.News') }}</h5>
                 </div>
+                @can('create', 'App\Models\Nw')
                 <div>
                     <a href="{{ route('dashboard.nw.create') }}" class="btn btn-primary">
                         {{ __('Add News') }}
                     </a>
                 </div>
+                @endcan
             </div>
+
             <div class="row">
                 <div class="form-group col-2 mb-3">
                     <x-form.input name="keyword" label="{{__('admin.Keyword')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}" />
@@ -57,6 +60,7 @@
             <div class="d-flex justify-end me-2">
                 <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
             </div>
+            @can('view', 'App\Models\Nw')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -103,6 +107,7 @@
                     </table>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
     <!-- Both borders table end -->

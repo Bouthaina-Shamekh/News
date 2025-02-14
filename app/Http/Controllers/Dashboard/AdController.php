@@ -37,7 +37,7 @@ class AdController extends Controller
    
     public function store(Request $request)
 {
-    // Validate the request data
+    $this->authorize('create', Ad::class);
     $request->validate([
         'title' => 'required',
         'url' => 'required',
@@ -76,7 +76,7 @@ class AdController extends Controller
 
     
 
-    return redirect()->route('dashboard.ad.index')->with('success', __('Ad created successfully.'));
+    return redirect()->route('dashboard.ad.index')->with('success', __('admin.Item created successfully.'));
 }
 
     /**
@@ -98,72 +98,11 @@ class AdController extends Controller
         return view('dashboard.ads.edit', compact('ads','adplases'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(Request $request, string $id)
-    // {
-    //     $request->validate([
-    //         'title' => 'required',
-    //         'url' => 'required',
-    //         'imageFile' => 'nullable',
-    //         'owner' => 'required',
-    //         'owner_phone' => 'required',
-    //         'price' => 'required',
-    //         'date' => 'required|date',
-    //         'time' => 'required',
-    //         'visit' => 'required',
-    //         'ad_place_id' => 'required',  
-    //     ]);
-
-    //     $old_image = $request->old_image;
-    //     if ($request->hasFile('imageFile')) {
-    //         $file = $request->file('imageFile'); // upload obj
-    //         $path = $file->store('uploads', [
-    //             'disk' => 'public'
-    //         ]);
-
-    //         $request->merge([
-    //             'image' => $path
-    //         ]);
-    //     }
-
-
-    //     $ads = Ad::findOrFail($id);
-
-    //     // $ads->update($request->all());
-
-    //     $ads->update([
-
-    //      'image' => $imagePath, // Use 'image' instead of 'imageFile'
-    //     'title' => $request->title,
-    //     'url' => $request->url,
-    //     'owner' => $request->owner,
-    //     'owner_phone' => $request->owner_phone,
-    //     'price' => $request->price,
-    //     'date' => $request->date,
-    //     'time' => $request->time,
-    //     'visit' => $request->visit,
-    //     'ad_place_id' => $request->ad_place_id,
-
-
-
-    //     ]);
-        
-    //     if ($old_image && $request->hasFile('imageFile')) {
-    //         Storage::disk('public')->delete($old_image);
-
-    //                 }
-
-    //     return redirect()->route('dashboard.ad.index')->with('success', __('Item updated successfully.'));
-
-    // }
-
 
 
     public function update(Request $request, string $id)
 {
-    // Validate the request data
+    $this->authorize('edit', Ad::class);
     $request->validate([
         'title' => 'required',
         'url' => 'required',
@@ -214,7 +153,7 @@ class AdController extends Controller
         Storage::disk('public')->delete($old_image);
     }
 
-    return redirect()->route('dashboard.ad.index')->with('success', __('Item updated successfully.'));
+    return redirect()->route('dashboard.ad.index')->with('success', __('admin.Item updated successfully.'));
 }
 
     /**

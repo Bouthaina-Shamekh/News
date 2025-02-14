@@ -23,12 +23,15 @@
                 <div class="row">
                     <h5>{{ __('admin.Publisher') }}</h5>
                 </div>
+                @can('create', 'App\Models\Publisher')
                 <div>
                     <a href="{{ route('dashboard.publisher.create') }}" class="btn btn-primary">
                         {{ __('Add Publisher') }}
                     </a>
                 </div>
+                @endcan
             </div>
+            @can('view', 'App\Models\Publisher')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -72,6 +75,7 @@
                     </table>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
     <!-- Both borders table end -->

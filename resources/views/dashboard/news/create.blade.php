@@ -12,11 +12,11 @@
         <div class="col-span-12 xl:col-span-12">
             <div class="col-md-12">
                 <div class="card">
-                    {{-- @can('add new') --}}
+                @can('create', 'App\Models\Nw')
                     <div class="card-header">
                         <h5>{{__('admin.Add News')}}</h5>
                     </div>
-                    {{-- @endcan --}}
+                  @endcan 
                     @can('create', 'App\Models\Nw')
                     <div class="card-body">
                         <form action="{{route('dashboard.nw.store')}}" method="post" enctype="multipart/form-data">

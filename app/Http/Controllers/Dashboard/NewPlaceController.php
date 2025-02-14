@@ -35,6 +35,7 @@ class NewPlaceController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', NewPlace::class);
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
@@ -43,7 +44,7 @@ class NewPlaceController extends Controller
 
         NewPlace::create($request->all());
 
-        return redirect()->route('dashboard.newplace.index')->with('success', __('Item created successfully.'));
+        return redirect()->route('dashboard.newplace.index')->with('success', __('admin.Item created successfully.'));
     }
 
     /**
@@ -69,6 +70,7 @@ class NewPlaceController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('edit', NewPlace::class);
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
@@ -91,6 +93,6 @@ class NewPlaceController extends Controller
         $this->authorize('delete', NewPlace::class);
         $newplaces = NewPlace::findOrFail($id);
         $newplaces->delete();
-        return redirect()->route('dashboard.newplace.index')->with('success', __('Item deleted successfully.'));
+        return redirect()->route('dashboard.newplace.index')->with('success', __('admin.Item deleted successfully.'));
     }
 }

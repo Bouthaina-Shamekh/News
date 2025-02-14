@@ -23,12 +23,15 @@
                 <div class="row">
                     <h5>{{ __('admin.Status') }}</h5>
                 </div>
+                @can('create', 'App\Models\Statu')
                 <div>
                     <a href="{{ route('dashboard.status.create') }}" class="btn btn-primary">
                         {{ __('Add Status') }}
                     </a>
                 </div>
+                @endcan
             </div>
+            @can('view', 'App\Models\Statu')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -64,6 +67,7 @@
                     </table>
                 </div>
             </div>
+            @endcan
         </div>
     </div>
     <!-- Both borders table end -->

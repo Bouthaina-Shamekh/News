@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-
+        $this->authorize('create', Category::class);
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
@@ -54,7 +54,7 @@ class CategoryController extends Controller
             'name_ar' => $request->name_ar,
             'slug' => $request->name_en,
         ]);
-        return redirect()->route('dashboard.category.index')->with('success', __('Category created successfully.'));
+        return redirect()->route('dashboard.category.index')->with('success', __('admin. Iteam created successfully.'));
     }
 
     public function edit($id)

@@ -17,6 +17,7 @@
     <!-- Both borders table start -->
     <div class="col-span-12">
         <div class="card">
+        @can('create', 'App\Models\Artical')
             <div class="card-header d-flex justify-content-between">
                 <div class="row">
                     <h5>{{ __('admin.Articale') }}</h5>
@@ -27,6 +28,8 @@
                     </a>
                 </div>
             </div>
+            @endcan
+
             <div class="row">
                 <div class="form-group col-2">
                     <x-form.input name="date" class="serch_form" label="{{ __('admin.Form Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
@@ -47,6 +50,7 @@
             <div class="d-flex justify-end me-2">
                 <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
             </div>
+            @can('view', 'App\Models\Artical')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -103,6 +107,8 @@
                     </table>
                 </div>
             </div>
+
+            @endcan
         </div>
     </div>
     <!-- Both borders table end -->

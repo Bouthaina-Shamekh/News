@@ -10,6 +10,7 @@
 <!-- Both borders table start -->
 <div class="col-span-12">
     <div class="card table-card">
+    @can('create', 'App\\Models\AdPlace')
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
                 <h5 class="mb-3 sm:mb-0">{{__('AdPlace')}}</h5>
@@ -20,6 +21,8 @@
                 </div>
             </div>
         </div>
+        @endcan
+        @can('view', 'App\\Models\AdPlace')
         <div class="card-body pt-3">
             <div class="table-responsive" style="margin: 0 15px;">
                 <table class="table table-hover table-bordered" id="pc-dt-simple">
@@ -58,6 +61,7 @@
                 </table>
             </div>
         </div>
+        @endcan
     </div>
 </div>
 

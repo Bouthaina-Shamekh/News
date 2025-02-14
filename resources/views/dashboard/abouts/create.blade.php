@@ -6,7 +6,7 @@
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
-        @can('view', 'App\\Models\About')
+        @can('view', 'App\Models\About')
         <li class="breadcrumb-item"><a href="{{route('dashboard.about.index')}}">{{__('admin.About')}}</a></li>
         @endcan
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Add About')}}</li>
@@ -14,12 +14,12 @@
         <div class="col-span-12 xl:col-span-12">
             <div class="col-md-12">
                 <div class="card">
-                    {{-- @can('add about') --}}
+                @can('create', 'App\Models\About')
                     <div class="card-header">
                         <h5>{{__('admin.Add About')}}</h5>
                     </div>
-                    {{-- @endcan --}}
-                    @can('create', 'App\\Models\About')
+                   @endcan 
+                    @can('create', 'App\Models\About')
                     <div class="card-body">
                         <form action="{{route('dashboard.about.store')}}" method="post" enctype="multipart/form-data">
                             @csrf

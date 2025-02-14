@@ -5,6 +5,7 @@
     </x-slot:breadcrumb>
     <div class="col-span-12">
     <div class="card">
+    @can('create', 'App\Models\User')
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
                 <h5 class="mb-3 mb-sm-0">{{__('admin.Users List')}}</h5>
@@ -15,6 +16,7 @@
                 </div>
             </div>
         </div>
+        @endcan
 
         <div class="p-4">
                 <form method="GET" action="{{ route('dashboard.users.index') }}" class="flex items-center gap-2">
@@ -23,7 +25,7 @@
                 </form>
             </div>
 
-
+            @can('view', 'App\Models\User')
         <div class="card-body">
             <div class="table-responsive dt-responsive">
                 <table class="table table-striped table-bordered nowrap">
@@ -71,6 +73,7 @@
                 {{$users->links()}}
             </div>
         </div>
+        @endcan
     </div>
     </div>
 

@@ -10,6 +10,7 @@
                 <div class="card-header">
                     <h5>{{__('Edit User') . " : " . $user->name }}</h5>
                 </div>
+                @can('edit', 'App\Models\User')
                 <div class="card-body">
                     <form action="{{route('dashboard.users.update',$user->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -17,6 +18,7 @@
                         @include('dashboard.users._form')
                     </form>
                 </div>
+                @endcan
             </div>
         </div>
     </div>
