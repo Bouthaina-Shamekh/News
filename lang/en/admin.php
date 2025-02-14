@@ -76,7 +76,7 @@ return [
      'Download'=>'Download',
      'Visits' =>'Visits',
      'Visits In Month'=>'Visits In Month',
-     'about_ar'=>'about_ar',
+     'about_ar'=>'About IN Arabic',
      'about_en'=>'about_en',
      'objective_ar'=>'objective_ar',
      'objective_en'=>'objective_en',

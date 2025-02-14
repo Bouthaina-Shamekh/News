@@ -40,10 +40,16 @@ class Nw extends Model
         return $this->belongsTo(Publisher::class);
     }
 
+    // public function newplace()
+    // {
+    //     return $this->belongsTo(NewPlace::class);
+    // }
+
     public function newplace()
-    {
-        return $this->belongsTo(NewPlace::class);
-    }
+{
+    return $this->belongsTo(NewPlace::class, 'new_place_id');
+}
+
 
     public function comment()
     {

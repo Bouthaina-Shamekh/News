@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 
+use App\Models\Ad;
+use App\Models\Nw;
 use App\Models\About;
+use App\Models\Artical;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Publisher;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -14,7 +18,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('dashboard.index');
+
+        $ad_count = Ad::count();
+        $a_count = Artical::count();
+        $n_count = Nw::count();
+        $p_count = Publisher::count();
+       
+
+        return view('dashboard.index' , compact('ad_count','a_count','n_count','p_count'));
     }
 
 

@@ -36,8 +36,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ __('admin.Name') }}</th>
-                                <th>{{ __('admin.Address') }}</th>
-                                <th>{{ __('admin.About') }}</th>
+                                <th>{{ __('admin.Email') }}</th>
+                                <th>{{ __('admin.phone') }}</th>
+                                <th>{{ __('admin.Birth of Date') }}</th>
+                                <th>{{ __('admin.Status') }}</th>
+                                <th>{{ __('admin.Created') }}</th>
                                 <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
@@ -46,8 +49,11 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $publisher->name }}</td>
-                                <td>{{ $publisher->address }}</td>
-                                <td>{{ $publisher->about }}</td>
+                                <td>{{ $publisher->email }}</td>
+                                <td>{{ $publisher->phone }}</td>
+                                <td>{{ $publisher->birth_of_date }}</td>
+                                <td>{{ $publisher->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
+                                <td>{{ $publisher->created_at }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.publisher.edit', $publisher->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>

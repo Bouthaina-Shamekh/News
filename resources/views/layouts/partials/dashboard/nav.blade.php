@@ -390,22 +390,34 @@
                     </ul>
                 </li>
 
-                @can('edit', 'App\\Models\About')
-                        <li class="pc-item">
-                            <a class="pc-link" href="{{route('dashboard.about.edit' , ['id' => 1] )}}">
-                             {{__('admin.About')}}
-                            </a>
-                        </li>
-                        @endcan
+               
+                       
+                       
 
-
-                        @can('edit', 'App\\Models\Setting')
+                        @can('edit', 'App\\Models\About')
                         <li class="pc-item">
-                            <a class="pc-link" href="{{route('dashboard.setting.index')}}">
-                             {{__('admin.Settings')}}
-                            </a>
-                        </li>
-                        @endcan
+                    <a href="{{route('dashboard.about.edit' , ['id' => 1] )}}" class="pc-link">
+                        <span class="pc-micon">
+                        <i class="fas fa-address-card"></i>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.About')}}</span>
+                    </a>
+                </li>
+                @endcan
+
+                @can('edit', 'App\\Models\Setting')
+                        <li class="pc-item">
+                    <a href="{{route('dashboard.setting.index')}}" class="pc-link">
+                        <span class="pc-micon">
+                        <i class="fas fa-cog"></i>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.Settings')}}</span>
+                    </a>
+                </li>
+                @endcan
+
+                       
+                        
 
 
 

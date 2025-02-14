@@ -17,7 +17,8 @@ class AdController extends Controller
     {
         $this->authorize('view',Ad::class);
 
-        $ads = Ad::all();
+         $ads = Ad::with(['adplace'])->get();
+
 
         return view('dashboard.ads.index',compact('ads'));
     }

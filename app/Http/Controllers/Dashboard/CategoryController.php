@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            'image' => 'required|image',
+            'image' => 'nullable|image',
 
         ]);
         // dd($request->all());
@@ -45,7 +45,8 @@ class CategoryController extends Controller
         ]);
 
 
-        $img = $request->file('image')->store('uploads/categories', 'public');
+        // $img = $request->file('image')->store('uploads/categories', 'public');
+        $img = $request->hasFile('image') ? $request->file('image')->store('uploads/categories', 'public') : null;
 
         Category::create([
             'image' => $img,

@@ -1,4 +1,8 @@
 <x-dashboard-layout>
+
+<pre>{{ print_r($news->toArray(), true) }}</pre>
+
+
     @php
         $name = 'name_' . app()->getLocale();
         $title = 'title_' . app()->getLocale();
@@ -59,9 +63,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{__('admin.Title')}}</th>
-                                <th>{{__('admin.Text')}}</th>
-                                <th>{{__('admin.Keyword')}}</th>
+                                <th>{{ __('admin.Title') }}</th>
+                                <th>{{ __('admin.Publisher') }}</th>
+                                <th>{{ __('admin.Category') }}</th>
+                                <th>{{ __('admin. New Place') }}</th>
+                                <th>{{ __('admin.Created') }}</th>
+                                <th>{{ __('admin.Visit') }}</th>
+                                <th>{{ __('admin.Status') }}</th>
                                 <th>{{__('Action')}}</th>
                             </tr>
                         </thead>
@@ -70,8 +78,13 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $new->$title }}</td>
-                                <td>{{ $new->$text }}</td>
-                                <td>{{ $new->$keyword }}</td>
+                                <td>{{ $new->publisher->name }}</td>
+                                <td>{{ $new->category->$name }}</td>
+                                <td>{{ $new->newplace ? $new->newplace->name_en : '-' }}</td>
+                                <td>{{ $new->created_at }}</td>
+                                <td>{{ $new->visit}}</td>
+                                <td>{{ $new->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
+
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.nw.edit', $new->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>

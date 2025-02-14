@@ -6,13 +6,17 @@
 
 
                         <div class="form-group col-6 mb-3">
-                            <x-form.input name="title_en" label="{{__('admin.Title_EN')}}" type="text" placeholder="{{__('admin.enter news of title')}}" required :value="$news->title_en" />
+                            <x-form.input name="title_en" label="{{__('admin.Title_EN')}}" type="text" placeholder="{{__('admin.enter news of title')}}"  :value="$news->title_en" />
                         </div>
 
 
 
                         <div class="form-group col-6 mb-3">
                             <x-form.input name="date" label="{{__('admin.Date')}}" type="date" placeholder="{{__('admin.enter news of date')}}" required :value="$news->date" />
+                        </div>
+
+                        <div class="form-group col-6 mb-3">
+                            <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter news')}}" required :value="$news->visit" />
                         </div>
 
 
@@ -24,7 +28,7 @@
 
                         <div class="form-group col-6 mb-3">
                             <label for="text_en" class="form-label">{{__('admin.Text_EN')}}</label>
-                            <textarea name="text_en" id="mytextarea" rows="3" class="form-control" required>{{$news->text_en}}</textarea>
+                            <textarea name="text_en" id="mytextarea" rows="3" class="form-control" >{{$news->text_en}}</textarea>
                         </div>
 
                         <div class="form-group col-6 mb-3">
@@ -33,13 +37,11 @@
 
 
                         <div class="form-group col-6 mb-3">
-                            <x-form.input name="keyword_en" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}" required :value="$news->keyword_en" />
+                            <x-form.input name="keyword_en" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}"  :value="$news->keyword_en" />
                         </div>
 
 
-                        <div class="form-group col-6 mb-3">
-                            <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter news')}}" required :value="$news->visit" />
-                        </div>
+                        
 
 
                         <div class="form-group col-6 mb-3">

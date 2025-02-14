@@ -72,6 +72,8 @@
                                 <input type="email" class="form-control"  name="contact_email" value="{{ old('contact_email', $settings['contact_email'] ?? '') }}" />
                               </div>
 
+                             
+
                               <div div class="mb-4">
                                 <label class="form-label">{{ __('admin.Title in English') }}</label>
                                 <textarea id="mytextarea" rows="5" class="form-control" name="titel_en">{{ old('titel_en', $settings['titel_en'] ?? '') }}</textarea>
@@ -81,6 +83,8 @@
                                 <label class="form-label">{{ __('admin.Title in Arabic') }}</label>
                                 <textarea id="mytextarea" rows="5" class="form-control" name="titel_ar">{{ old('titel_ar', $settings['titel_ar'] ?? '') }}</textarea>
                               </div>
+
+                              
 
                               <div class="mb-4">
                                 <label class="form-label">{{ __('admin.About in English') }}</label>

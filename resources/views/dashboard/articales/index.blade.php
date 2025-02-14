@@ -1,6 +1,7 @@
 <x-dashboard-layout>
     @php
         $name = 'name_' . app()->getLocale();
+        $title = 'title_' . app()->getLocale();
     @endphp
     @push('styles')
         <!-- data tables css -->
@@ -52,9 +53,15 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('admin.Title_AR') }}</th>
-                                <th>{{ __('admin.Text_EN') }}</th>
-                                <th>{{ __('admin.Text_AR') }}</th>
+                                <th></th>
+
+                                <th>{{ __('admin.Title') }}</th>
+                                <th>{{ __('admin.Publisher') }}</th>
+                                <th>{{ __('admin.Category') }}</th>
+                                <th>{{ __('admin.Date') }}</th>
+                                <th>{{ __('admin.Created') }}</th>
+                                <th>{{ __('admin.Visit') }}</th>
+                                <th>{{ __('admin.Status') }}</th>
                                 <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
@@ -62,9 +69,22 @@
                             @foreach ($articals as $artical)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $artical->title_ar }}</td>
-                                <td>{{ $artical->text_en }}</td>
-                                <td>{{ $artical->text_ar }}</td>
+                                <td>
+            @if ($artical->img_view)
+                <img src="{{ asset('storage/' . $artical->img_view) }}" width="50" height="200" alt="Image">
+            @else
+                {{ __('No Image') }}
+            @endif
+        </td>
+
+                                <td>{{ $artical->$title}}</td>
+                                <td>{{ $artical->publisher->name }}</td>
+                                <td>{{ $artical->category->$name }}</td>
+                                <td>{{ $artical->date}}</td>
+                                <td>{{ $artical->created_at}}</td>
+                                <td>{{ $artical->visit }}</td>
+                                <td>{{ $artical->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
+                               
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.articale.edit', $artical->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>

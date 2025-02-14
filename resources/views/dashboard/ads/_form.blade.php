@@ -60,8 +60,8 @@
 
 
                         <div class="form-group col-6 mb-3">
-                            <x-form.input name="visit" label="{{__('admin.visit')}}" type="number
-                            " placeholder="{{__('admin.enter name of visit')}}" required :value="$ads->visit" />
+                            <x-form.input name="visit" label="{{__('admin.visit')}}" type="number"
+                             placeholder="{{__('admin.enter name of visit')}}" required :value="$ads->visit" />
                         </div>
 
 

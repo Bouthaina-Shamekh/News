@@ -28,9 +28,14 @@ class Ad extends Model
         return $this->belongsTo(Admin::class,'created_by');
     }
 
-    public function adplace(){
-        return $this->belongsTo(AdPlace::class);
-    }
+    // public function adplace(){
+    //     return $this->belongsTo(AdPlace::class);
+    // }
+
+    public function adplace()
+{
+    return $this->belongsTo(AdPlace::class, 'ad_place_id');
+}
 
 
 }

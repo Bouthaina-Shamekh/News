@@ -20,8 +20,10 @@ class NwController extends Controller
     {
         $this->authorize('view', Nw::class);
 
-        $news = Nw::all();
+        $news = Nw::with(['newplace'])->get();
+        // $news = Nw::all();
         $categories  = Category::get();
+        // $newplaces = NewPlace::all();
         $request = request();
         if($request->ajax()){
             if($request->date  != null){
@@ -82,7 +84,8 @@ class NwController extends Controller
         // Handle image uploads
         $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         $imgArticlePath = $request->file('img_article')->store('uploads', 'public');
-        $vedioPath = $request->file('vedio')->store('uploads', 'public');
+        // $vedioPath = $request->file('vedio')->store('uploads', 'public');
+        $vedioPath = $request->hasFile('vedio') ? $request->file('vedio')->store('uploads', 'public') : null;
 
         // Create the news item
         Nw::create([

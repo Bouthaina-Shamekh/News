@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone');
             $table->date('birth_of_date');
             $table->string('address');
-            $table->text('about');
+            $table->text('about')->nullable();
             $table->boolean('status');
             $table->integer('visit');
             $table->string('attachments')->nullable();

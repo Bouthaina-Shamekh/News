@@ -1,4 +1,8 @@
 <x-dashboard-layout>
+@php
+        $name = 'name_' . app()->getLocale();
+        $title = 'title_' . app()->getLocale();
+    @endphp
 
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
@@ -26,10 +30,12 @@
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th></th>
                         <th>{{__('admin.Title')}}</th>
                         <th>{{__('admin.Owner')}}</th>
                         <th>{{__('admin.Owner Phone')}}</th>
-                        <th>{{__('admin.Price')}}</th>
+                        <th>{{__('admin.Add Place')}}</th>
+                        <th>{{__('admin.Url')}}</th>
                         <th>{{__('Action')}}</th>
 
                     </tr>
@@ -38,12 +44,19 @@
                         @foreach ($ads as $ad )
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                               
-
+                                <td>
+            @if ( $ad->image)
+                <img src="{{ asset('storage/' . $ad->image) }}" width="100" height="200" alt="Image">
+            @else
+                {{ __('No Image') }}
+            @endif
+        </td>
                                 <td>{{$ad->title}}</td>
                                 <td>{{$ad->owner}}</td>
                                 <td>{{$ad->owner_phone}}</td>
-                                <td>{{$ad->price}}</td>
+                                <td>{{$ad->adplace->name_en}}</td>
+                                <td>{{$ad->url}}</td>
+                              
                                 
                                 <!-- <td><img width="30" src="{{ asset('uploads/categories/'.$ad->image) }}" alt=""></td> -->
 

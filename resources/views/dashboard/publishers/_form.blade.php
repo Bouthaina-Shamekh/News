@@ -53,12 +53,12 @@
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="status" id="status-active"
             value="1" @checked(old('status', $publishers->status) == 1)>
-        <label class="form-check-label" for="status-active">نشط</label>
+        <label class="form-check-label" for="status-active">{{__('admin.Accept')}}</label>
     </div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="status" id="status-inactive"
             value="0" @checked(old('status', $publishers->status) == 0)>
-        <label class="form-check-label" for="status-inactive">غير نشط</label>
+        <label class="form-check-label" for="status-inactive">{{__('admin.Dont Accept')}}</label>
     </div>
 </div>
 </div>

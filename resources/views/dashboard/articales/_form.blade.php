@@ -15,6 +15,19 @@
                             <x-form.input name="date" label="{{__('admin.Date')}}" type="date" placeholder="{{__('admin.enter artical of date')}}" required :value="$articals->date" />
                         </div>
 
+                        <!-- <div class="form-group col-6 mb-3">
+                            <x-form.input name="place" label="{{__('admin.Place')}}" type="string" placeholder="{{__('admin.enter artical of place')}}" required :value="$articals->place" />
+                        </div> -->
+
+                        <div class="form-group col-6 mb-3">
+                                <label for="place" class="form-label">{{__('admin.place')}}</label>
+                                <select name="place" id="place" class="form-control">
+                                    <option value="documentary">{{__('admin.documentary')}}</option>
+                                    <option value="war">{{__('admin.war')}}</option>
+                                    <option value="peace">{{__('admin.peace')}}</option>
+                                </select>
+                            </div>
+
 
                         <div class="form-group col-6 mb-3">
                             <label for="text_ar" class="form-label">{{__('admin.Text_AR')}}</label>
@@ -28,9 +41,7 @@
                         </div>
 
 
-                        <div class="form-group col-6 mb-3">
-                            <x-form.input name="place" label="{{__('admin.Place')}}" type="string" placeholder="{{__('admin.enter artical of place')}}" required :value="$articals->place" />
-                        </div>
+                       
 
 
                         <div class="form-group col-6 mb-3">
@@ -83,7 +94,7 @@
 
 
                         
-
+                    
 
 
                     <div class="form-group col-6 mb-3">
