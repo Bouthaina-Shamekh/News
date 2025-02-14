@@ -38,9 +38,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{__('admin.Name_AR')}}</th>
-                                <th>{{__('admin.Name_EN')}}</th>
-                                <th>{{__('Action')}}</th>
+                                <th>{{__('admin.Status_AR')}}</th>
+                                <th>{{__('admin.Status_EN')}}</th>
+                                <th>{{__('admin.Actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>

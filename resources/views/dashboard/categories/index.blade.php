@@ -21,12 +21,12 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="row">
-                    <h5>{{ __('admin.Category') }}</h5>
+                    <h5>{{ __('admin.categorys') }}</h5>
                 </div>
                 @can('create', 'App\Models\Category')
                 <div>
                     <a href="{{ route('dashboard.category.create') }}" class="btn btn-primary">
-                        {{ __('Add Category') }}
+                        {{ __('admin.Add Category') }}
                     </a>
                 </div>
                 @endcan
@@ -38,8 +38,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('admin.Name_AR') }}</th>
-                                <th>{{ __('admin.Name_EN') }}</th>
+                                <th>{{ __('admin.Category_AR') }}</th>
+                                <th>{{ __('admin.Category_EN') }}</th>
                                 <th>{{ __('admin.Image') }}</th>
                                 <th>{{ __('Action') }}</th>
                             </tr>

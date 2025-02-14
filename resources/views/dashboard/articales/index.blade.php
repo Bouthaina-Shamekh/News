@@ -38,7 +38,7 @@
                     <x-form.input name="to_date" class="serch_form" label="{{ __('admin.To Date') }}"  type="date" placeholder="{{__('admin.enter artical of date')}}"/>
                 </div>
                 <div class="form-group col-3">
-                    <label for="category_id" class="form-label">{{__('admin.category')}}</label>
+                    <label for="category_id" class="form-label">{{__('admin.Category')}}</label>
                     <select id="category_id" name="category_id"  class="form-control serch_form">
                         <option value="" selected>{{__('admin.Choose category')}}</option>
                         @foreach ($categories as $category)
