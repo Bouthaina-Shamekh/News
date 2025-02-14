@@ -84,7 +84,7 @@
                     <ul class="pc-submenu">
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.users.index')}}">
-                                {{__('admin.Admin')}}
+                                {{__('admin.Admin show')}}
                             </a>
                         </li>
                        <li class="pc-item">
@@ -104,7 +104,7 @@
                         <i class="fas fa-newspaper"></i>
                         </span>
                         <span class="pc-mtext">
-                            {{__('admin.Articale')}}
+                            {{__('admin.Articles')}}
                         </span>
                         @if (App::getLocale() == 'en')
                         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
@@ -181,7 +181,7 @@
                         <i class="fas fa-toggle-on"></i>
                         </span>
                         <span class="pc-mtext">
-                            {{__('admin.status')}}
+                            {{__('admin.News status')}}
                         </span>
                         @if (App::getLocale() == 'en')
                         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
@@ -194,7 +194,7 @@
                         @can('view', 'App\Models\Statu')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.status.index')}}">
-                                {{__('admin. View status')}}
+                                {{__('admin.View News status')}}
                             </a>
                         </li>
                         @endcan
@@ -202,7 +202,7 @@
                         @can('create', 'App\Models\Statu')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.status.create')}}">
-                                {{__('admin.Add status')}}
+                                {{__('admin.Add News status')}}
                             </a>
                         </li>
                         @endcan
@@ -220,7 +220,7 @@
                             <i class="fas fa-puzzle-piece"></i>
                         </span>
                         <span class="pc-mtext">
-                            {{__('admin.Category')}}
+                            {{__('admin.categorys')}}
                         </span>
                         @if (App::getLocale() == 'en')
                         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
@@ -233,7 +233,7 @@
                         @can('view', 'App\Models\Category')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.category.index')}}">
-                                {{__('admin. View Category')}}
+                                {{__('admin.View Category')}}
                             </a>
                         </li>
                         @endcan
@@ -271,7 +271,7 @@
                         @can('view', 'App\Models\Ad')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.ad.index')}}">
-                                {{__('admin. View Ad')}}
+                                {{__('admin.View Ad')}}
                             </a>
                         </li>
                         @endcan
@@ -309,7 +309,7 @@
                         @can('view', 'App\Models\NewPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.newplace.index')}}">
-                                {{__('admin.NewPlace')}}
+                                {{__('admin.View the news site')}}
                             </a>
                         </li>
                         @endcan
@@ -317,7 +317,7 @@
                         @can('create', 'App\Models\NewPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.newplace.create')}}">
-                                {{__('admin.NewPlace')}}
+                                {{__('admin.Add View the news site')}}
                             </a>
                         </li>
                         @endcan
@@ -347,7 +347,7 @@
                         @can('view', 'App\Models\AdPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.adplace.index')}}">
-                                {{__('admin.AdPlace')}}
+                                {{__('admin.View the advertisement site')}}
                             </a>
                         </li>
                         @endcan
@@ -355,7 +355,7 @@
                         @can('create', 'App\Models\AdPlace')
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.adplace.create')}}">
-                                {{__('admin.AdPlace')}}
+                                {{__('admin.Add the advertisement site')}}
                             </a>
                         </li>
                         @endcan

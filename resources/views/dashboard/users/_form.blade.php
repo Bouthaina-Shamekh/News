@@ -35,8 +35,8 @@
         <label for="super_admin">{{__('admin.Super Admin')}}</label>
         <select name="super_admin" id="super_admin" class="form-control">
                         <option value="" disabled>{{__('admin.Super Admin')}}</option>
-            <option value="0" @selected($user->super_admin == 0)>{{__('No')}}</option>
-            <option value="1" @selected($user->super_admin == 1)>{{__('Yes')}}</option>
+            <option value="0" @selected($user->super_admin == 0)>{{__('admin.No')}}</option>
+            <option value="1" @selected($user->super_admin == 1)>{{__('admin.Yes')}}</option>
         </select>
     </div>
     @endcan

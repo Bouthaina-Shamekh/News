@@ -21,12 +21,12 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <div class="row">
-                    <h5>{{ __('admin.Status') }}</h5>
+                    <h5>{{ __('admin.News status') }}</h5>
                 </div>
                 @can('create', 'App\Models\Statu')
                 <div>
                     <a href="{{ route('dashboard.status.create') }}" class="btn btn-primary">
-                        {{ __('Add Status') }}
+                        {{ __('admin.Add News status') }}
                     </a>
                 </div>
                 @endcan

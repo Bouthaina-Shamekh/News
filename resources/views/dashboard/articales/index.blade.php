@@ -20,11 +20,11 @@
         @can('create', 'App\Models\Artical')
             <div class="card-header d-flex justify-content-between">
                 <div class="row">
-                    <h5>{{ __('admin.Articale') }}</h5>
+                    <h5>{{ __('admin.Articles') }}</h5>
                 </div>
                 <div>
                     <a href="{{ route('dashboard.articale.create') }}" class="btn btn-primary">
-                        {{ __('Add Articale') }}
+                        {{ __('admin.Add Articles') }}
                     </a>
                 </div>
             </div>
@@ -32,7 +32,7 @@
 
             <div class="row">
                 <div class="form-group col-2">
-                    <x-form.input name="date" class="serch_form" label="{{ __('admin.Form Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
+                    <x-form.input name="date" class="serch_form" label="{{ __('admin.From Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
                 </div>
                 <div class="form-group col-2">
                     <x-form.input name="to_date" class="serch_form" label="{{ __('admin.To Date') }}"  type="date" placeholder="{{__('admin.enter artical of date')}}"/>
@@ -40,7 +40,7 @@
                 <div class="form-group col-3">
                     <label for="category_id" class="form-label">{{__('admin.category')}}</label>
                     <select id="category_id" name="category_id"  class="form-control serch_form">
-                        <option value="" selected>{{__('admin.Choose')}}</option>
+                        <option value="" selected>{{__('admin.Choose category')}}</option>
                         @foreach ($categories as $category)
                             <option value="{{$category->id}}">{{$category->$name}}</option>
                         @endforeach

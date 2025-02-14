@@ -1,7 +1,7 @@
 <x-dashboard-layout>
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{__('admin.Users')}}</li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.Users List')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12">
     <div class="card">
