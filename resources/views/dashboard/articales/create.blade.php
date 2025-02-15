@@ -16,7 +16,8 @@
                     <div class="card-header">
                         <h5>{{__('admin.Add Articals')}}</h5>
                     </div>
-                    @can('view', 'App\Models\Artical')
+                    @endcan
+                   
                     
                     @can('create', 'App\Models\Artical')
                     <div class="card-body">

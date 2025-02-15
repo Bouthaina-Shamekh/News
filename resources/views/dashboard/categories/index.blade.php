@@ -50,8 +50,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $category->name_ar }}</td>
                                 <td>{{ $category->name_en }}</td>
-                                <td><img width="30" src="{{ asset('storage/' . $category->image) }}"
-                                    alt=""></td>
+                                
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.category.edit', $category->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>

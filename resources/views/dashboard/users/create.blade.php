@@ -18,7 +18,7 @@
                     </form>
                 </div>
             </div>
-            @can('view', 'App\Models\User')
+           @endcan
         </div>
     </div>
 

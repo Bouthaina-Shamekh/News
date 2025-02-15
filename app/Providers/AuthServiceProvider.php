@@ -13,7 +13,19 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Model' => 'App\Policies\ModelPolicy',
+        //  'App\Models\About' => 'App\Policies\ModelPolicy',
+        //  'App\Models\AdPlace' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Ad' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Artical' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Category' => 'App\Policies\ModelPolicy',
+        //  'App\Models\NewPlace' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Nw' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Publisher' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Setting' => 'App\Policies\ModelPolicy',
+        //  'App\Models\Statu' => 'App\Policies\ModelPolicy',
+        //  'App\Models\User' => 'App\Policies\ModelPolicy',
+        
     ];
 
     /**

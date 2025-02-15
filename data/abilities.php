@@ -11,9 +11,7 @@
         'about' => [
             'name' => __('admin.Abouts'),
             'view' => __('admin.View Abouts'),
-            'create' => __('admin.Create Abouts'),
             'edit' => __('admin.Edit Abouts'),
-            'delete' => __('admin.Delete Abouts'),
         ],
         'ads' => [
             'name' => __('admin.Ads'),

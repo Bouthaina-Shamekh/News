@@ -13,7 +13,7 @@
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
                 <h5 class="mb-3 sm:mb-0">{{__('admin.NewPlace')}}</h5>
-                @can('create', 'App\Models\Category')
+                @can('create', 'App\Models\NewPlace')
                 <div>
                     <a href="{{route('dashboard.newplace.create')}}" class="btn btn-primary" >
                         {{__('admin.Add NewPlace')}}
@@ -22,7 +22,7 @@
                 @endcan
             </div>
         </div>
-        @can('view', 'App\Models\Category')
+        @can('view', 'App\Models\NewPlace')
         <div class="card-body pt-3">
             <div class="table-responsive" style="margin: 0 15px;">
                 <table class="table table-hover table-bordered" id="pc-dt-simple">
