@@ -1,0 +1,58 @@
+body {
+    direction: rtl;
+}
+
+.float--right {
+    float: left;
+}
+
+.float--left {
+    float: right;
+}
+
+.news--ticker .ticker_title {
+    float: left !important;
+}
+
+.news-updates--list {
+    direction: rtl;
+}
+
+.footer_nav {
+    direction: ltr !important;
+    float: left;
+    text-align: start;
+}
+
+.text_dir {
+    text-align: left;
+}
+
+.post--info {
+    text-align: left;
+}
+
+.post--cats {
+    direction: rtl;
+}
+
+.dir_ltr {
+    direction: ltr;
+}
+
+.post--content {
+    direction: ltr;
+}
+
+.news--ticker {
+    direction: ltr;
+}
+
+.acme-news-ticker-label {
+    margin-left: 0;
+}
+
+#contentRow{
+    display: flex;
+    /* flex-direction: row-reverse; */
+}

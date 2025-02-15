@@ -23,8 +23,22 @@ Route::view('not_allowed', 'not_allowed');
 
 // Website Routes
 Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
-    Route::get('/', [MainController::class, 'home'])->name('site.index');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::group([
+        'as' => 'site.',
+    ],function(){
+        Route::get('/', [MainController::class, 'home'])->name('index');
+        Route::get('/about', [MainController::class, 'about'])->name('about');
+
+
+        Route::get('/new', [MainController::class, 'home'])->name('new');
+        Route::get('/news', [MainController::class, 'home'])->name('news');
+        Route::get('/articles', [MainController::class, 'home'])->name('articles');
+        Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+
+    });
+
+
+    // Main Routes
     Route::get('/dashboard', function () {
         return redirect()->route('dashboard.home');
     });

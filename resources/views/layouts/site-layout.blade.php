@@ -1,19 +1,46 @@
-
-@php
-    $name = 'name_'.app()->currentLocale();
-    $description = 'description_'.app()->currentLocale();
-@endphp
 @include('layouts.partials.site.head')
+    <div class="wrapper">
+        @include('layouts.partials.site.header')
 
 
-    {{$slot}}
+        <div class="posts--filter-bar style--1 hidden-xs">
+            <div class="container">
+                <ul class="nav"></ul>
+            </div>
+        </div>
 
-    <!-- Start Modals -->
-    @include('layouts.partials.site.modal')
-    <!-- End Modal -->
+        <div class="news--ticker">
+            <div class="main-content--section">
+                <div class="row" style="margin: 0px 4%">
+                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-1" style="width: 2.333333%"></div>
+                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-11">
+                        <div class="acme-news-ticker">
+                            <div class="acme-news-ticker-label">تحديثات الأخبار</div>
+                            @php
+                                $news = \App\Models\Nw::all();
+                            @endphp
+                            <div class="acme-news-ticker-box">
+                                <ul class="my-news-ticker" style="text-align: left">
+                                    @foreach ($news as $new)
+                                        <li>
+                                            <a href="{{route('site.new', $new->id)}}" style="text-align: left">
+                                                {{ $new->$title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-1"></div>
+                </div>
+            </div>
+        </div>
 
-    <!-- صفحة مهمة عند فتح بعض الحركات -->
-    <div id="fullScreen" class="absolute top-0 left-0 bg-black/50 w-full h-full hidden" style="z-index: 1000;">
+        <div class="main-content--section">
+            {{ $slot }}
+
+            @include('layouts.partials.site.footer')
+        </div>
     </div>
-
-@include('layouts.partials.site.footer')
+@include('layouts.partials.site.end')
