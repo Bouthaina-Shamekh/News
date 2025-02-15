@@ -50,7 +50,7 @@
             <div class="d-flex justify-end me-2">
                 <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
             </div>
-            @can('view', 'App\Models\Artical')
+            @can('view', 'App\Models\Artical') 
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">

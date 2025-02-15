@@ -64,9 +64,11 @@
                                
 
                                 <td>
+                                @can('edit', 'App\Models\Ad')
                                     <a href="{{route('dashboard.ad.edit',$ad->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
+                                    @endcan
                                     <form action="{{route('dashboard.ad.destroy',$ad->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
