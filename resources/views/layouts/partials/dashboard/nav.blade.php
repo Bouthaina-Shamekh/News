@@ -66,7 +66,7 @@
 
 
 
-                @can('view', 'App\Models\User')
+                <!-- @can('view', 'App\Models\User') -->
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -94,10 +94,10 @@
                         </li> 
                     </ul>
                 </li>
-                @endcan
+                <!-- @endcan -->
 
 
-                @can('view', 'App\\Models\Artical')
+                <!-- @can('view', 'App\\Models\Artical') -->
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -133,11 +133,11 @@
 
                     </ul>
                 </li>
-                @endcan
+                <!-- @endcan -->
                 
 
 
-                @can('view', 'App\Models\Nw')
+                <!-- @can('view', 'App\Models\Nw') -->
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
@@ -154,26 +154,26 @@
                     </a>
                     <ul class="pc-submenu">
 
-                        @can('view', 'App\Models\Nw')
+                        <!-- @can('view', 'App\Models\Nw') -->
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.nw.index')}}">
                                 {{__('admin.View News')}}
                             </a>
                         </li>
-                        @endcan
+                        <!-- @endcan -->
 
-                        @can('create', 'App\Models\Nw')
+                        <!-- @can('create', 'App\Models\Nw') -->
                         <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.nw.create')}}">
                                 {{__('admin.Add News')}}
                             </a>
                         </li>
-                        @endcan
+                        <!-- @endcan -->
 
 
                     </ul>
                 </li>
-                @endcan
+                <!-- @endcan -->
                 
                 @can('view', 'App\Models\Statu')
                 <li class="pc-item pc-hasmenu">

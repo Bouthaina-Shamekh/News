@@ -36,23 +36,21 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-
-        'publisher' => [
-            'driver' => 'session',
-            'provider' => 'publishers',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'admins',
     ],
 
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
 
+    'publisher' => [
+        'driver' => 'session',
+        'provider' => 'publishers',
+    ],
+],
     /*
     |--------------------------------------------------------------------------
     | User Providers
