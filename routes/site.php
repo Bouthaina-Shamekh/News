@@ -29,23 +29,25 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
         Route::get('/', [MainController::class, 'home'])->name('index');
         Route::get('/about', [MainController::class, 'about'])->name('about');
 
-
-        Route::get('/new', [MainController::class, 'home'])->name('new');
-        Route::get('/news', [MainController::class, 'home'])->name('news');
-        Route::get('/articles', [MainController::class, 'home'])->name('articles');
+        Route::get('news/{id}', [MainController::class, 'new'])->name('new');
+        Route::get('news', [MainController::class, 'news'])->name('news');
+        Route::get('articles/{id}', [MainController::class, 'article'])->name('article');
+        Route::get('articles', [MainController::class, 'articles'])->name('articles');
+        // Route::get('contact', [MainController::class, 'contact'])->name('contact');
+        Route::post('comment', [MainController::class, 'comment'])->name('comment');
         Route::get('/contact', [MainController::class, 'contact'])->name('contact');
         Route::post('/contact', [MainController::class, 'contact_data'])->name('contactdata');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
        
+       
 
     });
 
-
-    // Main Routes
-    Route::get('/dashboard', function () {
-        return redirect()->route('dashboard.home');
-    });
-    Route::get('/publisher', function () {
-        return redirect()->route('publishers.home');
-    });
+ // Main Routes
+ Route::get('/dashboard', function () {
+    return redirect()->route('dashboard.home');
+})->middleware('auth:admin');
+Route::get('/publisher', function () {
+    return redirect()->route('publishers.home');
+})->middleware('auth:publisher');
 });

@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ad;
+use App\Models\Nw;
 use App\Models\About;
 use App\Mail\SendMail;
+use App\Models\Artical;
+use App\Models\Comment;
 use App\Models\Setting;
+use App\Models\Category;
+use App\Models\NewPlace;
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -55,6 +60,61 @@ class MainController extends Controller
         return redirect()->back()->with('successSend', true);
         
      }
+
+     public function news(Request $request)
+    {
+        $news = Nw::query();
+        $category = $request->query('c');
+        $place = $request->query('pl');
+        if($category){
+            $news = $news->where('category_id', $category);
+        }
+        if($place){
+            $news = $news->where('new_place_id', $place);
+        }
+        $news = $news->paginate(10);
+        $categories = Category::all();
+        $newPalces = NewPlace::all();
+        return view('site.news', compact('news', 'categories', 'newPalces'));
+    }
+    public function new($id)
+    {
+        $new = Nw::findOrFail($id);
+        $comments= Comment::where('nw_id', $id)->get();
+        return view('site.new', compact('new', 'comments'));
+    }
+
+    public function comment(Request $request)
+    {
+        $comment = Comment::create([
+            'sender_name' => $request->name,
+            'email' => $request->email,
+            'text' => $request->comment,
+            'nw_id' => $request->nw_id,
+        ]);
+
+        return redirect()->route('site.new', $request->nw_id);
+    }
+
+
+    public function articles(Request $request)
+    {
+        $articles = Artical::query();
+        $category = $request->query('c');
+        if($category){
+            $articles = $articles->where('category_id', $category);
+        }
+        $articles = $articles->paginate(10);
+        $categories = Category::all();
+        $newPalces = NewPlace::all();
+        return view('site.articles', compact('articles', 'categories', 'newPalces'));
+    }
+    public function article($id)
+    {
+        $article = Artical::findOrFail($id);
+        $articles = Artical::paginate(5);
+        return view('site.article', compact('article','articles'));
+    }
 
    
 

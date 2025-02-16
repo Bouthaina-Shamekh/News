@@ -18,12 +18,13 @@
                             <div class="acme-news-ticker-label">تحديثات الأخبار</div>
                             @php
                                 $news = \App\Models\Nw::all();
+                                $title = app()->getLocale() == 'ar' ? 'title_ar' : 'title_en';
                             @endphp
                             <div class="acme-news-ticker-box">
-                                <ul class="my-news-ticker" style="text-align: left">
+                                <ul class="my-news-ticker" style="text-align: right">
                                     @foreach ($news as $new)
                                         <li>
-                                            <a href="{{route('site.new', $new->id)}}" style="text-align: left">
+                                            <a href="{{route('site.new', $new->id)}}" style="text-align: right">
                                                 {{ $new->$title }}
                                             </a>
                                         </li>
@@ -36,7 +37,7 @@
                 </div>
             </div>
         </div>
-
+        {{ $header ?? '' }}
         <div class="main-content--section">
             {{ $slot }}
 

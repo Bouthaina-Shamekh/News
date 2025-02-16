@@ -21,7 +21,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 */
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
-    Route::prefix('publishers')->name('publishers.')->middleware('auth','check_user')->group(function() {
+    Route::prefix('publishers')->name('publishers.')->middleware('auth:publisher','check_user')->group(function() {
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');

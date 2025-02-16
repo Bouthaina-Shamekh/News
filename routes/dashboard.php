@@ -36,7 +36,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 // Route::get('/', [MainController::class, 'home'])->name('site.index');
 Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
-    Route::prefix('dashboard')->name('dashboard.')->middleware('auth','check_user')->group(function() {
+    Route::prefix('dashboard')->name('dashboard.')->middleware('auth:admin','check_user')->group(function() {
         Route::get('home', [HomeController::class, 'index'])->name('home');
 
         Route::get('users/{user}/profile', [UserController::class, 'profile'])->name('users.profile');
@@ -54,11 +54,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
             'adplace' => AdPlaceController::class,
             'newplace' =>NewPlaceController::class,
             'status' => StatusController::class,
-           
-
         ]);
 
-        
+
 
         Route::get('/about/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
         Route::put('/about/{id}', [AboutController::class, 'update'])->name('about.update');

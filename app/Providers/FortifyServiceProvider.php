@@ -25,14 +25,15 @@ class FortifyServiceProvider extends ServiceProvider
     {
         $request = request();
         $app_local = app()->getLocale();
+
         Config::set('fortify.prefix',$app_local);
-        if($request->is('dashboard/*')){
+        if($request->is($app_local . '/dashboard/*') || $request->is('dashboard') || $request->is($app_local . '/dashboard')){
             Config::set('fortify.guard','admin');
             Config::set('fortify.passwords','admins');
             Config::set('fortify.prefix',$app_local . '/dashboard');
             Config::set('fortify.home','/dashboard/home');
         }
-        if($request->is('publisher/*')){
+        if($request->is($app_local . '/publisher/*') || $request->is('publisher') || $request->is($app_local . '/publisher')){
             Config::set('fortify.guard','publisher');
             Config::set('fortify.passwords','publishers');
             Config::set('fortify.prefix',$app_local . '/publisher');
@@ -78,6 +79,18 @@ class FortifyServiceProvider extends ServiceProvider
                 return view('auth.publishers.login');
             }
             return view('auth.login');
+        });
+
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
+
+        Fortify::createUsersUsing(CreateNewUser::class);
+        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+
+        RateLimiter::for('login', function (Request $request) {
         });
 
         Fortify::createUsersUsing(CreateNewUser::class);
