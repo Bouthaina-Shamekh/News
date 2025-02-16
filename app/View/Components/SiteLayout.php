@@ -20,8 +20,6 @@ class SiteLayout extends Component
     public function __construct($title = null)
     {
         $this->title = $title ?? Config::get('app.name');
-        $this->sections = Setting::where('key','sections_show')->first() ? json_decode(Setting::where('key','sections_show')->first()->value) : [];
-
     }
 
     /**
@@ -30,6 +28,6 @@ class SiteLayout extends Component
     public function render(): View|Closure|string
     {
 
-        return view('layouts.site-layout', compact('setting', 'title_footer'));
+        return view('layouts.site-layout');
     }
 }

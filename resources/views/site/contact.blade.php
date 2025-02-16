@@ -14,7 +14,7 @@
                                     <h3 class="h5"><i class="fa fa-phone-square"></i>هاتف</h3>
                                 </div>
                                 <div class="content">
-                                    <p><a href="tel:soon">soon</a></p>
+                                    <p><a href="tel:soon">{{ $settings->where('key', 'phone')->first()->value ?? '' }}</a></p>
                                 </div>
                             </li>
                             <li>
@@ -28,7 +28,7 @@
                                         <a
                                             href="/cdn-cgi/l/email-protection#41282f272e012c2033242f20312e32356f222e2c"><span
                                                 class="__cf_email__"
-                                                data-cfemail="abc2c5cdc4ebc6cad9cec5cadbc4d8df85c8c4c6">[email&#160;protected]</span></a>
+                                                data-cfemail="abc2c5cdc4ebc6cad9cec5cadbc4d8df85c8c4c6">{!! $settings->where('key', 'contact_email')->first()->value ?? '' !!}</span></a>
                                     </p>
                                     <!-- <p><a href="mailto:example@example.com">example@example.com</a></p> -->
                                 </div>
@@ -38,7 +38,7 @@
                                     <h3 class="h5"><i class="fa fa-map-marker"></i>عنوان</h3>
                                 </div>
                                 <div class="content">
-                                    <p>فلسطين</p>
+                                    <p>{{ $settings->where('key', 'about_ar')->first()->value ?? '' }}</p>
                                     <!-- <p>Kafrul, Dhaka -1219, Bangladesh</p> -->
                                 </div>
                             </li>
@@ -48,7 +48,8 @@
                 <div class="col-md-9 col-sm-8 ptop--30 pbottom--30 footer_nav">
                     <div class="comment--form">
                         <div class="comment-respond">
-                            <form action="../controller/msg" method="POST">
+                            <form action="{{ route('site.contactdata')}}" method="post">
+                                @csrf
                                 <div class="status"></div>
                                 <div class="row">
                                     <div class="col-xs-6 col-xxs-12">
