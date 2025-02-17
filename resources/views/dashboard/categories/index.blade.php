@@ -34,39 +34,37 @@
             @can('view', 'App\Models\Category')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
-                    <table id="footer-search" class="table table-striped table-bordered nowrap">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ __('admin.Name_AR') }}</th>
-                                <th>{{ __('admin.Name_EN') }}</th>
-                               
-                                <th>{{ __('Action') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($categories as $category)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $category->name_ar }}</td>
-                                <td>{{ $category->name_en }}</td>
-                                
-                                <td class="d-flex">
-                                    <a href="{{ route('dashboard.category.edit', $category->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                        <i class="ti ti-edit text-xl leading-none"></i>
-                                    </a>
-                                    <form action="{{ route('dashboard.category.destroy', $category->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
-                                            <i class="ti ti-trash text-xl leading-none"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <table id="footer-search" class="table table-striped table-bordered nowrap">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>{{ __('admin.Name_AR') }}</th>
+            <th>{{ __('admin.Name_EN') }}</th>
+            <th>{{ __('Action') }}</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($categories as $category)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $category->name_ar }}</td>
+            <td>{{ $category->name_en }}</td>
+            <td> 
+                <a href="{{ route('dashboard.category.edit', $category->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                    <i class="ti ti-edit text-xl leading-none"></i>
+                </a>
+                <form action="{{ route('dashboard.category.destroy', $category->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
+                        <i class="ti ti-trash text-xl leading-none"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
                 </div>
             </div>
             @endcan
