@@ -1,6 +1,6 @@
 <x-dashboard-layout>
 
-<pre>{{ print_r($news->toArray(), true) }}</pre>
+
 
 
     @php

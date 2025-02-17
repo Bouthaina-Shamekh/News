@@ -11,7 +11,7 @@
                         <ul class="nav">
                             <li>
                                 <div class="title">
-                                    <h3 class="h5"><i class="fa fa-phone-square"></i>هاتف</h3>
+                                    <h3 class="h5"><i class="fa fa-phone-square"></i>{{__('admin.Phone')}}</h3>
                                 </div>
                                 <div class="content">
                                     <p><a href="tel:soon">{{ $settings->where('key', 'phone')->first()->value ?? '' }}</a></p>
@@ -20,7 +20,7 @@
                             <li>
                                 <div class="title">
                                     <h3 class="h5">
-                                        <i class="fa fa-envelope-open"></i>عنوان بريد الكتروني
+                                        <i class="fa fa-envelope-open"></i>{{__('admin.Email') }}
                                     </h3>
                                 </div>
                                 <div class="content">
@@ -35,11 +35,20 @@
                             </li>
                             <li>
                                 <div class="title">
-                                    <h3 class="h5"><i class="fa fa-map-marker"></i>عنوان</h3>
+                                    <h3 class="h5"><i class="fa fa-map-marker"></i>{{__('admin.Address')}}</h3>
                                 </div>
                                 <div class="content">
-                                    <p>{{ $settings->where('key', 'about_ar')->first()->value ?? '' }}</p>
+                                    <!-- <p>{{ $settings->where('key', 'about_ar')->first()->value ?? '' }}</p> -->
                                     <!-- <p>Kafrul, Dhaka -1219, Bangladesh</p> -->
+
+                                    <p>
+            @if(app()->getLocale() == 'ar')
+                {{ $settings->where('key', 'about_ar')->first()->value ?? '' }}
+            @else
+                {{ $settings->where('key', 'about_en')->first()->value ?? '' }}
+            @endif
+        </p>
+
                                 </div>
                             </li>
                         </ul>

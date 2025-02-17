@@ -142,8 +142,67 @@ return [
      'Url'=>'Url',
      'Edit Category'=>'Edit Category',
      'Update'=>'Update',
-     ''=>'',
-     ''=>'',
+     'Phone'=>'Phone',
+     'Address'=>'Address',
+     'Ads' => 'Ads',
+    'Abouts' => 'Abouts',
+    'Users' => 'Users',
+    'View Ads' => 'View Ads',
+    'Create Ad' => 'Create Ad',
+    'Edit Ad' => 'Edit Ad',
+    'Delete Ad' => 'Delete Ad',
+
+    'View Abouts' => 'View Abouts',
+    'Create Abouts' => 'Create Abouts',
+    'Edit Abouts' => 'Edit Abouts',
+    'Delete Abouts' => 'Delete Abouts',
+
+    'View Users' => 'View Users',
+    'Create Users' => 'Create Users',
+    'Edit Users' => 'Edit Users',
+    'Delete Users' => 'Delete Users',
+
+    
+    'Create Category' => 'Create Category',
+    'Delete Category' => 'Delete Category',
+
+    'Articals' => 'Articals',
+    'View Articals' => 'View Articals',
+    'Create Artical' => 'Create Artical',
+    'Edit Artical' => 'Edit Artical',
+    'Delete Artical' => 'Delete Artical',
+
+    'Adplaces' => 'Adplaces',
+    'View Adplace' => 'View Adplace',
+    'Create Adplace' => 'Create Adplace',
+    'Edit Adplace' => 'Edit Adplace',
+    'Delete Adplace' => 'Delete Adplace',
+
+    
+    'Create Publisher' => 'Create Publisher',
+    'Edit Publisher' => 'Edit Publisher',
+    'Delete Publisher' => 'Delete Publisher',
+
+    
+    'Create News' => 'Create News',
+    'Edit News' => 'Edit News',
+    'Delete News' => 'Delete News',
+
+    
+    'View NewPlace' => 'View NewPlace',
+    'Create NewPlace' => 'Create NewPlace',
+    'Edit NewPlace' => 'Edit NewPlace',
+    'Delete NewPlace' => 'Delete NewPlace',
+
+    'View Status' => 'View Status',
+    'Create Status' => 'Create Status',
+    'Edit Status' => 'Edit Status',
+    'Delete Status' => 'Delete Status',
+
+    'View Settings' => 'View Settings',
+    'Create Settings' => 'Create Settings',
+    'Edit Settings' => 'Edit Settings',
+    'Delete Settings' => 'Delete Settings',
      ''=>'',
      ''=>'',
      ''=>'',

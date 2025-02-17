@@ -43,6 +43,11 @@ class AppServiceProvider extends ServiceProvider
         View::share('feedback', 'feedback_' . app()->currentLocale());
         View::share('Specialization', 'Specialization_' . app()->currentLocale());
         View::share('feature', 'feature_' . app()->currentLocale());
+        View::share('about', 'about_' . app()->currentLocale());
+        View::share('objective', 'objective_' . app()->currentLocale());
+        View::share('mission', 'mission_' . app()->currentLocale());
+        View::share('vission', 'vission_' . app()->currentLocale());
+        View::share('goal', 'goal_' . app()->currentLocale());
 
         //Authouration
         Gate::before(function ($user, $ability) {

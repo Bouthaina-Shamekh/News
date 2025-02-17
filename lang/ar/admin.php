@@ -55,8 +55,8 @@ return [
     'Status_AR' => 'الحالة بالعربية',
     'Status_EN' => 'الحالة بالانجليزية',
     'Actions' => 'الاجراءات',
-    'Category_AR' => 'التصنيف بالعربي',
-    'Category_EN' => 'التصنيف بالانجليزية',
+    'Category_AR' => 'المجموعات بالعربي',
+    'Category_EN' => 'المجموعات بالانجليزية',
     'Image' => 'صورة',
     'Back' => 'الرجوع',
     'Add' => 'اضافة',
@@ -64,16 +64,70 @@ return [
     'Owner Phone' => 'هاتف المالك',
     'Add Place' => 'موقع الاعلان',
     'Url' => 'رابط',
-    'Edit Category' => 'اضافة تصنيف',
+    'Edit Category' => 'تعديل المجموعة',
     'Update' => 'تحديث',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
+    'Phone'=>'الهاتف',
+    'Address'=>'العنوان',
+    'Ads' => 'الاعلانات',
+    'Abouts' => 'من نحن',
+    'Users' => 'المسؤولون',
+    'View Ads' => 'عرض الاعلانات',
+    'Create Ad' => 'اضافة اعلان',
+    'Edit Ad' => 'تعديل اعلان',
+    'Delete Ad' => 'حذف اعلان',
+
+    'View Abouts' => 'عرض من نحن',
+    'Create Abouts' => 'اضافة من نحن',
+    'Edit Abouts' => 'تعديل من نحن',
+    'Delete Abouts' => 'حذف من نحن',
+
+    'View Users' => 'عرض المسؤولون',
+    'Create Users' => 'اضافة مسؤولون',
+    'Edit Users' => 'تعديل مسؤولون',
+    'Delete Users' => 'حذف مسؤولون',
+
+    
+    'Create Category' => 'اضافة مجموعة',
+    'Delete Category' => 'حذف مجموعة',
+
+    'Articals' => 'المقالات',
+    'View Articals' => 'عرض المقالات',
+    'Create Artical' => 'اضافة مقال',
+    'Edit Artical' => 'تعديل مقال',
+    'Delete Artical' => 'حذف مقال',
+
+    'Adplaces' => 'موقع الاعلان',
+    'View Adplace' => 'عرض موقع الاعلان',
+    'Create Adplace' => 'اضافة موقع الاعلان',
+    'Edit Adplace' => 'تعديل موقع الاعلان',
+    'Delete Adplace' => 'حذف موقع الاعلان',
+
+    
+    'Create Publisher' => 'اضافة ناشرين',
+    'Edit Publisher' => 'تعديل ناشرين',
+    'Delete Publisher' => 'حذف ناشرين',
+
+    
+    'Create News' => 'اضافة خبر',
+    'Edit News' => 'تعديل خبر',
+    'Delete News' => 'Delete News',
+
+    
+    'View NewPlace' => 'عرض موقع الخبر',
+    'Create NewPlace' => 'اضافة موقع الخبر',
+    'Edit NewPlace' => 'تعديل موقع الخبر ',
+    'Delete NewPlace' => 'حذف موقع الخبر',
+
+    'View Status' => 'عرض الحالة',
+    'Create Status' => 'اضافة الحالة',
+    'Edit Status' => 'تعديل الحالة',
+    'Delete Status' => 'حذف الحالة',
+
+    'View Settings' => 'عرض الاعدادات',
+    'Create Settings' => 'اضافة اعدادات',
+    'Edit Settings' => 'تعديل الاعدادات',
+    'Delete Settings' => 'حذف الاعدادات',
+   
 
 
 
