@@ -51,8 +51,3 @@ body {
 .acme-news-ticker-label {
     margin-left: 0;
 }
-
-#contentRow{
-    display: flex;
-    /* flex-direction: row-reverse; */
-}

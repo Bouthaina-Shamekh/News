@@ -22,9 +22,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admain'),
             'avatar' => 'default.png',
         ]);
-    
+
         $this->call(UsersTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(AboutSeeder::class);
+        $this->call(NewPlaceSeeder::class);
+        $this->call(StatuSeeder::class);
+        $this->call(AdPlaceSeeder::class);
     }
 }

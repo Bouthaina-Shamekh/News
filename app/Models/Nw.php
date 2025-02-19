@@ -23,6 +23,7 @@ class Nw extends Model
         'keyword_en',
         'place_new',
         'status',
+        'visit',
         'category_id',
         'new_place_id',
         'statu_id',

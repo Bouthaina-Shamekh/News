@@ -21,7 +21,8 @@ class Artical extends Model
         'status',
         'publisher_id',
         'category_id',
-        'statu_id'
+        'statu_id',
+        'visit'
 
     ];
 

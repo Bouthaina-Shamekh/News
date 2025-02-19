@@ -14,11 +14,10 @@
                     <div class="col-md-6">
                         @php
                             $setting = \App\Models\Setting::get();
-                            $logo = $setting->where('key', 'logo')->first();
                             $title = $setting->where('key', $titel)->first();
                         @endphp
                         <div class="post--video embed-responsive embed-responsive-16by9">
-                            <img src="{{$logo && $logo->value != null ? asset('storage/' . $logo->value) : asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg')}}" />
+                            <img src="{{$abouts != null ? asset('storage/' . $abouts->image) : asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg')}}" />
                         </div>
                     </div>
                     <div class="col-md-6">

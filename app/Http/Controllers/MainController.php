@@ -11,7 +11,6 @@ use App\Models\Comment;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\NewPlace;
-use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,7 +19,12 @@ class MainController extends Controller
     public function home()
     {
         $ads = Ad::get();
-        return view('site.home', compact('ads'));
+        $sliders  = Nw::where('new_place_id', 1)->get();
+        $categoryFirst = Category::first() ?? new Category();
+        $news = Nw::where('category_id', $categoryFirst->id)->get();
+        $categoryLast = Category::orderBy('id', 'desc')->first() ?? new Category();
+        $articles = Artical::where('category_id', $categoryLast->id)->get();
+        return view('site.home', compact('ads', 'sliders', 'news', 'articles', 'categoryFirst', 'categoryLast'));
     }
 
     public function about()
@@ -33,7 +37,7 @@ class MainController extends Controller
 //    {
 //         Mail::to('bou@gmail.com')->send(new SendMail());
 //         return 'Done';
-    
+
 //    }
 
     public function contact()
@@ -58,7 +62,7 @@ class MainController extends Controller
         // dd( $request->all());
 
         return redirect()->back()->with('successSend', true);
-        
+
      }
 
      public function news(Request $request)
@@ -80,6 +84,9 @@ class MainController extends Controller
     public function new($id)
     {
         $new = Nw::findOrFail($id);
+        $new->update([
+            'visit' => $new->visit + 1
+        ]);
         $comments= Comment::where('nw_id', $id)->get();
         return view('site.new', compact('new', 'comments'));
     }
@@ -112,11 +119,14 @@ class MainController extends Controller
     public function article($id)
     {
         $article = Artical::findOrFail($id);
+        $article->update([
+            'visit' => $article->visit + 1
+        ]);
         $articles = Artical::paginate(5);
         return view('site.article', compact('article','articles'));
     }
 
-   
+
 
 
 }
