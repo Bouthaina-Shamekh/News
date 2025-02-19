@@ -472,7 +472,7 @@
                                         <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
                                             <div class="post--item post--layout-1">
                                                 <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.new', $newFirest->id) }}" class="thumb">
+                                                    <a href="{{ route('site.new', $newFirest->id ?? 0) }}" class="thumb">
                                                         <img src="{{ asset('storage/' . $newFirest->img_view) }}"
                                                             alt="{{ $newFirest->$title }}"
                                                             style="    height: 215px;     object-fit: cover;">
@@ -570,7 +570,7 @@
                                         <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
                                             <div class="post--item post--layout-1">
                                                 <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.article', $articleFirest->id) }}" class="thumb">
+                                                    <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="thumb">
                                                         <img src="{{ asset('storage/' . $articleFirest->img_view) }}"
                                                             alt="{{ $articleFirest->$title }}"
                                                             style="    height: 215px;     object-fit: cover;">
