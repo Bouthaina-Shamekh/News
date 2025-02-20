@@ -8,7 +8,7 @@
         $title = 'title_' . app()->getLocale();
         $text = 'text_' . app()->getLocale();
         $keyword = 'keyword_' . app()->getLocale();
-        
+
     @endphp
     @push('styles')
         <!-- data tables css -->
@@ -37,29 +37,32 @@
                 @endcan
             </div>
 
-            <div class="row">
-                <div class="form-group col-2 mb-3">
-                    <x-form.input name="keyword" label="{{__('admin.Keyword')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}" />
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="row flex-1 ms-3">
+                    <div class="form-group col-2 mb-3">
+                        <x-form.input name="keyword" label="{{__('admin.Keyword')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}" />
+                    </div>
+                    <div class="form-group col-2">
+                        <x-form.input name="date" class="serch_form" label="{{ __('admin.Form Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
+                    </div>
+                    <div class="form-group col-2">
+                        <x-form.input name="to_date" class="serch_form" label="{{ __('admin.To Date') }}"  type="date" placeholder="{{__('admin.enter artical of date')}}"/>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="category_id" class="form-label">{{__('admin.category')}}</label>
+                        <select id="category_id" name="category_id"  class="form-control serch_form">
+                            <option value="" selected>{{__('admin.Choose')}}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{$category->id}}">{{$category->$name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group col-2">
-                    <x-form.input name="date" class="serch_form" label="{{ __('admin.Form Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
-                </div>
-                <div class="form-group col-2">
-                    <x-form.input name="to_date" class="serch_form" label="{{ __('admin.To Date') }}"  type="date" placeholder="{{__('admin.enter artical of date')}}"/>
-                </div>
-                <div class="form-group col-3">
-                    <label for="category_id" class="form-label">{{__('admin.category')}}</label>
-                    <select id="category_id" name="category_id"  class="form-control serch_form">
-                        <option value="" selected>{{__('admin.Choose')}}</option>
-                        @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->$name}}</option>
-                        @endforeach
-                    </select>
+                <div class="d-flex justify-content-end me-2">
+                    <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
                 </div>
             </div>
-            <div class="d-flex justify-end me-2">
-                <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
-            </div>
+
             @can('view', 'App\Models\Nw')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
@@ -268,10 +271,10 @@
                                         </td>
                                     </tr>
                                 `;
-                                
+
                                 // Replace ':id' in both the edit link and the destroy action URL
                                 row = row.replace(/:id/g, newsItem.id);
-                                
+
                                 // Append the row to the table
                                 $('#footer-search tbody').append(row);
                             });
@@ -281,7 +284,7 @@
                         }
                     });
                 });
-                
+
             });
         </script>
     @endpush

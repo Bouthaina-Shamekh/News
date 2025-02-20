@@ -5,7 +5,7 @@
     'label'=>'',
 ])
 @if ($label)
-    <label for="{{$name}}">
+    <label  class="form-label" for="{{$name}}">
         {{ $label }}
     </label>
 @endif

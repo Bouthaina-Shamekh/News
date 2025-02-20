@@ -30,27 +30,30 @@
             </div>
             @endcan
 
-            <div class="row">
-                <div class="form-group col-2">
-                    <x-form.input name="date" class="serch_form" label="{{ __('admin.From Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
+            <div class="d-flex justify-content-between align-items-end">
+                <div class="row flex-1 ms-3">
+                    <div class="form-group col-2">
+                        <x-form.input name="date" class="serch_form" label="{{ __('admin.From Date') }}" type="date" placeholder="{{__('admin.enter artical of date')}}"/>
+                    </div>
+                    <div class="form-group col-2">
+                        <x-form.input name="to_date" class="serch_form" label="{{ __('admin.To Date') }}"  type="date" placeholder="{{__('admin.enter artical of date')}}"/>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="category_id" class="form-label">{{__('admin.Category')}}</label>
+                        <select id="category_id" name="category_id"  class="form-control serch_form">
+                            <option value="" selected>{{__('admin.Choose category')}}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{$category->id}}">{{$category->$name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group col-2">
-                    <x-form.input name="to_date" class="serch_form" label="{{ __('admin.To Date') }}"  type="date" placeholder="{{__('admin.enter artical of date')}}"/>
-                </div>
-                <div class="form-group col-3">
-                    <label for="category_id" class="form-label">{{__('admin.Category')}}</label>
-                    <select id="category_id" name="category_id"  class="form-control serch_form">
-                        <option value="" selected>{{__('admin.Choose category')}}</option>
-                        @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->$name}}</option>
-                        @endforeach
-                    </select>
+                <div class="d-flex justify-content-end me-2">
+                    <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
                 </div>
             </div>
-            <div class="d-flex justify-end me-2">
-                <button class="btn btn-primary" id="search">{{__('admin.Search')}}</button>
-            </div>
-            @can('view', 'App\Models\Artical') 
+
+            @can('view', 'App\Models\Artical')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -88,7 +91,7 @@
                                 <td>{{ $artical->created_at}}</td>
                                 <td>{{ $artical->visit }}</td>
                                 <td>{{ $artical->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
-                               
+
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.articale.edit', $artical->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
@@ -266,10 +269,10 @@
                                         </td>
                                     </tr>
                                 `;
-                                
+
                                 // Replace ':id' in both the edit link and the destroy action URL
                                 row = row.replace(/:id/g, artical.id);
-                                
+
                                 // Append the row to the table
                                 $('#footer-search tbody').append(row);
                             });
@@ -279,7 +282,7 @@
                         }
                     });
                 });
-                
+
             });
         </script>
     @endpush
