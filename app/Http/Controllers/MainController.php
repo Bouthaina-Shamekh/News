@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ad;
 use App\Models\Nw;
 use App\Models\About;
+use App\Models\Visit;
 use App\Mail\SendMail;
 use App\Models\Artical;
 use App\Models\Comment;
@@ -124,6 +125,27 @@ class MainController extends Controller
         ]);
         $articles = Artical::paginate(5);
         return view('site.article', compact('article','articles'));
+    }
+
+    public function storeVisit(Request $request)
+    {
+        $visit = Visit::where('session_id', $request->session()->getId());
+
+        if ($visit->exists()) {
+            return response()->json(['status' => 'exists']);
+        }
+
+        Visit::create([
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+            'url_visited' => $request->input('url_visited'),
+            'referrer' => $request->input('referrer'),
+            'visit_time' => Carbon::now(),
+            'session_id' => $request->session()->getId(),
+            'date' => Carbon::now()->format('Y-m-d'),
+        ]);
+
+        return response()->json(['status' => 'success']);
     }
 
 

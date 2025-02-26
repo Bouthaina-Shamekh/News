@@ -15,9 +15,11 @@
                             <x-form.input name="date" label="{{__('admin.Date')}}" type="date" placeholder="{{__('admin.enter news of date')}}" required :value="$news->date" />
                         </div>
 
-                        <div class="form-group col-6 mb-3">
-                            <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter news')}}" required :value="$news->visit" />
-                        </div>
+                        <!-- <div class="form-group col-6 mb-3">
+                            <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter news')}}" required :value="$news->visit" disabled/>
+                        </div> -->
+                        <input type="hidden" name="visit" value="{{ $news->visit }}">
+
 
 
                         <div class="form-group col-6 mb-3">

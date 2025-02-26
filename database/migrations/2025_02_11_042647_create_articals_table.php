@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('articals', function (Blueprint $table) {
             $table->id();
-            $table->string('title_ar');
-            $table->string('title_en');
+            $table->string('title_ar')->nullable();
+            $table->string('title_en')->nullable();
             $table->date('date');
             $table->string('vedio');
             $table->string('img_view')->nullable();
             $table->string('img_article')->nullable();
-            $table->text('text_ar');
-            $table->text('text_en');
+            $table->text('text_ar')->nullable();
+            $table->text('text_en')->nullable();
             $table->enum('place', ['documentary', 'war','peace']);
             $table->foreignId('statu_id')->nullable()->constrained('status')->nullOnDelete();
             $table->foreignId('publisher_id')->nullable()->constrained('publishers')->nullOnDelete();

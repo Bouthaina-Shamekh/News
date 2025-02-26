@@ -44,9 +44,11 @@
                        
 
 
-                        <div class="form-group col-6 mb-3">
+                        <!-- <div class="form-group col-6 mb-3">
                             <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter artical')}}" required :value="$articals->visit" />
-                        </div>
+                        </div> -->
+
+                        <input type="hidden" name="visit" value="{{$articals->visit }}">
 
 
                         <div class="form-group col-6 mb-3">

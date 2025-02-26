@@ -70,7 +70,7 @@ class AdController extends Controller
         'price' => $request->price,
         'date' => $request->date,
         'time' => $request->time,
-        'visit' => $request->visit,
+        'visit' => $request->visit ?? 0,
         'ad_place_id' => $request->ad_place_id,
     ]);
 
@@ -144,7 +144,7 @@ class AdController extends Controller
         'price' => $request->price,
         'date' => $request->date,
         'time' => $request->time,
-        'visit' => $request->visit,
+      'visit' => $request->visit ?? 0,
         'ad_place_id' => $request->ad_place_id,
     ]);
 

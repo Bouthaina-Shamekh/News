@@ -6,10 +6,12 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Ad;
 use App\Models\Nw;
 use App\Models\About;
+use App\Models\Visit;
 use App\Models\Artical;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Publisher;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -23,9 +25,37 @@ class HomeController extends Controller
         $a_count = Artical::count();
         $n_count = Nw::count();
         $p_count = Publisher::count();
+
+        $days = Visit::select('date')->distinct()->pluck('date')->toArray();
+        $daysVisits = collect($days)->map(function ($day) {
+            return [
+                "count" => Visit::where("date", "=", $day)->count(),
+                'date' => $day
+            ];
+        });
+        $daysVisits = $daysVisits->pluck('count')->toArray();
+
+
+        $months = [];
+        foreach ($days as $day) {
+            $month = Carbon::parse($day)->format('Y-m');
+            if (!in_array($month, $months)) {
+                $months[] = $month;
+            }
+        }
+        $months = array_values($months);
+
+        $monthsVisitsArray = collect($months)->map(function ($month) {
+            return [
+                "count" => Visit::whereBetween("date", [$month . '-01', $month . '-31'])->count(),
+                'month' => Carbon::parse($month)->format('M')
+            ];
+        });
+        $monthsVisits = $monthsVisitsArray->pluck('count')->toArray();
+        $months = $monthsVisitsArray->pluck('month')->toArray();
        
 
-        return view('dashboard.index' , compact('ad_count','a_count','n_count','p_count'));
+        return view('dashboard.index' , compact('ad_count','a_count','n_count','p_count','daysVisits','days','monthsVisits','months'));
     }
 
 
@@ -91,6 +121,28 @@ class HomeController extends Controller
 
        
         return redirect()->route('dashboard.about.edit')->with('success', __('About updated successfully.'));
+    }
+
+
+    public function storeVisit(Request $request)
+    {
+        $visit = Visit::where('session_id', $request->session()->getId());
+
+        if ($visit->exists()) {
+            return response()->json(['status' => 'exists']);
+        }
+
+        Visit::create([
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+            'url_visited' => $request->input('url_visited'),
+            'referrer' => $request->input('referrer'),
+            'visit_time' => Carbon::now(),
+            'session_id' => $request->session()->getId(),
+            'date' => Carbon::now()->format('Y-m-d'),
+        ]);
+
+        return response()->json(['status' => 'success']);
     }
 
 

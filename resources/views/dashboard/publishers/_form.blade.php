@@ -42,9 +42,8 @@
 </div>
 
 
-<div class="form-group col-6 mb-3">
-    <x-form.input name="visit" label="{{ __('admin.Visit') }}" type="number" placeholder="{{ __('admin.enter publisher visit') }}" required :value="$publishers->visit" />
-</div>
+
+<input type="hidden" name="visit" value="{{$publishers->visit ?? 0 }}">
 
 
 <div class="form-group col-6 mb-3">

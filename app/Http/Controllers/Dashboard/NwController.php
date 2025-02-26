@@ -75,7 +75,7 @@ class NwController extends Controller
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
             'keyword_en' => 'nullable',
-            'visit' => 'nullable',
+           
             'statu_id' => 'required',
             'category_id' => 'required',
             'new_place_id' => 'required',
@@ -100,7 +100,7 @@ class NwController extends Controller
             'text_en' => $request->text_en,
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
-            'visit' => $request->visit,
+           
             'statu_id' => $request->statu_id,
             'category_id' => $request->category_id,
             'new_place_id' => $request->new_place_id,
@@ -151,7 +151,7 @@ class NwController extends Controller
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
             'keyword_en' => 'nullable',
-            'visit' => 'nullable',
+           
             'statu_id' => 'required',
             'category_id' => 'required',
             'new_place_id' => 'required',
@@ -196,7 +196,7 @@ class NwController extends Controller
             'text_en' => $request->text_en,
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
-            'visit' => $request->visit,
+          
             'statu_id' => $request->statu_id,
             'category_id' => $request->category_id,
             'new_place_id' => $request->new_place_id,

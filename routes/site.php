@@ -38,6 +38,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
         Route::get('/contact', [MainController::class, 'contact'])->name('contact');
         Route::post('/contact', [MainController::class, 'contact_data'])->name('contactdata');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
+      
        
        
 

@@ -109,7 +109,8 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                    <a href="author?id=31">{{ $new->publisher->name }}</a>
+                                                                                <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -153,7 +154,9 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                    <a href="author?id=31">{{ $new->publisher->name }}</a>
+                                                                                   
+                                                                                    <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -258,7 +261,9 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                    <a href="author?id=31">{{ $new->publisher->name }}</a>
+                                                                                   
+                                                                                    <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -302,7 +307,8 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                    <a href="author?id=31">{{ $new->publisher->name }}</a>
+                                                                                <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -346,7 +352,8 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                    <a href="author?id=31">{{ $new->publisher->name }}</a>
+                                                                                <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>

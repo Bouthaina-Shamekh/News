@@ -47,7 +47,7 @@ class PublisherController extends Controller
             'address' => 'required',
             'about' => 'required',
             'status' => 'required',
-            'visit' => 'required',
+           
             'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);
@@ -100,7 +100,7 @@ class PublisherController extends Controller
             'address' => 'required',
             'about' => 'required',
             'status' => 'required',
-            'visit' => 'required',
+           
             'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);

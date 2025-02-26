@@ -58,13 +58,7 @@
                             <x-form.input name="time" label="{{__('admin.time')}}" type="time" placeholder="{{__('admin.enter name of time')}}" required :value="$ads->time" />
                         </div>
 
-
-                        <div class="form-group col-6 mb-3">
-                            <x-form.input name="visit" label="{{__('admin.visit')}}" type="number"
-                             placeholder="{{__('admin.enter name of visit')}}" required :value="$ads->visit" />
-                        </div>
-
-
+                        <input type="hidden" name="visit" value="{{$ads->visit ?? 0 }}">
 
                         <div class="mb-4 col-md-6">
                             <label for="ad_place_id" class="form-label">{{__('admin. Ad Place')}}</label>
