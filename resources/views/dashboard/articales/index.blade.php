@@ -85,8 +85,14 @@
         </td>
 
                                 <td>{{ $artical->$title}}</td>
-                                <td>{{ $artical->publisher->name }}</td>
-                                <td>{{ $artical->category->$name }}</td>
+                               <td>{{ $artical->publisher->name ?? '' }}</td>
+                               <td>
+                @if(app()->getLocale() == 'ar')
+                    {{ $artical->category->name_ar ?? '' }}
+                @else
+                    {{ $artical->category->name_en ?? '' }}
+                @endif
+            </td>
                                 <td>{{ $artical->date}}</td>
                                 <td>{{ $artical->created_at}}</td>
                                 <td>{{ $artical->visit }}</td>

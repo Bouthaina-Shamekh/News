@@ -85,8 +85,14 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $new->$title }}</td>
-                                <td>{{ $new->publisher->name }}</td>
-                                <td>{{ $new->category->$name }}</td>
+                                <td>{{ $new->publisher->name ?? '' }}</td>
+                                            <td>
+                @if(app()->getLocale() == 'ar')
+                    {{ $artical->category->name_ar ?? '' }}
+                @else
+                    {{ $artical->category->name_en ?? '' }}
+                @endif
+            </td>
                                 <td>{{ $new->newplace ? $new->newplace->name_en : '-' }}</td>
                                 <td>{{ $new->created_at }}</td>
                                 <td>{{ $new->visit}}</td>

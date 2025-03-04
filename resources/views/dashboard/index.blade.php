@@ -112,121 +112,29 @@
 
 
                 </div>
+
+
+                <div style="width: 100%; height: 500px; max-width: 1500px; margin: 0 auto;">
+                    {!! $chartjs->render() !!}
+                </div>
+                
         </div>
         </div>
     </div>
 
-    <div class="col-span-12 md:col-span-6">
-        <div class="card">
-            <div class="card-header">
-                <h5>{{__('admin.Visits')}}</h5>
-            </div>
-            <div class="card-body">
-                <div id="line-chart-1"></div>
-            </div>
-        </div>
-    </div>
+    
 
-    <div class="col-span-12 md:col-span-6">
-        <div class="card">
-            <div class="card-header">
-                <h5>{{ __('admin.Visits In Month') }}</h5>
-            </div>
-            <div class="card-body">
-                <div id="bar-chart-1"></div>
-            </div>
-        </div>
-    </div>
+    
+    
+
 
     @push('scripts')
+       
+
         <script src="{{ asset('assets-dashboard/js/plugins/apexcharts.min.js') }}"></script>
-        <script>
-            const days = {!! json_encode($days) !!};
-            const daysVisits = {!! json_encode($daysVisits) !!};
-            const months = {!! json_encode($months) !!};
-            const monthsVisits = {!! json_encode($monthsVisits) !!};
-            setTimeout(function() {
-                (function() {
-                    var options = {
-                        chart: {
-                            height: 300,
-                            type: 'line',
-                            zoom: {
-                                enabled: false
-                            }
-                        },
-                        dataLabels: {
-                            enabled: false,
-                            width: 2
-                        },
-                        stroke: {
-                            curve: 'straight'
-                        },
-                        colors: ['#4680FF'],
-                        series: [{
-                            name: "{{ __('admin.Visits') }}",
-                            data: daysVisits
-                        }],
-                        grid: {
-                            row: {
-                                colors: ['#f3f6ff', 'transparent'],
-                                opacity: 0.5
-                            }
-                        },
-                        xaxis: {
-                            categories: days
-                        }
-                    };
-                    var chart = new ApexCharts(document.querySelector('#line-chart-1'), options);
-                    chart.render();
-                    // bar chart 1
-                    var options_bar_chart_1 = {
-                        chart: {
-                            height: 350,
-                            type: 'bar'
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: false,
-                                columnWidth: '55%',
-                                endingShape: 'rounded'
-                            }
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        colors: ['#2CA87F', '#4680FF', '#13c2c2'],
-                        stroke: {
-                            show: true,
-                            width: 2,
-                            colors: ['transparent']
-                        },
-                        series: [
-                            {
-                                name: "{{ __('admin.Visits') }}",
-                                data: monthsVisits
-                            },
-                        ],
-                        xaxis: {
-                            categories: months
-                        },
-                        fill: {
-                            opacity: 1
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function(val) {
-                                    return val + ' visits';
-                                }
-                            }
-                        }
-                    };
-                    var chart_bar_chart_1 = new ApexCharts(document.querySelector('#bar-chart-1'),
-                        options_bar_chart_1);
-                    chart_bar_chart_1.render();
-                })();
-            }, 700);
-        </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+          
     @endpush
     
 </x-dashboard-layout>

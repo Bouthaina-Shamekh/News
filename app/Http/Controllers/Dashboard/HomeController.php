@@ -6,8 +6,10 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Ad;
 use App\Models\Nw;
 use App\Models\About;
+use App\Models\Statu;
 use App\Models\Visit;
 use App\Models\Artical;
+use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -19,45 +21,46 @@ class HomeController extends Controller
 {
 
     public function index()
-    {
+{
+    $ad_count = Ad::count();
+    $a_count = Artical::count();
+    $n_count = Nw::count();
+    $p_count = Publisher::count();
+    $s_count = Statu::count();
+    $c_count = Category::count();
+    $ab_count = About::count();
 
-        $ad_count = Ad::count();
-        $a_count = Artical::count();
-        $n_count = Nw::count();
-        $p_count = Publisher::count();
+    $chartjs = app()->chartjs
+        ->name('doughnutChartTest')
+        ->type('doughnut')
+        ->size(['width' => 1200, 'height' => 600]) // حجم الرسم البياني
+        ->labels(['Articale', 'News', 'News Status', 'Category', 'Ad', 'Publisher', 'About'])
+        ->datasets([
+            [
+                "label" => "Site Data",
+                'backgroundColor' => ["#fedae1", "#fda1b5", "#fd5b8a", "#db1063", "#9b0844", "#6f032d", "#600327"],
+                'data' => [$a_count, $n_count, $s_count, $c_count, $ad_count, $p_count, $ab_count],
+            ]
+        ])
+        ->options([
+            'responsive' => true,
+            'maintainAspectRatio' => false,
+            'animation' => [
+                'duration' => 2000, // مدة الحركة بالمللي ثانية (2 ثانية هنا)
+                'easing' => 'easeInOutQuad', // نوع الحركة
+            ],
+            'plugins' => [
+                'legend' => [
+                    'position' => 'top',
+                    'labels' => [
+                        'usePointStyle' => true,
+                    ]
+                ]
+            ],
+        ]);
 
-        $days = Visit::select('date')->distinct()->pluck('date')->toArray();
-        $daysVisits = collect($days)->map(function ($day) {
-            return [
-                "count" => Visit::where("date", "=", $day)->count(),
-                'date' => $day
-            ];
-        });
-        $daysVisits = $daysVisits->pluck('count')->toArray();
-
-
-        $months = [];
-        foreach ($days as $day) {
-            $month = Carbon::parse($day)->format('Y-m');
-            if (!in_array($month, $months)) {
-                $months[] = $month;
-            }
-        }
-        $months = array_values($months);
-
-        $monthsVisitsArray = collect($months)->map(function ($month) {
-            return [
-                "count" => Visit::whereBetween("date", [$month . '-01', $month . '-31'])->count(),
-                'month' => Carbon::parse($month)->format('M')
-            ];
-        });
-        $monthsVisits = $monthsVisitsArray->pluck('count')->toArray();
-        $months = $monthsVisitsArray->pluck('month')->toArray();
-       
-
-        return view('dashboard.index' , compact('ad_count','a_count','n_count','p_count','daysVisits','days','monthsVisits','months'));
-    }
-
+    return view('dashboard.index', compact('ad_count', 'a_count', 'n_count', 'p_count', 'chartjs'));
+}
 
     public function edit($id)
     {
