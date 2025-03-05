@@ -153,6 +153,8 @@ return [
      'Status'=>'الحالة',
      'Accept'=>'مقبول',
      'Dont Accept'=>'غير مقبول',
+     'not accepted yet'=>'غير مقبول',
+     'accepted '=>'مقبول',
 
 
 

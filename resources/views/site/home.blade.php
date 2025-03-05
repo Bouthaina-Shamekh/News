@@ -96,7 +96,7 @@
                                                     aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
                                                     @php
-                                                        $latest_news = App\Models\Nw::where('statu_id', 2)->get()->take(3);;
+                                                        $latest_news = App\Models\Nw::where('statu_id', 2)->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" id="nav_sider2">
                                                         <!-- Example content for أخبار عاجلة -->
@@ -154,7 +154,7 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                   
+
                                                                                     <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
 
                                                                                 </li>
@@ -248,7 +248,7 @@
                                                     aria-labelledby="nav-home-tab2">
                                                     <!-- Content for أخبار عاجلة -->
                                                     @php
-                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->orderBy('id', 'desc')->get();
+                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->orderBy('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" id="nav_sider">
                                                         <!-- Example content for أخبار عاجلة -->
@@ -261,7 +261,7 @@
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li>
-                                                                                   
+
                                                                                     <a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
 
                                                                                 </li>
@@ -294,7 +294,7 @@
                                                     aria-labelledby="nav-profile-tab2">
                                                     <!-- Content for أحدث الأخبار -->
                                                     @php
-                                                        $latest_news = App\Models\Nw::where('statu_id', 2)->orderBy('id', 'desc')->get();
+                                                        $latest_news = App\Models\Nw::where('statu_id', 2)->orderBy('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" id="nav_sider2">
                                                         <!-- Example content for أخبار عاجلة -->
@@ -339,7 +339,7 @@
                                                     aria-labelledby="nav-contact-tab2">
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     @php
-                                                        $most_viewed = App\Models\Nw::where('statu_id', 3)->orderBy('id', 'desc')->get();
+                                                        $most_viewed = App\Models\Nw::where('statu_id', 3)->orderBy('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" id="nav_sider3">
                                                         <!-- Example content for أخبار عاجلة -->

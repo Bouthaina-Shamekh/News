@@ -50,7 +50,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>
             @if ( $ad->image)
-                <img src="{{ asset('storage/' . $ad->image) }}" width="100" height="200" alt="Image">
+                <img src="{{ asset('storage/' . $ad->image) }}" width="100" alt="Image">
             @else
                 {{ __('No Image') }}
             @endif
@@ -60,8 +60,8 @@
                                 <td>{{$ad->owner_phone}}</td>
                                 <td>{{$ad->adplace->name_en}}</td>
                                 <td>{{$ad->url}}</td>
-                              
-                               
+
+
 
                                 <td>
                                 @can('edit', 'App\Models\Ad')
