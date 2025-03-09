@@ -70,6 +70,11 @@
                             </select>
                         </div>
 
+                        <div class="form-group col-6 mb-3">
+                            <label for="notes" class="form-label">{{__('admin.Notes')}}</label>
+                            <textarea name="notes" id="mytextarea" rows="3" class="form-control" required>{{$adplase->notes}}</textarea>
+                        </div>
+
 
 
 

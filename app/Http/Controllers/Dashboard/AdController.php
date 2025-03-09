@@ -47,6 +47,7 @@ class AdController extends Controller
         'price' => 'required',
         'date' => 'required|date',
         'time' => 'required',
+        'notes' => 'required',
         'visit' => 'required',
         'ad_place_id' => 'required',
     ]);
@@ -70,6 +71,7 @@ class AdController extends Controller
         'price' => $request->price,
         'date' => $request->date,
         'time' => $request->time,
+        'notes' => $request->notes,
         'visit' => $request->visit ?? 0,
         'ad_place_id' => $request->ad_place_id,
     ]);
@@ -112,6 +114,7 @@ class AdController extends Controller
         'price' => 'required',
         'date' => 'required|date',
         'time' => 'required',
+        'notes' => 'required',
         'visit' => 'required',
         'ad_place_id' => 'required',  
     ]);
@@ -144,7 +147,8 @@ class AdController extends Controller
         'price' => $request->price,
         'date' => $request->date,
         'time' => $request->time,
-      'visit' => $request->visit ?? 0,
+        'notes' => $request->notes,
+        'visit' => $request->visit ?? 0,
         'ad_place_id' => $request->ad_place_id,
     ]);
 
@@ -164,6 +168,6 @@ class AdController extends Controller
         $this->authorize('delete', Ad::class);
         $ads = Ad::findOrFail($id);
         $ads->delete();
-        return redirect()->route('dashboard.ads.index')->with('success', __('Item deleted successfully.'));
+        return redirect()->route('dashboard.ad.index')->with('success', __('admin.Item deleted successfully.'));
     }
 }

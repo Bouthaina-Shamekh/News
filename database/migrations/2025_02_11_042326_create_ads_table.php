@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('date');
             $table->integer('time');
+            $table->integer('notes');
             $table->integer('visit');
             $table->foreignId('created_by')->nullable()->constrained('admins')->nullOnDelete();
             $table->foreignId('ad_place_id')->nullable()->constrained('ad_places')->nullOnDelete();

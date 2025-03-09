@@ -9,11 +9,12 @@ class Category extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
 
     protected $fillable = [
         'name_en',
         'name_ar',
-        'image', 
+        'image',
         'slug',
         'created_by',
     ];

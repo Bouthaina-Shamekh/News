@@ -19,7 +19,7 @@ class ArticalController extends Controller
     {
         $this->authorize('view', Artical::class);
 
-        $articals = Artical::get();
+        $articals = Artical::with(['category','publisher'])->get();
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){
@@ -69,7 +69,7 @@ class ArticalController extends Controller
             'title_ar' => 'required',
             'title_en' => 'required',
             'date' => 'required|date',
-           
+
             'vedio' => 'nullable',
             'img_view' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'img_article' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
@@ -102,7 +102,7 @@ class ArticalController extends Controller
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
-            
+
             'vedio' => $vedioFilePath,
             'img_view' => $imgViewPath,
             'img_article' => $imgArticalPath,
@@ -151,7 +151,7 @@ class ArticalController extends Controller
             'title_ar' => 'required',
             'title_en' => 'required',
             'date' => 'required|date',
-           
+
             'vedio' => 'nullable',
             'img_view' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'img_article' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
@@ -195,7 +195,7 @@ class ArticalController extends Controller
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
-           
+
             'vedio' => $vedioPath,
             'text_ar' => $request->text_ar,
             'text_en' => $request->text_en,

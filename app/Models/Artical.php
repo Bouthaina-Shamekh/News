@@ -23,7 +23,6 @@ class Artical extends Model
         'category_id',
         'statu_id',
         'visit'
-
     ];
 
 

@@ -40,10 +40,7 @@ class CategoryController extends Controller
 
         ]);
         // dd($request->all());
-        $request->merge([
-            'slug' => Str::slug($request->post('name_en')),
-        ]);
-
+       
 
         // $img = $request->file('image')->store('uploads/categories', 'public');
         $img = $request->hasFile('image') ? $request->file('image')->store('uploads/categories', 'public') : null;

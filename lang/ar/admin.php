@@ -155,6 +155,14 @@ return [
      'Dont Accept'=>'غير مقبول',
      'not accepted yet'=>'غير مقبول',
      'accepted '=>'مقبول',
+     'Add Articals'=>'اضافة مقالات',
+     'documantary'=>'وثائقي',
+     'war'=>'حرب',
+     'peace'=>'سلام',
+     ' Ad Place'=>'اضافة موقع الاعلان',
+    
+     'Notes'=>'ملاحظات',
+     'Filter' =>'فلتر',
 
 
 

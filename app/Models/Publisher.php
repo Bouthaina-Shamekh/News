@@ -9,6 +9,9 @@ use PhpParser\Node\Expr\New_;
 class Publisher extends Model
 {
     use HasFactory;
+
+   
+
     protected $fillable = [
         'name',
         'email',

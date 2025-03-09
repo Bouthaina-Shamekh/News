@@ -11,6 +11,7 @@ class Admin extends User
 {
     use HasFactory;
 
+    public $timestamps = false;
 
     protected $fillable = [
         'name',

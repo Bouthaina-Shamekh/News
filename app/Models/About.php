@@ -9,6 +9,8 @@ class About extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'about_ar',
         'about_en',
