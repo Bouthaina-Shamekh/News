@@ -29,12 +29,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script>
-    @if(app()->getLocale() == 'en')
-    $("#toLang").text("Arabic");
+    @if(app()->getLocale() == 'ar')
+    $("#toLang").text("English");
     $("#changeDirection").prop("disabled", true);
     $('html').attr('dir', 'rtl');
     @else
-    $("#toLang").text("English");
+    $("#toLang").text("العربية");
     $("#changeDirection").prop("disabled", false);
     $('html').attr('dir', 'ltr');
     @endif
@@ -43,7 +43,7 @@
 
 
 
-    
+
 @stack('scripts')
 </body>
 

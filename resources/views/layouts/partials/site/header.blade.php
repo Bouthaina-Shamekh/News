@@ -57,13 +57,22 @@
                                     onclick="if (!window.__cfRLUnblockHandlers) return false; langc('ar')"
                                     class="dropdown-toggle" data-toggle="dropdown"
                                     data-cf-modified-6a7e8b1cabee735aa3fb2ed4-="">
-                                    <i class="fa fm fa-language"></i> English
+                                    <i class="fa fm fa-language"></i>
+                                    @if(app()->getLocale() == 'en')
+                                    <a href="/ar"  id="toLang">
+                                        العربية
+                                    </a>
+                                    @else
+                                    <a href="/en"  id="toLang">
+                                        English
+                                    </a>
+                                    @endif
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         @if(app()->getLocale() == 'en')
                                         <a href="/ar"  id="toLang">
-                                            Arabic
+                                            العربية
                                         </a>
                                         @else
                                         <a href="/en"  id="toLang">
@@ -97,7 +106,7 @@
                 <!--header--logo-->
                 <div class="col-md-12 col-xs-12 col-sm-12 col-lg-4 float--right float--sm-none text-sm-center" style=" justify-content: center; float: left; width: revert-layer; ">
                     <!--<h1 class="h1" >-->
-                    <a href="home" class="btn-link">
+                    <a href="{{ route('site.index') }}" class="btn-link">
                         <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 60%" />
                         <span class="hidden"> Logo</span>
                     </a>
@@ -110,6 +119,17 @@
                         <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn"
                             style="border: 1px solid gold; width: 100%; height: 90px" />
                     </a>
+                    @php
+                    $ads6 = App\Models\Ad::where('ad_place_id', '6')->first();
+                    @endphp
+                    @if($ads6)
+                    <a href="{{ $ads6->link }}">
+                        <img src="../assets/files/{{ $ads6->image }}" alt="jinn"
+                            style="border: 1px solid gold;width: 100%;height: 100px;">
+                    </a>
+                    @else
+                    <h2 class="h4" style="    direction: rtl;"> <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                    @endif
                 </div>
                 <div class="col-md-12 col-xs-12 col-sm-12 col-lg-1"></div>
             </div>
