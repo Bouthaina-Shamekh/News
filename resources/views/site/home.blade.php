@@ -1,4 +1,17 @@
 <x-site-layout>
+    @php
+        $title = 'title_' . app()->getLocale();
+    @endphp
+    <style>
+        #nav-tabContent .post--info .btn-link{
+            display: inline-block !important;
+            max-width: 91% !important;
+            white-space: nowrap;
+            overflow: clip;
+            text-overflow: ellipsis;
+            text-align: start !important;
+        }
+    </style>
     <div class="container" dir="ltr">
         <div class="row container2">
             <div class="col-xs-12 col-md-3 section-left">
@@ -11,7 +24,7 @@
                             <div class="sticky-content-inner">
                                 <!--اعلانات-->
                                 @php
-                                    $ads = App\Models\Ad::where('ad_place_id', 3)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 5)->take(3)->get();
                                 @endphp
                                 @forelse ($ads as $ad)
                                     <div class="widget">
@@ -34,8 +47,6 @@
                                             حالة الطقس </h2>
                                         <i class="icon fa fa-bullhorn"></i>
                                     </div>
-
-
                                     <div class="">
                                         <a href="#">
                                             <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="El Messiri" data-icons="Climacons Animated" data-mode="Forecast" data-theme="ruby">PALESTINE
@@ -57,7 +68,7 @@
                                     </div>
                                 </div>
                                 @php
-                                    $ads = App\Models\Ad::where('ad_place_id', 1)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 6)->take(3)->get();
                                 @endphp
                                 @forelse ($ads as $ad)
                                     <div class="widget">
@@ -210,11 +221,11 @@
                                     <!-- <h2 class="h4" style="    direction: rtl;">
                                         إعلان </h2> -->
                                     @php
-                                    $ads5 = App\Models\Ad::where('ad_place_id', '5')->first();
+                                    $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
                                     @endphp
                                     @if($ads5)
                                     <a href="{{ $ads5->link }}">
-                                        <img src="../assets/files/{{ $ads5->image }}" alt="jinn"
+                                        <img src="../assets/files/{{ $ads5->image }}" alt="No Image For Ad"
                                             style="border: 1px solid gold;width: 100%;height: 100px;">
                                     </a>
                                     @else
@@ -303,11 +314,11 @@
                             <div class="col-md-12 ptop--30 ">
                                 <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
                                     @php
-                                    $ads6 = App\Models\Ad::where('ad_place_id', '6')->first();
+                                    $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
                                     @endphp
                                     @if($ads6)
                                     <a href="{{ $ads6->link }}">
-                                        <img src="../assets/files/{{ $ads6->image }}" alt="jinn"
+                                        <img src="../assets/files/{{ $ads6->image }}" alt="No Image For Ad"
                                             style="border: 1px solid gold;width: 100%;height: 100px;">
                                     </a>
                                     @else
@@ -399,7 +410,8 @@
                         <!--sidebar-->
                         <div class="main--sidebar" data-sticky-content="true">
                             <div class="sticky-content-inner">
-                                <div class="col-md-12 float-left" style="padding: 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
+                                <div class="col-md-12 float-left"
+                                    style="padding: 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
                                     <div class="list--widget list--widget-1">
                                         <div class="list--widget-nav" data-ajax="tab">
                                             <ul class="nav nav-justified flex space-x-4">
@@ -408,8 +420,8 @@
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
                                                         data-bs-target="#nav-home" role="tab"
                                                         aria-controls="nav-home" aria-selected="true">
-                                                        أخبار عاجلة
-                                                        {{-- breaking_news 1 --}}
+                                                        {{-- أخبار عاجلة --}}
+                                                        {{ __('site.emergency news') }}
                                                     </a>
                                                 </li>
                                                 <li class="active">
@@ -417,8 +429,8 @@
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
                                                         data-bs-target="#nav-profile" role="tab"
                                                         aria-controls="nav-profile" aria-selected="false">
-                                                        أحدث الأخبار
-                                                        {{-- latest_news 2 --}}
+                                                        {{-- أحدث الأخبار --}}
+                                                        {{ __('site.latest news') }}
                                                     </a>
                                                 </li>
                                                 <li>
@@ -426,29 +438,30 @@
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
                                                         data-bs-target="#nav-contact" role="tab"
                                                         aria-controls="nav-contact" aria-selected="false">
-                                                        الأكثر مشاهدة
-                                                        {{-- most_viewed 3 --}}
+                                                        {{-- الأكثر مشاهدة --}}
+                                                        {{ __('site.most viewed') }}
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="post--items post--items-3" data-ajax-content="outer">
                                             <div class="tab-content mt-4" id="nav-tabContent">
-                                                <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                <div class="tab-pane fade" id="nav-home" role="tabpanel"
+                                                    aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
-                                                    @php
-                                                    $breaking_news = App\Models\Nw::where('statu_id', 1)->get()->take(3);
-                                                    @endphp
                                                     <ul class="nav" id="nav_sider">
-                                                        <!-- Example content for أخبار عاجلة -->
+                                                        @php
+                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->get()->take(3);
+                                                        @endphp
+                                                        <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div>
+                                                                    <div style="width: 90%">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -462,7 +475,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="width: 49%">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -474,21 +487,22 @@
                                                         <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <div class="tab-pane show active" id="nav-profile"
+                                                    role="tabpanel" aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
-                                                    @php
-                                                    $latest_news = App\Models\Nw::where('statu_id', 2)->get()->take(3);
-                                                    @endphp
                                                     <ul class="nav" id="nav_sider">
+                                                        @php
+                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->get()->take(3);
+                                                        @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div>
+                                                                    <div style="width: 90%">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -502,7 +516,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="width: 49%">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -514,21 +528,22 @@
                                                         <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                <div class="tab-pane fade" id="nav-contact" role="tabpanel"
+                                                    aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
-                                                    @php
-                                                    $most_viewed = App\Models\Nw::where('statu_id', 3)->get()->take(3);
-                                                    @endphp
                                                     <ul class="nav" id="nav_sider">
-                                                        <!-- Example content for الأكثر مشاهدة -->
+                                                        @php
+                                                        $most_viewed = App\Models\Nw::where('statu_id', 2)->get()->take(3);
+                                                        @endphp
+                                                        <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div>
+                                                                    <div style="width: 90%">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -542,7 +557,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="width: 49%">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -551,7 +566,6 @@
                                                             </div>
                                                         </li>
                                                         @endforeach
-
                                                         <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
@@ -565,7 +579,7 @@
                             <div class="sticky-content-inner">
                                 <hr>
                                 @php
-                                $ads = App\Models\Ad::where('ad_place_id', 1)->get();
+                                $ads = App\Models\Ad::where('ad_place_id', 3)->get();
                                 @endphp
                                 @forelse ($ads as $index => $ad)
                                 <div class="widget">
@@ -587,17 +601,18 @@
                                 @endforelse
                             </div>
                             <div class="sticky-content-inner">
-                                <div class="col-md-12 float-left" style="padding: 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
+                                <div class="col-md-12 float-left"
+                                    style="padding: 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
                                     <div class="list--widget list--widget-1">
-                                        <div class="list--widget-nav" data-ajax="tab2">
+                                        <div class="list--widget-nav" data-ajax="tab">
                                             <ul class="nav nav-justified flex space-x-4">
                                                 <li>
                                                     <a href="#" id="nav-home-tab2" data-bs-toggle="tab"
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
                                                         data-bs-target="#nav-home2" role="tab"
                                                         aria-controls="nav-home2" aria-selected="true">
-                                                        أخبار عاجلة
-                                                        {{-- breaking_news 1 --}}
+                                                        {{-- أخبار عاجلة --}}
+                                                        {{ __('site.emergency news') }}
                                                     </a>
                                                 </li>
                                                 <li class="active">
@@ -605,8 +620,8 @@
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
                                                         data-bs-target="#nav-profile2" role="tab"
                                                         aria-controls="nav-profile2" aria-selected="false">
-                                                        أحدث الأخبار
-                                                        {{-- latest_news 2 --}}
+                                                        {{-- أحدث الأخبار --}}
+                                                        {{ __('site.latest news') }}
                                                     </a>
                                                 </li>
                                                 <li>
@@ -614,29 +629,30 @@
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
                                                         data-bs-target="#nav-contact2" role="tab"
                                                         aria-controls="nav-contact2" aria-selected="false">
-                                                        الأكثر مشاهدة
-                                                        {{-- most_viewed 3 --}}
+                                                        {{-- الأكثر مشاهدة --}}
+                                                        {{ __('site.most viewed') }}
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="post--items post--items-3" data-ajax-content="outer">
                                             <div class="tab-content mt-4" id="nav-tabContent2">
-                                                <div class="tab-pane fade" id="nav-home2" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                <div class="tab-pane fade" id="nav-home2" role="tabpanel"
+                                                    aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
-                                                    @php
-                                                    $breaking_news = App\Models\Nw::where('statu_id', 1)->orderBy('id', 'desc')->get()->take(3);
-                                                    @endphp
                                                     <ul class="nav" id="nav_sider">
-                                                        <!-- Example content for أخبار عاجلة -->
+                                                        @php
+                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->orderBy('id', 'desc')->get()->take(3);
+                                                        @endphp
+                                                        <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div>
+                                                                    <div style="width: 90%">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -650,7 +666,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="width: 49%">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -662,21 +678,22 @@
                                                         <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane show active" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <div class="tab-pane show active" id="nav-profile2"
+                                                    role="tabpanel" aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
-                                                    @php
-                                                    $latest_news = App\Models\Nw::where('statu_id', 2)->orderBy('id', 'desc')->get()->take(3);
-                                                    @endphp
                                                     <ul class="nav" id="nav_sider">
+                                                        @php
+                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->get()->skip(3)->take(3);
+                                                        @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div>
+                                                                    <div style="width: 90%">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -690,7 +707,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="width: 49%">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -702,21 +719,22 @@
                                                         <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                <div class="tab-pane fade" id="nav-contact2" role="tabpanel"
+                                                    aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
-                                                    @php
-                                                    $most_viewed = App\Models\Nw::where('statu_id', 3)->orderBy('id', 'desc')->get()->take(3);
-                                                    @endphp
                                                     <ul class="nav" id="nav_sider">
-                                                        <!-- Example content for الأكثر مشاهدة -->
+                                                        @php
+                                                        $most_viewed = App\Models\Nw::where('statu_id', 2)->orderBy('id', 'desc')->get()->take(3);
+                                                        @endphp
+                                                        <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div>
+                                                                    <div style="width: 90%">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="author?id=31">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at }}</a>
                                                                                 </li>
@@ -730,7 +748,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div style="width: 49%">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -739,7 +757,6 @@
                                                             </div>
                                                         </li>
                                                         @endforeach
-
                                                         <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
@@ -753,7 +770,7 @@
                             <div class="sticky-content-inner">
                                 <hr>
                                 @php
-                                $ads = App\Models\Ad::where('ad_place_id', 2)->take(3)->get();
+                                $ads = App\Models\Ad::where('ad_place_id', 4)->take(3)->get();
                                 @endphp
                                 @forelse ($ads as $index => $ad)
                                 <div class="widget">

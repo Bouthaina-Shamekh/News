@@ -66,4 +66,13 @@ return [
 
     'Provide us with information' => 'Provide us with information',
     'Your Request Has Been Sent Successfully, You Will Receive A Message From Us As Soon As Possible.' => 'Your Request Has Been Sent Successfully, You Will Receive A Message From Us As Soon As Possible.',
+
+    'News' => 'News',
+    'Articles' => 'Articles',
+    'Home' => 'Home',
+    'More' => 'More',
+
+    'emergency news' => 'Emergency News',
+    'latest news' => 'Latest News',
+    'most viewed' => 'Most Viewed'
 ];

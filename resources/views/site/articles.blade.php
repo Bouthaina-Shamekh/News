@@ -3,6 +3,24 @@
         $title = 'title_' . app()->getLocale();
         $name = 'name_' . app()->getLocale();
     @endphp
+    @push('styles')
+        <style>
+            .news-title{
+                display: inline-block !important;
+                max-width: 395px !important;
+                white-space: nowrap;
+                overflow: clip;
+                text-overflow: ellipsis;
+                text-align: start !important;
+            }
+            .AdjustRow li {
+                padding: 6px 14px !important;
+            }
+            .h4{
+                text-align: start !important;
+            }
+        </style>
+    @endpush
     <x-slot:header>
         <div class="posts--filter-bar style--1 hidden-xs">
             <div class="container">
@@ -57,7 +75,7 @@
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.article', $article->id)}}" class="btn-link">
+                                                        <a href="{{ route('site.article', $article->id)}}" class="btn-link  news-title">
                                                             {{ $article->$title }}
                                                         </a>
                                                     </h3>
@@ -140,10 +158,20 @@
                             </div>
                         </div>
 
+                        @php
+                        $ads5 = App\Models\Ad::where('ad_place_id', 10)->first();
+                        @endphp
                         <div class="widget">
                             <div class="widget--title">
+                                @if($ads5)
+                                <a href="{{ $ads5->link }}">
+                                    <img src="../assets/files/{{ $ads5->image }}" alt="No Image For Ad"
+                                        style="border: 1px solid gold;width: 100%;height: 100px;">
+                                </a>
+                                @else
                                 <h2 class="h4">إعلان</h2>
                                 <i class="icon fa fa-bullhorn"></i>
+                                @endif
                             </div>
                         </div>
                     </div>

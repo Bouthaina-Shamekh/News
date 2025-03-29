@@ -69,5 +69,13 @@ return [
 
     'Provide us with information' => 'قم بتقديم المعلومات لنا',
     'Your Request Has Been Sent Successfully, You Will Receive A Message From Us As Soon As Possible.' => 'تم ارسال طلبك بنجاح، سوف تستلم رسالة منا قريبا.',
-    
+
+    'News' => 'اخبار',
+    'Articles' => 'مقالات',
+    'Home' => 'الرئيسية',
+    'More' => 'المزيد',
+
+    'emergency news' => 'أخبار عاجلة',
+    'latest news' => 'آخر الأخبار',
+    'most viewed' => 'الأكثر مشاهدة'
 ];
