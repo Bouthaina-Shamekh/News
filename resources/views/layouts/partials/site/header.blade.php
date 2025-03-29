@@ -129,10 +129,10 @@
                     @php
                         $adsHerder = App\Models\Ad::where('ad_place_id', 8)->first();
                     @endphp
-                    <div class="col-md-8 col-sm-12">
+                    <div class="col-md-8 col-sm-12" style="height: 95px;">
                         @if($adsHerder)
                             <a href="{{ $adsHerder->link }}">
-                                <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="Non Image For Ads" style="border: 1px solid gold;width: 100%">
+                                <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="Non Image For Ads" style="border: 1px solid gold;width: 100%; height: 100%">
                             </a>
                         @else
                         <a href="https://www.jinnedu.com/">

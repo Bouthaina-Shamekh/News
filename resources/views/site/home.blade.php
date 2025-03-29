@@ -458,7 +458,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 90%">
+                                                                    <div style="width: 205px">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
@@ -475,7 +475,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 49%">
+                                                                    <div style="width: 93px">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -499,7 +499,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 90%">
+                                                                    <div style="width: 205px">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
@@ -516,7 +516,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 49%">
+                                                                    <div style="width: 93px">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -540,7 +540,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 90%">
+                                                                    <div style="width: 205px">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
@@ -557,7 +557,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 49%">
+                                                                    <div style="width: 93px">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -649,7 +649,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 90%">
+                                                                    <div style="width: 205px">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
@@ -666,7 +666,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 49%">
+                                                                    <div style="width: 93px">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -690,7 +690,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 90%">
+                                                                    <div style="width: 205px">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
@@ -707,7 +707,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 49%">
+                                                                    <div style="width: 93px">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -731,7 +731,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 90%">
+                                                                    <div style="width: 205px">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
@@ -748,7 +748,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 49%">
+                                                                    <div style="width: 93px">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
