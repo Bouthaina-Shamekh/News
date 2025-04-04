@@ -1,68 +1,64 @@
 <x-site-layout>
-@php
-    $title = 'title_' . app()->getLocale();
-@endphp
-<div class="container">
-    <div class="row container2">
-        <div class="col-xs-12 col-md-3 section-left">
-            <!--main-->
-            <div class="">
-                <div class="main--content " data-sticky-content="true">
-                    <!--مساحة اعلانيه جانبية-->
-                    <!--sidebar-->
-                    <div class="main--sidebar float-left" data-sticky-content="true">
-                        <div class="sticky-content-inner">
-                            <!--اعلانات-->
-                            @php
-                            $ads = App\Models\Ad::where('ad_place_id', 5)->take(3)->get();
-                            @endphp
-                            @forelse ($ads as $ad)
-                            <div class="widget">
-                                <div class="">
-                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}">
-                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"
-                                        style="width: -webkit-fill-available;">
-                                    </a>
-                                </div>
-                            </div>
-                            @empty
-                            <div class="widget">
-                                <h2 class="h4" style="direction: rtl;">
-                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
-                            </div>
-                        @endforelse
-                            <div class="widget">
-                                <div class="widget--title">
-                                    <h2 class="h4" style="direction: rtl;">
-                                        حالة الطقس </h2>
-                                    <i class="icon fa fa-bullhorn"></i>
-                                </div>
-
-
-                                <div class="">
-                                    <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="Cairo" data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
-                                    <script>
-                                    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-                                    </script>
-                                </div>
-                            </div>
-                            <div class="widget">
-                                <div class="widget--title">
-                                    <h2 class="h4" style="    direction: rtl;">
-                                        أسعار العملات </h2>
-                                    <i class="icon fa fa-bullhorn"></i>
-                                </div>
-                                <div class="">
-                                    <a href="#">
-                                        <iframe src="https://ecwidgets.economies.ae/rates?quotes=35,93,67,79,37,65&type=forex&hideColumn='change'&width=900&height=800&borderColor=670005&columnHeadColor=white&tableHeadBackground=670005&fontSize=18" width="100%" height="195px" style="border:1px solid #670005; " title="أسعار العملات" class="div-mobile"></iframe>
-                                        <iframe src="https://ecwidgets.economies.ae/rates?quotes=35,93,67,79,37,65&type=forex&hideColumn='change'&width=100%&height=219&borderColor=670005&columnHeadColor=white&tableHeadBackground=670005" width="100%" height="194px" style="border:1px solid #670005;" title="أسعار العملات"  class="div-ipad"></iframe>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="widget">
+    @php
+        $title = 'title_' . app()->getLocale();
+    @endphp
+    <div class="container">
+        <div class="row container2">
+            <div class="col-xs-12 col-md-3 section-left">
+                <!--main-->
+                <div class="">
+                    <div class="main--content " data-sticky-content="true">
+                        <!--مساحة اعلانيه جانبية-->
+                        <!--sidebar-->
+                        <div class="main--sidebar float-left" data-sticky-content="true">
+                            <div class="sticky-content-inner">
+                                <!--اعلانات-->
                                 @php
-                                $ads = App\Models\Ad::where('ad_place_id', 6)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 5)->take(3)->get();
+                                @endphp
+                                @forelse ($ads as $ad)
+                                    <div class="widget">
+                                        <div class="">
+                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="widget">
+                                        <h2 class="h4" style="    direction: rtl;">
+                                            <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                    </div>
+                                @endforelse
+
+                                <div class="widget">
+                                    <div class="widget--title">
+                                        <h2 class="h4" style="    direction: rtl;">
+                                            حالة الطقس </h2>
+                                        <i class="icon fa fa-bullhorn"></i>
+                                    </div>
+                                    <div class="">
+                                        <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="Cairo" data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
+                                        <script>
+                                           
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="widget">
+                                    <div class="widget--title">
+                                        <h2 class="h4" style="    direction: rtl;">
+                                            أسعار العملات </h2>
+                                        <i class="icon fa fa-bullhorn"></i>
+                                    </div>
+                                    <div class="">
+                                        <a href="#">
+                                            <iframe src="https://ecwidgets.economies.ae/rates?quotes=35,93,67,79,37,65&type=forex&hideColumn='change'&width=900&height=800&borderColor=670005&columnHeadColor=white&tableHeadBackground=670005&fontSize=18" width="100%" height="195px" style="border:1px solid #670005; " title="أسعار العملات" class="div-mobile"></iframe>
+                                            <iframe src="https://ecwidgets.economies.ae/rates?quotes=35,93,67,79,37,65&type=forex&hideColumn='change'&width=100%&height=219&borderColor=670005&columnHeadColor=white&tableHeadBackground=670005" width="100%" height="194px" style="border:1px solid #670005;" title="أسعار العملات" class="div-ipad"></iframe>
+                                        </a>
+                                    </div>
+                                </div>
+                                @php
+                                    $ads = App\Models\Ad::where('ad_place_id', 6)->take(3)->get();
                                 @endphp
                                 @forelse ($ads as $ad)
                                     <div class="widget">
@@ -98,7 +94,6 @@
                                                 <li data-target="#myCarousel" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
                                             @endfor
                                         </ol>
-
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
@@ -162,7 +157,7 @@
                                                                 <a href=" #">{{ $newFirest->created_at->format('Y-m-d') }}</a>
                                                             </li>
                                                         </ul>
-                                                        <div class="title" style="    height: 80px;">
+                                                        <div class="title" style="height:80px;">
                                                             <h3 class="text h4">
                                                                 <a href="{{ route('site.new', $newFirest->id ?? 0) }}" class="btn-link text">{{ $newFirest->$title }}</a>
                                                             </h3>
@@ -188,10 +183,10 @@
                                                                 <a href="author?id=0"></a>
                                                             </li>
                                                             <li>
-                                                                <a href=" #">{{ $new->created_at }}</a>
+                                                                <a href=" #">{{ $new->created_at->format('Y-m-d') }}</a>
                                                             </li>
                                                         </ul>
-                                                        <div class="title" style="    height: 50px;margin-bottom: 7px;">
+                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
                                                             <h3 class="h4">
                                                                 <a href="{{ route('site.new', $new->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $new->$title }}</a>
                                                             </h3>
@@ -208,137 +203,132 @@
                                     </div>
                                 </div>
                             </div>
-
-                        <!-- مساحة اعلانية  -->
-                        <div class="col-md-12 ptop--30 ">
-                            <div class="post--items-title" style="padding: 0;" data-ajax="tab">
-                                @php
-                                $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
-                                @endphp
-                                @if($ads5)
-                                <a href="{{ $ads5->link }}">
-                                    <img src="{{ asset('storage/' . $ads5->image) }}" alt="jinn"
-                                        style="border: 1px solid gold;width: 100%;height: 100px;">
-                                </a>
-                                @else
+                            <!-- مساحة اعلانية  -->
+                            <div class="col-md-12 ptop--30 ">
+                                <div class="post--items-title" style="padding: 0;" data-ajax="tab">
+                                    <!-- <h2 class="h4" style="    direction: rtl;">
+                                        إعلان </h2> -->
+                                    @php
+                                    $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
+                                    @endphp
+                                    @if($ads5)
+                                    <a href="{{ $ads5->link }}">
+                                        <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
+                                            style="border: 1px solid gold;width: 100%;height:100px;">
+                                    </a>
+                                    @else
                                     <h2 class="h4" style="direction: rtl;"> <i class="icon fa fa-bullhorn"></i> إعلان </h2>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-
-                        <!--pbottom--30-->
-                        <div class="col-md-12 ptop--30 ">
-                            <div class="post--items-title" data-ajax="tab">
-                                <h2 class="h4" style="direction: rtl;">{{$categoryLast->$name}}</h2>
-                            </div>
-                        </div>
-                        <div class="post--items post--items-2" data-ajax-content="outer">
-                            <ul class="nav row gutter--15" data-ajax-content="inner">
-                                @php
-                                $articleFirest = $articles->first() ? $articles->first() : new App\Models\Artical();
-                                @endphp
-                                <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
-                                    <div class="post--item post--layout-1">
-                                        <div class="post--img mrg-top-m-34">
-                                            <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="thumb">
-                                                <img src="{{ asset('storage/' . $articleFirest->img_view) }}" alt="{{ $articleFirest->$title }}" style="object-fit: cover;" class="imgss">
-                                            </a>
-                                            <a href="#" class="cat"></a>
-                                            <a href="#" class="icon">
-                                                <i class="fa fa-flash"></i>
-                                            </a>
-                                            <div class="post--info">
-                                                <ul class="nav meta">
-                                                    <li>
-                                                        <a href="author?id=0"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">{{ $articleFirest->created_at->format('Y-m-d') }}</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="title" style="height: 80px;">
-                                                    <h3 class="text h4">
-                                                        <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="btn-link text">{{ $articleFirest->$title }}</a>
-                                                    </h3>
+                            <!--pbottom--30-->
+                            <div class="row">
+                                <div class="col-md-12 ptop--30 ">
+                                    <div class="post--items-title" data-ajax="tab">
+                                        <h2 class="h4" style="direction: rtl;">{{$categoryLast->$name}}</h2>
+                                    </div>
+                                </div>
+                                <div class="post--items post--items-2" data-ajax-content="outer">
+                                    <ul class="nav row gutter--15" data-ajax-content="inner">
+                                        @php
+                                        $articleFirest = $articles->first() ? $articles->first() : new App\Models\Artical();
+                                        @endphp
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+                                            <div class="post--item post--layout-1">
+                                                <div class="post--img mrg-top-m-34">
+                                                    <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $articleFirest->img_view) }}" alt="{{ $articleFirest->$title }}" style="object-fit: cover;" class="imgss">
+                                                    </a>
+                                                    <a href="#" class="cat"></a>
+                                                    <a href="#" class="icon">
+                                                        <i class="fa fa-flash"></i>
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $articleFirest->created_at }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="    height: 80px;">
+                                                            <h3 class="text h4">
+                                                                <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="btn-link text">{{ $articleFirest->$title }}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
-                                    <hr class="divider">
-                                </li>
-                                @foreach($articles->skip(1)->take(6) as $article)
-                                <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div"
-                                    style="">
-                                    <div class="post--item post--layout-2">
-                                        <div class="post--img">
-                                            <a href="{{ route('site.article', $article->id) }}" class="thumb">
-                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt=""
-                                                    class="home-sml-img">
-                                            </a>
-                                            <div class="post--info">
-                                                <ul class="nav meta">
-                                                    <li>
-                                                        <a href="#"></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">{{ $article->created_at->format('Y-m-d') }}</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="title"
-                                                    style="height: 50px;margin-bottom: 7px;">
-                                                    <h3 class="h4">
-                                                        <a href="{{ route('site.article', $article->id) }}" maxlength="80" class="btn-link text">{{ \Illuminate\Support\Str::words($article->$title, 8, '...') }}</a>
-                                                    </h3>
-                                                    <br>
+                                        </li>
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+                                            <hr class="divider">
+                                        </li>
+                                        @foreach($articles->skip(1)->take(6) as $article)
+                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div" style="">
+                                            <div class="post--item post--layout-2">
+                                                <div class="post--img">
+                                                    <a href="{{ route('site.article', $article->id) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="" class="home-sml-img">
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $article->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.article', $article->id) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
+                                                            </h3>
+                                                            <br>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                @endforeach
-                            </ul>
-                            <div class="preloader bg--color-0--b" data-preloader="1">
-                                <div class="preloader--inner"></div>
-                            </div>
-                        </div>
-                        <!-- اعلانات -->
-                        <div class="col-md-12 ptop--30 ">
-                            <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
-                                @php
-                                $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
-                                @endphp
-                                @if($ads6)
-                                <a href="{{ $ads6->link }}">
-                                    <img src="{{ asset('storage/' . $ads6->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%;height: 100px;">
-                                </a>
-                                @else
-                                    <h2 class="h4" style="    direction: rtl;"> <i class="icon fa fa-bullhorn"></i> إعلان </h2>
-                                @endif
-                            </div>
-                        </div>
+                                        </li>
+                                        @endforeach
 
-                        <div class="row">
-                            <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 "
-                                style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
-                                <div class="row">
-                                    <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3"
-                                        style="background-image: url({{ asset('assets/img/rr37.png') }}); background-repeat: no-repeat;">
-                                        <h5><a href="{{ route('site.news') }}" style="color: #fff;">&nbsp; </a></h5>
-                                    </div>
-                                    <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
-                                        <h5 style="text-align: center;"><a href="{{ route('site.news') }}" style="color: #fff;">
-                                                المزيد من الاخبار</a>
-                                        </h5>
+                                    </ul>
+                                    <div class="preloader bg--color-0--b" data-preloader="1">
+                                        <div class="preloader--inner"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-xs-0 col-sm-2  col-lg-4 "></div>
-                            <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 "
-                                style="  background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
-                                <div class="row">
+                            <div class="col-md-12 ptop--30 ">
+                                <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
+                                    @php
+                                    $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
+                                    @endphp
+                                    @if($ads6)
+                                    <a href="{{ $ads6->link }}">
+                                        <img src="{{ asset('storage/' . $ads6->image) }}" alt="No Image For Ad"
+                                            style="border: 1px solid gold;width: 100%;height: 100px;">
+                                    </a>
+                                    @else
+                                    <h2 class="h4" style="    direction: rtl;"> <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/rr37.png') }}); background-repeat: no-repeat;">
+                                            <h5><a href="{{ route('site.news') }}" style="color: #fff;">&nbsp; </a></h5>
+                                        </div>
+                                        <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
+                                            <h5 style="text-align: center;"><a href="{{ route('site.news') }}" style="color: #fff;">
+                                                    المزيد من الاخبار</a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xs-0 col-sm-2  col-lg-4 "></div>
+                                <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style="  background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
+                                    <div class="row">
 
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9" style="">
                                             <h5 style="text-align: center;"><a href="{{ route('site.articles') }}" style="color: #fff;">المزيد من المقالات </a>
@@ -353,7 +343,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-xs-12 col-sm-12 col-lg-1"></div>
             </div>
             <div class="col-xs-12 col-md-3">
                 {{-- slider mobile --}}
@@ -371,7 +360,6 @@
                                                 <li data-target="#myCarousel" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
                                             @endfor
                                         </ol>
-
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
@@ -449,31 +437,31 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->get()->take(3);
+                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
-                                                                                        {{ $new->$title }}
+                                                                                        {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -497,24 +485,24 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
-                                                                                        {{ $new->$title }}
+                                                                                        {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -531,31 +519,31 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Nw::where('statu_id', 2)->get()->take(3);
+                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
-                                                                                        {{ $new->$title }}
+                                                                                        {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -586,7 +574,7 @@
 
                                     <div class="">
                                         <a href="{{ $ad->url }}" title="{{ $ad->title }}">
-                                            <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%;     width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                            <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                         </a>
                                     </div>
                                 </div>
@@ -610,7 +598,7 @@
                                                         data-bs-target="#nav-home2" role="tab"
                                                         aria-controls="nav-home2" aria-selected="true">
                                                         {{-- أخبار عاجلة --}}
-                                                        {{ __('site.emergency news') }}
+                                                        {{ __('site.emergency articles') }}
                                                     </a>
                                                 </li>
                                                 <li class="active">
@@ -619,7 +607,7 @@
                                                         data-bs-target="#nav-profile2" role="tab"
                                                         aria-controls="nav-profile2" aria-selected="false">
                                                         {{-- أحدث الأخبار --}}
-                                                        {{ __('site.latest news') }}
+                                                        {{ __('site.latest articles') }}
                                                     </a>
                                                 </li>
                                                 <li>
@@ -640,19 +628,19 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->orderBy('id', 'desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Artical::get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -664,7 +652,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -681,19 +669,19 @@
                                                     <!-- Content for أحدث الأخبار -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->get()->skip(3)->take(3);
+                                                        $latest_news = App\Models\Artical::orderBy('id', 'desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -705,7 +693,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -722,19 +710,19 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Nw::where('statu_id', 2)->orderBy('id', 'desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Artical::orderBy('visit', 'asc')->orderBy('id', 'desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -746,7 +734,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -764,6 +752,7 @@
                                 </div>
                             </div>
 
+                            
                             {{-- sidebar ads 2 --}}
                             <div class="sticky-content-inner">
                                 <hr>
@@ -777,13 +766,13 @@
 
                                     <div class="">
                                         <a href="{{ $ad->url }}" title="{{ $ad->title }}">
-                                            <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%;     width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                            <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                         </a>
                                     </div>
                                 </div>
                                 @empty
                                 <div class="widget">
-                                    <h2 class="h4" style="    direction: rtl;">
+                                    <h2 class="h4" style="direction: rtl;">
                                         <i class="icon fa fa-bullhorn"></i> إعلان
                                     </h2>
                                 </div>

@@ -27,11 +27,10 @@
                                 <i class="fa fm fa-mixcloud"></i>
                                 <sup>0</sup> C
                             <li id="temp">
-                                <i class="fa fm fa-calendar"></i>Thursday 13th of February 2025 04:15:09 AM
+                                <i class="fa fm fa-calendar"></i><span id="datetime"></span>
                             </li>
                         </ul>
                     </div>
-                    <div class=" float--left text-xs-center">
                     <div class=" float--left text-xs-center">
                         <ul class="header--topbar-action nav">
                             <li>
@@ -80,7 +79,6 @@
                             </li>
                         </ul>
 
-
                     </div>
                 </div>
             </div>
@@ -89,7 +87,6 @@
     <div class="header--mainbar">
         <div class="container">
             <div class="main-content--section">
-                <div class="row hrader_logo_ads">
                 <div class="row hrader_logo_ads">
                     <!--header--logo-->
                     <div class="col-md-4 col-sm-12 float--right text-sm-center"
@@ -113,12 +110,9 @@
                         <a href="{{ route('site.index') }}" class="btn-link col-sm-4 nav_logo_img" style="padding-right: 0px;">
                             @if(Storage::disk('public')->exists($logo))
                             <img src="{{ asset($logo) }}" alt="" style="width: 100%;">
-                            <img src="{{ asset($logo) }}" alt="" style="width: 100%;">
                             @else
                             <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 100%;">
-                            <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 100%;">
                             @endif
-                            <span class="hidden"> Logo</span>
                             <span class="hidden"> Logo</span>
                         </a>
                         <!--</h1>-->
@@ -128,17 +122,11 @@
                         $adsHerder = App\Models\Ad::where('ad_place_id', 8)->first();
                     @endphp
                     <div class="col-md-8 col-sm-12">
-                    <div class="col-md-8 col-sm-12">
                         @if($adsHerder)
                         <a href="{{ $adsHerder->link }}">
                             <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%">
                         </a>
-                        <a href="{{ $adsHerder->link }}">
-                            <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%">
-                        </a>
                         @else
-                        <a href="#">
-                            <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%">
                         <a href="#">
                             <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%">
                         </a>
@@ -154,25 +142,13 @@
                 <span class="close-menu"><i class="fa fa-times"></i></span>
                 <ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{__('site.More')}} 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{__('site.More')}}
                             <i class="fa flm fa-angle-left"></i>
                         </a>
                         <ul class="dropdown-menu scrollmenu" style="float: right;direction: rtl;text-align: right;">
-                        <ul class="dropdown-menu scrollmenu" style="float: right;direction: rtl;text-align: right;">
                             @php
                                 $categories = App\Models\Category::all();
                             @endphp
-                             @foreach ($categories as $category)
-                            <li style="width: 200px;padding: 20px;" class="box">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img src="{{asset('storage/'.$category->image)}}" style="width: max-content; height: 100px;">
-                                    </div>
-                                    <div class="col-md-12"> <a href="{{route('site.news', $category->id)}}">{{ $category->$name }}</a>
-                                    </div>
-                                </div>
-                            </li>
                              @foreach ($categories as $category)
                             <li style="width: 200px;padding: 20px;" class="box">
                                 <div class="row">
@@ -188,26 +164,17 @@
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.contact')}}">{{__('site.ContactUs')}}</a>
-                    <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
-                        <a href="{{route('site.contact')}}">{{__('site.ContactUs')}}</a>
                     </li>
-                    <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
-                        <a href="{{route('site.about')}}">{{__('site.AboutUs')}}</a>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.about')}}">{{__('site.AboutUs')}}</a>
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.news')}}">{{__('site.News')}}</a>
-                    <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
-                        <a href="{{route('site.news')}}">{{__('site.News')}}</a>
                     </li>
-                    <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
-                        <a href="{{route('site.articles')}}">{{__('site.Articles')}}</a>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.articles')}}">{{__('site.Articles')}}</a>
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
-                        <a href="{{route('site.index')}}">{{__('site.Home')}}</a>
                         <a href="{{route('site.index')}}">{{__('site.Home')}}</a>
                     </li>
                 </ul>

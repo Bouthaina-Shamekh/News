@@ -84,3 +84,29 @@ $(document).ready(function () {
         $(target).addClass('show active');
     });
 });
+
+ // Function to update the date and time every second
+function updateDateTime() {
+    const now = new Date();
+    const options = {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    };
+    const formatted = now.toLocaleString('en-US', options);
+    document.getElementById('datetime').innerText = formatted;
+}
+
+setInterval(updateDateTime, 1000);
+updateDateTime(); // Run immediately
+
+// end of date and time function
+
+// Function to update the weatherwidget every second
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+// end of weather widget function
