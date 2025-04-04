@@ -7217,7 +7217,7 @@ ul.scrollmenu a:hover {
     .header--topbar .nav{
         font-size: 32px;
     }
-    
+
     .header--topbar .nav>li {
         float: none;
         margin: 1px 10px 15px;
@@ -7239,10 +7239,22 @@ ul.scrollmenu a:hover {
     .div-mobile{
         display: block;
     }
+    .post--img-1{
+        width: 623px;
+    }
+    .post--img-2{
+        width: 288px;
+    }
 }
 
 
 @media (min-width:992px) {
+    .post--img-1{
+        width: 205px;
+    }
+    .post--img-2{
+        width: 93px;
+    }
     .div-ipad{
         display: block;
     }
@@ -7265,7 +7277,7 @@ ul.scrollmenu a:hover {
     .header--topbar .nav{
         font-size: 18px;
     }
-    
+
     .navbar-header{
         display: none;
     }
@@ -7291,13 +7303,13 @@ ul.scrollmenu a:hover {
     .h4{
         font-size: 14px !important;
     }
-    
+
     .title h5{
         font-size: 14px;
         padding-right: 12px !important;
     }
     .section-right{
-        width: fit-content;
+        width: 100%;
     }
     .container {
         width: 970px

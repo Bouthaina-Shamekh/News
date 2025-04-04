@@ -2,6 +2,8 @@
     $name = 'name_' . app()->getLocale();
     $title = 'title_' . app()->getLocale();
 @endphp
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <header class="header--section header--style-1">
     <div class="header--topbar bg--color-2">
         <div class="container">
@@ -44,13 +46,25 @@
                                     onclick="if (!window.__cfRLUnblockHandlers) return false; langc('ar')"
                                     class="dropdown-toggle" data-toggle="dropdown"
                                     data-cf-modified-6a7e8b1cabee735aa3fb2ed4-="">
-                                    <i class="fa fm fa-language"></i> English
+                                    <i class="fa fm fa-language"></i>
+                                    @if(app()->getLocale() == 'en')
+                                        العربية
+                                    @else
+                                        English
+                                    @endif
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#"
-                                            onclick="if (!window.__cfRLUnblockHandlers) return false; langc('ar')"
-                                            data-cf-modified-6a7e8b1cabee735aa3fb2ed4-="" id="toLang">Arabic</a>
+                                        @php
+                                            $lang = app()->getLocale() == 'en' ? 'ar' : 'en';
+                                        @endphp
+                                        <a href="{{ Str::replaceFirst(app()->getLocale(), $lang, url()->current()) }}"  id="toLang">
+                                            @if(app()->getLocale() == 'en')
+                                                العربية
+                                            @else
+                                                English
+                                            @endif
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#"
