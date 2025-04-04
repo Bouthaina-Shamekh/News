@@ -48,10 +48,10 @@
                                         <i class="icon fa fa-bullhorn"></i>
                                     </div>
                                     <div class="">
-                                        <a href="#">
-                                            <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="El Messiri" data-icons="Climacons Animated" data-mode="Forecast" data-theme="ruby">PALESTINE
-                                                WEATHER</a>
-                                        </a>
+                                        <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="Cairo" data-icons="Climacons Animated" data-theme="pure" data-basecolor="#670006" data-textcolor="#ffffff" data-suncolor="#ffffff">PALESTINE WEATHER</a>
+                                        <script>
+                                        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                                        </script>
                                     </div>
                                 </div>
                                 <div class="widget">
@@ -104,7 +104,6 @@
                                                 <li data-target="#myCarousel" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
                                             @endfor
                                         </ol>
-
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
@@ -194,7 +193,7 @@
                                                                 <a href="author?id=0"></a>
                                                             </li>
                                                             <li>
-                                                                <a href=" #">{{ $new->created_at }}</a>
+                                                                <a href=" #">{{ $new->created_at->format('Y-m-d') }}</a>
                                                             </li>
                                                         </ul>
                                                         <div class="title" style="    height: 50px;margin-bottom: 7px;">
@@ -373,7 +372,6 @@
                                                 <li data-target="#myCarousel" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
                                             @endfor
                                         </ol>
-
                                         <!-- Wrapper for slides -->
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
@@ -451,19 +449,19 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->get()->take(3);
+                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -475,7 +473,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -499,12 +497,12 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -516,7 +514,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -533,19 +531,19 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Nw::where('statu_id', 2)->get()->take(3);
+                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -557,7 +555,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -612,7 +610,7 @@
                                                         data-bs-target="#nav-home2" role="tab"
                                                         aria-controls="nav-home2" aria-selected="true">
                                                         {{-- أخبار عاجلة --}}
-                                                        {{ __('site.emergency news') }}
+                                                        {{ __('site.emergency articles') }}
                                                     </a>
                                                 </li>
                                                 <li class="active">
@@ -621,7 +619,7 @@
                                                         data-bs-target="#nav-profile2" role="tab"
                                                         aria-controls="nav-profile2" aria-selected="false">
                                                         {{-- أحدث الأخبار --}}
-                                                        {{ __('site.latest news') }}
+                                                        {{ __('site.latest articles') }}
                                                     </a>
                                                 </li>
                                                 <li>
@@ -642,19 +640,19 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Nw::where('statu_id', 1)->orderBy('id', 'desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Artical::get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -666,7 +664,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -683,19 +681,19 @@
                                                     <!-- Content for أحدث الأخبار -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->get()->skip(3)->take(3);
+                                                        $latest_news = App\Models\Artical::orderBy('id', 'desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -707,7 +705,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
@@ -724,19 +722,19 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Nw::where('statu_id', 2)->orderBy('id', 'desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Artical::orderBy('visit', 'asc')->orderBy('id', 'desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
-                                                                    <div style="width: 205px">
+                                                                    <div class="post--img-1">
                                                                         <div class="post--info">
                                                                             <ul class="nav meta text-center">
                                                                                 <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
-                                                                                <li><a href="#">{{ $new->created_at }}</a>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
                                                                             </ul>
                                                                             <div class="title">
@@ -748,7 +746,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div style="width: 93px">
+                                                                    <div class="post--img-2">
                                                                         <a href="{{ route('site.new', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>

@@ -74,5 +74,7 @@ return [
 
     'emergency news' => 'Emergency News',
     'latest news' => 'Latest News',
-    'most viewed' => 'Most Viewed'
+    'most viewed' => 'Most Viewed',
+    'latest articles' => 'Latest Articles',
+    'emergency articles' => 'Emergency Articles',
 ];

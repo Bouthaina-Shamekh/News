@@ -16,8 +16,8 @@ return [
     'ContactUs' =>'تواصل معنا',
     'AboutUs' => 'معلومات عنا',
 
-    'Login' => 'تسجيل الدخول',
-    'Signup' => 'انشاء حساب',
+    'Login' => 'دخول',
+    'Signup' => 'تسجيل',
 
     'Search' => 'ابحث هنا...',
     'Show More' => 'عرض المزيد',
@@ -77,5 +77,7 @@ return [
 
     'emergency news' => 'أخبار عاجلة',
     'latest news' => 'آخر الأخبار',
-    'most viewed' => 'الأكثر مشاهدة'
+    'most viewed' => 'الأكثر مشاهدة',
+    'latest articles' => 'آخر المقالات',
+    'emergency articles' => 'أخبار عاجلة',
 ];
