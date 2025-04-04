@@ -77,5 +77,7 @@ return [
 
     'emergency news' => 'أخبار عاجلة',
     'latest news' => 'آخر الأخبار',
-    'most viewed' => 'الأكثر مشاهدة'
+    'most viewed' => 'الأكثر مشاهدة',
+    'latest articles' => 'آخر المقالات',
+    'emergency articles' => 'أخبار عاجلة',
 ];

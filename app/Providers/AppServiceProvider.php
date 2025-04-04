@@ -32,9 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
 
         $locale = LaravelLocalization::getCurrentLocale(); // اللغة الحالية من المكتبة
-    if (!$locale) {
-        LaravelLocalization::setLocale('ar');
-    } 
+        // if (!$locale) {
+        //     LaravelLocalization::setLocale('ar');
+        // }
 
         View::share('name', 'name_' . app()->currentLocale());
         View::share('title', 'title_' . app()->currentLocale());
@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
             }
         });
         // // the Authorization for Report Page
-       
+
 
     }
 }

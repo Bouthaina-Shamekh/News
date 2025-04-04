@@ -12,6 +12,7 @@ use App\Models\Comment;
 use App\Models\Setting;
 use App\Models\Category;
 use App\Models\NewPlace;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,7 +21,7 @@ class MainController extends Controller
     public function home()
     {
         $ads = Ad::get();
-        $sliders  = Nw::where('new_place_id', 1)->get();
+        $sliders  = Nw::where('new_place_id', 4)->take(5)->get();
         $categoryFirst = Category::first() ?? new Category();
         $news = Nw::where('category_id', $categoryFirst->id)->get();
         $categoryLast = Category::orderBy('id', 'desc')->first() ?? new Category();
