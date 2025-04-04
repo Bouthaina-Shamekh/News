@@ -12,7 +12,6 @@
                 <span> Instagram</span>
             </a>
         </li>
-
         <li>
             <a href="https://www.youtube.com/@marenapost">
                 <i class="fa fa-youtube-play"></i>
@@ -26,26 +25,6 @@
         <i class="fa fa-angle-double-up"></i>
     </a>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="{{ asset('assets/js/script.js') }}"></script>
-<script>
-    @if(app()->getLocale() == 'ar')
-    $("#toLang").text("English");
-    $("#changeDirection").prop("disabled", true);
-    $('html').attr('dir', 'rtl');
-    @else
-    $("#toLang").text("العربية");
-    $("#changeDirection").prop("disabled", false);
-    $('html').attr('dir', 'ltr');
-    @endif
-</script>
-
-
-
-
-
-@stack('scripts')
+<script src="{{ asset('assets-new/js/script.js') }}"></script>
 </body>
-
 </html>
