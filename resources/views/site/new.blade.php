@@ -12,7 +12,7 @@
                     <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.home")}}</a>
                     </li>
                     <li>
-                        <a href="news?c={{ $new->category_id }}" class="btn-link">{{ $new->category->$name }} </a>
+                        <a href="news?c={{ $new->category_id }}" class="btn-link">{{ $new->category->$name  ?? ''}} </a>
                     </li>
                     <li class="active">
                         <span>{{ $new->$title }}</span>
@@ -51,7 +51,7 @@
                                     <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','dislike')"
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
                                                 class="fa  fa-thumbs-down"></i></a></li>
-                                    <li><a href="{{url('news?c='.$new->category->id)}}">{{$new->category->$name}}</a>
+                                    <li><a href="{{url('news?c='.$new->category_id)}}">{{$new->category->$name ?? ''}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -59,7 +59,7 @@
 
                                 <ul class="nav meta">
                                     <li><a href="news?psh=31">
-                                        {{$new->publisher->name}}
+                                        {{$new->publisher->name ?? ''}}
                                     </a>
                                     </li>
                                     <li><a href="#">{{date('Y-m-d',strtotime($new->created_at))}}</a></li>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="post--content dir_rtl">
-                                {{$new->$text}}
+                                {!! $new->$text !!}
                             </div>
                             <div>
                                 <video src="{{asset('storage/'.$new->vedio)}}" height="320" width="100%" controls></video>
@@ -85,11 +85,13 @@
                             <div class="img">
                                 <div class="vc--parent">
                                     <div class="vc--child">
-                                        <a href="author?id=31" class="btn-link"> <img
-                                                src="{{asset('storage/'.$new->publisher->img)}}" alt="">
+                                        <a href="author?id=31" class="btn-link">
+                                            @if($new->publisher)
+                                            <img src="{{asset('storage/'.$new->publisher->img)}}" alt="">
+                                            @endif
                                             <br>
                                             <h3 class="name" style="text-align:center;color:red;">
-                                                {{$new->publisher->name}} </h3>
+                                                {{$new->publisher->name ?? ''}} </h3>
                                         </a>
                                     </div>
                                 </div>

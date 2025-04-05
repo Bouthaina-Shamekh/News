@@ -12,7 +12,7 @@
                     <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.home")}}</a>
                     </li>
                     <li>
-                        <a href="{{ route('site.articles',['c' => $article->category_id]) }}" class="btn-link">{{ $article->category->$name }} </a>
+                        <a href="{{ route('site.articles',['c' => $article->category_id]) }}" class="btn-link">{{ $article->category->$name ?? '' }} </a>
                     </li>
                     <li class="active">
                         <span>{{ $article->$title }}</span>
@@ -51,7 +51,7 @@
                                     <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','dislike')"
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
                                                 class="fa  fa-thumbs-down"></i></a></li>
-                                    <li><a href="{{url('articles?c='.$article->category->id)}}">{{$article->category->$name}}</a>
+                                    <li><a href="{{url('articles?c='.$article->category_id)}}">{{$article->category->$name ?? ''}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -59,7 +59,7 @@
 
                                 <ul class="nav meta">
                                     <li><a href="news?psh=31">
-                                        {{$article->publisher->name}}
+                                        {{$article->publisher->name ?? ''}}
                                     </a>
                                     </li>
                                     <li><a href="#">{{date('Y-m-d',strtotime($article->created_at))}}</a></li>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="post--content dir_rtl">
-                                {{$article->$text}}
+                                {!! $article->$text !!}
                             </div>
                             <div>
                                 <video src="{{asset('storage/'.$article->vedio)}}" height="320" width="100%" controls></video>
@@ -85,11 +85,18 @@
                             <div class="img">
                                 <div class="vc--parent">
                                     <div class="vc--child">
-                                        <a href="author?id=31" class="btn-link"> <img
-                                                src="{{asset('storage/'.$article->publisher->img)}}" alt="">
+                                        <a href="author?id=31" class="btn-link">
+                                            @if($article->publisher)
+                                            <img src="{{asset('storage/'.$article->publisher->img)}}" alt="">
                                             <br>
                                             <h3 class="name" style="text-align:center;color:red;">
-                                                {{$article->publisher->name}} </h3>
+                                                {{$article->publisher->name ?? ''}} </h3>
+                                            @else
+                                            {{-- <img src="" alt=""> --}}
+                                            <br>
+                                            <h3 class="name" style="text-align:center;color:red;">
+                                                {{$article->publisher->name ?? ''}} </h3>
+                                            @endif
                                         </a>
                                     </div>
                                 </div>
@@ -101,7 +108,6 @@
                                 <div class="content">
                                     <p>ناشرة في مجلة مارينا بوست </p>
                                 </div>
-
                             </div>
                         </div>
                     </div>

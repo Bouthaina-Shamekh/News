@@ -71,11 +71,11 @@
                                                     <li>
                                                         <a href="author?id=0"></a>
                                                     </li>
-                                                    <li><a href="#">{{ $article->created_at }}</a></li>
+                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.article', $article->id)}}" class="btn-link  news-title">
+                                                        <a href="{{ route('site.article', $article->id)}}" title="{{ $article->$title }}" class="btn-link  news-title">
                                                             {{ $article->$title }}
                                                         </a>
                                                     </h3>
@@ -90,28 +90,25 @@
 
                             </ul>
                         </div>
-                        @if(request()->is(app()->getLocale() . '/articles') && $articles->lastPage() > 1)
-                            <div class="pagination--wrapper clearfix bdtop--1 bd--color-2 ptop--60 pbottom--30">
+                        @if($articles->lastPage() > 1)
+                            <div class="pagination--wrapper clearfix bdtop--1 bd--color-2 ptop--60 pbottom--30" dir="rtl">
                                 <ul class="pagination">
                                     <li>
                                         <a href="{{ $articles->previousPageUrl() . (http_build_query(request()->except('page')) ? '&' . http_build_query(request()->except('page')) : '') }}">
                                             <i class="fa fa-long-arrow-right"></i>
                                         </a>
                                     </li>
-
                                     {{-- عرض الصفحات بين النطاق السابق واللاحق للصفحة الحالية --}}
                                     @php
                                         $currentPage = $articles->currentPage();
                                         $lastPage = $articles->lastPage();
                                         $range = 2;  // عرض صفحتين قبل وبعد الصفحة الحالية
                                     @endphp
-
                                     @for($i = max(1, $currentPage - $range); $i <= min($lastPage, $currentPage + $range); $i++)
                                         <li class="{{ $currentPage == $i ? 'active' : '' }}">
                                             <a href="{{ $articles->url($i) . (http_build_query(request()->except('page')) ? '&' . http_build_query(request()->except('page')) : '') }}">{{ $i }}</a>
                                         </li>
                                     @endfor
-
                                     <li>
                                         <a href="{{ $articles->nextPageUrl() . (http_build_query(request()->except('page')) ? '&' . http_build_query(request()->except('page')) : '') }}">
                                             <i class="fa fa-long-arrow-left"></i>
@@ -120,7 +117,6 @@
                                 </ul>
                             </div>
                         @endif
-
                     </div>
                 </div>
                 <div class="main--sidebar col-md-4 col-sm-5 ptop--30 pbottom--30 text_dir"

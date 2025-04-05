@@ -19,10 +19,16 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::view('not_allowed', 'not_allowed');
+Route::get('/', function () {
+    // هذا يحول / إلى /ar تلقائيًا بناءً على اللغة الافتراضية
+    return redirect(LaravelLocalization::getLocalizedURL('ar'));
+});
 
 // Website Routes
-Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
+Route::group([
+    'prefix' => LaravelLocalization::setLocale()
+
+], function(){
     Route::group([
         'as' => 'site.',
     ],function(){
@@ -38,9 +44,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function(){
         Route::get('/contact', [MainController::class, 'contact'])->name('contact');
         Route::post('/contact', [MainController::class, 'contact_data'])->name('contactdata');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
-      
-       
-       
+
+
+
 
     });
 

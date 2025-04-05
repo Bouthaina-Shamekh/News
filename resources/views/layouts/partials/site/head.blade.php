@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="ar">
     <head>
         <meta charset="utf-8">
         <title>مارينا بوست </title>
@@ -21,7 +21,6 @@
     $name = 'name_' . app()->getLocale();
     $title = 'title_' . app()->getLocale();
     @endphp
-<body onload="document.body.style.backgroundColor = 'white';document.body.style.backgroundImage = 'url()';">    
+<body onload="document.body.style.backgroundColor = 'white';document.body.style.backgroundImage = 'url()';">
 
 
-    

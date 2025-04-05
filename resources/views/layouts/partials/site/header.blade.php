@@ -179,11 +179,14 @@
                     </li>
                 </ul>
             </div>
-            <form action="#" class="header--search-form float--right " data-form=" validate ">
-                <input type="search " name="search " id="stxt " placeholder="Search... "
+            <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right">
+                <input type="search" name="search" id="stxt" placeholder="Search... "
                     class="header--search-control form-control " required
-                    onkeyup="if (!window.__cfRLUnblockHandlers) return false; myFn2( 'stxt') ">
-                <button type="submit " class="header--search-btn btn ">
+                    >
+                <button type="button" class="header--search-btn btn btn-header-1">
+                    <i class="header--search-icon fa fa-search "></i>
+                </button>
+                <button type="submit" class="header--search-btn btn btn-header-2" style="display: none;">
                     <i class="header--search-icon fa fa-search "></i>
                 </button>
             </form>

@@ -54,7 +54,7 @@ class Nw extends Model
 
     public function comment()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,'news_id');
     }
 
     public function status()

@@ -72,11 +72,16 @@ class MainController extends Controller
         $news = Nw::query();
         $category = $request->query('c');
         $place = $request->query('pl');
+        $search = $request->search;
         if($category){
             $news = $news->where('category_id', $category);
         }
         if($place){
             $news = $news->where('new_place_id', $place);
+        }
+        if($search){
+
+            $news = $news->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
         $news = $news->paginate(10);
         $categories = Category::all();
@@ -89,7 +94,7 @@ class MainController extends Controller
         $new->update([
             'visit' => $new->visit + 1
         ]);
-        $comments= Comment::where('nw_id', $id)->get();
+        $comments= Comment::where('news_id', $id)->get();
         return view('site.new', compact('new', 'comments'));
     }
 

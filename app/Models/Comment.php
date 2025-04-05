@@ -9,18 +9,20 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $table = 'comment';
+
     public $timestamps = false;
 
     protected $fillable = [
         'sender_name',
         'email',
         'text',
-        'nw_id',
+        'news_id',
     ];
 
     public function nw()
     {
-        return $this->belongsTo(Nw::class);
+        return $this->belongsTo(Nw::class,'news_id');
     }
 }
 

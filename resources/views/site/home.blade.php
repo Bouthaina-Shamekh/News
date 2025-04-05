@@ -40,7 +40,7 @@
                                     <div class="">
                                         <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="Cairo" data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
                                         <script>
-                                           
+
                                         </script>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
                                                 <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.news', $slider->id) }}">
+                                                    <a href="{{ route('site.new', $slider->id) }}">
                                                         <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
                                                     </a>
                                                     <div style=" margin: 0%;height: 70px; margin-top: -76px;">
@@ -364,7 +364,7 @@
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
                                                 <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.news', $slider->id) }}">
+                                                    <a href="{{ route('site.new', $slider->id) }}">
                                                         <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
                                                     </a>
                                                     <div style=" margin: 0%;height: 70px; margin-top: -76px;">
@@ -752,7 +752,7 @@
                                 </div>
                             </div>
 
-                            
+
                             {{-- sidebar ads 2 --}}
                             <div class="sticky-content-inner">
                                 <hr>

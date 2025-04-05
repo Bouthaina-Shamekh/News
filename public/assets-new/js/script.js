@@ -1,8 +1,11 @@
 $(document).ready(function() {
     $(".header--search-btn").click(function(event) {
-        event.preventDefault(); // Prevent form submission
+        // event.preventDefault(); // Prevent form submission
 
         $(".header--search-form").addClass("active");
+        $('.btn-header-1').hide();
+        $('.btn-header-2').show();
+        // $(this).attr('type','submit');
     });
 
     // Remove 'active' class when clicking outside the form

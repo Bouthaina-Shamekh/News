@@ -71,11 +71,11 @@
                                                     <li>
                                                         <a href="author?id=0"></a>
                                                     </li>
-                                                    <li><a href="#">{{ $new->created_at }}</a></li>
+                                                    <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a></li>
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.new', $new->id)}}" class="btn-link news-title">
+                                                        <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link news-title">
                                                             {{ $new->$title }}
                                                         </a>
                                                     </h3>
@@ -88,8 +88,8 @@
 
                             </ul>
                         </div>
-                        @if(request()->is(app()->getLocale() . '/news') && $news->lastPage() > 1)
-                            <div class="pagination--wrapper clearfix bdtop--1 bd--color-2 ptop--60 pbottom--30">
+                        @if($news->lastPage() > 1)
+                            <div class="pagination--wrapper clearfix bdtop--1 bd--color-2 ptop--60 pbottom--30" dir="rtl">
                                 <ul class="pagination">
                                     <li>
                                         <a href="{{ $news->previousPageUrl() . (http_build_query(request()->except('page')) ? '&' . http_build_query(request()->except('page')) : '') }}">
