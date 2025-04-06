@@ -4,12 +4,23 @@
         $name = 'name_' . app()->getLocale();
         $text = 'text_' . app()->getLocale();
     @endphp
+    @push('styles')
+        <style>
+        .news-title{
+                display: inline-block !important;
+                max-width: 395px !important;
+                white-space: nowrap;
+                overflow: clip;
+                text-overflow: ellipsis;
+                text-align: start !important;
+            }
+        </style>
+    @endpush
     <x-slot:header>
         <div class="main--breadcrumb">
             <div class="container">
-                <ul class="breadcrumb" style="direction: ltr;">
-
-                    <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.home")}}</a>
+                <ul class="breadcrumb">
+                    <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.Home")}}</a>
                     </li>
                     <li>
                         <a href="news?c={{ $new->category_id }}" class="btn-link">{{ $new->category->$name  ?? ''}} </a>
@@ -263,6 +274,48 @@
                                     </div>
                                     <div class="status"></div>
                                 </form>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <div class="widget--title">
+                                <h2 class="h4">
+                                    مقالات ذات صلة </h2> <i class="icon fa fa-newspaper-o"></i>
+                            </div>
+                            <div class="list--widget list--widget-1">
+                                <div class="post--items post--items-3" data-ajax-content="outer">
+                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                        @foreach ($news as $newS)
+                                        <li>
+                                            <div class="post--item post--layout-3">
+                                                <div class="post--img">
+                                                    <a href="{{ route('site.news',$newS->id) }}" class="thumb" style="float: right;">
+                                                        <img src="{{asset('storage/'.$newS->img_view)}}" alt="">
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta" style="text-align: center;">
+                                                            <li>
+                                                                <a href="#"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{{ route('site.news',$newS->id) }}">{{$newS->created_at->format('Y-M-d')}}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title">
+                                                            <h3 class="h4"
+                                                                style="text-align: right; padding-right: 27px;">
+                                                                <a href="{{ route('site.news',$newS->id) }}" class="btn-link news-title">{{$newS->$title}}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="preloader bg--color-0--b" data-preloader="1">
+                                        <div class="preloader--inner"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!--جانبي صفحة الخبر 300x250 -->

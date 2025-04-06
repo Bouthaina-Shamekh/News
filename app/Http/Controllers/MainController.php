@@ -20,12 +20,12 @@ class MainController extends Controller
 {
     public function home()
     {
-        $ads = Ad::get();
-        $sliders  = Nw::where('new_place_id', 4)->take(5)->get();
+        $ads = Ad::orderBy('id', 'desc')->get();
+        $sliders  = Nw::where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
         $categoryFirst = Category::first() ?? new Category();
-        $news = Nw::where('category_id', $categoryFirst->id)->get();
+        $news = Nw::where('category_id', $categoryFirst->id)->orderBy('id', 'desc')->get();
         $categoryLast = Category::orderBy('id', 'desc')->first() ?? new Category();
-        $articles = Artical::where('category_id', $categoryLast->id)->get();
+        $articles = Artical::where('category_id', $categoryLast->id)->orderBy('id', 'desc')->get();
         return view('site.home', compact('ads', 'sliders', 'news', 'articles', 'categoryFirst', 'categoryLast'));
     }
 
@@ -35,22 +35,22 @@ class MainController extends Controller
         return view('site.about', compact('abouts'));
     }
 
-//     public  function send()
-//    {
-//         Mail::to('bou@gmail.com')->send(new SendMail());
-//         return 'Done';
+    //     public  function send()
+    //    {
+    //         Mail::to('bou@gmail.com')->send(new SendMail());
+    //         return 'Done';
 
-//    }
+    //    }
 
     public function contact()
     {
         // $abouts = About::first();
-        $settings = Setting::whereIn('key', ['about_ar','about_en','title_ar','title_en', 'phone', 'location','contact_email'])->get();
+        $settings = Setting::whereIn('key', ['about_ar', 'about_en', 'title_ar', 'title_en', 'phone', 'location', 'contact_email'])->get();
         return view('site.contact', compact('settings'));
     }
 
-     public function contact_data(Request $request)
-     {
+    public function contact_data(Request $request)
+    {
 
         $request->validate([
             'fristname' => 'required',
@@ -62,24 +62,22 @@ class MainController extends Controller
         $data = $request->except('_token');
         Mail::to($request->email)->send(new SendMail($data));
         // dd( $request->all());
-
         return redirect()->back()->with('successSend', true);
+    }
 
-     }
-
-     public function news(Request $request)
+    public function news(Request $request)
     {
-        $news = Nw::query();
+        $news = Nw::orderBy('id', 'desc');
         $category = $request->query('c');
         $place = $request->query('pl');
         $search = $request->search;
-        if($category){
+        if ($category) {
             $news = $news->where('category_id', $category);
         }
-        if($place){
+        if ($place) {
             $news = $news->where('new_place_id', $place);
         }
-        if($search){
+        if ($search) {
 
             $news = $news->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
@@ -94,7 +92,7 @@ class MainController extends Controller
         $new->update([
             'visit' => $new->visit + 1
         ]);
-        $comments= Comment::where('news_id', $id)->get();
+        $comments = Comment::where('news_id', $id)->get();
         return view('site.new', compact('new', 'comments'));
     }
 
@@ -113,9 +111,9 @@ class MainController extends Controller
 
     public function articles(Request $request)
     {
-        $articles = Artical::query();
+        $articles = Artical::orderBy('id', 'desc');
         $category = $request->query('c');
-        if($category){
+        if ($category) {
             $articles = $articles->where('category_id', $category);
         }
         $articles = $articles->paginate(10);
@@ -130,7 +128,7 @@ class MainController extends Controller
             'visit' => $article->visit + 1
         ]);
         $articles = Artical::paginate(5);
-        return view('site.article', compact('article','articles'));
+        return view('site.article', compact('article', 'articles'));
     }
 
     public function storeVisit(Request $request)
@@ -153,9 +151,4 @@ class MainController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
-
-
-
 }
-

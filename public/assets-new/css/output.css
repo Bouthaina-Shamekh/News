@@ -431,6 +431,9 @@ body.boxed {
     background-size: auto;
     background-repeat: repeat
 }
+.main-content--section{
+    direction: rtl;
+}
 
 body.boxed>.wrapper {
     position: relative;
@@ -7167,9 +7170,11 @@ ul.scrollmenu a:hover {
 }
 
 .post--info {
-    text-align: end;
+    text-align: start;
 }
-
+.breadcrumb{
+    direction: rtl;
+}
 .sticky-content-inner {
     text-align: right;
 }

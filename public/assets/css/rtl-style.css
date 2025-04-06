@@ -1,5 +1,8 @@
 body {
-    direction: rtl;
+    direction: ltr;
+}
+.main-content--section{
+    direction: ltr;
 }
 
 .float--right {
@@ -29,7 +32,10 @@ body {
 }
 
 .post--info {
-    text-align: left;
+    text-align: end;
+}
+.breadcrumb{
+    direction: ltr;
 }
 
 .post--cats {

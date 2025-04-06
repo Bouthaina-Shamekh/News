@@ -7,9 +7,9 @@
     <x-slot:header>
         <div class="main--breadcrumb">
             <div class="container">
-                <ul class="breadcrumb" style="direction: ltr;">
+                <ul class="breadcrumb">
 
-                    <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.home")}}</a>
+                    <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.Home")}}</a>
                     </li>
                     <li>
                         <a href="{{ route('site.articles',['c' => $article->category_id]) }}" class="btn-link">{{ $article->category->$name ?? '' }} </a>
@@ -216,7 +216,7 @@
                                                                 <a href="#"></a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('site.article',$articleS->id) }}">{{$articleS->created_at}}</a>
+                                                                <a href="{{ route('site.article',$articleS->id) }}">{{$articleS->created_at->format('Y-M-d')}}</a>
                                                             </li>
                                                         </ul>
                                                         <div class="title">
