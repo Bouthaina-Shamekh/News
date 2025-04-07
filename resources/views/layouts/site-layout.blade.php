@@ -15,7 +15,7 @@
                         <div class="acme-news-ticker ">
                             <div class="acme-news-ticker-label ">تحديثات الأخبار</div>
                             @php
-                                $news = \App\Models\Nw::all();
+                                $news = \App\Models\Nw::orderBy('id', 'desc')->get();
                                 $title = app()->getLocale() == 'ar' ? 'title_ar' : 'title_en';
                             @endphp
                             <div class="acme-news-ticker-box ">

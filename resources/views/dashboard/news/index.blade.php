@@ -29,8 +29,7 @@
             gap: 5px; /* تقليل التباعد بين العناصر */
             margin-bottom: 20px;
             flex-wrap: nowrap; /* منع الانتقال إلى سطر جديد */
-            margin-left: 10px; /* هامش من اليسار */
-            margin-right: 10px; /* هامش من اليمين */
+            margin: 20px;
         }
         .filter-item {
             display: flex;

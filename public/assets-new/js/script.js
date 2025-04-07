@@ -62,12 +62,12 @@ $(document).click(function(event) {
 $(document).ready(function() {
     $("#toLang").click(function() {
         let currentText = $(this).text();
-        if(currentText == "Arabic"){
+        if(currentText == "العربية"){
             $(this).text("English");
             $("#changeDirection").prop("disabled", false);
             $('html').attr('dir', 'rtl');
         }else{
-            $(this).text("Arabic");
+            $(this).text("العربية");
             $("#changeDirection").prop("disabled", true);
             $('html').attr('dir', 'ltr');
         }
@@ -77,13 +77,22 @@ $(document).ready(function() {
 
 $(document).ready(function () {
     // Switch active tab on click
-    $('.list--widget-nav .nav a').click(function (e) {
+    $('.list--widget-nav-1 .nav a').click(function (e) {
         e.preventDefault();
-        $('.nav li').removeClass('active');
+        $('.list--widget-nav-1 .nav li').removeClass('active');
         $(this).parent('li').addClass('active');
 
         var target = $(this).attr('data-bs-target');
-        $('.tab-pane').removeClass('fade show active');
+        $('#nav-tabContent .tab-pane').removeClass('fade show active');
+        $(target).addClass('show active');
+    });
+    $('.list--widget-nav-2 .nav a').click(function (e) {
+        e.preventDefault();
+        $('.list--widget-nav-2 .nav li').removeClass('active');
+        $(this).parent('li').addClass('active');
+
+        var target = $(this).attr('data-bs-target');
+        $('#nav-tabContent2 .tab-pane').removeClass('fade show active');
         $(target).addClass('show active');
     });
 });
