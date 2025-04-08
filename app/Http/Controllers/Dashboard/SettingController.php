@@ -53,13 +53,13 @@ class SettingController extends Controller
         return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
 
-    
-    
-   
+
+
+
     if ($request->hasFile('logo')) {
         $this->updateImage($request->file('logo'), 'logo');
     }
-    
+
     if ($request->hasFile('logo_icon')) {
         $this->updateImage($request->file('logo_icon'), 'logo_icon');
     }
@@ -68,21 +68,21 @@ class SettingController extends Controller
 
 private function updateImage($file, $key)
 {
-    
+
     $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-   
+
     $uploadPath = public_path('uploads/logos');
 
-   
+
     if (!file_exists($uploadPath)) {
         mkdir($uploadPath, 0777, true);
     }
 
-    
+
     $file->move($uploadPath, $filename);
 
-   
+
     $setting = Setting::where('key', $key)->first();
     if ($setting && $setting->value) {
         $oldFilePath = $uploadPath . '/' . $setting->value;
@@ -91,17 +91,17 @@ private function updateImage($file, $key)
         }
     }
 
-   
+
     $updated = Setting::updateOrCreate(
         ['key' => $key],
         ['value' => $filename]
     );
 
-   
+
 
 
     return $updated;
 }
 
-    
+
 }

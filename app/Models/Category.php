@@ -15,15 +15,9 @@ class Category extends Model
         'name_en',
         'name_ar',
         'image',
-        'slug',
         'created_by',
     ];
 
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
 
     public function admin(){

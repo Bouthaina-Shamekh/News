@@ -13,8 +13,8 @@
         <link rel="stylesheet " href="{{ asset('assets-new/css/colors/theme-color-1.css') }}" id="changeColorScheme ">
         <link rel="stylesheet " href="{{ asset('assets-new/css/output.css') }}">
         <!--   <link rel="stylesheet " href="rtl-style.css"> -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="{{ asset('asset/js/plugins/jquery-3.7.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         @stack('styles')
     </head>
     @php

@@ -86,7 +86,7 @@ return [
     'Edit Users' => 'تعديل مسؤولون',
     'Delete Users' => 'حذف مسؤولون',
 
-    
+
     'Create Category' => 'اضافة مجموعة',
     'Delete Category' => 'حذف مجموعة',
 
@@ -102,17 +102,17 @@ return [
     'Edit Adplace' => 'تعديل موقع الاعلان',
     'Delete Adplace' => 'حذف موقع الاعلان',
 
-    
+
     'Create Publisher' => 'اضافة ناشرين',
     'Edit Publisher' => 'تعديل ناشرين',
     'Delete Publisher' => 'حذف ناشرين',
 
-    
+
     'Create News' => 'اضافة خبر',
     'Edit News' => 'تعديل خبر',
     'Delete News' => 'Delete News',
 
-    
+
     'View NewPlace' => 'عرض موقع الخبر',
     'Create NewPlace' => 'اضافة موقع الخبر',
     'Edit NewPlace' => 'تعديل موقع الخبر ',
@@ -127,7 +127,7 @@ return [
     'Create Settings' => 'اضافة اعدادات',
     'Edit Settings' => 'تعديل الاعدادات',
     'Delete Settings' => 'حذف الاعدادات',
-   
+
     'about_ar'=>'من نحن بالعربية',
     'about_en'=>'من نحن بالانجليزية',
     'objective_ar'=>'أهدافنا بالعربية',
@@ -140,29 +140,30 @@ return [
     'goal_en'=>'قيمنا بالانجليزية',
 
     'Choose'=>'اختار',
-     'Text_AR'=>'المحتوى بالعربي',
-     'Text_EN'=>'المحتوى بالانجلش',
-     'Keyword_AR'=>'الكلمة المفتاحية بالعربي',
-     'Keyword_EN'=>'الكلمة المفتاحية بالانجلش',
-     'Ad Place'=>'موقع الاعلان',
-     'time'=>'الوقت',
-     'visit'=>'الزيارات',
-     'Add NewPlace'=>'اضافة موقع خبر',
-     'Birth of Date'=>'تاريخ الميلاد',
-     'About'=>'من نحن',
-     'Status'=>'الحالة',
-     'Accept'=>'مقبول',
-     'Dont Accept'=>'غير مقبول',
-     'not accepted yet'=>'غير مقبول',
-     'accepted '=>'مقبول',
-     'Add Articals'=>'اضافة مقالات',
-     'documantary'=>'وثائقي',
-     'war'=>'حرب',
-     'peace'=>'سلام',
-     ' Ad Place'=>'اضافة موقع الاعلان',
-    
-     'Notes'=>'ملاحظات',
-     'Filter' =>'فلتر',
+    'Text_AR'=>'المحتوى بالعربي',
+    'Text_EN'=>'المحتوى بالانجلش',
+    'Keyword_AR'=>'الكلمة المفتاحية بالعربي',
+    'Keyword_EN'=>'الكلمة المفتاحية بالانجلش',
+    'Ad Place'=>'موقع الاعلان',
+    'time'=>'الوقت',
+    'visit'=>'الزيارات',
+    'Add NewPlace'=>'اضافة موقع خبر',
+    'Birth of Date'=>'تاريخ الميلاد',
+    'About'=>'من نحن',
+    'Status'=>'الحالة',
+    'Accept'=>'مقبول',
+    'Dont Accept'=>'غير مقبول',
+    'not accepted yet'=>'غير مقبول',
+    'accepted '=>'مقبول',
+    'Add Articals'=>'اضافة مقالات',
+    'documantary'=>'وثائقي',
+    'war'=>'حرب',
+    'peace'=>'سلام',
+    ' Ad Place'=>'اضافة موقع الاعلان',
+
+    'Notes'=>'ملاحظات',
+    'Filter' =>'فلتر',
+    'New Place'=>'موقع الخبر'
 
 
 

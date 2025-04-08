@@ -123,7 +123,7 @@
                                 <th>{{ __('admin.Created') }}</th>
                                 <th>{{ __('admin.Visit') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
-                                <th>{{ __('Action') }}</th>
+                                <th>{{ __('admin.Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,7 +153,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $artical->date}}</td>
-                                <td>{{ $artical->created_at}}</td>
+                                <td>{{ $artical->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $artical->visit }}</td>
                                 <td>{{ $artical->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
                                 <td class="d-flex">
@@ -185,6 +185,13 @@
 
     <script>
         $(document).ready(function() {
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const year = date.getFullYear();
+                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // من 0 إلى 11
+                const day = date.getDate().toString().padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
             $('#search').on('click', function() {
                 let date = $('#date').val();
                 let to_date = $('#to_date').val();
@@ -223,7 +230,7 @@
                                         @endif
                                     </td>
                                     <td>${artical.date}</td>
-                                    <td>${artical.created_at}</td>
+                                    <td>${formatDate(newsItem.created_at)}</td>
                                     <td>${artical.visit}</td>
                                     <td>${artical.status == 1 ? 'admin.accept' : 'admin.not accepted yet'}</td>
                                     <td class="d-flex">

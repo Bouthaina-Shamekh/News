@@ -19,7 +19,7 @@ class ArticalController extends Controller
     {
         $this->authorize('view', Artical::class);
 
-        $articals = Artical::with(['category','publisher'])->get();
+        $articals = Artical::with(['category','publisher'])->orderBy('id', 'desc')->get();
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){

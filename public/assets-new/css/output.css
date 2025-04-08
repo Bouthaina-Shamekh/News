@@ -7190,7 +7190,7 @@ ul.scrollmenu a:hover {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
     .post--info .meta>li>a{
         font-size: 30px;

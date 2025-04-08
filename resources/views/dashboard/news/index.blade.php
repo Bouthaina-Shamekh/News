@@ -83,7 +83,7 @@
                 @can('create', 'App\Models\Nw')
                     <div>
                         <a href="{{ route('dashboard.nw.create') }}" class="btn btn-primary">
-                            {{ __('Add News') }}
+                            {{ __('admin.Add News') }}
                         </a>
                     </div>
                 @endcan
@@ -125,11 +125,11 @@
                                 <th>{{ __('admin.Title') }}</th>
                                 <th>{{ __('admin.Publisher') }}</th>
                                 <th>{{ __('admin.Category') }}</th>
-                                <th>{{ __('admin. New Place') }}</th>
+                                <th>{{ __('admin.New Place') }}</th>
                                 <th>{{ __('admin.Created') }}</th>
                                 <th>{{ __('admin.Visit') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
-                                <th>{{ __('Action') }}</th>
+                                <th>{{ __('admin.Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -180,6 +180,13 @@
 
     <script>
         $(document).ready(function() {
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const year = date.getFullYear();
+                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // من 0 إلى 11
+                const day = date.getDate().toString().padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
             $('#search').on('click', function() {
                 let date = $('#date').val();
                 let to_date = $('#to_date').val();
@@ -208,7 +215,7 @@
                                             <span class="title">${newsItem.title_en}</span>
                                         @endif
                                     </td>
-                                    <td>${newsItem.publisher.name}</td>
+                                    <td>${newsItem.publisher ? newsItem.publisher.name : ''}</td>
                                     <td>
                                         @if(app()->getLocale() == 'ar')
                                             ${newsItem.category.name_ar}
@@ -216,8 +223,14 @@
                                             ${newsItem.category.name_en}
                                         @endif
                                     </td>
-                                    <td>${newsItem.newplace.name}</td>
-                                    <td>${newsItem.created_at}</td>
+                                    <td>
+                                        @if(app()->getLocale() == 'ar')
+                                            ${newsItem.newplace ? newsItem.newplace.name_ar : ''}
+                                        @else
+                                            ${newsItem.newplace ? newsItem.newplace.name_en : ''}
+                                        @endif
+                                    </td>
+                                    <td>${formatDate(newsItem.created_at)}</td>
                                     <td>${newsItem.visit}</td>
                                     <td>${newsItem.status == 1 ? 'admin.accept' : 'admin.not accepted yet'}</td>
                                     <td class="d-flex">

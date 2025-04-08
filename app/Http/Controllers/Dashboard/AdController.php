@@ -17,7 +17,7 @@ class AdController extends Controller
     {
         $this->authorize('view',Ad::class);
 
-         $ads = Ad::with(['adplace'])->get();
+         $ads = Ad::with(['adplace'])->orderBy('id','desc')->get();
 
 
         return view('dashboard.ads.index',compact('ads'));
@@ -34,7 +34,7 @@ class AdController extends Controller
         return view('dashboard.ads.create', compact('ads','adplases'));
     }
 
-   
+
     public function store(Request $request)
 {
     $this->authorize('create', Ad::class);
@@ -76,7 +76,7 @@ class AdController extends Controller
         'ad_place_id' => $request->ad_place_id,
     ]);
 
-    
+
 
     return redirect()->route('dashboard.ad.index')->with('success', __('admin.Item created successfully.'));
 }
@@ -116,7 +116,7 @@ class AdController extends Controller
         'time' => 'required',
         'notes' => 'required',
         'visit' => 'required',
-        'ad_place_id' => 'required',  
+        'ad_place_id' => 'required',
     ]);
 
     // Get the old image path

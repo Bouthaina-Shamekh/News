@@ -15,7 +15,7 @@ class AdPlaceController extends Controller
     {
         $this->authorize('view',AdPlace ::class);
 
-        $adplaces = AdPlace::all();
+        $adplaces = AdPlace::orderBy('id','desc')->get();
 
         return view('dashboard.adplaces.index',compact('adplaces'));
     }
@@ -39,7 +39,7 @@ class AdPlaceController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            
+
         ]);
 
         AdPlace::create($request->all());
@@ -74,7 +74,7 @@ class AdPlaceController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            
+
         ]);
 
         $adplaces = AdPlace::findOrFail($id);

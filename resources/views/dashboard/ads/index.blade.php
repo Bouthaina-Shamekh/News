@@ -49,20 +49,17 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>
-            @if ( $ad->image)
-                <img src="{{ asset('storage/' . $ad->image) }}" width="100" alt="Image">
-            @else
-                {{ __('No Image') }}
-            @endif
-        </td>
+                                    @if ($ad->image)
+                                        <img src="{{ asset('storage/' . $ad->image) }}" width="100" alt="Non Image">
+                                    @else
+                                        {{ __('No Image') }}
+                                    @endif
+                                </td>
                                 <td>{{$ad->title}}</td>
                                 <td>{{$ad->owner}}</td>
                                 <td>{{$ad->owner_phone}}</td>
                                 <td>{{$ad->adplace->name_en}}</td>
                                 <td>{{$ad->url}}</td>
-
-
-
                                 <td>
                                 @can('edit', 'App\Models\Ad')
                                     <a href="{{route('dashboard.ad.edit',$ad->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">

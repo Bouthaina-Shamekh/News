@@ -15,7 +15,7 @@ class NewPlaceController extends Controller
     {
         $this->authorize('view',NewPlace ::class);
 
-        $newplaces = NewPlace::all();
+        $newplaces = NewPlace::orderBy('id','desc')->get();
 
         return view('dashboard.newplaces.index',compact('newplaces'));
     }
@@ -39,7 +39,7 @@ class NewPlaceController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            
+
         ]);
 
         NewPlace::create($request->all());
@@ -74,7 +74,7 @@ class NewPlaceController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            
+
         ]);
 
         $newplaces = NewPlace::findOrFail($id);

@@ -19,7 +19,7 @@
 <div class="form-group col-6 mb-3">
     <label for="image">Image</label>
     <input type="file" name="imageFile" class="form-control" />
-    @if(!empty($publishers->image))
+    @if($publishers->image)
         <img src="{{ asset('storage/' . $publishers->image) }}" alt="Current Image" width="60">
     @endif
 </div>
@@ -68,7 +68,7 @@
 <div class="form-group col-6 mb-3">
     <label for="attachments">Attachments</label>
     <input type="file" name="attachmentsFile" class="form-control" />
-    @if(!empty($publishers->attachments))
+    @if($publishers->attachments)
     <img src="{{ asset('storage/' . $publishers->attachments) }}" alt="Current Attachment" height="60">
     @endif
   </div>

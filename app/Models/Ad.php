@@ -12,18 +12,18 @@ class Ad extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'image',
         'title',
         'url',
-        'image',
         'owner',
         'owner_phone',
         'price',
         'date',
         'time',
+        'notes',
         'visit',
         'created_by',
         'ad_place_id',
-
     ];
 
     public function admin(){

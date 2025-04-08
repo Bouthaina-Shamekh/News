@@ -56,7 +56,7 @@
                                 <td>{{ $publisher->phone }}</td>
                                 <td>{{ $publisher->birth_of_date }}</td>
                                 <td>{{ $publisher->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
-                                <td>{{ $publisher->created_at }}</td>
+                                <td>{{ $publisher->created_at->format('Y-m-d') }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.publisher.edit', $publisher->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>

@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $this->authorize('view', Category::class);
 
-        $categories = Category::all();
+        $categories = Category::orderBy('id','desc')->get();
 
         return view('dashboard.categories.index', compact('categories'));
     }
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
         ]);
         // dd($request->all());
-       
+
 
         // $img = $request->file('image')->store('uploads/categories', 'public');
         $img = $request->hasFile('image') ? $request->file('image')->store('uploads/categories', 'public') : null;
@@ -49,7 +49,6 @@ class CategoryController extends Controller
             'image' => $img,
             'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
-            'slug' => $request->name_en,
         ]);
         return redirect()->route('dashboard.category.index')->with('success', __('admin. Iteam created successfully.'));
     }
@@ -92,7 +91,6 @@ class CategoryController extends Controller
             'image' => $img,
             'name_en' => $request->name_en,
             'name_ar' => $request->name_ar,
-
         ]);
 
 
@@ -108,7 +106,7 @@ class CategoryController extends Controller
         $categories = Category::findOrFail($id);
         if ($categories->image && Storage::exists($categories->image)) {
             Storage::delete($categories->image);
-        }        
+        }
         $categories->delete();
         $request = request();
         if ($request->ajax()) {

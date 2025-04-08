@@ -20,10 +20,8 @@ class NwController extends Controller
     {
         $this->authorize('view', Nw::class);
 
-        $news = Nw::with(['newplace','category','publisher'])->get();
-        // $news = Nw::all();
+        $news = Nw::with(['newplace','category','publisher'])->orderBy('id','desc')->get();
         $categories  = Category::get();
-        // $newplaces = NewPlace::all();
         $request = request();
         if($request->ajax()){
             if($request->date  != null){

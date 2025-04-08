@@ -15,7 +15,7 @@ class StatusController extends Controller
     {
         $this->authorize('view',Statu ::class);
 
-        $status = Statu::all();
+        $status = Statu::orderBy('id','desc')->get();
 
         return view('dashboard.status.index',compact('status'));
     }
@@ -39,7 +39,7 @@ class StatusController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            
+
         ]);
 
         Statu::create($request->all());
@@ -74,7 +74,7 @@ class StatusController extends Controller
         $request->validate([
             'name_en' => 'required',
             'name_ar' => 'required',
-            
+
         ]);
 
         $status = Statu::findOrFail($id);

@@ -14,7 +14,7 @@
                         <!-- <div class="form-group col-6 mb-3">
                         <label for="image">{{__('admin.Image')}}</label>
                         <input type="file" name="imageFile" class="form-control" />
-                        @if ($ads->image) 
+                        @if ($ads->image)
                       <img src="{{ asset('storage/' . $ads->image) }}" alt="Current Image" height="60">
                         @endif
                     </div> -->
@@ -72,7 +72,7 @@
 
                         <div class="form-group col-6 mb-3">
                             <label for="notes" class="form-label">{{__('admin.Notes')}}</label>
-                            <textarea name="notes" id="mytextarea" rows="3" class="form-control" required>{{$adplase->notes}}</textarea>
+                            <textarea name="notes" id="mytextarea" rows="3" class="form-control" required>{{$ads->notes}}</textarea>
                         </div>
 
 
@@ -81,9 +81,9 @@
                         <!-- <div class="form-group col-6 mb-3">
                         <label for="image">Image</label>
                         <input type="file" name="image" class="form-control" />
-                       
+
                         <img src="{{ asset('uploads/categories/' . $ads->image) }}" alt="Current Image" height="60">
-                       
+
                     </div> -->
 
 

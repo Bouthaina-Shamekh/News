@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
-    
+
 
     public function edit($id)
     {
@@ -36,11 +36,10 @@ class AboutController extends Controller
             'vission_en' => 'required',
             'goal_ar' => 'required',
             'goal_en' => 'required',
-            'image' => 'required|image',
-            
+            'image' => 'nullabel|image',
         ]);
 
-        $abouts = About::findOrFail($id); 
+        $abouts = About::findOrFail($id);
 
         $image = $abouts->image;
         if ($request->hasFile('image')) {
@@ -70,7 +69,7 @@ class AboutController extends Controller
 
 
 
-       
+
         return redirect()->route('dashboard.about.edit',1)->with('success', __('About updated successfully.'));
     }
 

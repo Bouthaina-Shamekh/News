@@ -2,8 +2,8 @@
     $name = 'name_' . app()->getLocale();
     $title = 'title_' . app()->getLocale();
 @endphp
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="{{ asset('asset/js/plugins/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <header class="header--section header--style-1">
     <div class="header--topbar bg--color-2">
         <div class="container">

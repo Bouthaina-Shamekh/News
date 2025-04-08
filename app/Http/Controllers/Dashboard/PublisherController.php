@@ -16,7 +16,7 @@ class PublisherController extends Controller
     {
         $this->authorize('view', Publisher::class);
 
-        $publishers = Publisher::all();
+        $publishers = Publisher::orderBy('id','desc')->get();
 
         return view('dashboard.publishers.index', compact('publishers'));
     }
@@ -47,14 +47,12 @@ class PublisherController extends Controller
             'address' => 'required',
             'about' => 'required',
             'status' => 'required',
-           
             'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-
         ]);
 
         if ($request->hasFile('imageFile')) {
             $image = $request->file('imageFile')->store('uploads', 'public');
-            $request->merge(['avatar' => $image]);
+            $request->merge(['image' => $image]);
         }
 
         if ($request->hasFile('attachmentsFile')) {
@@ -100,7 +98,7 @@ class PublisherController extends Controller
             'address' => 'required',
             'about' => 'required',
             'status' => 'required',
-           
+
             'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
 
         ]);

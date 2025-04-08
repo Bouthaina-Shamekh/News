@@ -162,7 +162,7 @@ return [
     'Edit Users' => 'Edit Users',
     'Delete Users' => 'Delete Users',
 
-    
+
     'Create Category' => 'Create Category',
     'Delete Category' => 'Delete Category',
 
@@ -178,17 +178,17 @@ return [
     'Edit Adplace' => 'Edit Adplace',
     'Delete Adplace' => 'Delete Adplace',
 
-    
+
     'Create Publisher' => 'Create Publisher',
     'Edit Publisher' => 'Edit Publisher',
     'Delete Publisher' => 'Delete Publisher',
 
-    
+
     'Create News' => 'Create News',
     'Edit News' => 'Edit News',
     'Delete News' => 'Delete News',
 
-    
+
     'View NewPlace' => 'View NewPlace',
     'Create NewPlace' => 'Create NewPlace',
     'Edit NewPlace' => 'Edit NewPlace',
@@ -212,13 +212,14 @@ return [
      'Ad Place'=>'Ad Place',
      'time'=>'Time',
      'visit'=>'Visit',
+     'New Place'=>'New Place',
      'Add NewPlace'=>'Add New Place',
      'Birth of Date'=>'Birth of Date',
      'About'=>'About',
      'Status'=>'Status',
      'Accept'=>'Accept',
      'Dont Accept'=>'Dont Accept',
-    
+
      'category'=>'Category',
      'Form Date'=>'Form Date',
      'Keyword'=>'Keyword',
@@ -230,7 +231,7 @@ return [
      'war'=>'War',
      'peace'=>'Peace',
      'enter news of'=>'enter news of',
-     
+
      ' Ad Place'=>'Ad Place',
      'Notes'=>'Notes',
      'Filter' =>'Filter',
@@ -331,8 +332,8 @@ return [
      ''=>'',
      ''=>'',
      ''=>'',
-     
-     
+
+
 
 
 ];

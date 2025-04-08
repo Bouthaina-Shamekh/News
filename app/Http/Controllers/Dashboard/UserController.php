@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use App\Http\Controllers\Controller;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -18,13 +19,13 @@ class UserController extends Controller
         $this->authorize('view', User::class);
         $query = User::query();
 
-    if ($request->has('search') && !empty($request->search)) {
-        $query->where('name', 'LIKE', '%' . $request->search . '%');
-    }
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
+        }
 
-    $users = $query->paginate(10);
+        $users = $query->paginate(10);
 
-       
+
         return view('dashboard.users.index', compact('users'));
     }
 
@@ -45,26 +46,28 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm_password',
             'confirm_password' => 'required|same:password',
-        ],[
+        ], [
             'password.same' => 'كلمة المرور غير متطابقة',
             'confirm_password.same' => 'كلمة المرور غير متطابقة',
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $request['password'] = Hash::make($request->password);
             $request['type'] = 'admin';
             $user = User::create($request->all());
-            foreach ($request->abilities as $role) {
-                RoleUser::create([
-                    'role_name' => $role,
-                    'user_id' => $user->id,
-                    'ability' => 'allow',
-                ]);
+            if($request->abilities){
+                foreach ($request->abilities as $role) {
+                    RoleUser::create([
+                        'role_name' => $role,
+                        'user_id' => $user->id,
+                        'ability' => 'allow',
+                    ]);
+                }
             }
             DB::commit();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('danger', $e->getMessage());
         }
         return redirect()->route('dashboard.users.index')->with('success', 'تم اضافة مستخدم جديد');
     }
@@ -78,7 +81,7 @@ class UserController extends Controller
 
     public function profile(User $user)
     {
-        if(auth()->user()->id != $user->id){
+        if (auth()->user()->id != $user->id) {
             $this->authorize('view', User::class);
         }
         return view('dashboard.users.profile', compact('user'));
@@ -99,23 +102,28 @@ class UserController extends Controller
         $this->authorize('edit', User::class);
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|same:confirm_password',
             'confirm_password' => 'nullable|same:password',
         ]);
         DB::beginTransaction();
-        try{
-            if($request->password != null){
+        try {
+            if($request->super_admin == null){
+                $request['super_admin'] = $user->super_admin;
+            }
+            if ($request->password != null) {
                 $request['password'] = Hash::make($request->password);
                 $request['type'] = 'admin';
                 $user->update($request->all());
+            }else{
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'super_admin' => $request->super_admin ?? $user->super_admin,
+                    'type' => 'admin',
+                ]);
             }
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'super_admin' => $request->super_admin,
-                'type' => 'admin',
-            ]);
+
             if ($request->abilities != null) {
                 $role_old = RoleUser::where('user_id', $user->id)->pluck('role_name')->toArray();
                 $role_new = $request->abilities;
@@ -132,17 +140,17 @@ class UserController extends Controller
                             'user_id' => $user->id,
                             'ability' => 'allow',
                         ]);
-                    }else{
+                    } else {
                         $role_f->update(['ability' => 'allow']);
                     }
                 }
-            }else{
+            } else {
                 RoleUser::where('user_id', $user->id)->delete();
             }
             DB::commit();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            return redirect()->back()->with('danger', $e->getMessage());
         }
         return redirect()->back()->with('success', 'تم تعديل المستخدم');
     }
