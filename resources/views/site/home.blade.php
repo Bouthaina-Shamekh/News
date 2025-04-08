@@ -59,7 +59,7 @@
                                 <div class="col-md-12 float-left"
                                     style="padding: 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
                                     <div class="list--widget list--widget-1">
-                                        <div class="list--widget-nav" data-ajax="tab">
+                                        <div class="list--widget-nav list--widget-nav-1" data-ajax="tab">
                                             <ul class="nav nav-justified flex space-x-4">
                                                 <li>
                                                     <a href="#" id="nav-home-tab" data-bs-toggle="tab"
@@ -250,7 +250,7 @@
                                 <div class="col-md-12 float-left"
                                     style="padding: 28px 0 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
                                     <div class="list--widget list--widget-1">
-                                        <div class="list--widget-nav" style="padding: 7px 2px 15px;" data-ajax="tab">
+                                        <div class="list--widget-nav list--widget-nav-2" style="padding: 7px 2px 15px;" data-ajax="tab">
                                             <ul class="nav nav-justified flex space-x-4">
                                                 <li>
                                                     <a href="#" id="nav-home-tab2" data-bs-toggle="tab"
@@ -305,7 +305,7 @@
                                                                             </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.article', $new->id) }}" class="btn-link">
                                                                                         {{ $new->$title }}
                                                                                     </a>
                                                                                 </h5>
@@ -313,7 +313,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -346,7 +346,7 @@
                                                                             </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.article', $new->id) }}" class="btn-link">
                                                                                         {{ $new->$title }}
                                                                                     </a>
                                                                                 </h5>
@@ -354,7 +354,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>

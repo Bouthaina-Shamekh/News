@@ -89,11 +89,12 @@ class MainController extends Controller
     public function new($id)
     {
         $new = Nw::findOrFail($id);
+        $news = Nw::orderby('id','desc')->get();
         $new->update([
             'visit' => $new->visit + 1
         ]);
         $comments = Comment::where('news_id', $id)->get();
-        return view('site.new', compact('new', 'comments'));
+        return view('site.new', compact('new', 'comments','news'));
     }
 
     public function comment(Request $request)
