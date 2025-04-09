@@ -23,12 +23,12 @@
                     <div class="col-md-6">
                         <div class="post--info">
                             <div class="title">
-                                <h2 class="h4">{{ $title && $title->value != null ? $title->value : 'مارينا بوست' }}</h2>
+                                <h2 class="h4">{!! $title && $title->value != null ? $title->value : 'مارينا بوست' !!}</h2>
                             </div>
                         </div>
                         <div class="post--content">
                             <p>
-                                {{ $abouts[$about] ? $abouts[$about] : '' }}
+                                {!! $abouts[$about] ? $abouts[$about] : '' !!}
                             </p>
                         </div>
                     </div>

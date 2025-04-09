@@ -20,10 +20,10 @@
         <div class="main--breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.Home")}}</a>
+                    <li><a href="{{ route('site.index') }}" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.Home")}}</a>
                     </li>
                     <li>
-                        <a href="news?c={{ $new->category_id }}" class="btn-link">{{ $new->category->$name  ?? ''}} </a>
+                        <a href="{{ route('site.news', ['c' => $new->category_id]) }}" class="btn-link">{{ $new->category->$name  ?? ''}} </a>
                     </li>
                     <li class="active">
                         <span>{{ $new->$title }}</span>

@@ -43,9 +43,9 @@
 
                                     <p>
             @if(app()->getLocale() == 'ar')
-                {{ $settings->where('key', 'about_ar')->first()->value ?? '' }}
+                {!! $settings->where('key', 'about_ar')->first()->value ?? '' !!}
             @else
-                {{ $settings->where('key', 'about_en')->first()->value ?? '' }}
+                {!! $settings->where('key', 'about_en')->first()->value ?? '' !!}
             @endif
         </p>
 

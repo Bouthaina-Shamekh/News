@@ -151,13 +151,14 @@
                             @endphp
                              @foreach ($categories as $category)
                             <li style="width: 200px;padding: 20px;" class="box">
-                                <div class="row">
+                                <a href="{{route('site.news', $category->id)}}" class="row">
                                     <div class="col-md-12">
                                         <img src="{{asset('storage/'.$category->image)}}" style="width: max-content; height: 100px;">
                                     </div>
-                                    <div class="col-md-12"> <a href="{{route('site.news', $category->id)}}">{{ $category->$name }}</a>
+                                    <div class="col-md-12">
+                                        <span >{{ $category->$name }}</span>
                                     </div>
-                                </div>
+                                </a>
                             </li>
                             @endforeach
                         </ul>

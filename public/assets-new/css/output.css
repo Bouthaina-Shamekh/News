@@ -7359,7 +7359,7 @@ ul.scrollmenu a:hover {
 #nav_sider li .post--item .post--img{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 10px 1px;
 }
 

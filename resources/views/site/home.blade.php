@@ -684,7 +684,7 @@
                                             <h5><a href="{{ route('site.news') }}" style="color: #fff;">&nbsp; </a></h5>
                                         </div>
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
-                                            <h5 style="text-align: center;"><a href="{{ route('site.news') }}" style="color: #fff;">
+                                            <h5 style="text-align: left;"><a href="{{ route('site.news') }}" style="color: #fff;">
                                                     المزيد من الاخبار</a>
                                             </h5>
                                         </div>
@@ -695,7 +695,7 @@
                                     <div class="row">
 
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9" style="">
-                                            <h5 style="text-align: center;"><a href="{{ route('site.articles') }}" style="color: #fff;">المزيد من المقالات </a>
+                                            <h5 style="text-align: right;"><a href="{{ route('site.articles') }}" style="color: #fff;">المزيد من المقالات </a>
                                             </h5>
                                         </div>
                                         <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/l37.png') }}); background-repeat: no-repeat;background-position-x: right;">

@@ -8,8 +8,7 @@
         <div class="main--breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-
-                    <li><a href="home" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.Home")}}</a>
+                    <li><a href="{{ route('site.index') }}" class="btn-link"><i class="fa fm fa-home"></i>{{__("site.Home")}}</a>
                     </li>
                     <li>
                         <a href="{{ route('site.articles',['c' => $article->category_id]) }}" class="btn-link">{{ $article->category->$name ?? '' }} </a>
