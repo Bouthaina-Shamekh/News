@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="{{ asset('assets-dashboard/css/plugins/dataTables.bootstrap5.min.css') }}" />
     @endpush
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{ __('Category') }}</li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Category') }}</li>
     </x-slot:breadcrumb>
 
 
@@ -26,7 +26,7 @@
                 @can('create', 'App\Models\Category')
                 <div>
                     <a href="{{ route('dashboard.category.create') }}" class="btn btn-primary">
-                        {{ __('Add Category') }}
+                        {{ __('admin.Add Category') }}
                     </a>
                 </div>
                 @endcan
@@ -40,7 +40,7 @@
             <th>#</th>
             <th>{{ __('admin.Name_AR') }}</th>
             <th>{{ __('admin.Name_EN') }}</th>
-            <th>{{ __('Action') }}</th> 
+            <th>{{ __('admin.Actions') }}</th>
         </tr>
     </thead>
     <tbody>
@@ -49,14 +49,14 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $category->name_ar }}</td>
             <td>{{ $category->name_en }}</td>
-            <td> 
+            <td>
                 <a href="{{ route('dashboard.category.edit', $category->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                     <i class="ti ti-edit text-xl leading-none"></i>
                 </a>
                 <form action="{{ route('dashboard.category.destroy', $category->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
+                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('admin.Delete') }}">
                         <i class="ti ti-trash text-xl leading-none"></i>
                     </button>
                 </form>

@@ -5,7 +5,7 @@
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
         @can('view', 'App\Models\NewPlace')
-        <li class="breadcrumb-item"><a href="{{route('dashboard.newplace.index')}}">{{__('admin.NewPlaces')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.newplace.index')}}">{{__('admin.NewPlace')}}</a></li>
         @endcan
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit NewPlace')}}</li>
     </x-slot:breadcrumb>

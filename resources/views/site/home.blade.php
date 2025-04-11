@@ -97,7 +97,7 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->get()->take(3);
+                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->orderBy('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
@@ -138,7 +138,7 @@
                                                     <!-- Content for أحدث الأخبار -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->get()->take(3);
+                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
@@ -179,7 +179,7 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->get()->take(3);
+                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
@@ -288,7 +288,7 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Artical::get()->take(3);
+                                                        $breaking_news = App\Models\Artical::orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
@@ -329,7 +329,7 @@
                                                     <!-- Content for أحدث الأخبار -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $latest_news = App\Models\Artical::orderBy('id', 'desc')->get()->take(3);
+                                                        $latest_news = App\Models\Artical::orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
@@ -370,7 +370,7 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Artical::orderBy('visit', 'asc')->orderBy('id', 'desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Artical::orderBy('visit', 'asc')->orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)

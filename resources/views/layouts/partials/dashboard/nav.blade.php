@@ -1,7 +1,7 @@
 <nav class="pc-sidebar">
     <div class="navbar-wrapper">
         <div class="m-header flex items-center py-4 px-6 h-header-height">
-            <a href="" class="b-brand flex items-center gap-3">
+            <a href="{{route('site.index')}}" class="b-brand flex items-center gap-3">
                 <!-- ========   Change your logo from here   ============ -->
                 <img src="{{asset('assets-dashboard/images/logo-dark.svg')}}" class="img-fluid logo-lg" alt="logo" style="display: none"  />
                 <div  style="width: 232px;">
@@ -91,7 +91,7 @@
                             <a class="pc-link" href="{{route('dashboard.users.create')}}">
                                 {{__('admin.Add Admin')}}
                             </a>
-                        </li> 
+                        </li>
                     </ul>
                 </li>
                 <!-- @endcan -->
@@ -134,7 +134,7 @@
                     </ul>
                 </li>
                 <!-- @endcan -->
-                
+
 
 
                 <!-- @can('view', 'App\Models\Nw') -->
@@ -174,7 +174,7 @@
                     </ul>
                 </li>
                 <!-- @endcan -->
-                
+
                 @can('view', 'App\Models\Statu')
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
@@ -366,7 +366,7 @@
                 </li>
                 @endcan
 
-               
+
 
 
                 @can('view', 'App\Models\Publisher')
@@ -407,9 +407,9 @@
                 </li>
                 @endcan
 
-               
-                       
-                       
+
+
+
 
                         @can('edit', 'App\Models\About')
                         <li class="pc-item">
@@ -433,17 +433,17 @@
                 </li>
                 @endcan
 
-                       
-                        
 
 
 
-               
 
-                
- 
+
+
+
+
+
             </ul>
-           
+
         </div>
     </div>
 </nav>

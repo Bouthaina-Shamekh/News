@@ -6,7 +6,7 @@
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
         @can('view', 'App\Models\Publisher')
-        <li class="breadcrumb-item"><a href="{{route('dashboard.publisher.index')}}">{{__('admin.Publishers')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.publisher.index')}}">{{__('admin.Publisher')}}</a></li>
         @endcan
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit Publisher')}}</li>
     </x-slot:breadcrumb>

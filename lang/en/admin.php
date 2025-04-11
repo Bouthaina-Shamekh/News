@@ -235,6 +235,7 @@ return [
      ' Ad Place'=>'Ad Place',
      'Notes'=>'Notes',
      'Filter' =>'Filter',
+     'Vedio' => 'Vedio',
      ''=>'',
      ''=>'',
      ''=>'',

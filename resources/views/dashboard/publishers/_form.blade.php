@@ -17,7 +17,7 @@
 </div>
 
 <div class="form-group col-6 mb-3">
-    <label for="image">Image</label>
+    <label for="image">{{__('admin.Image')}}</label>
     <input type="file" name="imageFile" class="form-control" />
     @if($publishers->image)
         <img src="{{ asset('storage/' . $publishers->image) }}" alt="Current Image" width="60">
@@ -37,7 +37,7 @@
 
 
 <div class="form-group col-6 mb-3">
-    <label for="content_en" class="form-label">{{('admin.About')}}</label>
+    <label for="content_en" class="form-label">{{__('admin.About')}}</label>
     <textarea name="about" id="mytextarea" rows="3" class="form-control" required>{{$publishers->about}}</textarea>
 </div>
 
@@ -47,7 +47,7 @@
 
 
 <div class="form-group col-6 mb-3">
-<label for="status" class="form-label">{{('admin.Status')}}</label>
+<label for="status" class="form-label">{{__('admin.Status')}}</label>
 <div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="status" id="status-active"
@@ -66,7 +66,7 @@
 
 
 <div class="form-group col-6 mb-3">
-    <label for="attachments">Attachments</label>
+    <label for="attachments">{{__('admin.Attachments')}}</label>
     <input type="file" name="attachmentsFile" class="form-control" />
     @if($publishers->attachments)
     <img src="{{ asset('storage/' . $publishers->attachments) }}" alt="Current Attachment" height="60">

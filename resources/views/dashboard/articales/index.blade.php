@@ -66,8 +66,8 @@
     </style>
     @endpush
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{ __('Articale') }}</li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Article') }}</li>
     </x-slot:breadcrumb>
 
     <!-- Both borders table start -->
@@ -89,15 +89,15 @@
             <!-- Filters Section -->
             <div class="filters-container">
                 <div class="filter-item">
-                    <label for="date">{{ __('From Date') }}:</label>
+                    <label for="date">{{ __('admin.From Date') }}:</label>
                     <x-form.input name="date" id="date" type="date" placeholder="{{ __('admin.enter artical of date') }}" />
                 </div>
                 <div class="filter-item">
-                    <label for="to_date">{{ __('To Date') }}:</label>
+                    <label for="to_date">{{ __('admin.To Date') }}:</label>
                     <x-form.input name="to_date" id="to_date" type="date" placeholder="{{ __('admin.enter artical of date') }}" />
                 </div>
                 <div class="filter-item">
-                    <label for="category_id">{{ __('Category') }}:</label>
+                    <label for="category_id">{{ __('admin.Category') }}:</label>
                     <select id="category_id" name="category_id" class="form-control">
                         <option value="" selected>{{ __('admin.Choose category') }}</option>
                         @foreach ($categories as $category)
@@ -207,6 +207,8 @@
                     success: function(data) {
                         $('#footer-search tbody').empty();
                         let articals = data.articals;
+                        let accept = "{{__('admin.accept')}}";
+                        let not_accepted = "{{__('admin.not accepted yet')}}";
                         $.each(articals, function(index, artical) {
                             var row = `
                                 <tr>
@@ -230,9 +232,9 @@
                                         @endif
                                     </td>
                                     <td>${artical.date}</td>
-                                    <td>${formatDate(newsItem.created_at)}</td>
+                                    <td>${formatDate(artical.created_at)}</td>
                                     <td>${artical.visit}</td>
-                                    <td>${artical.status == 1 ? 'admin.accept' : 'admin.not accepted yet'}</td>
+                                    <td>${artical.status == 1 ? accept : not_accepted }</td>
                                     <td class="d-flex">
                                         <a href="{{ route('dashboard.articale.edit', ':id') }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>

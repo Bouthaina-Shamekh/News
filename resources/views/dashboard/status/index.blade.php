@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="{{ asset('assets-dashboard/css/plugins/dataTables.bootstrap5.min.css') }}" />
     @endpush
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{ __('Status') }}</li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Status') }}</li>
     </x-slot:breadcrumb>
 
 

@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="{{ asset('assets-dashboard/css/plugins/dataTables.bootstrap5.min.css') }}" />
     @endpush
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{ __('Publisher') }}</li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Publisher') }}</li>
     </x-slot:breadcrumb>
 
 
@@ -26,7 +26,7 @@
                 @can('create', 'App\Models\Publisher')
                 <div>
                     <a href="{{ route('dashboard.publisher.create') }}" class="btn btn-primary">
-                        {{ __('Add Publisher') }}
+                        {{ __('admin.Add Publisher') }}
                     </a>
                 </div>
                 @endcan
@@ -40,11 +40,11 @@
                                 <th>#</th>
                                 <th>{{ __('admin.Name') }}</th>
                                 <th>{{ __('admin.Email') }}</th>
-                                <th>{{ __('admin.phone') }}</th>
+                                <th>{{ __('admin.Phone') }}</th>
                                 <th>{{ __('admin.Birth of Date') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
                                 <th>{{ __('admin.Created') }}</th>
-                                <th>{{ __('Action') }}</th>
+                                <th>{{ __('admin.Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,7 +55,7 @@
                                 <td>{{ $publisher->email }}</td>
                                 <td>{{ $publisher->phone }}</td>
                                 <td>{{ $publisher->birth_of_date }}</td>
-                                <td>{{ $publisher->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
+                                <td>{{ $publisher->status == 1 ? __('admin.Accept') : __('admin.not accepted yet') }}</td>
                                 <td>{{ $publisher->created_at->format('Y-m-d') }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.publisher.edit', $publisher->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">

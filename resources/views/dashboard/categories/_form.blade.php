@@ -13,11 +13,11 @@
 
 
     <div class="form-group col-6 mb-3">
-        <label for="image">Image</label>
+        <label for="image">{{__('admin.Image')}}</label>
         <input type="file" name="image" class="form-control" />
-
-        <img src="{{ asset('storage/' . $categories->image) }}" alt="Current Image" height="60">
-
+        @if($categories->image)
+            <img src="{{ asset('storage/' . $categories->image) }}" alt="Current Image" height="60">
+        @endif
     </div>
 
 

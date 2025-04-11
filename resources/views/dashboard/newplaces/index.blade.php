@@ -1,8 +1,8 @@
 <x-dashboard-layout>
 
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{__('Hero NewPlace')}}</li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.New Place')}}</li>
     </x-slot:breadcrumb>
 
 
@@ -31,8 +31,8 @@
                         <th>#</th>
                         <th>{{__('admin.Name_AR')}}</th>
                         <th>{{__('admin.Name_EN')}}</th>
-                       
-                        <th>{{__('Action')}}</th>
+
+                        <th>{{__('admin.Actions')}}</th>
 
                     </tr>
                     </thead>
@@ -40,13 +40,8 @@
                         @foreach ($newplaces as $newplace )
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                               
-
                                 <td>{{$newplace->name_ar}}</td>
                                 <td>{{$newplace->name_en}}</td>
-                                
-                               
-
                                 <td>
                                     <a href="{{route('dashboard.newplace.edit',$newplace->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
@@ -68,9 +63,5 @@
         @endcan
     </div>
 </div>
-
 <!-- Both borders table end -->
-
-
-
 </x-dashboard-layout>

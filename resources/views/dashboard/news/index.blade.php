@@ -69,8 +69,8 @@
     @endpush
 
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('Home') }}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{ __('News') }}</li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.News') }}</li>
     </x-slot:breadcrumb>
 
     <!-- Both borders table start -->
@@ -92,19 +92,19 @@
             <!-- Filters Section -->
             <div class="filters-container">
                 <div class="filter-item">
-                    <label for="keyword">{{ __('Keyword') }}:</label>
+                    <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
                     <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter news of keyword') }}" />
                 </div>
                 <div class="filter-item">
-                    <label for="date">{{ __('From Date') }}:</label>
+                    <label for="date">{{ __('admin.From Date') }}:</label>
                     <x-form.input name="date" id="date" type="date" placeholder="{{ __('admin.enter article of date') }}" />
                 </div>
                 <div class="filter-item">
-                    <label for="to_date">{{ __('To Date') }}:</label>
+                    <label for="to_date">{{ __('admin.To Date') }}:</label>
                     <x-form.input name="to_date" id="to_date" type="date" placeholder="{{ __('admin.enter article of date') }}" />
                 </div>
                 <div class="filter-item">
-                    <label for="category_id">{{ __('Category') }}:</label>
+                    <label for="category_id">{{ __('admin.Category') }}:</label>
                     <select id="category_id" name="category_id" class="form-control">
                         <option value="" selected>{{ __('admin.Choose') }}</option>
                         @foreach ($categories as $category)
@@ -148,7 +148,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $new->newplace ? $new->newplace->name_en : '-' }}</td>
-                                    <td>{{ $new->created_at }}</td>
+                                    <td>{{ $new->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $new->visit }}</td>
                                     <td>{{ $new->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
                                     <td class="d-flex">
@@ -192,6 +192,8 @@
                 let to_date = $('#to_date').val();
                 let category_id = $('#category_id').val();
                 let keyword = $('#keyword').val();
+                let accept = "{{__('admin.accept')}}";
+                let not_accepted = "{{__('admin.not accepted yet')}}";
                 $.ajax({
                     url: '{{ route('dashboard.nw.index') }}',
                     method: 'GET',
@@ -232,7 +234,7 @@
                                     </td>
                                     <td>${formatDate(newsItem.created_at)}</td>
                                     <td>${newsItem.visit}</td>
-                                    <td>${newsItem.status == 1 ? 'admin.accept' : 'admin.not accepted yet'}</td>
+                                    <td>${newsItem.status == 1 ? accept : not_accepted}</td>
                                     <td class="d-flex">
                                         <a href="{{ route('dashboard.nw.edit', ':id') }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>

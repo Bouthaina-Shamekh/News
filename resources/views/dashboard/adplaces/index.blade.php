@@ -1,8 +1,8 @@
 <x-dashboard-layout>
 
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{__('AdPlace')}}</li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.Ad Place')}}</li>
     </x-slot:breadcrumb>
 
 
@@ -13,10 +13,10 @@
     @can('create', 'App\\Models\AdPlace')
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
-                <h5 class="mb-3 sm:mb-0">{{__('AdPlace')}}</h5>
+                <h5 class="mb-3 sm:mb-0">{{__('admin.Ad Place')}}</h5>
                 <div>
                     <a href="{{route('dashboard.adplace.create')}}" class="btn btn-primary" >
-                        {{__('Add AdPlace')}}
+                        {{__('admin.Create Adplace')}}
                     </a>
                 </div>
             </div>
@@ -31,8 +31,8 @@
                         <th>#</th>
                         <th>{{__('admin.Name_AR')}}</th>
                         <th>{{__('admin.Name_EN')}}</th>
-                     
-                        <th>{{__('Action')}}</th>
+
+                        <th>{{__('admin.Actions')}}</th>
 
                     </tr>
                     </thead>
@@ -42,7 +42,7 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$adplace->name_ar}}</td>
                                 <td>{{$adplace->name_en}}</td>
-                                
+
                                 <td>
                                     <a href="{{route('dashboard.adplace.edit',$adplace->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>

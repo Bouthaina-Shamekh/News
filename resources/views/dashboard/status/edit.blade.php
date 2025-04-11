@@ -7,14 +7,14 @@
         @can('view', 'App\Models\Statu')
         <li class="breadcrumb-item"><a href="{{route('dashboard.status.index')}}">{{__('admin.Status')}}</a></li>
         @endcan
-        <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit Statu')}}</li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit Status')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12 xl:col-span-12">
         <div class="col-md-12">
             <div class="card">
                 @can('edit', 'App\Models\Statu')
                 <div class="card-header">
-                    <h5>{{__('admin.Edit Statu')}}</h5>
+                    <h5>{{__('admin.Edit Status')}}</h5>
                 </div>
                  @endcan
                  @can('edit', 'App\Models\Statu')

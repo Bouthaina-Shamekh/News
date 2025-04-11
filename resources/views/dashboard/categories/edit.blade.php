@@ -5,7 +5,7 @@
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
         @can('view', 'App\Models\Category')
-        <li class="breadcrumb-item"><a href="{{route('dashboard.category.index')}}">{{__('admin.Categorys')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.category.index')}}">{{__('admin.Categories')}}</a></li>
         @endcan
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit Category')}}</li>
     </x-slot:breadcrumb>

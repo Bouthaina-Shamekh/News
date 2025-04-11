@@ -7,16 +7,16 @@
         @can('view', 'App\Models\AdPlace')
         <li class="breadcrumb-item"><a href="{{route('dashboard.adplace.index')}}">{{__('admin.AdPlace')}}</a></li>
         @endcan
-        <li class="breadcrumb-item" aria-current="page">{{__('admin.Add AdPlace')}}</li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.Create Adplace')}}</li>
         </x-slot:breadcrumb>
         <div class="col-span-12 xl:col-span-12">
             <div class="col-md-12">
                 <div class="card">
                 @can('create', 'App\Models\AdPlace')
                     <div class="card-header">
-                        <h5>{{__('admin.Add AdPlace')}}</h5>
+                        <h5>{{__('admin.Create Adplace')}}</h5>
                     </div>
-                   @endcan 
+                   @endcan
                     @can('create', 'App\Models\AdPlace')
                     <div class="card-body">
                         <form action="{{route('dashboard.adplace.store')}}" method="post" enctype="multipart/form-data">

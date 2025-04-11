@@ -5,8 +5,8 @@
     @endphp
 
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('Home')}}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{__('Ad')}}</li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{__('admin.Ad')}}</li>
     </x-slot:breadcrumb>
 
 
@@ -17,10 +17,10 @@
     @can('create', 'App\Models\Ad')
         <div class="card-header">
             <div class="sm:flex items-center justify-between">
-                <h5 class="mb-3 sm:mb-0">{{__('Ad')}}</h5>
+                <h5 class="mb-3 sm:mb-0">{{__('admin.Ad')}}</h5>
                 <div>
                     <a href="{{route('dashboard.ad.create')}}" class="btn btn-primary" >
-                        {{__('Add Ad')}}
+                        {{__('admin.Add Ad')}}
                     </a>
                 </div>
             </div>
@@ -40,8 +40,7 @@
                         <th>{{__('admin.Owner Phone')}}</th>
                         <th>{{__('admin.Add Place')}}</th>
                         <th>{{__('admin.Url')}}</th>
-                        <th>{{__('Action')}}</th>
-
+                        <th>{{__('admin.Actions')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,7 +51,7 @@
                                     @if ($ad->image)
                                         <img src="{{ asset('storage/' . $ad->image) }}" width="100" alt="Non Image">
                                     @else
-                                        {{ __('No Image') }}
+                                        {{ __('admin.No Image') }}
                                     @endif
                                 </td>
                                 <td>{{$ad->title}}</td>
