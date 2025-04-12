@@ -1,4 +1,4 @@
-    @php
+@php
         $name = 'name_' . app()->getLocale();
     @endphp
     <div class="row">
@@ -26,13 +26,13 @@
                 <option value="peace" @selected($articals->place == 'peace')>{{ __('admin.peace') }}</option>
             </select>
         </div>
-        <div class="form-group col-6 mb-3">
+        <div class="form-group col-12 mb-3">
             <label for="text_ar" class="form-label">{{ __('admin.Text_AR') }}</label>
-            <textarea name="text_ar" id="mytextarea" rows="3" class="form-control" required>{{ $articals->text_ar }}</textarea>
+            <textarea name="text_ar" rows="3" class="form-control mytextarea" required>{{ $articals->text_ar }}</textarea>
         </div>
-        <div class="form-group col-6 mb-3">
+        <div class="form-group col-12 mb-3">
             <label for="text_en" class="form-label">{{ __('admin.Text_EN') }}</label>
-            <textarea name="text_en" id="mytextarea" rows="3" class="form-control" required>{{ $articals->text_en }}</textarea>
+            <textarea name="text_en" rows="3" class="form-control mytextarea" required>{{ $articals->text_en }}</textarea>
         </div>
         <!-- <div class="form-group col-6 mb-3">
             <x-form.input name="visit" label="{{ __('admin.Visit') }}" type="number" placeholder="{{ __('admin.enter artical') }}" required :value="$articals->visit" />
@@ -93,3 +93,14 @@
             </select>
         </div>
     </div>
+
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: '.mytextarea'
+    });
+
+</script>
+@endpush
