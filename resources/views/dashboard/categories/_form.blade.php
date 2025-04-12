@@ -15,6 +15,7 @@
     <div class="form-group col-6 mb-3">
         <label for="image">{{__('admin.Image')}}</label>
         <input type="file" name="image" class="form-control" />
+        <span class="text-muted">{{__('admin.Size Image')}}: 1:1</span>
         @if($categories->image)
             <img src="{{ asset('storage/' . $categories->image) }}" alt="Current Image" height="60">
         @endif

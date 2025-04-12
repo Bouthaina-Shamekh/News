@@ -58,7 +58,7 @@
 <div class="form-group col-6 mb-3">
 <label for="image">{{__('admin.Image')}}</label>
 <input type="file" name="image" class="form-control" />
-
+<span class="text-muted">{{__('admin.Size Image')}}: 16:9, 1:1</span>
 <img src="{{ asset('storage/' . $abouts->image) }}" alt="Current Image" width="60">
 
 </div>

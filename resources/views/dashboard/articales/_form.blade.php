@@ -41,37 +41,25 @@
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Image')}}</label>
             <input type="file" name="img_view" class="form-control" />
+            <span class="text-muted">{{__('admin.Size Image')}}: 16:9</span>
             @if ($articals->img_view)
                 <img src="{{ asset('storage/' . $articals->img_view) }}" alt="Current Image" width="50">
-                <form action="{{route('site.article.delFileArtical',$articals->id)}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="file_type" value="img_view">
-                </form>
-                <button class="btn btn-danger btn-icon" type="submit" data-file="img_view">X</button>
             @endif
         </div>
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Image')}}</label>
             <input type="file" name="img_article" class="form-control" />
+            <span class="text-muted">{{__('admin.Size Image')}}: 16:9</span>
             @if($articals->img_article)
                 <img src="{{ asset('storage/' . $articals->img_article) }}" alt="Current Image" width="50">
-                <form action="{{route('site.article.delFileArtical',$articals->id)}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="file_type" value="img_article">
-                    <button class="btn btn-danger btn-icon" type="submit">X</button>
-                </form>
             @endif
         </div>
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Vedio')}}</label>
             <input type="file" name="vedio" class="form-control" />
+            <span class="text-muted">{{__('admin.Size Vedio')}}: 16:9</span>
             @if($articals->vedio)
                 <video src="{{ asset('storage/' . $articals->vedio) }}" width="320" height="240" controls="controls"></video>
-                <form action="{{route('site.article.delFileArtical',$articals->id)}}" method="POST">
-                    @csrf
-                    <input type="hidden" name="file_type" value="vedio">
-                    <button class="btn btn-danger btn-icon" type="submit">X</button>
-                </form>
             @endif
         </div>
         <div class="form-group col-6 mb-3">
@@ -105,8 +93,3 @@
             </select>
         </div>
     </div>
-@push('scripts')
-<script>
-    // $(document).on()
-</script>
-@endpush

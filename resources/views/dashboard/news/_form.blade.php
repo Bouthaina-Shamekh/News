@@ -52,7 +52,7 @@
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Image')}}</label>
             <input type="file" name="img_view" class="form-control" />
-
+            <span class="text-muted">{{__('admin.Size Image')}}: 16:9</span>
             @if ($news->img_view)
             <img src="{{ asset('storage/' . $news->img_view) }}" alt="Current Image" width="50">
             @endif
@@ -60,6 +60,7 @@
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Image')}}</label>
             <input type="file" name="img_article" class="form-control" />
+            <span class="text-muted">{{__('admin.Size Image')}}: 16:9</span>
             @if ($news->img_article)
             <img src="{{ asset('storage/' . $news->img_article) }}" alt="Current Image" width="50">
             @endif
@@ -68,7 +69,7 @@
         <div class="form-group col-6 mb-3">
             <label for="image">{{__("admin.Vedio")}}</label>
             <input type="file" name="vedio" class="form-control" />
-
+            <span class="text-muted">{{__('admin.Size Vedio')}}: 16:9</span>
             @if ($news->vedio)
             <video src="{{ asset('storage/' . $news->vedio)  }}" width="320" height="240" controls="controls"></video>
             @endif
