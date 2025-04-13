@@ -29,7 +29,10 @@
                             <div class="post--img">
                                 <a href="#" class="thumb">
                                     <br>
-                                    <img src="{{asset('storage/'.$article->img_article)}}" alt=""></a> <a href="#"
+                                    @if($article->img_view)
+                                        <img src="{{asset('storage/'.$article->img_view)}}" alt="">
+                                    @endif
+                                </a> <a href="#"
                                     class="icon"><i class="fa fa-star-o"></i></a>
                                 <div class="post--map">
                                 </div>
@@ -44,18 +47,17 @@
                                                 target="_blank"><i class="fa fa-twitter"></i></a></span></li>
                                     <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' . $article->id}}"
                                                 target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
-                                    <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','like_v')"
+                                    {{-- <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','like_v')"
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
                                                 class="fa fa-thumbs-up"></i></a></li>
                                     <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','dislike')"
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
-                                                class="fa  fa-thumbs-down"></i></a></li>
+                                                class="fa  fa-thumbs-down"></i></a></li> --}}
                                     <li><a href="{{url('articles?c='.$article->category_id)}}">{{$article->category->$name ?? ''}}</a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="post--info">
-
                                 <ul class="nav meta">
                                     <li><a href="news?psh=31">
                                         {{$article->publisher->name ?? ''}}
@@ -69,15 +71,22 @@
                                     </li>
                                 </ul>
                                 <div class="title dir_rtl">
-                                    <h2 class="h4">{{$article->$title}}</h2>
+                                    <h2 class="h2 text-dark">{{$article->$title}}</h2>
                                 </div>
                             </div>
+                            @if($article->img_article)
+                            <div class="post--img">
+                                <img src="{{asset('storage/'.$article->img_article)}}" alt="">
+                            </div>
+                            @endif
                             <div class="post--content dir_rtl">
                                 {!! $article->$text !!}
                             </div>
+                            @if($article->vedio)
                             <div>
                                 <video src="{{asset('storage/'.$article->vedio)}}" height="320" width="100%" controls></video>
                             </div>
+                            @endif
                         </div>
 
                         <div class="post--author-info clearfix" id="com">

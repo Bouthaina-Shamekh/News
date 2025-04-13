@@ -37,6 +37,7 @@ return [
     'View Ad' => 'عرض الاعلانات',
     'Add Ad' => 'اضافة اعلانات',
     'NewPlace' => 'موقع الخبر',
+    'place' => 'موقع',
     'View the news site' => 'عرض موقع الخبر',
     'Add View the news site' => 'اضافة موقع الخبر',
     'AdPlace' => 'موقع الاعلانات',
@@ -48,6 +49,8 @@ return [
     'About' => 'من نحن',
     'Settings' => 'الاعدادات',
     'Title' => 'العنوان',
+    'Title_AR' => 'العنوان بالعربية',
+    'Title_EN' => 'العنوان بالانجليزية',
     'Date' => 'التاريخ',
     'Created' => 'تاريخ النشر',
     'Visit' => 'الزيارات',
@@ -157,6 +160,7 @@ return [
     'accepted '=>'مقبول',
     'Add Articals'=>'اضافة مقالات',
     'documantary'=>'وثائقي',
+    'documentary'=>'وثائقي',
     'war'=>'حرب',
     'peace'=>'سلام',
     ' Ad Place'=>'اضافة موقع الاعلان',
@@ -165,10 +169,13 @@ return [
     'Filter' =>'فلتر',
     'New Place'=>'موقع الخبر',
     'Vedio' => 'فيديو',
+    'Categories'=>'التصنيفات',
 
     'Size Image' => 'حجم الصورة',
     'Size Vedio' => 'حجم الفيديو',
     'By Advertising Site' => 'حسب موقع الإعلان',
+    'Image View' => 'صورة عرض الأساسية',
+    'Image In Article' => 'الصورة في المقال',
     ''=> ''
 ];
 

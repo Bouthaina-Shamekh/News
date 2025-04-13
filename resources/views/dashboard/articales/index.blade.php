@@ -89,6 +89,10 @@
             <!-- Filters Section -->
             <div class="filters-container">
                 <div class="filter-item">
+                    <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
+                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter news of keyword') }}" />
+                </div>
+                <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
                     <x-form.input name="date" id="date" type="date" placeholder="{{ __('admin.enter artical of date') }}" />
                 </div>
@@ -142,7 +146,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <span class="title">{{ $artical->$title }}</span>
+                                    <a href="{{ route('site.article', $artical->id) }}" target="_blank" class="title">{{ $artical->$title }}</a>
                                 </td>
                                 <td>{{ $artical->publisher->name ?? '' }}</td>
                                 <td>
@@ -178,12 +182,19 @@
         </div>
     </div>
     <!-- Both borders table end -->
-
+    @push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
+    @endpush
     @push('scripts')
     <script src="{{ asset('assets-dashboard/js/plugins/dataTables.min.js') }}"></script>
     <script src="{{ asset('assets-dashboard/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.min.js" referrerpolicy="origin"></script>
 
     <script>
+        const tagifyElements = document.querySelectorAll('#keyword');
+        tagifyElements.forEach(el => {
+            new Tagify(el);
+        });
         $(document).ready(function() {
             function formatDate(dateString) {
                 const date = new Date(dateString);
@@ -200,6 +211,7 @@
                     url: '{{ route('dashboard.articale.index')}}',
                     method: 'GET',
                     data: {
+                        keyword: $('#keyword').val(),
                         date: date,
                         to_date: to_date,
                         category_id: category_id,
@@ -214,13 +226,13 @@
                                 <tr>
                                     <td>${index + 1}</td>
                                     <td>
-                                        No Image
+                                        <img src="../../storage/${artical.img_view}" width="100" alt="No Image">
                                     </td>
                                     <td>
                                         @if(app()->getLocale() == 'ar')
-                                            <span class="title">${artical.title_ar}</span>
+                                            <a href="{{ route('site.article', ':id') }}" target="_blank" class="title">${artical.title_ar}</a>
                                         @else
-                                            <span class="title">${artical.title_en}</span>
+                                            <a href="{{ route('site.article', ':id') }}" target="_blank" class="title">${artical.title_en}</a>
                                         @endif
                                     </td>
                                     <td>${artical.publisher ? artical.publisher.name : ''}</td>

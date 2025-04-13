@@ -123,6 +123,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ __('admin.Title') }}</th>
+                                <th>{{ __('admin.Image') }}</th>
                                 <th>{{ __('admin.Publisher') }}</th>
                                 <th>{{ __('admin.Category') }}</th>
                                 <th>{{ __('admin.New Place') }}</th>
@@ -137,18 +138,18 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
-                                    @if ($new->img_view)
-                                        @if(Storage::disk('public')->exists($new->img_view))
-                                        <img src="{{ asset('storage/' . $new->img_view) }}" width="50" alt="Image">
+                                        @if ($new->img_view)
+                                            @if(Storage::disk('public')->exists($new->img_view))
+                                            <img src="{{ asset('storage/' . $new->img_view) }}" width="50" alt="Image">
+                                            @else
+                                            {{ __('No Image') }}
+                                            @endif
                                         @else
                                         {{ __('No Image') }}
                                         @endif
-                                    @else
-                                    {{ __('No Image') }}
-                                    @endif
-                                </td>
+                                    </td>
                                     <td>
-                                        <span class="title">{{ $new->$title }}</span>
+                                        <a href="{{ route('site.new', $new->id) }}" target="_blank" class="title">{{ $new->$title }}</a>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>
                                     <td>
@@ -158,7 +159,7 @@
                                             {{ $new->category->name_en ?? '' }}
                                         @endif
                                     </td>
-                                    <td>{{ $new->newplace ? $new->newplace->name_en : '-' }}</td>
+                                    <td>{{ $new->newplace ? $new->newplace->$name : '-' }}</td>
                                     <td>{{ $new->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $new->visit }}</td>
                                     <td>{{ $new->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
@@ -185,11 +186,20 @@
     </div>
     <!-- Both borders table end -->
 
+
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
+@endpush
     @push('scripts')
     <script src="{{ asset('assets-dashboard/js/plugins/dataTables.min.js') }}"></script>
     <script src="{{ asset('assets-dashboard/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.min.js" referrerpolicy="origin"></script>
 
     <script>
+        const tagifyElements = document.querySelectorAll('#keyword');
+        tagifyElements.forEach(el => {
+            new Tagify(el);
+        });
         $(document).ready(function() {
             function formatDate(dateString) {
                 const date = new Date(dateString);
@@ -222,10 +232,13 @@
                                 <tr>
                                     <td>${index + 1}</td>
                                     <td>
+                                        <img src="../../storage/${newsItem.img_view}" width="100" alt="No Image">
+                                    </td>
+                                    <td>
                                         @if(app()->getLocale() == 'ar')
-                                            <span class="title">${newsItem.title_ar}</span>
+                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_ar}</a>
                                         @else
-                                            <span class="title">${newsItem.title_en}</span>
+                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_en}</a>
                                         @endif
                                     </td>
                                     <td>${newsItem.publisher ? newsItem.publisher.name : ''}</td>

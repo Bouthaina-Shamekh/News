@@ -36,19 +36,14 @@
         </div>
 
         <div class="form-group col-6 mb-3">
-            <x-form.input name="keyword_ar" label="{{__('admin.Keyword_AR')}}" type="text" placeholder="{{__('admin.enter articals of keyword')}}"  :value="$articals->keyword_ar" />
+            <x-form.input name="keyword_ar" class="TagifyBasic" label="{{__('admin.Keyword_AR')}}" type="text" placeholder="{{__('admin.enter articals of keyword')}}"  :value="$articals->keyword_ar" />
         </div>
-
-
         <div class="form-group col-6 mb-3">
-            <x-form.input name="keyword_en" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter articals of keyword')}}" :value="$articals->keyword_en" />
+            <x-form.input name="keyword_en" class="TagifyBasic" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter articals of keyword')}}" :value="$articals->keyword_en" />
         </div>
-        <!-- <div class="form-group col-6 mb-3">
-            <x-form.input name="visit" label="{{ __('admin.Visit') }}" type="number" placeholder="{{ __('admin.enter artical') }}" required :value="$articals->visit" />
-        </div> -->
         <input type="hidden" name="visit" value="{{ $articals->visit }}">
         <div class="form-group col-6 mb-3">
-            <label for="image">{{__('admin.Image')}}</label>
+            <label for="image">{{__('admin.Image View')}}</label>
             <input type="file" name="img_view" class="form-control" />
             <span class="text-muted">{{__('admin.Size Image')}}: 16:9</span>
             @if ($articals->img_view)
@@ -56,7 +51,7 @@
             @endif
         </div>
         <div class="form-group col-6 mb-3">
-            <label for="image">{{__('admin.Image')}}</label>
+            <label for="image">{{__('admin.Image In Article')}}</label>
             <input type="file" name="img_article" class="form-control" />
             <span class="text-muted">{{__('admin.Size Image')}}: 16:9</span>
             @if($articals->img_article)
@@ -104,16 +99,25 @@
     </div>
 
 
-
+@push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
+@endpush
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.min.js" referrerpolicy="origin"></script>
 
 <script>
+    // Basic
+    //------------------------------------------------------
+    const tagifyElements = document.querySelectorAll('.TagifyBasic');
+    tagifyElements.forEach(el => {
+        new Tagify(el);
+    });
     tinymce.init({
         selector: '.mytextarea',
         setup: function (editor) {
             editor.on('change', function () {
-                editor.save(); 
+                editor.save();
             });
         }
     });

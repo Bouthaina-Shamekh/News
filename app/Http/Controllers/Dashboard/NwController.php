@@ -24,6 +24,11 @@ class NwController extends Controller
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){
+            if($request->keyword != null){
+                $decoded_en = json_decode($request->keyword, true); // نحول الـ JSON إلى مصفوفة
+                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+                $news = $news->where('keyword_en', 'like', "$keywords_en_text");
+            }
             if($request->date  != null){
                 $news = $news->where('date','>=', $request->date);
             }
@@ -78,6 +83,21 @@ class NwController extends Controller
             'category_id' => 'required',
             'new_place_id' => 'required',
             'publisher_id' => 'nullable',
+        ]);
+
+        $keywords_ar_text = '';
+        if($request->keyword_ar != null){
+            $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
+            $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+        }
+        $keywords_en_text = '';
+        if($request->keyword_en != null){
+            $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
+            $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+        }
+        $request->merge([
+            'keyword_ar' => $keywords_ar_text ?? '',
+            'keyword_en' => $keywords_en_text ?? '',
         ]);
 
         // Handle image uploads
@@ -155,6 +175,20 @@ class NwController extends Controller
             'publisher_id' => 'nullable',
         ]);
 
+        $keywords_ar_text = '';
+        if($request->keyword_ar != null){
+            $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
+            $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+        }
+        $keywords_en_text = '';
+        if($request->keyword_en != null){
+            $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
+            $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+        }
+        $request->merge([
+            'keyword_ar' => $keywords_ar_text ?? '',
+            'keyword_en' => $keywords_en_text ?? '',
+        ]);
 
         // Find the news item
         $news = Nw::findOrFail($id);
