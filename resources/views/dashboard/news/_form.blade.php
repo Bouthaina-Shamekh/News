@@ -120,18 +120,21 @@
             </select>
         </div>
 
-
-
-
-
     </div>
+
+
+
     @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.min.js" referrerpolicy="origin"></script>
 
-    <script>
-        tinymce.init({
-            selector: '.mytextarea'
-        });
-
-    </script>
-    @endpush
+<script>
+    tinymce.init({
+        selector: '.mytextarea',
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save(); // هذه ترجع البيانات لـ <textarea> الفعلي المخفي
+            });
+        }
+    });
+</script>
+@endpush
