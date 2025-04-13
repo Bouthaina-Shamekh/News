@@ -166,8 +166,8 @@
                         <div class="widget">
                             <div class="widget--title">
                                 @if($ads5)
-                                <a href="{{ $ads5->link }}">
-                                    <img src="../assets/files/{{ $ads5->image }}" alt="No Image For Ad"
+                                <a href="{{ $ads5->url }}" target="_blank">
+                                    <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
                                         style="border: 1px solid gold;width: 100%;height: 100px;">
                                 </a>
                                 @else

@@ -89,7 +89,7 @@ class MainController extends Controller
     public function new($id)
     {
         $new = Nw::findOrFail($id);
-        $news = Nw::orderby('id','desc')->take(5)->get();
+        $news = Nw::orderby('id','desc')->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
             'visit' => $new->visit + 1
         ]);
@@ -128,7 +128,7 @@ class MainController extends Controller
         $article->update([
             'visit' => $article->visit + 1
         ]);
-        $articles = Artical::orderby('id','desc')->take(5)->get();
+        $articles = Artical::orderby('id','desc')->where('category_id', $article->category_id)->take(5)->get();
         return view('site.article', compact('article', 'articles'));
     }
 

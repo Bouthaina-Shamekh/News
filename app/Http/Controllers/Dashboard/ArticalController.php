@@ -19,7 +19,7 @@ class ArticalController extends Controller
     {
         $this->authorize('view', Artical::class);
 
-        $articals = Artical::with(['category','publisher'])->orderBy('id', 'desc')->get();
+        $articals = Artical::with(['category','publisher','status'])->orderBy('id', 'desc');
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){
@@ -38,11 +38,12 @@ class ArticalController extends Controller
                 $articals = $articals->where('category_id', $request->category_id);
             }
             return response()->json([
-                'articals' => $articals,
+                'articals' => $articals->get(),
                 'date' => $request->date,
                 'to_date' => $request->to_date
             ]);
         }
+        $articals = $articals->paginate(10);
 
         return view('dashboard.articales.index', compact('articals','categories'));
 

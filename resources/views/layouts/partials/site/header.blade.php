@@ -35,7 +35,13 @@
                         <ul class="header--topbar-action nav">
                             <li>
                                 <a href="{{route('login')}}">
-                                    <i class="fa fm fa-user-o"></i> {{__('site.Login')}} / {{__('site.Signup')}}
+                                    <i class="fa fm fa-user-o"></i> {{__('site.Login')}}
+                                </a>
+                            </li>
+                            <li>/</li>
+                            <li>
+                                <a href="{{route('register')}}">
+                                    {{__('site.Signup')}}
                                 </a>
                             </li>
                         </ul>
@@ -108,10 +114,10 @@
                             }
                         @endphp
                         <a href="{{ route('site.index') }}" class="btn-link col-sm-4 nav_logo_img" style="padding-right: 0px;">
-                            @if(Storage::disk('public')->exists($logo))
-                            <img src="{{ asset($logo) }}" alt="" style="width: 100%;">
+                            @if($logo)
+                                <img src="{{ asset('uploads/logos/' . $logo) }}" alt="" style="width: 100%;">
                             @else
-                            <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 100%;">
+                                <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 100%;">
                             @endif
                             <span class="hidden"> Logo</span>
                         </a>
@@ -123,13 +129,13 @@
                     @endphp
                     <div class="col-md-8 col-sm-12">
                         @if($adsHerder)
-                        <a href="{{ $adsHerder->link }}">
-                            <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%">
-                        </a>
+                            <a href="{{ $adsHerder->url }}" target="_blank">
+                                <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 104px;">
+                            </a>
                         @else
-                        <a href="#">
-                            <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%">
-                        </a>
+                            <a href="#">
+                                <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 104px;">
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -149,9 +155,9 @@
                             @php
                                 $categories = App\Models\Category::all();
                             @endphp
-                             @foreach ($categories as $category)
+                            @foreach ($categories as $category)
                             <li style="width: 200px;padding: 20px;" class="box">
-                                <a href="{{route('site.news', $category->id)}}" class="row">
+                                <a href="{{route('site.news', ['c' => $category->id])}}" class="row">
                                     <div class="col-md-12">
                                         <img src="{{asset('storage/'.$category->image)}}" style="width: max-content; height: 100px;">
                                     </div>

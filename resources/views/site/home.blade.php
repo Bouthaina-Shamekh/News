@@ -2,6 +2,14 @@
     @php
         $title = 'title_' . app()->getLocale();
     @endphp
+    @push('styles')
+        <style>
+            .row:after, .row:before {
+                display: table;
+                content: none !important;
+            }
+        </style>
+    @endpush
     <div class="container">
         <div class="row container2">
             <div class="col-xs-12 col-md-3">
@@ -233,7 +241,7 @@
                                     </div>
 
                                     <div class="">
-                                        <a href="{{ $ad->url }}" title="{{ $ad->title }}">
+                                        <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
                                             <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                         </a>
                                     </div>
@@ -425,7 +433,7 @@
                                     </div>
 
                                     <div class="">
-                                        <a href="{{ $ad->url }}" title="{{ $ad->title }}">
+                                        <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
                                             <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                         </a>
                                     </div>
@@ -494,7 +502,9 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <h2 class="h4" style="    direction: rtl;">{{$categoryFirst->$name}}</h2>
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryFirst->id])}}">
+                                            {{$categoryFirst->$name}}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="post--items" data-ajax-content="outer">
@@ -576,7 +586,7 @@
                                     $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
                                     @endphp
                                     @if($ads5)
-                                    <a href="{{ $ads5->link }}">
+                                    <a href="{{ $ads5->url }}" title="{{ $ads5->title }}" target="_blank">
                                         <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
                                             style="border: 1px solid gold;width: 100%;height:100px;">
                                     </a>
@@ -589,7 +599,9 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <h2 class="h4" style="direction: rtl;">{{$categoryLast->$name}}</h2>
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryLast->id])}}">
+                                            {{$categoryLast->$name}}
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="post--items post--items-2" data-ajax-content="outer">
@@ -668,7 +680,7 @@
                                     $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
                                     @endphp
                                     @if($ads6)
-                                    <a href="{{ $ads6->link }}">
+                                    <a href="{{ $ads6->url }}" title="{{ $ads6->title }}" target="_blank">
                                         <img src="{{ asset('storage/' . $ads6->image) }}" alt="No Image For Ad"
                                             style="border: 1px solid gold;width: 100%;height: 100px;">
                                     </a>
@@ -723,7 +735,7 @@
                                 @forelse ($ads as $ad)
                                     <div class="widget">
                                         <div class="">
-                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}">
+                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
                                                 <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
                                             </a>
                                         </div>
@@ -767,7 +779,7 @@
                                 @forelse ($ads as $ad)
                                     <div class="widget">
                                         <div class="">
-                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}">
+                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
                                                 <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
                                             </a>
                                         </div>

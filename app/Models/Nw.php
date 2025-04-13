@@ -59,6 +59,6 @@ class Nw extends Model
 
     public function status()
     {
-        return $this->belongsTo(Statu::class);
+        return $this->belongsTo(Statu::class,'statu_id');
     }
 }

@@ -20,7 +20,7 @@ class NwController extends Controller
     {
         $this->authorize('view', Nw::class);
 
-        $news = Nw::with(['newplace','category','publisher'])->orderBy('id','desc')->get();
+        $news = Nw::with(['newplace','category','publisher','status'])->orderBy('id','desc');
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){
@@ -39,9 +39,10 @@ class NwController extends Controller
                 $news = $news->where('category_id', $request->category_id);
             }
             return response()->json([
-                'newss' => $news,
+                'newss' => $news->get(),
             ]);
         }
+        $news = $news->paginate(10);
 
         return view('dashboard.news.index', compact('news', 'categories'));
     }

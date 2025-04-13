@@ -122,8 +122,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ __('admin.Title') }}</th>
                                 <th>{{ __('admin.Image') }}</th>
+                                <th>{{ __('admin.Title') }}</th>
                                 <th>{{ __('admin.Publisher') }}</th>
                                 <th>{{ __('admin.Category') }}</th>
                                 <th>{{ __('admin.New Place') }}</th>
@@ -162,7 +162,7 @@
                                     <td>{{ $new->newplace ? $new->newplace->$name : '-' }}</td>
                                     <td>{{ $new->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $new->visit }}</td>
-                                    <td>{{ $new->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
+                                    <td>{{ $new->status ? $new->status->$name : '' }}</td>
                                     <td class="d-flex">
                                         <a href="{{ route('dashboard.nw.edit', $new->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>
@@ -179,6 +179,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-between" dir="ltr" id="pagination-links">
+                    {{ $news->links() }}
                 </div>
             </div>
             @endcan
@@ -258,7 +261,13 @@
                                     </td>
                                     <td>${formatDate(newsItem.created_at)}</td>
                                     <td>${newsItem.visit}</td>
-                                    <td>${newsItem.status == 1 ? accept : not_accepted}</td>
+                                    <td>
+                                        @if(app()->getLocale() == 'ar')
+                                            ${newsItem.status.name_ar}
+                                        @else
+                                            ${newsItem.status.name_en}
+                                        @endif
+                                    </td>
                                     <td class="d-flex">
                                         <a href="{{ route('dashboard.nw.edit', ':id') }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>
@@ -277,6 +286,7 @@
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();
+                        $('#pagination-links').empty();
                         $('.paging_full_numbers').empty();
                     }
                 });

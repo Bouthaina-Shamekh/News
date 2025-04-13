@@ -159,7 +159,7 @@
                                 <td>{{ $artical->date}}</td>
                                 <td>{{ $artical->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $artical->visit }}</td>
-                                <td>{{ $artical->status == 1 ? __('admin.accept') : __('admin.not accepted yet') }}</td>
+                                <td>{{ $artical->status ? $artical->status->$name : '' }}</td>
                                 <td class="d-flex">
                                     <a href="{{ route('dashboard.articale.edit', $artical->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
@@ -176,6 +176,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-between" dir="ltr" id="pagination-links">
+                    {{ $articals->links() }}
                 </div>
             </div>
             @endcan
@@ -246,7 +249,13 @@
                                     <td>${artical.date}</td>
                                     <td>${formatDate(artical.created_at)}</td>
                                     <td>${artical.visit}</td>
-                                    <td>${artical.status == 1 ? accept : not_accepted }</td>
+                                    <td>
+                                        @if(app()->getLocale() == 'ar')
+                                            ${artical.status.name_ar}
+                                        @else
+                                            ${artical.status.name_en}
+                                        @endif
+                                    </td>
                                     <td class="d-flex">
                                         <a href="{{ route('dashboard.articale.edit', ':id') }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>
@@ -265,6 +274,7 @@
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();
+                        $('#pagination-links').empty();
                         $('.paging_full_numbers').empty();
                     }
                 });

@@ -56,10 +56,10 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 if(Config::get('fortify.guard') == 'admin'){
-                    return redirect()->intended('/dashboard/login');
+                    return redirect()->intended(app()->getLocale() . '/dashboard/login');
                 }
                 if(Config::get('fortify.guard') == 'publisher'){
-                    return redirect()->intended('/publisher/login');
+                    return redirect()->intended(app()->getLocale() . '/publisher/login');
                 }
                 return redirect('/');
             }
