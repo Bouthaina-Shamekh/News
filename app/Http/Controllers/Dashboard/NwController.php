@@ -149,7 +149,6 @@ class NwController extends Controller
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
             'keyword_en' => 'nullable',
-
             'statu_id' => 'required',
             'category_id' => 'required',
             'new_place_id' => 'required',

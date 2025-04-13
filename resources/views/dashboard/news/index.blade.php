@@ -137,6 +137,17 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
+                                    @if ($new->img_view)
+                                        @if(Storage::disk('public')->exists($new->img_view))
+                                        <img src="{{ asset('storage/' . $new->img_view) }}" width="50" alt="Image">
+                                        @else
+                                        {{ __('No Image') }}
+                                        @endif
+                                    @else
+                                    {{ __('No Image') }}
+                                    @endif
+                                </td>
+                                    <td>
                                         <span class="title">{{ $new->$title }}</span>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>

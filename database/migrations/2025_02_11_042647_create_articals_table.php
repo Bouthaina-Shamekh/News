@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('img_article')->nullable();
             $table->text('text_ar')->nullable();
             $table->text('text_en')->nullable();
+            $table->string('keyword_ar')->nullable();
+            $table->string('keyword_en')->nullable();
             $table->enum('place', ['documentary', 'war','peace']);
             $table->foreignId('statu_id')->nullable()->constrained('status')->nullOnDelete();
             $table->foreignId('publisher_id')->nullable()->constrained('publishers')->nullOnDelete();

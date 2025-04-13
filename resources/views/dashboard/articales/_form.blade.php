@@ -34,6 +34,15 @@
             <label for="text_en" class="form-label">{{ __('admin.Text_EN') }}</label>
             <textarea name="text_en" rows="3" class="form-control mytextarea" required>{{ $articals->text_en }}</textarea>
         </div>
+
+        <div class="form-group col-6 mb-3">
+            <x-form.input name="keyword_ar" label="{{__('admin.Keyword_AR')}}" type="text" placeholder="{{__('admin.enter articals of keyword')}}"  :value="$articals->keyword_ar" />
+        </div>
+
+
+        <div class="form-group col-6 mb-3">
+            <x-form.input name="keyword_en" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter articals of keyword')}}" :value="$articals->keyword_en" />
+        </div>
         <!-- <div class="form-group col-6 mb-3">
             <x-form.input name="visit" label="{{ __('admin.Visit') }}" type="number" placeholder="{{ __('admin.enter artical') }}" required :value="$articals->visit" />
         </div> -->

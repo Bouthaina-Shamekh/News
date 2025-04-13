@@ -22,7 +22,9 @@ class Artical extends Model
         'publisher_id',
         'category_id',
         'statu_id',
-        'visit'
+        'visit',
+        'keyword_ar',
+        'keyword_en',
     ];
 
 
