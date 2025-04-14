@@ -36,7 +36,7 @@ class AboutController extends Controller
             'vission_en' => 'required',
             'goal_ar' => 'required',
             'goal_en' => 'required',
-            'image' => 'nullabel|image',
+            'image' => 'nullable|image',
         ]);
 
         $abouts = About::findOrFail($id);
@@ -52,8 +52,8 @@ class AboutController extends Controller
 
 
         $abouts->update([
-             'image' => $image,
-             'about_ar' => $request->about_ar,
+            'image' => $image,
+            'about_ar' => $request->about_ar,
             'about_en' => $request->about_en,
             'objective_ar' => $request->objective_ar,
             'objective_en' => $request->objective_en,
@@ -63,14 +63,12 @@ class AboutController extends Controller
             'vission_en' => $request->vission_en,
             'goal_ar' => $request->goal_ar,
             'goal_en' => $request->goal_en,
-
-
-    ]);
+        ]);
 
 
 
 
-        return redirect()->route('dashboard.about.edit',1)->with('success', __('About updated successfully.'));
+        return redirect()->route('dashboard.about.edit', 1)->with('success', __('About updated successfully.'));
     }
 
 
@@ -79,7 +77,7 @@ class AboutController extends Controller
 
         $this->authorize('delete', About::class);
         $abouts = About::findOrFail($id);
-        File::delete(public_path('uploads/about/'.$abouts->image));
+        File::delete(public_path('uploads/about/' . $abouts->image));
         $abouts->delete();
         $request = request();
         if ($request->ajax()) {

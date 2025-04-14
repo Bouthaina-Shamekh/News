@@ -102,19 +102,29 @@ class NwController extends Controller
         ]);
 
         // Handle image uploads
-        $imgViewPath = $request->file('img_view')->store('uploads', 'public');
-        $imgArticlePath = $request->file('img_article')->store('uploads', 'public');
-        // $vedioPath = $request->file('vedio')->store('uploads', 'public');
-        $vedioPath = $request->hasFile('vedio') ? $request->file('vedio')->store('uploads', 'public') : null;
+        $imgViewPath = null;
+        if ($request->hasFile('img_view')) {
+            $imgViewPath = $request->file('img_view')->store('uploads', 'public');
+        }
+
+        $imgArticalPath = null;
+        if ($request->hasFile('img_article')) {
+            $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
+        }
+
+        $vedioFilePath = null;
+        if ($request->hasFile('vedio')) {
+            $vedioFilePath = $request->file('vedio')->store('uploads', 'public');
+        }
 
         // Create the news item
         Nw::create([
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
-            'vedio' => $vedioPath,
+            'vedio' => $vedioFilePath,
             'img_view' => $imgViewPath,
-            'img_article' => $imgArticlePath,
+            'img_article' => $imgArticalPath,
             'text_ar' => $request->text_ar,
             'text_en' => $request->text_en,
             'keyword_ar' => $request->keyword_ar,

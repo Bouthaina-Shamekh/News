@@ -168,7 +168,6 @@ class ArticalController extends Controller
     public function update(Request $request, string $id)
     {
         $this->authorize('edit', Artical::class);
-
         $request->validate([
             'title_ar' => 'required',
             'title_en' => 'required',
@@ -208,7 +207,9 @@ class ArticalController extends Controller
         // Handle image uploads
         if ($request->hasFile('img_view')) {
             // Delete the old image
-            Storage::disk('public')->delete($articals->img_view);
+            if($articals->img_view != null){
+                Storage::disk('public')->delete($articals->img_view);
+            }
             // Store the new image
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         }
@@ -216,14 +217,18 @@ class ArticalController extends Controller
         $imgArticalPath = $articals->img_article;
         if ($request->hasFile('img_article')) {
             // Delete the old image
-            Storage::disk('public')->delete($articals->img_article);
+            if($articals->img_article != null){
+                Storage::disk('public')->delete($articals->img_article);
+            }
             // Store the new image
             $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
         }
         $vedioPath = $articals->vedio;
         if ($request->hasFile('vedio')) {
             // Delete the old image
-            Storage::disk('public')->delete($articals->vedio);
+            if($articals->vedio != null){
+                Storage::disk('public')->delete($articals->vedio);
+            }
             // Store the new image
             $vedioPath = $request->file('vedio')->store('uploads', 'public');
         }

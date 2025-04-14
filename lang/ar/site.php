@@ -80,4 +80,15 @@ return [
     'most viewed' => 'الأكثر مشاهدة',
     'latest articles' => 'آخر المقالات',
     'emergency articles' => 'أخبار عاجلة',
+
+    'more_news' => ' المزيد من الاخبار',
+    'more_articles' => ' المزيد من المقالات',
+    'weather' => 'حالة الطقس',
+    'currency' => 'أسعار العملات',
+    'About' => 'معلومات عنا',
+    'useful_links' => 'روابط معلومات مفيدة',
+    'world_news' => 'أخبار العالم',
+    'sport_news' => 'أخبار رياضة',
+    'privacy' => 'سياسة و الخصوصية',
+    'read_more' => 'قراءة المزيد'
 ];

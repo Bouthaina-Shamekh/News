@@ -24,11 +24,19 @@ class MainController extends Controller
     {
         $ads = Ad::orderBy('id', 'desc')->get();
         $sliders  = Nw::where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
-        $categoryFirst = Category::first() ?? new Category();
-        $news = Nw::where('category_id', $categoryFirst->id)->orderBy('id', 'desc')->get();
-        $categoryLast = Category::orderBy('id', 'desc')->first() ?? new Category();
-        $articles = Artical::where('category_id', $categoryLast->id)->orderBy('id', 'desc')->get();
-        return view('site.home', compact('ads', 'sliders', 'news', 'articles', 'categoryFirst', 'categoryLast'));
+
+        // Categories
+        $categoryOne = Category::find(6) ?? Category::first();
+        $categoryTwo = Category::find(4) ?? Category::first();
+        $categoryThree = Category::find(1) ?? Category::first();
+
+        $newsOne = Nw::where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
+        $newsTwo = Nw::where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
+        $newsThree = Nw::where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
+        $articlesOne = Artical::where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
+        $articlesTwo = Artical::where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
+        $articlesThree = Artical::where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
+        return view('site.home', compact('ads', 'sliders','categoryOne', 'categoryTwo', 'categoryThree', 'newsOne', 'newsTwo', 'newsThree', 'articlesOne', 'articlesTwo', 'articlesThree'));
     }
 
     public function about()

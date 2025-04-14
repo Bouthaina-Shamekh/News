@@ -106,7 +106,23 @@
                             </div>
                             @endif
                         </div>
-
+                        @php
+                            $ads = App\Models\Ad::where('ad_place_id', 9)->take(3)->get();
+                        @endphp
+                        @forelse ($ads as $ad)
+                            <div class="widget">
+                                <div class="">
+                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                    </a>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="widget">
+                                <h2 class="h4" style="    direction: rtl;">
+                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                            </div>
+                        @endforelse
                         <div class="post--author-info clearfix" id="com">
                             <div class="img">
                                 <div class="vc--parent">

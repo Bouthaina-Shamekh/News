@@ -77,4 +77,15 @@ return [
     'most viewed' => 'Most Viewed',
     'latest articles' => 'Latest Articles',
     'emergency articles' => 'Emergency Articles',
+
+    'more_news' => 'More News',
+    'more_articles' => 'More Articles',
+    'weather' => 'Weather',
+    'currency' => 'Currency',
+    'About' => 'About',
+    'useful_links' => 'Useful Links',
+    'world_news' => 'World News',
+    'sport_news' => 'Sport News',
+    'privacy' => 'Privacy',
+    'read_more' => 'Read More'
 ];

@@ -160,7 +160,7 @@
                             </div>
                         </div>
                         @php
-                        $ads5 = App\Models\Ad::where('ad_place_id', 10)->first();
+                        $ads5 = App\Models\Ad::where('ad_place_id', 11)->first();
                         @endphp
                         <div class="widget">
                             <div class="widget--title">

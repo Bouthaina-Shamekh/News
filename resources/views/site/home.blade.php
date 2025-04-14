@@ -1,6 +1,7 @@
 <x-site-layout>
     @php
         $title = 'title_' . app()->getLocale();
+        $name = 'name_' . app()->getLocale();
     @endphp
     @push('styles')
         <style>
@@ -249,7 +250,8 @@
                                 @empty
                                 <div class="widget">
                                     <h2 class="h4" style="    direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i> إعلان
+                                        <i class="icon fa fa-bullhorn"></i>
+                                        {{__('admin.Ad')}}
                                     </h2>
                                 </div>
                                 @endforelse
@@ -441,7 +443,7 @@
                                 @empty
                                 <div class="widget">
                                     <h2 class="h4" style="direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i> إعلان
+                                        <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}}
                                     </h2>
                                 </div>
                                 @endforelse
@@ -502,21 +504,21 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryFirst->id])}}">
-                                            {{$categoryFirst->$name}}
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryOne->id])}}">
+                                            {{$categoryOne->$name}} - {{ __('site.News')}}
                                         </a>
                                     </div>
                                 </div>
                                 <div class="post--items" data-ajax-content="outer">
                                     <ul class="nav row gutter--15" data-ajax-content="inner">
                                         @php
-                                        $newFirest = $news->first() ? $news->first() : new App\Models\Nw();
+                                        $newFirst = $newsOne->first() ? $newsOne->first() : \App\Models\Nw::first();
                                         @endphp
                                         <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
                                             <div class="post--item post--layout-1">
                                                 <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.new', $newFirest->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $newFirest->img_view) }}" alt="{{ $newFirest->$title }}" style="object-fit: cover;" class="imgss">
+                                                    <a href="{{ route('site.new', $newFirst->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $newFirst->img_view) }}" alt="{{ $newFirst->$title }}" style="object-fit: cover;" class="imgss">
                                                     </a>
                                                     <a href="#" class="cat"></a>
                                                     <a href="#" class="icon">
@@ -528,23 +530,22 @@
                                                                 <a href="author?id=0"></a>
                                                             </li>
                                                             <li>
-                                                                <a href=" #">{{ $newFirest->created_at->format('Y-m-d') }}</a>
+                                                                <a href=" #">{{ $newFirst->created_at->format('Y-m-d') }}</a>
                                                             </li>
                                                         </ul>
                                                         <div class="title" style="height:80px;">
                                                             <h3 class="text h4">
-                                                                <a href="{{ route('site.new', $newFirest->id ?? 0) }}" class="btn-link text">{{ $newFirest->$title }}</a>
+                                                                <a href="{{ route('site.new', $newFirst->id ?? 0) }}" class="btn-link text">{{ $newFirst->$title }}</a>
                                                             </h3>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-
                                         <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
                                             <hr class="divider">
                                         </li>
-                                        @foreach($news->skip(1)->take(6) as $new)
+                                        @foreach($newsOne->skip(1)->take(6) as $new)
                                         <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
                                             <div class="post--item post--layout-2">
                                                 <div class="post--img">
@@ -577,46 +578,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- مساحة اعلانية  -->
-                            <div class="col-md-12 ptop--30 ">
-                                <div class="post--items-title" style="padding: 0;" data-ajax="tab">
-                                    <!-- <h2 class="h4" style="    direction: rtl;">
-                                        إعلان </h2> -->
-                                    @php
-                                    $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
-                                    @endphp
-                                    @if($ads5)
-                                    <a href="{{ $ads5->url }}" title="{{ $ads5->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
-                                            style="border: 1px solid gold;width: 100%;height:100px;">
-                                    </a>
-                                    @else
-                                    <h2 class="h4" style="direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i>
-                                        <span>إعلان</span>
-                                    </h2>
-                                    @endif
-                                </div>
-                            </div>
-                            <!--pbottom--30-->
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryLast->id])}}">
-                                            {{$categoryLast->$name}}
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryOne->id])}}">
+                                            {{$categoryOne->$name}} - {{ __('site.Articles')}}
                                         </a>
                                     </div>
                                 </div>
-                                <div class="post--items post--items-2" data-ajax-content="outer">
+                                <div class="post--items" data-ajax-content="outer">
                                     <ul class="nav row gutter--15" data-ajax-content="inner">
                                         @php
-                                        $articleFirest = $articles->first() ? $articles->first() : new App\Models\Artical();
+                                        $articleFirst = $articlesOne->first() ? $articlesOne->first() : \App\Models\Artical::first();
                                         @endphp
                                         <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
                                             <div class="post--item post--layout-1">
                                                 <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $articleFirest->img_view) }}" alt="{{ $articleFirest->$title }}" style="object-fit: cover;" class="imgss">
+                                                    <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $articleFirst->img_view) }}" alt="{{ $articleFirst->$title }}" style="object-fit: cover;" class="imgss">
                                                     </a>
                                                     <a href="#" class="cat"></a>
                                                     <a href="#" class="icon">
@@ -628,12 +607,12 @@
                                                                 <a href="author?id=0"></a>
                                                             </li>
                                                             <li>
-                                                                <a href=" #">{{ $articleFirest->created_at }}</a>
+                                                                <a href=" #">{{ $articleFirst->created_at->format('Y-m-d') }}</a>
                                                             </li>
                                                         </ul>
-                                                        <div class="title" style="    height: 80px;">
+                                                        <div class="title" style="height:80px;">
                                                             <h3 class="text h4">
-                                                                <a href="{{ route('site.article', $articleFirest->id ?? 0) }}" class="btn-link text">{{ $articleFirest->$title }}</a>
+                                                                <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="btn-link text">{{ $articleFirst->$title }}</a>
                                                             </h3>
                                                         </div>
                                                     </div>
@@ -643,12 +622,12 @@
                                         <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
                                             <hr class="divider">
                                         </li>
-                                        @foreach($articles->skip(1)->take(6) as $article)
-                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div" style="">
+                                        @foreach($articlesOne->skip(1)->take(6) as $article)
+                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
                                             <div class="post--item post--layout-2">
                                                 <div class="post--img">
-                                                    <a href="{{ route('site.article', $article->id) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="" class="home-sml-img">
+                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
                                                     </a>
                                                     <div class="post--info">
                                                         <ul class="nav meta">
@@ -661,7 +640,7 @@
                                                         </ul>
                                                         <div class="title" style="height: 50px;margin-bottom: 7px;">
                                                             <h3 class="h4">
-                                                                <a href="{{ route('site.article', $article->id) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
+                                                                <a href="{{ route('site.article', $article->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
                                                             </h3>
                                                             <br>
                                                         </div>
@@ -670,13 +649,188 @@
                                             </div>
                                         </li>
                                         @endforeach
-
                                     </ul>
                                     <div class="preloader bg--color-0--b" data-preloader="1">
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- مساحة اعلانية  -->
+                            <div class="col-md-12 ptop--30 ">
+                                <div class="post--items-title" style="padding: 0;" data-ajax="tab">
+                                    <!-- <h2 class="h4" style="    direction: rtl;">
+                                        {{__('admin.Ad')}} </h2> -->
+                                    @php
+                                    $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
+                                    @endphp
+                                    @if($ads5)
+                                    <a href="{{ $ads5->url }}" title="{{ $ads5->title }}" target="_blank">
+                                        <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
+                                            style="border: 1px solid gold;width: 100%;height:100px;">
+                                    </a>
+                                    @else
+                                    <h2 class="h4" style="direction: rtl;">
+                                        <i class="icon fa fa-bullhorn"></i>
+                                        <span>{{__('admin.Ad')}}</span>
+                                    </h2>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 ptop--30 ">
+                                    <div class="post--items-title" data-ajax="tab">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryTwo->id])}}">
+                                            {{$categoryTwo->$name}} - {{ __('site.News')}}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post--items" data-ajax-content="outer">
+                                    <ul class="nav row gutter--15" data-ajax-content="inner">
+                                        @php
+                                        $newFirst = $newsTwo->first() ? $newsTwo->first() : \App\Models\Nw::first();
+                                        @endphp
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+                                            <div class="post--item post--layout-1">
+                                                <div class="post--img mrg-top-m-34">
+                                                    <a href="{{ route('site.new', $newFirst->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $newFirst->img_view) }}" alt="{{ $newFirst->$title }}" style="object-fit: cover;" class="imgss">
+                                                    </a>
+                                                    <a href="#" class="cat"></a>
+                                                    <a href="#" class="icon">
+                                                        <i class="fa fa-flash"></i>
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $newFirst->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height:80px;">
+                                                            <h3 class="text h4">
+                                                                <a href="{{ route('site.new', $newFirst->id ?? 0) }}" class="btn-link text">{{ $newFirst->$title }}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+                                            <hr class="divider">
+                                        </li>
+                                        @foreach($newsTwo->skip(1)->take(6) as $new)
+                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
+                                            <div class="post--item post--layout-2">
+                                                <div class="post--img">
+                                                    <a href="{{ route('site.new', $new->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $new->img_view) }}" alt="{{ $new->$title }}" class="home-sml-img">
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.new', $new->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $new->$title }}</a>
+                                                            </h3>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="preloader bg--color-0--b" data-preloader="1">
+                                        <div class="preloader--inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 ptop--30 ">
+                                    <div class="post--items-title" data-ajax="tab">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryTwo->id])}}">
+                                            {{$categoryTwo->$name}} - {{ __('site.Articles')}}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post--items" data-ajax-content="outer">
+                                    <ul class="nav row gutter--15" data-ajax-content="inner">
+                                        @php
+                                        $articleFirst = $articlesTwo->first() ? $articlesTwo->first() : \App\Models\Artical::first();
+                                        @endphp
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+                                            <div class="post--item post--layout-1">
+                                                <div class="post--img mrg-top-m-34">
+                                                    <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $articleFirst->img_view) }}" alt="{{ $articleFirst->$title }}" style="object-fit: cover;" class="imgss">
+                                                    </a>
+                                                    <a href="#" class="cat"></a>
+                                                    <a href="#" class="icon">
+                                                        <i class="fa fa-flash"></i>
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $articleFirst->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height:80px;">
+                                                            <h3 class="text h4">
+                                                                <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="btn-link text">{{ $articleFirst->$title }}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+                                            <hr class="divider">
+                                        </li>
+                                        @foreach($articlesTwo->skip(1)->take(6) as $article)
+                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
+                                            <div class="post--item post--layout-2">
+                                                <div class="post--img">
+                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $article->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.article', $article->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
+                                                            </h3>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="preloader bg--color-0--b" data-preloader="1">
+                                        <div class="preloader--inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- مساحة اعلانية  -->
                             <div class="col-md-12 ptop--30 ">
                                 <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
                                     @php
@@ -690,11 +844,167 @@
                                     @else
                                     <h2 class="h4" style="direction: rtl;">
                                         <i class="icon fa fa-bullhorn"></i>
-                                        <span>إعلان</span>
+                                        <span>{{__('admin.Ad')}}</span>
                                     </h2>
                                     @endif
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12 ptop--30 ">
+                                    <div class="post--items-title" data-ajax="tab">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryTwo->id])}}">
+                                            {{$categoryThree->$name}} - {{ __('site.News')}}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post--items" data-ajax-content="outer">
+                                    <ul class="nav row gutter--15" data-ajax-content="inner">
+                                        @php
+                                        $newFirst = $newsThree->first() ? $newsThree->first() : \App\Models\Nw::first();
+                                        @endphp
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+                                            <div class="post--item post--layout-1">
+                                                <div class="post--img mrg-top-m-34">
+                                                    <a href="{{ route('site.new', $newFirst->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $newFirst->img_view) }}" alt="{{ $newFirst->$title }}" style="object-fit: cover;" class="imgss">
+                                                    </a>
+                                                    <a href="#" class="cat"></a>
+                                                    <a href="#" class="icon">
+                                                        <i class="fa fa-flash"></i>
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $newFirst->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height:80px;">
+                                                            <h3 class="text h4">
+                                                                <a href="{{ route('site.new', $newFirst->id ?? 0) }}" class="btn-link text">{{ $newFirst->$title }}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+                                            <hr class="divider">
+                                        </li>
+                                        @foreach($newsThree->skip(1)->take(6) as $new)
+                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
+                                            <div class="post--item post--layout-2">
+                                                <div class="post--img">
+                                                    <a href="{{ route('site.new', $new->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $new->img_view) }}" alt="{{ $new->$title }}" class="home-sml-img">
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.new', $new->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $new->$title }}</a>
+                                                            </h3>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="preloader bg--color-0--b" data-preloader="1">
+                                        <div class="preloader--inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 ptop--30 ">
+                                    <div class="post--items-title" data-ajax="tab">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryThree->id])}}">
+                                            {{$categoryThree->$name}} - {{ __('site.Articles')}}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="post--items" data-ajax-content="outer">
+                                    <ul class="nav row gutter--15" data-ajax-content="inner">
+                                        @php
+                                        $articleFirst = $articlesThree->first() ? $articlesThree->first() : \App\Models\Artical::first();
+                                        @endphp
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
+                                            <div class="post--item post--layout-1">
+                                                <div class="post--img mrg-top-m-34">
+                                                    <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $articleFirst->img_view) }}" alt="{{ $articleFirst->$title }}" style="object-fit: cover;" class="imgss">
+                                                    </a>
+                                                    <a href="#" class="cat"></a>
+                                                    <a href="#" class="icon">
+                                                        <i class="fa fa-flash"></i>
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $articleFirst->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height:80px;">
+                                                            <h3 class="text h4">
+                                                                <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="btn-link text">{{ $articleFirst->$title }}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
+                                            <hr class="divider">
+                                        </li>
+                                        @foreach($articlesThree->skip(1)->take(6) as $article)
+                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
+                                            <div class="post--item post--layout-2">
+                                                <div class="post--img">
+                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
+                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                    </a>
+                                                    <div class="post--info">
+                                                        <ul class="nav meta">
+                                                            <li>
+                                                                <a href="author?id=0"></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href=" #">{{ $article->created_at->format('Y-m-d') }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.article', $article->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
+                                                            </h3>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    <div class="preloader bg--color-0--b" data-preloader="1">
+                                        <div class="preloader--inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="row">
                                 <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
                                     <div class="row">
@@ -702,8 +1012,11 @@
                                             <h5><a href="{{ route('site.news') }}" style="color: #fff;">&nbsp; </a></h5>
                                         </div>
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
-                                            <h5 style="text-align: left;"><a href="{{ route('site.news') }}" style="color: #fff;">
-                                                    المزيد من الاخبار</a>
+                                            <h5 style="text-align: left;">
+                                                <a href="{{ route('site.news') }}" style="color: #fff;">
+                                                    {{-- المزيد من الاخبار --}}
+                                                    {{ __('site.more_news') }}
+                                                </a>
                                             </h5>
                                         </div>
                                     </div>
@@ -713,7 +1026,11 @@
                                     <div class="row">
 
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9" style="">
-                                            <h5 style="text-align: right;"><a href="{{ route('site.articles') }}" style="color: #fff;">المزيد من المقالات </a>
+                                            <h5 style="text-align: right;">
+                                                <a href="{{ route('site.articles') }}" style="color: #fff;">
+                                                    {{-- المزيد من المقالات --}}
+                                                    {{ __('site.more_articles') }}
+                                                </a>
                                             </h5>
                                         </div>
                                         <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/l37.png') }}); background-repeat: no-repeat;background-position-x: right;">
@@ -736,6 +1053,23 @@
                             <div class="sticky-content-inner">
                                 <!--اعلانات-->
                                 @php
+                                    $ads = App\Models\Ad::where('ad_place_id', 7)->take(3)->get();
+                                @endphp
+                                @forelse ($ads as $ad)
+                                    <div class="widget">
+                                        <div class="">
+                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="widget">
+                                        <h2 class="h4" style="    direction: rtl;">
+                                            <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}} </h2>
+                                    </div>
+                                @endforelse
+                                @php
                                     $ads = App\Models\Ad::where('ad_place_id', 5)->take(3)->get();
                                 @endphp
                                 @forelse ($ads as $ad)
@@ -749,14 +1083,16 @@
                                 @empty
                                     <div class="widget">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                            <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}} </h2>
                                     </div>
                                 @endforelse
 
                                 <div class="widget">
                                     <div class="widget--title">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            حالة الطقس </h2>
+                                            {{-- حالة الطقس --}}
+                                            {{__('site.weather')}}
+                                        </h2>
                                         <i class="icon fa fa-cloud"></i>
                                     </div>
                                     <div class="">
@@ -769,7 +1105,9 @@
                                 <div class="widget">
                                     <div class="widget--title">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            أسعار العملات </h2>
+                                            {{-- أسعار العملات --}}
+                                            {{__('site.currency')}}
+                                        </h2>
                                         <i class="icon fa fa-bullhorn"></i>
                                     </div>
                                     <div class="">
@@ -793,7 +1131,7 @@
                                 @empty
                                     <div class="widget">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                            <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}} </h2>
                                     </div>
                                 @endforelse
                             </div>

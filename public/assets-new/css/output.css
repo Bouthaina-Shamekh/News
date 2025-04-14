@@ -7269,6 +7269,7 @@ ul.scrollmenu a:hover {
         direction: rtl;
         transform: rotate(180deg);
         height: 31%;
+        margin-top: 70px;
     }
     .header--menu-links>li {
         padding: 20px 0;
@@ -7293,6 +7294,7 @@ ul.scrollmenu a:hover {
         direction: rtl;
         transform: rotate(0deg);
         height: 31%;
+        margin-top: 0px;
     }
     .header--menu-links>li {
         padding: 20px 0;

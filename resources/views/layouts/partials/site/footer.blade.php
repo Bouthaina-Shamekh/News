@@ -5,7 +5,10 @@
                 <div class="col-md-6 col-xs-6 col-xxs-12 ptop--30 pbottom--30 text_dir">
                     <div class="widget" style="direction: rtl;">
                         <div class="widget--title">
-                            <h2 class="h4"> معلومات عنا </h2>
+                            <h2 class="h4">
+                                 {{-- معلومات عنا  --}}
+                                 {{__('site.About')}}
+                            </h2>
                             <i class="icon fa fa-exclamation"></i>
                         </div>
                         @php
@@ -23,7 +26,9 @@
                             </div>
                             <div class="action">
                                 <a href="about" class="btn-link">
-                                    اقرأ أكثر <i class="fa flm fa-angle-double-right"></i>
+                                    {{-- اقرأ أكثر --}}
+                                    {{__('site.read_more')}}
+                                    <i class="fa flm fa-angle-double-right"></i>
                                 </a>
                             </div>
 
@@ -54,22 +59,37 @@
                     style="direction: rtl;">
                     <div class="widget">
                         <div class="widget--title">
-                            <h2 class="h4"> روابط معلومات مفيدة </h2>
+                            <h2 class="h4">
+                                 {{-- روابط معلومات مفيدة  --}}
+                                 {{__('site.useful_links')}}
+                                </h2>
                             <i class="icon fa fa-expand"></i>
                         </div>
                         <div class="links--widget">
                             <ul class="nav">
                                 <li>
-                                    <a href="{{route('site.about')}}" class="fa-angle-right"> من نحن </a>
+                                    <a href="{{route('site.about')}}" class="fa-angle-right">
+                                        {{-- من نحن --}}
+                                        {{__('site.about')}}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="{{route('site.news')}}" class="fa-angle-right">اخبار </a>
+                                    <a href="{{route('site.news')}}" class="fa-angle-right">
+                                        {{-- اخبار --}}
+                                        {{__('site.news')}}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="{{route('site.news',['c' => 4])}}" class="fa-angle-right"> العالم </a>
+                                    <a href="{{route('site.news',['c' => 4])}}" class="fa-angle-right">
+                                        {{-- العالم --}}
+                                        {{__('site.world_news')}}
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="{{route('site.news',['c' => 6])}}" class="fa-angle-right">رياضة</a>
+                                    <a href="{{route('site.news',['c' => 6])}}" class="fa-angle-right">
+                                        {{-- رياضة --}}
+                                        {{__('site.sport_news')}}
+                                    </a>
                                 </li>
 
                             </ul>
@@ -89,10 +109,16 @@
 
             <ul class="nav links float--right" style="color:#fff;">
                 <li>
-                    <a href="{{route('site.about')}}">السياسة و الخصوصية </a>
+                    <a href="{{route('site.about')}}">
+                        {{-- السياسة و الخصوصية --}}
+                        {{__('site.privacy')}}
+                    </a>
                 </li>
                 <li>
-                    <a href="{{route('site.index')}}">الرئيسية</a>
+                    <a href="{{route('site.index')}}">
+                        {{-- الرئيسية --}}
+                        {{__('site.home')}}
+                    </a>
                 </li>
 
             </ul>
