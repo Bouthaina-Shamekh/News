@@ -26,5 +26,6 @@
     </a>
 </div>
 <script src="{{ asset('assets-new/js/script.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

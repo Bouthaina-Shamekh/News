@@ -96,6 +96,23 @@ class MainController extends Controller
         $comments = Comment::where('news_id', $id)->get();
         return view('site.new', compact('new', 'comments','news'));
     }
+    public function newLike(Request $request, $id)
+    {
+        $new = Nw::findOrFail($id);
+        $type = $request->type;
+        if($type == true){
+            $new->update([
+                'like' => $new->like + 1
+            ]);
+        }else{
+            $new->update([
+                'dislike' => $new->dislike + 1
+            ]);
+        }
+        return response()->json([
+            'msg' => 'success',
+        ]);
+    }
 
     public function comment(Request $request)
     {
@@ -130,6 +147,24 @@ class MainController extends Controller
         ]);
         $articles = Artical::orderby('id','desc')->where('category_id', $article->category_id)->take(5)->get();
         return view('site.article', compact('article', 'articles'));
+    }
+
+    public function articleLike(Request $request, $id)
+    {
+        $article = Artical::findOrFail($id);
+        $type = $request->type;
+        if($type == true){
+            $article->update([
+                'like' => $article->like + 1
+            ]);
+        }else{
+            $article->update([
+                'dislike' => $article->dislike + 1
+            ]);
+        }
+        return response()->json([
+            'msg' => 'success',
+        ]);
     }
 
     public function storeVisit(Request $request)

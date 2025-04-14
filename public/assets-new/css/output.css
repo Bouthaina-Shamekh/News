@@ -3484,7 +3484,8 @@ div#flickr_badge_wrapper {
     border-width: 2px 0 0;
     border-radius: 0;
     -webkit-transition: box-shadow .25s ease-in-out;
-    transition: box-shadow .25s ease-in-out
+    transition: box-shadow .25s ease-in-out;
+    z-index: 2;
 }
 
 .header--style-6 .header--navbar {
@@ -7276,11 +7277,19 @@ ul.scrollmenu a:hover {
         transform: rotate(180deg);
         display: block;
     }
+    .header--menu-links>li>a {
+        padding: 18px 15px 19px;
+        border-bottom: 2px solid transparent;
+    }
 }
 
 @media (min-width:992px) {
+    .header--menu-links>li>a {
+        padding: 1px 13px 0px;
+        border-bottom: 2px solid transparent
+    }
     .header--menu-links {
-        font-size: 25px;
+        font-size: 20px;
         line-height: 26px;
         display: block;
         direction: rtl;

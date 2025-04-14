@@ -47,12 +47,16 @@
                                                 target="_blank"><i class="fa fa-twitter"></i></a></span></li>
                                     <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' . $article->id}}"
                                                 target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
-                                    {{-- <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','like_v')"
-                                            data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
-                                                class="fa fa-thumbs-up"></i></a></li>
-                                    <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','dislike')"
-                                            data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
-                                                class="fa  fa-thumbs-down"></i></a></li> --}}
+                                    <li class="like_v_btn" data-type="true">
+                                        <a>
+                                            <i class="fa fa-thumbs-up"></i>
+                                        </a>
+                                    </li>
+                                    <li class="like_v_btn" data-type="false">
+                                        <a>
+                                            <i class="fa  fa-thumbs-down"></i>
+                                        </a>
+                                    </li>
                                     <li><a href="{{url('articles?c='.$article->category_id)}}">{{$article->category->$name ?? ''}}</a>
                                     </li>
                                 </ul>
@@ -273,3 +277,22 @@
         </div>
     </div>
 </x-site-layout>
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('.like_v_btn').on('click',function(){
+            let type = $(this).data('type');
+            $.ajax({
+                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{ $article->id }}"),
+                method: 'POST',
+                data: {
+                    type: type,
+                },
+                success: function(response) {
+                    $(this).attr('style', 'background-color: #670005')
+                }
+            });
+        });
+    });
+</script>
+@endpush

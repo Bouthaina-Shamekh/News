@@ -28,6 +28,8 @@ class Nw extends Model
         'new_place_id',
         'statu_id',
         'publisher_id',
+        'like',
+        'dislike'
     ];
 
 

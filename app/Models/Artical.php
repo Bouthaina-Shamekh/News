@@ -25,6 +25,8 @@ class Artical extends Model
         'visit',
         'keyword_ar',
         'keyword_en',
+        'like',
+        'dislike'
     ];
 
 

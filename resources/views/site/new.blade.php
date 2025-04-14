@@ -60,12 +60,16 @@
                                                 target="_blank"><i class="fa fa-twitter"></i></a></span></li>
                                     <li><span><a href="https://wa.me/?text={{$new->$title}}%20{{config('app.url') . 'new/' . $new->id}}"
                                                 target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
-                                    {{-- <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','like_v')"
-                                            data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
-                                                class="fa fa-thumbs-up"></i></a></li>
-                                    <li><a onclick="if (!window.__cfRLUnblockHandlers) return false; like_dis('0','1155','1','dislike')"
-                                            data-cf-modified-74f1811ed9adbc6538a65f0a-=""><i
-                                                class="fa  fa-thumbs-down"></i></a></li> --}}
+                                    <li class="like_v_btn" data-type="true">
+                                        <a>
+                                            <i class="fa fa-thumbs-up"></i>
+                                        </a>
+                                    </li>
+                                    <li class="like_v_btn" data-type="false">
+                                        <a>
+                                            <i class="fa  fa-thumbs-down"></i>
+                                        </a>
+                                    </li>
                                     <li><a href="{{url('news?c='.$new->category_id)}}">{{$new->category->$name ?? ''}}</a>
                                     </li>
                                 </ul>
@@ -351,4 +355,29 @@
             </div>
         </div>
     </div>
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.like_v_btn', function() {
+            let type = $(this).data('type');
+            let $btn = $(this);
+            $.ajax({
+                url: `{{ route('site.new.like',':id')}}`.replace(':id', "{{ $new->id }}"),
+                method: 'POST',
+                data: {
+                    type: type,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $btn.css('background-color', '#670005');
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr);
+                }
+            });
+        });
+    });
+</script>
+@endpush
 </x-site-layout>

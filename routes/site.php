@@ -36,8 +36,10 @@ Route::group([
         Route::get('/about', [MainController::class, 'about'])->name('about');
 
         Route::get('news/{id}', [MainController::class, 'new'])->name('new');
+        Route::post('news/{id}/like', [MainController::class, 'newLike'])->name('new.like');
         Route::get('news', [MainController::class, 'news'])->name('news');
         Route::get('articles/{id}', [MainController::class, 'article'])->name('article');
+        Route::post('articles/{id}/like', [MainController::class, 'articleLike'])->name('article.like');
         Route::get('articles', [MainController::class, 'articles'])->name('articles');
         // Route::get('contact', [MainController::class, 'contact'])->name('contact');
         Route::post('comment', [MainController::class, 'comment'])->name('comment');
