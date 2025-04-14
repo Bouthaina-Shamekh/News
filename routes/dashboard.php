@@ -38,6 +38,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 {
     Route::prefix('dashboard')->name('dashboard.')->middleware('auth:admin','check_user')->group(function() {
         Route::get('home', [HomeController::class, 'index'])->name('home');
+        Route::get('messages', [MessageController::class, 'index'])->name('messages');
         Route::post('/track-visit', [HomeController::class, 'storeVisit'])->name('track_visit');
 
         Route::get('users/{user}/profile', [UserController::class, 'profile'])->name('users.profile');

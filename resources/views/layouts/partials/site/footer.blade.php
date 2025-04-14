@@ -8,32 +8,43 @@
                             <h2 class="h4"> معلومات عنا </h2>
                             <i class="icon fa fa-exclamation"></i>
                         </div>
+                        @php
+                        $setting = \App\Models\Setting::get();
+                        @endphp
                         <div class="about--widget">
                             <div class="content">
-                                <p> افضل الأخبار والمقالات. تعرف على احدث الأخبار بمصداقية عالية. يمكنك
-                                    الاطّلاع على آخر الأخبار المتعلّقة بالمجالات الرائجة والمزيد من هنا
-                                    مباشرةً. </p>
+                                <p>
+                                    @if(app()->getLocale() == 'ar')
+                                        {!! $setting->where('key', 'about_ar')->first() ? $setting->where('key', 'about_ar')->first()->value : '' !!}
+                                    @else
+                                        {!! $setting->where('key', 'about_en')->first() ? $setting->where('key', 'about_en')->first()->value : '' !!}
+                                    @endif
+                                </p>
                             </div>
                             <div class="action">
                                 <a href="about" class="btn-link">
                                     اقرأ أكثر <i class="fa flm fa-angle-double-right"></i>
                                 </a>
                             </div>
+
                             <ul class="nav footer_nav">
                                 <li>
                                     <i class="fa fa-map"></i>
                                     <span>
-                                        فلسطين </span>
+                                        فلسطين
+                                    </span>
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope-o"></i>
 
                                     <span class="__cf_email__"
-                                        data-cfemail="a8c1c6cec7e8c5c9dacdc6c9d8c7dbdc86cbc7c5">[email&#160;protected]</span>
+                                        data-cfemail="a8c1c6cec7e8c5c9dacdc6c9d8c7dbdc86cbc7c5">{!! $setting->where('key', 'contact_email')->first() ? $setting->where('key', 'contact_email')->first()->value : '' !!}</span>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <span href="tel:<soon">soon</span>
+                                    <span href="tel:{{ $setting->where('key', 'phone')->first() ? $setting->where('key', 'phone')->first()->value : '' }}">
+                                        {{ $setting->where('key', 'phone')->first() ? $setting->where('key', 'phone')->first()->value : '' }}
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -49,16 +60,16 @@
                         <div class="links--widget">
                             <ul class="nav">
                                 <li>
-                                    <a href="about" class="fa-angle-right"> من نحن </a>
+                                    <a href="{{route('site.about')}}" class="fa-angle-right"> من نحن </a>
                                 </li>
                                 <li>
-                                    <a href="news" class="fa-angle-right">اخبار </a>
+                                    <a href="{{route('site.news')}}" class="fa-angle-right">اخبار </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="fa-angle-right"> العالم </a>
+                                    <a href="{{route('site.news',['c' => 4])}}" class="fa-angle-right"> العالم </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="fa-angle-right">رياضة</a>
+                                    <a href="{{route('site.news',['c' => 6])}}" class="fa-angle-right">رياضة</a>
                                 </li>
 
                             </ul>
@@ -78,10 +89,10 @@
 
             <ul class="nav links float--right" style="color:#fff;">
                 <li>
-                    <a href="termofservice">السياسة و الخصوصية </a>
+                    <a href="{{route('site.about')}}">السياسة و الخصوصية </a>
                 </li>
                 <li>
-                    <a href="home.html">الرئيسية</a>
+                    <a href="{{route('site.index')}}">الرئيسية</a>
                 </li>
 
             </ul>

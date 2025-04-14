@@ -189,11 +189,10 @@
                                         والتحديثات الحصرية.
                                     </p>
                                 </div>
-                                <form action="#" method="post" name="mc-embedded-subscribe-form" target="_blank"
-                                    data-form="mailchimpAjax">
+                                <form action="{{ route('site.addEmail') }}" method="post">
+                                    @csrf
                                     <div class="input-group">
-                                        <input type="email" name="EMAIL"
-                                            onkeyup="if (!window.__cfRLUnblockHandlers) return false; myFn2('EMAIL')"
+                                        <input type="email" name="email"
                                             placeholder="عنوان بريد الكتروني" class="form-control"
                                             autocomplete="off" required
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-="">

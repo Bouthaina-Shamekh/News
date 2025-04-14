@@ -3,8 +3,8 @@
         <div class="m-header flex items-center py-4 px-6 h-header-height">
             <a href="{{route('site.index')}}" class="b-brand flex items-center gap-3">
                 <!-- ========   Change your logo from here   ============ -->
-                <img src="{{asset('assets-dashboard/images/logo-dark.svg')}}" class="img-fluid logo-lg" alt="logo" style="display: none"  />
-                <div  style="width: 232px;">
+                <img src="{{asset('assets-dashboard/images/logo-dark.svg')}}" class="img-fluid logo-lg" alt="logo" style="display: none" />
+                <div style="width: 232px;">
                     <img src="{{asset('asset/img/extra/marina.jpg')}}" class="img-fluid logo-lg" alt="logo" />
                 </div>
             </a>
@@ -13,14 +13,12 @@
             <div class="card pc-user-card mx-[15px] mb-[15px] bg-theme-sidebaruserbg dark:bg-themedark-sidebaruserbg">
                 <div class="card-body !p-5">
                     <div class="flex items-center">
-                        <img class="shrink-0 w-[45px] h-[45px] rounded-full" src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
-                            alt="user-image" />
+                        <img class="shrink-0 w-[45px] h-[45px] rounded-full" src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" alt="user-image" />
                         <div class="ml-4 mr-2 grow">
                             <h6 class="mb-0">{{ Auth::user()->name }}</h6>
 
                         </div>
-                        <a class="shrink-0 btn btn-icon inline-flex btn-link-secondary" data-pc-toggle="collapse"
-                            href="#pc_sidebar_userlink">
+                        <a class="shrink-0 btn btn-icon inline-flex btn-link-secondary" data-pc-toggle="collapse" href="#pc_sidebar_userlink">
                             <svg class="pc-icon w-[22px] h-[22px]">
                                 <use xlink:href="#custom-sort-outline"></use>
                             </svg>
@@ -87,7 +85,7 @@
                                 {{__('admin.Admin show')}}
                             </a>
                         </li>
-                       <li class="pc-item">
+                        <li class="pc-item">
                             <a class="pc-link" href="{{route('dashboard.users.create')}}">
                                 {{__('admin.Add Admin')}}
                             </a>
@@ -101,7 +99,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-newspaper"></i>
+                            <i class="fas fa-newspaper"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.Articles')}}
@@ -141,7 +139,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="far fa-file-alt"></i>
+                            <i class="far fa-file-alt"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.News')}}
@@ -179,7 +177,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-toggle-on"></i>
+                            <i class="fas fa-toggle-on"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.News status')}}
@@ -256,7 +254,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-ad"></i>
+                            <i class="fas fa-ad"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.Ad')}}
@@ -294,7 +292,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-location-arrow"></i>
+                            <i class="fas fa-location-arrow"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.NewPlace')}}
@@ -332,7 +330,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-map-marker"></i>
+                            <i class="fas fa-map-marker"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.AdPlace')}}
@@ -373,7 +371,7 @@
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-upload"></i>
+                            <i class="fas fa-upload"></i>
                         </span>
                         <span class="pc-mtext">
                             {{__('admin.Publisher')}}
@@ -411,11 +409,21 @@
 
 
 
-                        @can('edit', 'App\Models\About')
-                        <li class="pc-item">
+                @can('edit', 'App\Models\Message')
+                <li class="pc-item">
+                    <a href="{{route('dashboard.messages')}}" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.Messages')}}</span>
+                    </a>
+                </li>
+                @endcan
+                @can('edit', 'App\Models\About')
+                <li class="pc-item">
                     <a href="{{route('dashboard.about.edit' , ['id' => 1] )}}" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-address-card"></i>
+                            <i class="fas fa-address-card"></i>
                         </span>
                         <span class="pc-mtext">{{__('admin.About')}}</span>
                     </a>
@@ -423,10 +431,10 @@
                 @endcan
 
                 @can('edit', 'App\Models\Setting')
-                        <li class="pc-item">
+                <li class="pc-item">
                     <a href="{{route('dashboard.setting.index')}}" class="pc-link">
                         <span class="pc-micon">
-                        <i class="fas fa-cog"></i>
+                            <i class="fas fa-cog"></i>
                         </span>
                         <span class="pc-mtext">{{__('admin.Settings')}}</span>
                     </a>

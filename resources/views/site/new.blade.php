@@ -273,11 +273,11 @@
                                         والتحديثات الحصرية.
                                     </p>
                                 </div>
-                                <form action="#" method="post" name="mc-embedded-subscribe-form" target="_blank"
+                                <form action="{{ route('site.addEmail') }}" method="post" name="mc-embedded-subscribe-form" target="_blank"
                                     data-form="mailchimpAjax">
+                                    @csrf
                                     <div class="input-group">
                                         <input type="email" name="EMAIL"
-                                            onkeyup="if (!window.__cfRLUnblockHandlers) return false; myFn2('EMAIL')"
                                             placeholder="عنوان بريد الكتروني" class="form-control"
                                             autocomplete="off" required
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-="">
@@ -334,22 +334,23 @@
                             </div>
                         </div>
                         <!--جانبي صفحة الخبر 300x250 -->
-                        <div class="widget">
-                            <div class="widget--title">
-                                <h2 class="h4">
-                                    إعلان </h2> <i class="icon fa fa-bullhorn"></i>
+                        @php
+                            $ads = App\Models\Ad::where('ad_place_id', 10)->take(3)->get();
+                        @endphp
+                        @forelse ($ads as $ad)
+                            <div class="widget">
+                                <div class="">
+                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="">
-                                <a href="#">
-                                    <img src="../assets/files/addad.jpg" alt="مساحة اعلانية">
-                                </a>
+                        @empty
+                            <div class="widget">
+                                <h2 class="h4" style="direction: rtl;">
+                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
                             </div>
-                            <div class="">
-                                <a href="مساحة اعلانيه">
-                                    <img src="../assets/files/ad35.jpg" alt="مساحة اعلانيه">
-                                </a>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

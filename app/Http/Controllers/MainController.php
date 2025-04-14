@@ -11,9 +11,11 @@ use App\Models\Artical;
 use App\Models\Comment;
 use App\Models\Setting;
 use App\Models\Category;
+use App\Models\Message;
 use App\Models\NewPlace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class MainController extends Controller
@@ -51,17 +53,24 @@ class MainController extends Controller
 
     public function contact_data(Request $request)
     {
-
         $request->validate([
             'fristname' => 'required',
             'email' => 'required',
             'subject' => 'required',
             'msg' => 'required',
-
         ]);
         $data = $request->except('_token');
+        $message = Message::create([
+            'msg' => $request->msg,
+            'subject' => $request->subject,
+            'fristname' => $request->fristname,
+            'lastname' => '',
+            'email' => $request->email,
+            'addDate' => Carbon::now()->format('Y-m-d'),
+            'placename' => '',
+            'phone' => ''
+        ]);
         Mail::to($request->email)->send(new SendMail($data));
-        // dd( $request->all());
         return redirect()->back()->with('successSend', true);
     }
 
@@ -186,5 +195,17 @@ class MainController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
+    }
+
+    public function addEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $email = $request->email;
+        DB::table('email')->insert([
+            'email' => $email,
+        ]);
+        return redirect()->back()->with('success', 'Email added successfully');
     }
 }

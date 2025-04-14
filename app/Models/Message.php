@@ -9,13 +9,17 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $table = 'msg';
     public $timestamps = false;
 
     protected $fillable = [
-        'sender_name',
-        'phone',
-        'email',
+        'msg',
         'subject',
-        'text',
+        'fristname',
+        'lastname',
+        'email',
+        'addDate',
+        'placename',
+        'phone'
     ];
 }

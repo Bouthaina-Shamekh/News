@@ -149,14 +149,13 @@
                             </div>
                             <div class="tags--widget style--1">
                                 <ul class="nav">
-                                    <li><a href="news?pl=7"> الأكثر شهرة</a></li>
-                                    <li><a href="news?pl=6"> أخبار مميزة</a></li>
+                                    @foreach ($newPalces as $newPalce)
                                     <li>
-                                        <a href="news?pl=4"> سلايدر الارتفاع ٣٠٠ عرض ٤٥٠</a>
+                                        <a href="news?pl={{ $newPalce->id }}">
+                                            <span>{{ $newPalce->$name }}</span>
+                                        </a>
                                     </li>
-                                    <li><a href="news?pl=3"> الأكثر مشاهدة</a></li>
-                                    <li><a href="news?pl=2"> عصري </a></li>
-                                    <li><a href="news?pl=1"> Hot</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

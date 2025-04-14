@@ -147,9 +147,9 @@
                             </div>
                             <div class="tags--widget style--1">
                                 <ul class="nav">
-                                    @foreach ($newPalces as $newPlace)
-                                    <li><a href="news?pl={{ $newPlace->id }}">{{ $newPlace->name }}</a></li>
-                                    @endforeach
+                                    <li><a href="articles?pl=documentary">{{ __('admin.documentary') }}</a></li>
+                                    <li><a href="articles?pl=war">{{ __('admin.war') }}</a></li>
+                                    <li><a href="articles?pl=peace">{{ __('admin.peace') }}</a></li>
                                 </ul>
                             </div>
                         </div>

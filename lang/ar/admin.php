@@ -176,7 +176,11 @@ return [
     'By Advertising Site' => 'حسب موقع الإعلان',
     'Image View' => 'صورة عرض الأساسية',
     'Image In Article' => 'الصورة في المقال',
-    ''=> ''
+    'Messages' => 'الرسائل',
+    'Sender Name' => 'اسم المرسل',
+    'Subject' => 'الموضوع',
+    'Text' => 'النص',
+    'Date' => 'التاريخ',
 ];
 
 

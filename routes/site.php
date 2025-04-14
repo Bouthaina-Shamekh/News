@@ -45,6 +45,7 @@ Route::group([
         Route::post('comment', [MainController::class, 'comment'])->name('comment');
         Route::get('/contact', [MainController::class, 'contact'])->name('contact');
         Route::post('/contact', [MainController::class, 'contact_data'])->name('contactdata');
+        Route::post('/addEmail', [MainController::class, 'addEmail'])->name('addEmail');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
 
 

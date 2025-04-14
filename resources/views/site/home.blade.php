@@ -459,11 +459,11 @@
                             <!--slider-->
                             <div class="col-md-12">
                                 <div class="post--item post--layout-1 post--title-larger">
-                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                    <div id="myCarouselDesktop" class="carousel slide" data-ride="carousel">
                                         <!-- Indicators -->
                                         <ol class="carousel-indicators">
                                             @for ($i = 0; $i < $sliders->count(); $i++)
-                                                <li data-target="#myCarousel" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
+                                                <li data-target="#myCarouselDesktop" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
                                             @endfor
                                         </ol>
                                         <!-- Wrapper for slides -->
@@ -480,11 +480,11 @@
                                             @endforeach
                                         </div>
                                         <!-- Left and right controls -->
-                                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                        <a class="left carousel-control" href="#myCarouselDesktop" data-slide="prev">
                                             <span class="glyphicon glyphicon-chevron-left"></span>
                                             <span class="sr-only">Previous</span>
                                         </a>
-                                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                        <a class="right carousel-control" href="#myCarouselDesktop" data-slide="next">
                                             <span class="glyphicon glyphicon-chevron-right"></span>
                                             <span class="sr-only">Next</span>
                                         </a>
@@ -591,7 +591,10 @@
                                             style="border: 1px solid gold;width: 100%;height:100px;">
                                     </a>
                                     @else
-                                    <h2 class="h4" style="direction: rtl;"> <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                    <h2 class="h4" style="direction: rtl;">
+                                        <i class="icon fa fa-bullhorn"></i>
+                                        <span>إعلان</span>
+                                    </h2>
                                     @endif
                                 </div>
                             </div>
@@ -685,7 +688,10 @@
                                             style="border: 1px solid gold;width: 100%;height: 100px;">
                                     </a>
                                     @else
-                                    <h2 class="h4" style="    direction: rtl;"> <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                    <h2 class="h4" style="direction: rtl;">
+                                        <i class="icon fa fa-bullhorn"></i>
+                                        <span>إعلان</span>
+                                    </h2>
                                     @endif
                                 </div>
                             </div>
@@ -751,7 +757,7 @@
                                     <div class="widget--title">
                                         <h2 class="h4" style="    direction: rtl;">
                                             حالة الطقس </h2>
-                                        <i class="icon fa fa-bullhorn"></i>
+                                        <i class="icon fa fa-cloud"></i>
                                     </div>
                                     <div class="">
                                         <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="Cairo" data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
