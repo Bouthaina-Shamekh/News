@@ -65,10 +65,10 @@
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
                                     @endcan
-                                    <form action="{{route('dashboard.ad.destroy',$ad->id)}}" method="post">
+                                    <form action="{{route('dashboard.ad.destroy',$ad->id)}}" method="post" class="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                                        <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
                                             <i class="ti ti-trash text-xl leading-none"></i>
                                         </button>
                                     </form>
@@ -86,5 +86,19 @@
 <!-- Both borders table end -->
 
 
+@push('scripts')
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            const confirmMessage = @json(__('admin.confirm_delete'));
+            if (!confirm(confirmMessage)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+
+    @endpush
 
 </x-dashboard-layout>

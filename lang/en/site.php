@@ -87,5 +87,7 @@ return [
     'world_news' => 'World News',
     'sport_news' => 'Sport News',
     'privacy' => 'Privacy',
-    'read_more' => 'Read More'
+    'read_more' => 'Read More',
+    'news' => 'News',
+    'articles' => 'Articales',
 ];

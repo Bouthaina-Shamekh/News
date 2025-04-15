@@ -53,13 +53,7 @@
                 <a href="{{ route('dashboard.category.edit', $category->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                     <i class="ti ti-edit text-xl leading-none"></i>
                 </a>
-                <!-- <form action="{{ route('dashboard.category.destroy', $category->id) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('admin.Delete') }}">
-                        <i class="ti ti-trash text-xl leading-none"></i>
-                    </button>
-                </form> -->
+               
 
                 <form action="{{ route('dashboard.category.destroy', $category->id) }}" method="post" class="delete-form">
     @csrf

@@ -61,10 +61,10 @@
                                     <a href="{{ route('dashboard.publisher.edit', $publisher->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
-                                    <form action="{{ route('dashboard.publisher.destroy', $publisher->id) }}" method="post">
+                                    <form action="{{ route('dashboard.publisher.destroy', $publisher->id) }}" method="post" class="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
+                                        <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
                                             <i class="ti ti-trash text-xl leading-none"></i>
                                         </button>
                                     </form>
@@ -193,6 +193,21 @@
                 filterColumn($(this).parents('tr').attr('data-column'));
             });
         </script>
+
+
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            const confirmMessage = @json(__('admin.confirm_delete'));
+            if (!confirm(confirmMessage)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+    
+
     @endpush
 
 

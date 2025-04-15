@@ -268,7 +268,7 @@
                                                         data-bs-target="#nav-home2" role="tab"
                                                         aria-controls="nav-home2" aria-selected="true">
                                                         {{-- أخبار عاجلة --}}
-                                                        {{ __('site.emergency articles') }}
+                                                        {{ __('site.news') }}
                                                     </a>
                                                 </li>
                                                 <li class="active">
@@ -277,7 +277,7 @@
                                                         data-bs-target="#nav-profile2" role="tab"
                                                         aria-controls="nav-profile2" aria-selected="false">
                                                         {{-- أحدث الأخبار --}}
-                                                        {{ __('site.latest articles') }}
+                                                        {{ __('site.articles') }}
                                                     </a>
                                                 </li>
                                                 <li>

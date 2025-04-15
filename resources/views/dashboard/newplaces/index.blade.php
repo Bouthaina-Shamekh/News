@@ -46,10 +46,10 @@
                                     <a href="{{route('dashboard.newplace.edit',$newplace->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
-                                    <form action="{{route('dashboard.newplace.destroy',$newplace->id)}}" method="post">
+                                    <form action="{{route('dashboard.newplace.destroy',$newplace->id)}}" method="post" class="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                                        <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
                                             <i class="ti ti-trash text-xl leading-none"></i>
                                         </button>
                                     </form>
@@ -63,5 +63,19 @@
         @endcan
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            const confirmMessage = @json(__('admin.confirm_delete'));
+            if (!confirm(confirmMessage)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+    @endpush
 <!-- Both borders table end -->
 </x-dashboard-layout>
