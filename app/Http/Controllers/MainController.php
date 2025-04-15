@@ -30,13 +30,10 @@ class MainController extends Controller
         $categoryTwo = Category::find(4) ?? Category::first();
         $categoryThree = Category::find(1) ?? Category::first();
 
-        $newsOne = Nw::where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
-        $newsTwo = Nw::where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
-        $newsThree = Nw::where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
         $articlesOne = Artical::where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
         $articlesTwo = Artical::where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
         $articlesThree = Artical::where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
-        return view('site.home', compact('ads', 'sliders','categoryOne', 'categoryTwo', 'categoryThree', 'newsOne', 'newsTwo', 'newsThree', 'articlesOne', 'articlesTwo', 'articlesThree'));
+        return view('site.home', compact('ads', 'sliders','categoryOne', 'categoryTwo', 'categoryThree','articlesOne', 'articlesTwo', 'articlesThree'));
     }
 
     public function about()

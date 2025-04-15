@@ -249,6 +249,9 @@ return [
     'Subject' => 'Subject',
     'Text' => 'Text',
     'Date' => 'Date',
+
+    'confirm_delete' => 'Are you sure you want to delete?',
+
     '' => '',
     '' => '',
     '' => '',
