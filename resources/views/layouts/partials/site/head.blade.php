@@ -16,6 +16,7 @@
         <script src="{{ asset('asset/js/plugins/jquery-3.7.1.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         @stack('styles')
+        <link rel="stylesheet" href="{{ asset('fonts/style.css') }}">
     </head>
     @php
     $name = 'name_' . app()->getLocale();

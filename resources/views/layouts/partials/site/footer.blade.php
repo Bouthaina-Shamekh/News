@@ -25,7 +25,7 @@
                                 </p>
                             </div>
                             <div class="action">
-                                <a href="about" class="btn-link">
+                                <a href="{{route('site.about')}}" class="btn-link">
                                     {{-- اقرأ أكثر --}}
                                     {{__('site.read_more')}}
                                     <i class="fa flm fa-angle-double-right"></i>
@@ -70,7 +70,7 @@
                                 <li>
                                     <a href="{{route('site.about')}}" class="fa-angle-right">
                                         {{-- من نحن --}}
-                                        {{__('site.about')}}
+                                        {{__('site.about_me')}}
                                     </a>
                                 </li>
                                 <li>
@@ -117,7 +117,7 @@
                 <li>
                     <a href="{{route('site.index')}}">
                         {{-- الرئيسية --}}
-                        {{__('site.home')}}
+                        {{__('site.Home')}}
                     </a>
                 </li>
 

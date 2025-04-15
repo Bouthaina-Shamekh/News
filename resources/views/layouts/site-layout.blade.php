@@ -13,10 +13,13 @@
                 <div class="row " style=" ">
                     <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
                         <div class="acme-news-ticker ">
-                            <div class="acme-news-ticker-label ">تحديثات الأخبار</div>
+                            <div class="acme-news-ticker-label ">
+                                {{-- تحديثات الأخبار --}}
+                                {{ __('site.news updates') }}</div>
                             @php
                                 $news = \App\Models\Nw::orderBy('id', 'desc')->get();
-                                $title = app()->getLocale() == 'ar' ? 'title_ar' : 'title_en';
+                                // $title = app()->getLocale() == 'ar' ? 'title_ar' : 'title_en';
+                                $title = 'title_' . app()->getLocale();
                             @endphp
                             <div class="acme-news-ticker-box ">
                                 <ul class="my-news-ticker " style=" text-align: right; ">

@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'AlarabyTelevision';
+    src: url('./Alaraby\ Television\ Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AlarabyTelevision';
+    src: url('./Alaraby\ Television\ Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* لتطبيق الخط على كل النصوص في الموقع */
+body {
+    font-family: 'AlarabyTelevision', sans-serif !important;
+}

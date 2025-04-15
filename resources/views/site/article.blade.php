@@ -88,25 +88,43 @@
                             </div>
                             @if($article->vedio)
                             <div>
-                                <video src="{{asset('storage/'.$article->vedio)}}" height="320" width="100%" controls></video>
+                                <video width="100%" height="240" controls="controls">
+                                    <source src="{{ asset('storage/' . $article->vedio) }}" type="video/mp4">
+                                    <source src="{{ asset('storage/' . $article->vedio) }}" type="video/webm">
+                                    <source src="{{ asset('storage/' . $article->vedio) }}" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
                             </div>
                             @endif
                         </div>
                         @php
-                            $ads = App\Models\Ad::where('ad_place_id', 9)->take(3)->get();
+                            $ads = App\Models\Ad::where('ad_place_id', 9)->get();
+                            foreach ($ads as $ad) {
+                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                if ($timeDifference > $ad->time) {
+                                    $ad->status = 'expired';
+                                } else {
+                                    $ad->status = 'active';
+                                }
+                            }
                         @endphp
-                        @forelse ($ads as $ad)
+                        @forelse ($ads->where('status', 'active') as $index => $ad)
                             <div class="widget">
+                                <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                </div>
                                 <div class="">
                                     <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                     </a>
                                 </div>
                             </div>
                         @empty
                             <div class="widget">
                                 <h2 class="h4" style="    direction: rtl;">
-                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                    <i class="icon fa fa-bullhorn"></i>
+                                    {{__('admin.Ad')}}
+                                </h2>
                             </div>
                         @endforelse
                         <div class="post--author-info clearfix" id="com">
@@ -132,10 +150,16 @@
 
                             <div class="info">
                                 <h2 class="h4">
-                                    عن الناشر </h2>
+                                    {{-- عن الناشر  --}}
+                                    {{ __('site.about_publisher') }}
+                                </h2>
                                 <div class="content">
-                                    <p>ناشرة في مجلة مارينا بوست </p>
+                                    <p>
+                                        {{-- ناشرة في مجلة مارينا بوست  --}}
+                                        {{ __('site.publisher_marina_post') }}
+                                    </p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -161,7 +185,9 @@
                         <div class="widget">
                             <div class="widget--title">
                                 <h2 class="h4">
-                                    ابق على اتصال </h2> <i class="icon fa fa-share-alt"></i>
+                                    {{-- ابق على اتصال --}}
+                                    {{__('site.stay connected')}}
+                                </h2> <i class="icon fa fa-share-alt"></i>
                             </div>
                             <div class="social--widget style--1">
                                 <ul class="nav">
@@ -196,13 +222,14 @@
                         <div class="widget">
                             <div class="widget--title">
                                 <h2 class="h4">
-                                    احصل على النشرة الإخبارية </h2> <i class="icon fa fa-envelope-open-o"></i>
+                                    {{-- احصل على النشرة الإخبارية  --}}
+                                    {{__('site.subscribe to our newsletter')}}
+                                </h2> <i class="icon fa fa-envelope-open-o"></i>
                             </div>
                             <div class="subscribe--widget">
                                 <div class="content">
                                     <p>
-                                        اشترك في النشرة الإخبارية لدينا للحصول على آخر الأخبار والأخبار الشعبية
-                                        والتحديثات الحصرية.
+                                        {{__('site.subscribe_to_our_newsletter_text')}}
                                     </p>
                                 </div>
                                 <form action="{{ route('site.addEmail') }}" method="post">
@@ -225,7 +252,9 @@
                         <div class="widget">
                             <div class="widget--title">
                                 <h2 class="h4">
-                                    مقالات ذات صلة </h2> <i class="icon fa fa-newspaper-o"></i>
+                                    {{-- مقالات ذات صلة --}}
+                                    {{__('site.related_articles')}}
+                                </h2> <i class="icon fa fa-newspaper-o"></i>
                             </div>
                             <div class="list--widget list--widget-1">
                                 <div class="post--items post--items-3" data-ajax-content="outer">
@@ -265,27 +294,23 @@
                             </div>
                         </div>
                         <!--جانبي صفحة الخبر 300x250 -->
-                        <div class="widget">
-                            <div class="widget--title">
-                                <h2 class="h4">
-                                    إعلان </h2> <i class="icon fa fa-bullhorn"></i>
+                        @php
+                            $ads = App\Models\Ad::where('ad_place_id', 10)->take(3)->get();
+                        @endphp
+                        @forelse ($ads as $ad)
+                            <div class="widget">
+                                <div class="">
+                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="">
-                                <a href="#">
-                                    <img src="../assets/files/addad.jpg" alt="مساحة اعلانية">
-                                </a>
+                        @empty
+                            <div class="widget">
+                                <h2 class="h4" style="direction: rtl;">
+                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
                             </div>
-
-                            <div class="">
-                                <a href="مساحة اعلانيه">
-                                    <img src="../assets/files/ad35.jpg" alt="مساحة اعلانيه">
-                                </a>
-                            </div>
-
-                        </div>
-
-
-
+                        @endforelse
                     </div>
                 </div>
             </div>

@@ -73,8 +73,8 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'img_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'img_article' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'img_view' => 'nullable|image',
+            'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
@@ -174,8 +174,8 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'img_view' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            'img_article' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'img_view' => 'nullable|image',
+            'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
@@ -208,7 +208,9 @@ class NwController extends Controller
         $imgViewPath = $news->img_view;
         if ($request->hasFile('img_view')) {
             // Delete the old image
-            Storage::disk('public')->delete($news->img_view);
+            if($news->img_view != null){
+                Storage::disk('public')->delete($news->img_view);
+            }
             // Store the new image
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         }
@@ -216,7 +218,9 @@ class NwController extends Controller
         $imgArticlePath = $news->img_article;
         if ($request->hasFile('img_article')) {
             // Delete the old image
-            Storage::disk('public')->delete($news->img_article);
+            if($news->img_article != null){
+                Storage::disk('public')->delete($news->img_article);
+            }
             // Store the new image
             $imgArticlePath = $request->file('img_article')->store('uploads', 'public');
         }
@@ -224,7 +228,9 @@ class NwController extends Controller
         $vedioPath = $news->img_article;
         if ($request->hasFile('vedio')) {
             // Delete the old image
-            Storage::disk('public')->delete($news->img_article);
+            if($news->img_article != null){
+                Storage::disk('public')->delete($news->img_article);
+            }
             // Store the new image
             $vedioPath = $request->file('vedio')->store('uploads', 'public');
         }
@@ -261,7 +267,15 @@ class NwController extends Controller
         $news = Nw::findOrFail($id);
 
         // Delete images from storage
-        Storage::disk('public')->delete([$news->img_view, $news->img_article]);
+        if($news->img_view != null){
+            Storage::disk('public')->delete($news->img_view);
+        }
+        if($news->img_article != null){
+            Storage::disk('public')->delete($news->img_article);
+        }
+        if($news->vedio != null){
+            Storage::disk('public')->delete($news->vedio);
+        }
 
         // Delete the news item
         $news->delete();

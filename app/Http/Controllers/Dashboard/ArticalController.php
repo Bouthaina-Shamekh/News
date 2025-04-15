@@ -78,8 +78,8 @@ class ArticalController extends Controller
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
             'vedio' => 'nullable',
-            'img_view' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            'img_article' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'img_view' => 'nullable|image',
+            'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'required',
             'place' => 'required',
@@ -175,8 +175,8 @@ class ArticalController extends Controller
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
             'vedio' => 'nullable',
-            'img_view' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-            'img_article' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'img_view' => 'nullable|image',
+            'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'required',
             'place' => 'required',
@@ -264,7 +264,15 @@ class ArticalController extends Controller
         $articals = Artical::findOrFail($id);
 
         // Delete images from storage
-        Storage::disk('public')->delete([$articals->img_view, $articals->img_article]);
+        if($articals->img_view != null){
+            Storage::disk('public')->delete($articals->img_view);
+        }
+        if($articals->img_article != null){
+            Storage::disk('public')->delete($articals->img_article);
+        }
+        if($articals->vedio != null){
+            Storage::disk('public')->delete($articals->vedio);
+        }
 
         // Delete the article
         $articals->delete();

@@ -155,21 +155,35 @@
                         </div>
 
                         @php
-                        $ads5 = App\Models\Ad::where('ad_place_id', 10)->first();
+                            $ads = App\Models\Ad::where('ad_place_id', 10)->get();
+                            foreach ($ads as $ad) {
+                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                if ($timeDifference > $ad->time) {
+                                    $ad->status = 'expired';
+                                } else {
+                                    $ad->status = 'active';
+                                }
+                            }
                         @endphp
-                        <div class="widget">
-                            <div class="widget--title">
-                                @if($ads5)
-                                <a href="{{ $ads5->url }}" target="_blank">
-                                    <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
-                                        style="border: 1px solid gold;width: 100%;height: 100px;">
-                                </a>
-                                @else
-                                <h2 class="h4">إعلان</h2>
-                                <i class="icon fa fa-bullhorn"></i>
-                                @endif
+                        @forelse ($ads->where('status', 'active') as $index => $ad)
+                            <div class="widget">
+                                <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                </div>
+                                <div class="">
+                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @empty
+                            <div class="widget">
+                                <h2 class="h4" style="    direction: rtl;">
+                                    <i class="icon fa fa-bullhorn"></i>
+                                    {{__('admin.Ad')}}
+                                </h2>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>

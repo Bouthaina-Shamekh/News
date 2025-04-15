@@ -251,7 +251,7 @@ a:hover {
 }
 @media (min-width: 992px) {
     .acme-news-ticker-box ul {
-        animation: ticker-scroll 110s linear infinite;
+        animation: ticker-scroll 120s linear infinite;
     }
     .acme-news-ticker-box ul li a {
         font-size: 18px;

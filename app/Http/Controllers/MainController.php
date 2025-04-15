@@ -130,11 +130,13 @@ class MainController extends Controller
 
     public function comment(Request $request)
     {
-        $comment = Comment::create([
-            'sender_name' => $request->name,
+        Comment::create([
+            'name' => $request->name,
             'email' => $request->email,
             'text' => $request->comment,
-            'nw_id' => $request->nw_id,
+            'news_id' => $request->nw_id,
+            'date' => Carbon::now()->format('Y-m-d'),
+            'time' => Carbon::now()->format('H:i:s'),
         ]);
 
         return redirect()->route('site.new', $request->nw_id);

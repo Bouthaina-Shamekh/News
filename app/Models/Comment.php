@@ -14,10 +14,12 @@ class Comment extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'sender_name',
+        'name',
         'email',
         'text',
         'news_id',
+        'date',
+        'time',
     ];
 
     public function nw()

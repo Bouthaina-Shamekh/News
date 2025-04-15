@@ -3,16 +3,18 @@
 
 /* @tailwind utilities; */
 
-@layer base {
-    @font-face {
-        font-family: "Cairo";
-        src: url("..");
-    }
+@font-face {
+    font-family: 'AlarabyTelevision';
+    src: url('./Alaraby\ Television\ Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
 }
 
 @font-face {
-    font-family: "Cairo";
-    src: url("../assets/index_assets/fonts/Tajawal-Regular.ttf");
+    font-family: 'AlarabyTelevision';
+    src: url('./Alaraby\ Television\ Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
 }
 
 article,
@@ -56,12 +58,12 @@ label,
 html,
 .page-title,
 .cart_top span {
-    font-family: "Cairo";
+    font-family: 'AlarabyTelevision';
 }
 
 body {
     color: #777;
-    font-family: "Cairo";
+    font-family: 'AlarabyTelevision';
     font-size: 14px;
     line-height: 24px;
     font-weight: 400;
@@ -2019,7 +2021,7 @@ body.boxed>.wrapper {
 .social--widget.style--2 .nav>li>a>.text>span {
     display: block;
     padding: 12px 0 10px 60px;
-    font-family: "Cairo";
+    font-family: 'AlarabyTelevision';
     font-size: 14px;
     line-height: 28px;
     -webkit-transform: rotateX(0) translateZ(0);
@@ -6346,7 +6348,7 @@ ul.header--menu-links.nav>li>a:hover {
     color: #222;
     background-color: #eee;
     border-bottom-width: 0;
-    font-family: "Cairo";
+    font-family: 'AlarabyTelevision';
     font-size: 18px;
     line-height: 28px;
     font-weight: 700
@@ -6672,7 +6674,7 @@ ul.header--menu-links.nav>li>a:hover {
 .checkout--billing-info .panel-group .panel-title label span {
     display: block;
     padding-left: 20px;
-    font-family: "Cairo";
+    font-family: 'AlarabyTelevision';
     font-size: 14px;
     line-height: 24px;
     font-weight: 300
@@ -7260,7 +7262,7 @@ ul.scrollmenu a:hover {
         line-height: 1.9;
     }
     .sticky-content-inner .row .post--items{
-        margin-top: 130px;
+        margin-top: 0px;
     }
     .header--menu-links {
         font-size: 50px;
@@ -7419,8 +7421,9 @@ ul.scrollmenu a:hover {
 #nav_sider li .post--item .post--img{
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 10px 1px;
+    padding: 0 15px;
 }
 
 

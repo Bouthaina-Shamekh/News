@@ -113,14 +113,13 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
+                                                                    <div class="post--img-2">
+                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
+                                                                        </a>
+                                                                    </div>
                                                                     <div class="post--img-1">
                                                                         <div class="post--info">
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
@@ -128,12 +127,13 @@
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
+                                                                            <ul class="nav meta text-center">
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                </li>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -154,14 +154,13 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
+                                                                    <div class="post--img-2">
+                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
+                                                                        </a>
+                                                                    </div>
                                                                     <div class="post--img-1">
                                                                         <div class="post--info">
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
@@ -169,12 +168,13 @@
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
+                                                                            <ul class="nav meta text-center">
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                </li>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -195,14 +195,13 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
+                                                                    <div class="post--img-2">
+                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
+                                                                        </a>
+                                                                    </div>
                                                                     <div class="post--img-1">
                                                                         <div class="post--info">
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
@@ -210,12 +209,13 @@
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
+                                                                            <ul class="nav meta text-center">
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                </li>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -234,26 +234,38 @@
                             <div class="sticky-content-inner">
                                 <hr>
                                 @php
-                                $ads = App\Models\Ad::where('ad_place_id', 3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 3)->get();
+                                    foreach ($ads as $ad) {
+                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
+                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
+                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
+                                        if ($timeDifference > $ad->time) {
+                                            $ad->status = 'expired';
+                                        } else {
+                                            $ad->status = 'active';
+                                        }
+                                    }
                                 @endphp
-                                @forelse ($ads as $index => $ad)
-                                <div class="widget">
-                                    <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
-                                    </div>
+                                @forelse ($ads->where('status', 'active') as $index => $ad)
+                                    <div class="widget">
+                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                        </div>
 
-                                    <div class="">
-                                        <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                            <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
-                                        </a>
+                                        <div class="">
+                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
                                 @empty
-                                <div class="widget">
-                                    <h2 class="h4" style="    direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i>
-                                        {{__('admin.Ad')}}
-                                    </h2>
-                                </div>
+                                    <div class="widget">
+                                        <h2 class="h4" style="    direction: rtl;">
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            {{__('admin.Ad')}}
+                                        </h2>
+                                    </div>
                                 @endforelse
                             </div>
                             <div class="sticky-content-inner">
@@ -268,7 +280,7 @@
                                                         data-bs-target="#nav-home2" role="tab"
                                                         aria-controls="nav-home2" aria-selected="true">
                                                         {{-- أخبار عاجلة --}}
-                                                        {{ __('site.news') }}
+                                                        {{ __('site.Miscellaneous Articles') }}
                                                     </a>
                                                 </li>
                                                 <li class="active">
@@ -298,21 +310,20 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Artical::orderby('id','desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Artical::where('place', 'war')->orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
+                                                                    <div class="post--img-2">
+                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
+                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
+                                                                        </a>
+                                                                    </div>
                                                                     <div class="post--img-1">
                                                                         <div class="post--info">
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.article', $new->id) }}" class="btn-link">
@@ -320,12 +331,13 @@
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
+                                                                            <ul class="nav meta text-center">
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                </li>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -346,14 +358,13 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
+                                                                    <div class="post--img-2">
+                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
+                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
+                                                                        </a>
+                                                                    </div>
                                                                     <div class="post--img-1">
                                                                         <div class="post--info">
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.article', $new->id) }}" class="btn-link">
@@ -361,12 +372,13 @@
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
+                                                                            <ul class="nav meta text-center">
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                </li>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -387,14 +399,13 @@
                                                         <li>
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
+                                                                    <div class="post--img-2">
+                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
+                                                                        </a>
+                                                                    </div>
                                                                     <div class="post--img-1">
                                                                         <div class="post--info">
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
                                                                                     <a href="{{ route('site.new', $new->id) }}" class="btn-link">
@@ -402,12 +413,13 @@
                                                                                     </a>
                                                                                 </h5>
                                                                             </div>
+                                                                            <ul class="nav meta text-center">
+                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                </li>
+                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -427,25 +439,38 @@
                             <div class="sticky-content-inner">
                                 <hr>
                                 @php
-                                $ads = App\Models\Ad::where('ad_place_id', 4)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 4)->get();
+                                    foreach ($ads as $ad) {
+                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
+                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
+                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
+                                        if ($timeDifference > $ad->time) {
+                                            $ad->status = 'expired';
+                                        } else {
+                                            $ad->status = 'active';
+                                        }
+                                    }
                                 @endphp
-                                @forelse ($ads as $index => $ad)
-                                <div class="widget">
-                                    <div class="widget--title">
-                                    </div>
+                                @forelse ($ads->where('status', 'active') as $index => $ad)
+                                    <div class="widget">
+                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                        </div>
 
-                                    <div class="">
-                                        <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                            <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
-                                        </a>
+                                        <div class="">
+                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
                                 @empty
-                                <div class="widget">
-                                    <h2 class="h4" style="direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}}
-                                    </h2>
-                                </div>
+                                    <div class="widget">
+                                        <h2 class="h4" style="    direction: rtl;">
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            {{__('admin.Ad')}}
+                                        </h2>
+                                    </div>
                                 @endforelse
                             </div>
                         </div>
@@ -581,12 +606,19 @@
                             <!-- مساحة اعلانية  -->
                             <div class="col-md-12 ptop--30 ">
                                 <div class="post--items-title" style="padding: 0;" data-ajax="tab">
-                                    <!-- <h2 class="h4" style="    direction: rtl;">
-                                        {{__('admin.Ad')}} </h2> -->
                                     @php
-                                    $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
+                                        $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
+                                        if($ads5){
+                                            $updateTime = $ads5->updated_at ? Carbon\Carbon::parse($ads5->updated_at) : Carbon\Carbon::parse($ads5->created_at);
+                                            $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                            if ($timeDifference > $ads5->time) {
+                                                $ads5->status = 'expired';
+                                            } else {
+                                                $ads5->status = 'active';
+                                            }
+                                        }
                                     @endphp
-                                    @if($ads5)
+                                    @if($ads5 && $ads5->status == 'active')
                                     <a href="{{ $ads5->url }}" title="{{ $ads5->title }}" target="_blank">
                                         <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
                                             style="border: 1px solid gold;width: 100%;height:100px;">
@@ -680,12 +712,24 @@
                             <div class="col-md-12 ptop--30 ">
                                 <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
                                     @php
-                                    $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
+                                        $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
+                                        if($ads6){
+                                            // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
+                                            $updateTime = $ads6->updated_at ? Carbon\Carbon::parse($ads6->updated_at) : Carbon\Carbon::parse($ads6->created_at);
+                                            // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
+                                            $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                            // فرضًا أن المدة المسموح بها هي 30 دقيقة
+                                            if ($timeDifference > $ads6->time) {
+                                                $ads6->status = 'expired';
+                                            } else {
+                                                $ads6->status = 'active';
+                                            }
+                                        }
                                     @endphp
                                     @if($ads6)
                                     <a href="{{ $ads6->url }}" title="{{ $ads6->title }}" target="_blank">
                                         <img src="{{ asset('storage/' . $ads6->image) }}" alt="No Image For Ad"
-                                            style="border: 1px solid gold;width: 100%;height: 100px;">
+                                            style="border: 1px solid gold;width: 100%;height:100px;">
                                     </a>
                                     @else
                                     <h2 class="h4" style="direction: rtl;">
@@ -820,40 +864,72 @@
                             <div class="sticky-content-inner">
                                 <!--اعلانات-->
                                 @php
-                                    $ads = App\Models\Ad::where('ad_place_id', 7)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 7)->get();
+                                    foreach ($ads as $ad) {
+                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
+                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
+                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
+                                        if ($timeDifference > $ad->time) {
+                                            $ad->status = 'expired';
+                                        } else {
+                                            $ad->status = 'active';
+                                        }
+                                    }
                                 @endphp
-                                @forelse ($ads as $ad)
+                                @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
+                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                        </div>
+
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
                                 @empty
                                     <div class="widget">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}} </h2>
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            {{__('admin.Ad')}}
+                                        </h2>
                                     </div>
                                 @endforelse
                                 @php
-                                    $ads = App\Models\Ad::where('ad_place_id', 5)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 5)->get();
+                                    foreach ($ads as $ad) {
+                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
+                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
+                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
+                                        if ($timeDifference > $ad->time) {
+                                            $ad->status = 'expired';
+                                        } else {
+                                            $ad->status = 'active';
+                                        }
+                                    }
                                 @endphp
-                                @forelse ($ads as $ad)
+                                @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
+                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                        </div>
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
                                 @empty
                                     <div class="widget">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}} </h2>
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            {{__('admin.Ad')}}
+                                        </h2>
                                     </div>
                                 @endforelse
-
                                 <div class="widget">
                                     <div class="widget--title">
                                         <h2 class="h4" style="    direction: rtl;">
@@ -863,7 +939,7 @@
                                         <i class="icon fa fa-cloud"></i>
                                     </div>
                                     <div class="">
-                                        <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font="Cairo" data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
+                                        <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font='AlarabyTelevision' data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
                                         <script>
 
                                         </script>
@@ -875,7 +951,7 @@
                                             {{-- أسعار العملات --}}
                                             {{__('site.currency')}}
                                         </h2>
-                                        <i class="icon fa fa-bullhorn"></i>
+                                        <i class="icon fa fa-money"></i>
                                     </div>
                                     <div class="">
                                         <a href="#">
@@ -885,20 +961,37 @@
                                     </div>
                                 </div>
                                 @php
-                                    $ads = App\Models\Ad::where('ad_place_id', 6)->take(3)->get();
+                                    $ads = App\Models\Ad::where('ad_place_id', 6)->get();
+                                    foreach ($ads as $ad) {
+                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
+                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
+                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
+                                        if ($timeDifference > $ad->time) {
+                                            $ad->status = 'expired';
+                                        } else {
+                                            $ad->status = 'active';
+                                        }
+                                    }
                                 @endphp
-                                @forelse ($ads as $ad)
+                                @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
+                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                        </div>
+
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
                                 @empty
                                     <div class="widget">
                                         <h2 class="h4" style="    direction: rtl;">
-                                            <i class="icon fa fa-bullhorn"></i> {{__('admin.Ad')}} </h2>
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            {{__('admin.Ad')}}
+                                        </h2>
                                     </div>
                                 @endforelse
                             </div>

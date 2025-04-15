@@ -9,7 +9,6 @@ class Ad extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
 
     protected $fillable = [
         'image',
@@ -24,6 +23,8 @@ class Ad extends Model
         'visit',
         'created_by',
         'ad_place_id',
+        'created_at',
+        'updated_at',
     ];
 
     public function admin(){

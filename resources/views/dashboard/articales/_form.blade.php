@@ -63,7 +63,12 @@
             <input type="file" name="vedio" class="form-control" />
             <span class="text-muted">{{__('admin.Size Vedio')}}: 16:9</span>
             @if($articals->vedio)
-                <video src="{{ asset('storage/' . $articals->vedio) }}" width="320" height="240" controls="controls"></video>
+                <video width="320" height="240" controls="controls">
+                    <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/mp4">
+                    <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/webm">
+                    <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/ogg">
+                    Your browser does not support the video tag.
+                </video>
             @endif
         </div>
         <div class="form-group col-6 mb-3">

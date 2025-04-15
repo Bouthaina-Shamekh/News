@@ -107,20 +107,33 @@
                             @endif
                         </div>
                         @php
-                            $ads = App\Models\Ad::where('ad_place_id', 9)->take(3)->get();
+                            $ads = App\Models\Ad::where('ad_place_id', 9)->get();
+                            foreach ($ads as $ad) {
+                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                if ($timeDifference > $ad->time) {
+                                    $ad->status = 'expired';
+                                } else {
+                                    $ad->status = 'active';
+                                }
+                            }
                         @endphp
-                        @forelse ($ads as $ad)
+                        @forelse ($ads->where('status', 'active') as $index => $ad)
                             <div class="widget">
+                                <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                </div>
                                 <div class="">
                                     <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                     </a>
                                 </div>
                             </div>
                         @empty
                             <div class="widget">
                                 <h2 class="h4" style="    direction: rtl;">
-                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                    <i class="icon fa fa-bullhorn"></i>
+                                    {{__('site.ad')}}
+                                </h2>
                             </div>
                         @endforelse
                         <div class="post--author-info clearfix" id="com">
@@ -141,9 +154,14 @@
 
                             <div class="info">
                                 <h2 class="h4">
-                                    عن الناشر </h2>
+                                    {{-- عن الناشر  --}}
+                                    {{ __('site.about_publisher') }}
+                                </h2>
                                 <div class="content">
-                                    <p>ناشرة في مجلة مارينا بوست </p>
+                                    <p>
+                                        {{-- ناشرة في مجلة مارينا بوست  --}}
+                                        {{ __('site.publisher_marina_post') }}
+                                    </p>
                                 </div>
 
                             </div>
@@ -152,7 +170,7 @@
                         <div class="comment--list pd--30-0">
                             <div class="post--items-title">
                                 <h2 class="h4">
-                                    {{$new->comment->count()}} تعليقات </h2> <i class="icon fa fa-comments-o"></i>
+                                    {{$new->comment->count()}} {{ __('site.comments') }} </h2> <i class="icon fa fa-comments-o"></i>
                             </div>
                             <ul class="comment--items nav">
                                 @foreach ($comments as $comment)
@@ -181,25 +199,30 @@
                         <div class="comment--form pd--30-0">
                             <div class="post--items-title">
                                 <h2 class="h4">
-                                    اترك تعليقا </h2> <i class="icon fa fa-pencil-square-o"></i>
+                                    {{-- اترك تعليقا --}}
+                                    {{ __('site.write_a_comment') }}
+                                </h2> <i class="icon fa fa-pencil-square-o"></i>
                             </div>
                             <div class="comment-respond text_dir {
                                 text-align: left;
                             }">
                                 <form action="{{route('site.comment')}}" method="post" data-form="validate">
                                     @csrf
-                                    <p>لا تقلق! لن يتم نشر عنوان بريدك الإلكتروني. الحقول الإلزامية مشار إليها
-                                        بعلامة (*). </p>
+                                    <p>
+                                        {{-- لا تقلق! لن يتم نشر عنوان بريدك الإلكتروني. الحقول الإلزامية مشار إليها
+                                        بعلامة (*).  --}}
+                                        {{ __('site.no_worry_text') }}
+                                    </p>
                                     <div class="row">
                                         <input type="hidden" name="nw_id" value="{{$new->id}}">
                                         <div class="col-sm-6"> <label>
                                                 <input type="text" value="a" style="display:none;" name="artical">
-                                                <span>{{('comment')}} * </span>
-                                                <textarea name="comment" id="comment" class="form-control" required onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('comment')" data-cf-modified-74f1811ed9adbc6538a65f0a-="">
-                                                </textarea>
+                                                <span>{{__('site.comment')}} * </span>
+                                                <textarea name="comment" id="comment" class="form-control" required onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('comment')" data-cf-modified-74f1811ed9adbc6538a65f0a-=""></textarea>
                                             </label> </div>
-                                        <div class="col-sm-6"> <label>
-                                                <span>{{('name')}} *</span>
+                                        <div class="col-sm-6">
+                                            <label>
+                                                <span>{{__('site.name')}} *</span>
                                                 <input type="text" name="name" id="name" class="form-control"
                                                     required
                                                     onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('name')"
@@ -210,14 +233,18 @@
                                                     data-cf-modified-74f1811ed9adbc6538a65f0a-="">
                                             </label>
                                             <label>
-                                                <span>{{('email')}} *</span>
+                                                <span>{{__('site.Your Email')}} *</span>
                                                 <input type="email" name="email" id="email" class="form-control"
                                                     required
                                                     onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('email')"
-                                                    data-cf-modified-74f1811ed9adbc6538a65f0a-=""> </label>
+                                                    data-cf-modified-74f1811ed9adbc6538a65f0a-="">
+                                            </label>
                                         </div>
-                                        <div class="col-md-12"> <button type="submit" class="btn btn-primary">
-                                                {{('submit')}} </button> </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">
+                                                {{__('site.submit')}}
+                                            </button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -245,7 +272,9 @@
                         <div class="widget">
                             <div class="widget--title">
                                 <h2 class="h4">
-                                    ابق على اتصال </h2> <i class="icon fa fa-share-alt"></i>
+                                    {{-- ابق على اتصال --}}
+                                    {{__('site.stay connected')}}
+                                </h2> <i class="icon fa fa-share-alt"></i>
                             </div>
                             <div class="social--widget style--1">
                                 <ul class="nav">
@@ -280,13 +309,16 @@
                         <div class="widget">
                             <div class="widget--title">
                                 <h2 class="h4">
-                                    احصل على النشرة الإخبارية </h2> <i class="icon fa fa-envelope-open-o"></i>
+                                    {{-- احصل على النشرة الإخبارية  --}}
+                                    {{__('site.subscribe to our newsletter')}}
+                                </h2> <i class="icon fa fa-envelope-open-o"></i>
                             </div>
                             <div class="subscribe--widget">
                                 <div class="content">
                                     <p>
-                                        اشترك في النشرة الإخبارية لدينا للحصول على آخر الأخبار والأخبار الشعبية
-                                        والتحديثات الحصرية.
+                                        {{-- اشترك في النشرة الإخبارية لدينا للحصول على آخر الأخبار والأخبار الشعبية
+                                        والتحديثات الحصرية. --}}
+                                        {{__('site.subscribe_to_our_newsletter_text')}}
                                     </p>
                                 </div>
                                 <form action="{{ route('site.addEmail') }}" method="post" name="mc-embedded-subscribe-form" target="_blank"
@@ -310,7 +342,9 @@
                         <div class="widget">
                             <div class="widget--title">
                                 <h2 class="h4">
-                                    مقالات ذات صلة </h2> <i class="icon fa fa-newspaper-o"></i>
+                                    {{-- مقالات ذات صلة  --}}
+                                    {{__('site.related_news')}}
+                                </h2> <i class="icon fa fa-newspaper-o"></i>
                             </div>
                             <div class="list--widget list--widget-1">
                                 <div class="post--items post--items-3" data-ajax-content="outer">
@@ -351,20 +385,33 @@
                         </div>
                         <!--جانبي صفحة الخبر 300x250 -->
                         @php
-                            $ads = App\Models\Ad::where('ad_place_id', 10)->take(3)->get();
+                            $ads = App\Models\Ad::where('ad_place_id', 10)->get();
+                            foreach ($ads as $ad) {
+                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
+                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
+                                if ($timeDifference > $ad->time) {
+                                    $ad->status = 'expired';
+                                } else {
+                                    $ad->status = 'active';
+                                }
+                            }
                         @endphp
-                        @forelse ($ads as $ad)
+                        @forelse ($ads->where('status', 'active') as $index => $ad)
                             <div class="widget">
+                                <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                </div>
                                 <div class="">
                                     <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
+                                        <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
                                     </a>
                                 </div>
                             </div>
                         @empty
                             <div class="widget">
-                                <h2 class="h4" style="direction: rtl;">
-                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                                <h2 class="h4" style="    direction: rtl;">
+                                    <i class="icon fa fa-bullhorn"></i>
+                                    {{__('site.ad')}}
+                                </h2>
                             </div>
                         @endforelse
                     </div>
