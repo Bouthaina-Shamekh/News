@@ -7265,7 +7265,7 @@ ul.scrollmenu a:hover {
         margin-top: 0px;
     }
     .header--menu-links {
-        font-size: 50px;
+        font-size: 30px;
         line-height: 26px;
         display: block;
         direction: rtl;
@@ -7290,7 +7290,7 @@ ul.scrollmenu a:hover {
         border-bottom: 2px solid transparent
     }
     .header--menu-links {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 26px;
         display: block;
         direction: rtl;
@@ -7311,7 +7311,7 @@ ul.scrollmenu a:hover {
         line-height: 1.9;
     }
     .h2, h2 {
-        font-size: 30px;
+        font-size: 24px;
     }
     .h4, h4 {
         font-size: 18px;
@@ -7342,7 +7342,7 @@ ul.scrollmenu a:hover {
         margin: 0 10px
     }
     .header--topbar .nav{
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .navbar-header{

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class PublisherController extends Controller
@@ -91,7 +92,7 @@ class PublisherController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email:publishers,email',
-            'password' => 'required',
+            'password' => 'nullable',
             'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'phone' => 'required',
             'birth_of_date' => 'required|date',
@@ -135,6 +136,11 @@ class PublisherController extends Controller
 
         $publishers = Publisher::findOrFail($id);
         // Update the publisher with the validated data
+        if($request->password) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        }else{
+            $request->merge(['password' => $publishers->password]);
+        }
         $publishers->update($request->all());
 
 

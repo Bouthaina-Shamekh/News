@@ -14,6 +14,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -34,9 +35,9 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.home','/dashboard/home');
         }
         if($request->is($app_local . '/publisher/*') || $request->is('publisher') || $request->is($app_local . '/publisher')){
-            Config::set('fortify.guard','publisher');
+            Config::set('fortify.guard','publisherGuard');
             Config::set('fortify.passwords','publishers');
-            Config::set('fortify.prefix',$app_local . '/publisher');
+            Config::set('fortify.prefix', $app_local . '/publisher');
             Config::set('fortify.home','/publisher/home');
         }
 
@@ -46,8 +47,8 @@ class FortifyServiceProvider extends ServiceProvider
                 if(Config::get('fortify.guard') == 'admin'){
                     return redirect()->intended('/dashboard/home');
                 }
-                if(Config::get('fortify.guard') == 'publisher'){
-                    return redirect('/publisher/home');
+                if(Config::get('fortify.guard') == 'publisherGuard'){
+                    return redirect()->route('publisher.home');
                 }
                 return redirect()->intended('/');
             }
@@ -58,11 +59,25 @@ class FortifyServiceProvider extends ServiceProvider
                 if(Config::get('fortify.guard') == 'admin'){
                     return redirect()->intended(app()->getLocale() . '/dashboard/login');
                 }
-                if(Config::get('fortify.guard') == 'publisher'){
+                if(Config::get('fortify.guard') == 'publisherGuard'){
                     return redirect()->intended(app()->getLocale() . '/publisher/login');
                 }
                 return redirect('/');
             }
+        });
+        $this->app->singleton(RegisterResponse::class, function () {
+            return new class implements RegisterResponse {
+                public function toResponse($request)
+                {
+                    if (Config::get('fortify.guard') == 'admin') {
+                        return redirect('/dashboard/home');
+                    }
+                    if (Config::get('fortify.guard') == 'publisherGuard') {
+                        return redirect()->route('publisher.home');
+                    }
+                    return redirect()->intended('/');
+                }
+            };
         });
     }
 
@@ -75,22 +90,17 @@ class FortifyServiceProvider extends ServiceProvider
             if(Config::get('fortify.guard') == 'admin'){
                 return view('auth.admins.login');
             }
-            if(Config::get('fortify.guard') == 'publisher'){
+            if(Config::get('fortify.guard') == 'publisherGuard'){
                 return view('auth.publishers.login');
             }
             return view('auth.login');
         });
 
         Fortify::registerView(function () {
+            if(Config::get('fortify.guard') == 'publisherGuard'){
+                return view('auth.publishers.register');
+            }
             return view('auth.register');
-        });
-
-        Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
-        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-
-        RateLimiter::for('login', function (Request $request) {
         });
 
         Fortify::createUsersUsing(CreateNewUser::class);

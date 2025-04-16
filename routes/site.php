@@ -53,11 +53,12 @@ Route::group([
 
     });
 
- // Main Routes
- Route::get('/dashboard', function () {
-    return redirect()->route('dashboard.home');
-})->middleware('auth:admin');
-Route::get('/publisher', function () {
-    return redirect()->route('publishers.home');
-})->middleware('auth:publisher');
+    // Main Routes
+    Route::get('/dashboard', function () {
+        return redirect()->route('dashboard.home');
+    })->middleware('auth:admin');
+
+    Route::get('/publisher', function () {
+        return redirect()->route('publisher.home');
+    });
 });

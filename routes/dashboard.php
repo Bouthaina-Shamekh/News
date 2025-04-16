@@ -48,7 +48,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
             'category' => CategoryController::class,
             'articale' => ArticalController::class,
             'ad' => AdController::class,
-            'tag' => TagController::class,
             'nw' => NwController::class,
             'publisher' => PublisherController::class,
             'comment' => CommentController::class,
@@ -67,7 +66,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
         Route::get('/constant',[SettingController::class , 'index'])->name('constant.index');
-        Route::post('/constant/update',[ConstantController::class , 'update'])->name('constant.update');
     });
 });
 
