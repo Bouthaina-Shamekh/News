@@ -1,6 +1,10 @@
 @include('layouts.partials.publisher.head',['title' => 'User is not active'])
 
-
+@if(Auth::guard('publisherGuard')->user()->status == 1)
+    <script>
+        window.location.href = "{{ route('publisher.home') }}";
+    </script>
+@endif
 
 <div class="auth-main relative">
     <div class="auth-wrapper v1 flex items-center w-full h-full min-h-screen">

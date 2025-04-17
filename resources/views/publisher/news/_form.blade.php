@@ -18,23 +18,9 @@
             <x-form.input name="date" label="{{__('admin.Date')}}" type="date" placeholder="{{__('admin.enter news of date')}}" required :value="$news->date" />
         </div>
 
-        <!-- <div class="form-group col-6 mb-3">
-            <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter news')}}" required :value="$news->visit" disabled/>
-        </div> -->
+
         <input type="hidden" name="visit" value="{{ $news->visit }}">
 
-
-
-        <div class="form-group col-12 mb-3">
-            <label for="text_ar" class="form-label">{{__('admin.Text_AR')}}</label>
-            <textarea name="text_ar" rows="3" class="form-control mytextarea" required>{!!$news->text_ar!!}</textarea>
-        </div>
-
-
-        <div class="form-group col-12 mb-3">
-            <label for="text_en" class="form-label">{{__('admin.Text_EN')}}</label>
-            <textarea name="text_en" rows="3" class="form-control mytextarea">{!!$news->text_en!!}</textarea>
-        </div>
 
         <div class="form-group col-6 mb-3">
             <x-form.input name="keyword_ar" class="TagifyBasic" label="{{__('admin.Keyword_AR')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}" required :value="$news->keyword_ar" />
@@ -44,6 +30,20 @@
         <div class="form-group col-6 mb-3">
             <x-form.input name="keyword_en" class="TagifyBasic" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter news of keyword')}}" :value="$news->keyword_en" />
         </div>
+
+
+        <div class="form-group col-12 mb-3">
+            <label for="text_ar" class="form-label">{{__('admin.Text_AR')}}</label>
+            <textarea name="text_ar" rows="3" class="form-control mytextarea" required>{!!$news->text_ar!!}</textarea>
+        </div>
+
+
+        <!-- <div class="form-group col-12 mb-3">
+            <label for="text_en" class="form-label">{{__('admin.Text_EN')}}</label>
+            <textarea name="text_en" rows="3" class="form-control mytextarea">{!!$news->text_en!!}</textarea>
+        </div> -->
+
+       
 
 
 
@@ -76,7 +76,7 @@
         </div>
 
 
-        <div class="form-group col-6 mb-3">
+        <!-- <div class="form-group col-6 mb-3">
             <label for="statu_id" class="form-label">{{__('admin.Status')}}</label>
             <select id="statu_id" name="statu_id" class="form-control">
                 <option value="" disabled selected>{{__('admin.Choose')}}</option>
@@ -84,7 +84,7 @@
                 <option value="{{$statu->id}}" @selected( $news->statu_id == $statu->id)>{{$statu->$name}}</option>
                 @endforeach
             </select>
-        </div>
+        </div> -->
 
 
         <div class="form-group col-6 mb-3">
@@ -98,7 +98,7 @@
         </div>
 
 
-        <div class="form-group col-6 mb-3">
+        <!-- <div class="form-group col-6 mb-3">
             <label for="new_place_id" class="form-label">{{__('admin.NewPlace')}}</label>
             <select id="new_place_id" name="new_place_id" class="form-control">
                 <option value="" disabled selected>{{__('admin.Choose')}}</option>
@@ -106,11 +106,11 @@
                 <option value="{{$newplace->id}}" @selected( $news->new_place_id == $newplace->id)>{{$newplace->$name}}</option>
                 @endforeach
             </select>
-        </div>
+        </div> -->
 
 
 
-        <div class="form-group col-6 mb-3">
+        <!-- <div class="form-group col-6 mb-3">
             <label for="publisher_id" class="form-label">{{__('admin.Publisher')}}</label>
             <select id="publisher_id" name="publisher_id" class="form-control">
                 <option value="" disabled selected>{{__('admin.Choose')}}</option>
@@ -118,7 +118,7 @@
                 <option value="{{$publisher->id}}" @selected( $news->publisher_id == $publisher->id)>{{$publisher->name}}</option>
                 @endforeach
             </select>
-        </div>
+        </div> -->
 
     </div>
 

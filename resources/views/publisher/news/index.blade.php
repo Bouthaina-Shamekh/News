@@ -126,9 +126,9 @@
                                 <th>{{ __('admin.Title') }}</th>
                                 <th>{{ __('admin.Publisher') }}</th>
                                 <th>{{ __('admin.Category') }}</th>
-                                <th>{{ __('admin.New Place') }}</th>
+                                <th>{{ __('admin.Date') }}</th>
                                 <th>{{ __('admin.Created') }}</th>
-                                <th>{{ __('admin.Visit') }}</th>
+                                <th>{{ __('admin.Keyword_Ar') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
                                 <th>{{ __('admin.Actions') }}</th>
                             </tr>
@@ -159,15 +159,21 @@
                                             {{ $new->category->name_en ?? '' }}
                                         @endif
                                     </td>
-                                    <td>{{ $new->newplace ? $new->newplace->$name : '-' }}</td>
+                                    <td>{{ $new->date->format('Y-m-d') }}</td>
                                     <td>{{ $new->created_at->format('Y-m-d') }}</td>
-                                    <td>{{ $new->visit }}</td>
-                                    <td>{{ $new->status ? $new->status->$name : '' }}</td>
+                                    <td>
+                                        @if(app()->getLocale() == 'ar')
+                                            {{ $new->keyword_ar ?? '' }}
+                                        @else
+                                            {{ $new->keyword_en ?? '' }}
+                                        @endif
+                                    </td>
+                                   
                                     <td class="d-flex">
-                                        <a href="{{ route('dashboard.nw.edit', $new->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <a href="{{ route('publisher.nw.edit', $new->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>
                                         </a>
-                                        <form action="{{ route('dashboard.nw.destroy', $new->id) }}" method="post" class="delete-form">
+                                        <form action="{{ route('publisher.nw.destroy', $new->id) }}" method="post" class="delete-form">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">

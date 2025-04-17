@@ -16,9 +16,9 @@ class CheckStatusPublisher
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if(Auth::guard('publisherGuard')->user()->status == 0){
-        //     return redirect()->route('publisher.non-active');
-        // }
+        if(Auth::guard('publisherGuard')->user()->status == 0){
+            return redirect()->route('publisher.non-active');
+        }
         return $next($request);
     }
 }

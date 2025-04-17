@@ -19,12 +19,12 @@
                  @endcan
                  @can('edit', 'App\Models\Nw')
                 <div class="card-body">
-                    <form action="{{route('dashboard.nw.update',$news->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('publisher.nw.index',$news->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        @include('dashboard.news._form')
+                        @include('publisher.news._form')
                         <div class="row justify-content-end mt-3">
-                            <a href="{{route('dashboard.nw.index')}}" class="btn btn-secondary col-1 mr-3">
+                            <a href="{{route('publisher.nw.index')}}" class="btn btn-secondary col-1 mr-3">
                                 {{__('admin.Back')}}
                             </a>
                             <button type="submit" class="btn btn-primary col-1  mr-3">

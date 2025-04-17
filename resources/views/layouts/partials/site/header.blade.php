@@ -35,14 +35,14 @@
                         <ul class="header--topbar-action nav">
                             @guest('publisherGuard')
                             <li>
-                                <a href="{{app()->getLocale().'/publisher/login'}}">
-                                    <i class="fa fm fa-user-o"></i> {{__('site.Login')}}
+                                <a href="{{ url(app()->getLocale().'/publisher/login') }}">
+                                    <i class="fa fm fa-user-o"></i> {{ __('site.Login') }}
                                 </a>
                             </li>
                             <li>/</li>
                             <li>
-                                <a href="{{app()->getLocale().'/publisher/register'}}">
-                                    {{__('site.Signup')}}
+                                <a href="{{ url(app()->getLocale().'/publisher/register') }}">
+                                    {{ __('site.Signup') }}
                                 </a>
                             </li>
                             @endguest
