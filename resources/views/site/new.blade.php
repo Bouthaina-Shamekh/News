@@ -353,7 +353,7 @@
                                         <li>
                                             <div class="post--item post--layout-3">
                                                 <div class="post--img">
-                                                    <a href="{{ route('site.news',$newS->id) }}" class="thumb" style="float: right;">
+                                                    <a href="{{ route('site.new',$newS->id) }}" class="thumb" style="float: right;">
                                                         <img src="{{asset('storage/'.$newS->img_view)}}" alt="">
                                                     </a>
                                                     <div class="post--info">
@@ -362,13 +362,13 @@
                                                                 <a href="#"></a>
                                                             </li>
                                                             <li>
-                                                                <a href="{{ route('site.news',$newS->id) }}">{{$newS->created_at->format('Y-M-d')}}</a>
+                                                                <a href="{{ route('site.new',$newS->id) }}">{{$newS->created_at->format('Y-M-d')}}</a>
                                                             </li>
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4"
                                                                 style="text-align: right; padding-right: 27px;">
-                                                                <a href="{{ route('site.news',$newS->id) }}" class="btn-link news-title">{{$newS->$title}}</a>
+                                                                <a href="{{ route('site.new',$newS->id) }}" class="btn-link news-title">{{$newS->$title}}</a>
                                                             </h3>
                                                         </div>
                                                     </div>
