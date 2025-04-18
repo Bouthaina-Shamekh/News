@@ -7,6 +7,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Publisher\HomeController as PublisherHomeController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -48,9 +49,7 @@ Route::group([
         Route::post('/addEmail', [MainController::class, 'addEmail'])->name('addEmail');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
 
-
-
-
+        Route::get('publisher/{id}/news', [PublisherHomeController::class, 'publisherNews'])->name('publisherNews');
     });
 
     // Main Routes

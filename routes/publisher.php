@@ -32,7 +32,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
             'nw' => NwController::class,
         ]);
 
-        Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
+        Route::get('/acceptnews',[HomeController::class , 'acceptnews'])->name('acceptnews');
+        Route::get('/waitnews',[HomeController::class , 'waitnews'])->name('waitnews');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
         // Route::get('/login', function () {

@@ -1,4 +1,4 @@
-<x-dashboard-layout>
+<x-publisher-layout>
     @php
         $name = 'name_' . app()->getLocale();
         $title = 'title_' . app()->getLocale();
@@ -80,13 +80,11 @@
                 <div class="row">
                     <h5>{{ __('admin.News') }}</h5>
                 </div>
-                @can('create', 'App\Models\Nw')
-                    <div>
-                        <a href="{{ route('dashboard.nw.create') }}" class="btn btn-primary">
+                <div>
+                        <a href="{{ route('publisher.nw.create') }}" class="btn btn-primary">
                             {{ __('admin.Add News') }}
                         </a>
-                    </div>
-                @endcan
+                </div>
             </div>
 
             <!-- Filters Section -->
@@ -115,7 +113,6 @@
                 <button class="btn" id="search">{{ __('admin.Filter') }}</button>
             </div>
 
-            @can('view', 'App\Models\Nw')
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -130,7 +127,7 @@
                                 <th>{{ __('admin.Created') }}</th>
                                 <th>{{ __('admin.Keyword_Ar') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
-                                <th>{{ __('admin.Actions') }}</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -159,7 +156,7 @@
                                             {{ $new->category->name_en ?? '' }}
                                         @endif
                                     </td>
-                                    <td>{{ $new->date->format('Y-m-d') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($new->date)->format('Y-m-d') }}</td>
                                     <td>{{ $new->created_at->format('Y-m-d') }}</td>
                                     <td>
                                         @if(app()->getLocale() == 'ar')
@@ -168,19 +165,12 @@
                                             {{ $new->keyword_en ?? '' }}
                                         @endif
                                     </td>
-                                   
-                                    <td class="d-flex">
-                                        <a href="{{ route('publisher.nw.edit', $new->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                            <i class="ti ti-edit text-xl leading-none"></i>
-                                        </a>
-                                        <form action="{{ route('publisher.nw.destroy', $new->id) }}" method="post" class="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
-                                                <i class="ti ti-trash text-xl leading-none"></i>
-                                            </button>
-                                        </form>
+
+                                    <td>
+                                    {{ app()->getLocale() == 'ar' ? $new->status->name_ar : $new->status->name_en }}
                                     </td>
+
+                                    
                                 </tr>
                             @endforeach
                         </tbody>
@@ -190,7 +180,6 @@
                     {{ $news->links() }}
                 </div>
             </div>
-            @endcan
         </div>
     </div>
     <!-- Both borders table end -->
@@ -312,7 +301,7 @@
     });
 </script>
 
-   
+
 
     @endpush
-</x-dashboard-layout>
+</x-publisher-layout>

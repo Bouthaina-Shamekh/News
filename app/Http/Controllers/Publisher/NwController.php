@@ -9,15 +9,18 @@ use App\Models\NewPlace;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class NwController extends Controller
 {
     public function index()
     {
-       
 
-        $news = Nw::with(['newplace','category','publisher','status'])->orderBy('id','desc');
+
+        $news = Nw::with(['newplace','category','publisher','status'])
+        ->where('publisher_id', Auth::guard('publisherGuard')->user()->id)
+        ->orderBy('id','desc');
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){
@@ -49,10 +52,10 @@ class NwController extends Controller
      */
     public function create()
     {
-       
+
         $news = new Nw();
         $categories = Category::all();
-        
+
         return view('publisher.news.create', compact('news', 'categories'));
     }
 
@@ -61,20 +64,20 @@ class NwController extends Controller
      */
     public function store(Request $request)
     {
-       
+
         $request->validate([
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
             'img_view' => 'nullable|image',
             'img_article' => 'nullable|image',
-            
+
             'text_ar' => 'required',
             'text_en' => 'nullable',
             'keyword_ar' => 'required',
             'keyword_en' => 'nullable',
             'category_id' => 'required',
-          
+
         ]);
 
         $keywords_ar_text = '';
@@ -121,7 +124,8 @@ class NwController extends Controller
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
             'category_id' => $request->category_id,
-            
+            'publisher_id' => Auth::guard('publisherGuard')->user() ? Auth::guard('publisherGuard')->user()->id : 0,
+            'statu_id' => 1,
         ]);
 
         return redirect()->route('publisher.nw.index')->with('success', __('Item created successfully.'));
@@ -140,10 +144,10 @@ class NwController extends Controller
      */
     public function edit(string $id)
     {
-       
+
         $news = Nw::findOrFail($id);
         $categories = Category::all();
-      
+
         return view('publisher.news.edit', compact('news','categories'));
     }
 
@@ -152,7 +156,7 @@ class NwController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+
 
         $request->validate([
             'title_ar' => 'required',
@@ -165,7 +169,7 @@ class NwController extends Controller
             'keyword_ar' => 'required',
             'keyword_en' => 'nullable',
             'category_id' => 'required',
-           
+
         ]);
 
         $keywords_ar_text = '';
@@ -225,7 +229,7 @@ class NwController extends Controller
             'text_ar' => $request->text_ar,
             'text_en' => $request->text_en,
             'keyword_ar' => $request->keyword_ar,
-            'keyword_en' => $request->keyword_en,          
+            'keyword_en' => $request->keyword_en,
             'category_id' => $request->category_id,
             'img_view' => $imgViewPath,
             'img_article' => $imgArticlePath,
@@ -240,7 +244,7 @@ class NwController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
 
         $news = Nw::findOrFail($id);
 

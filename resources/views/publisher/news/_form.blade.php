@@ -76,15 +76,7 @@
         </div>
 
 
-        <!-- <div class="form-group col-6 mb-3">
-            <label for="statu_id" class="form-label">{{__('admin.Status')}}</label>
-            <select id="statu_id" name="statu_id" class="form-control">
-                <option value="" disabled selected>{{__('admin.Choose')}}</option>
-                @foreach ($status as $statu)
-                <option value="{{$statu->id}}" @selected( $news->statu_id == $statu->id)>{{$statu->$name}}</option>
-                @endforeach
-            </select>
-        </div> -->
+       
 
 
         <div class="form-group col-6 mb-3">
@@ -98,27 +90,7 @@
         </div>
 
 
-        <!-- <div class="form-group col-6 mb-3">
-            <label for="new_place_id" class="form-label">{{__('admin.NewPlace')}}</label>
-            <select id="new_place_id" name="new_place_id" class="form-control">
-                <option value="" disabled selected>{{__('admin.Choose')}}</option>
-                @foreach ($newplaces as $newplace)
-                <option value="{{$newplace->id}}" @selected( $news->new_place_id == $newplace->id)>{{$newplace->$name}}</option>
-                @endforeach
-            </select>
-        </div> -->
-
-
-
-        <!-- <div class="form-group col-6 mb-3">
-            <label for="publisher_id" class="form-label">{{__('admin.Publisher')}}</label>
-            <select id="publisher_id" name="publisher_id" class="form-control">
-                <option value="" disabled selected>{{__('admin.Choose')}}</option>
-                @foreach ($publishers as $publisher)
-                <option value="{{$publisher->id}}" @selected( $news->publisher_id == $publisher->id)>{{$publisher->name}}</option>
-                @endforeach
-            </select>
-        </div> -->
+       
 
     </div>
 

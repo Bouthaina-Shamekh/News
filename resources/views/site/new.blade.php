@@ -140,7 +140,7 @@
                             <div class="img">
                                 <div class="vc--parent">
                                     <div class="vc--child">
-                                        <a href="author?id=31" class="btn-link">
+                                        <a href="{{route('site.publisherNews',$new->publisher->id)}}" class="btn-link">
                                             @if($new->publisher)
                                             <img src="{{asset('storage/'.$new->publisher->img)}}" alt="">
                                             @endif

@@ -68,86 +68,51 @@
     </style>
     @endpush
 
-   
-    <div class="row">
+    <x-slot:breadcrumbs>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.News') }}</li>
+    </x-slot:breadcrumb>
 
-    <div class="col-xl-3 col-md-6 mb-3">
-    <div class="card border-left-info shadow h-100 py-2 bg-info-subtle"> <!-- لون فاتح أزرق -->
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                    {{__('admin.Wait News')}}
-                    </div>
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                {{$waitnews_count }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-tags fa-2x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-xl-3 col-md-6 mb-3">
-    <div class="card border-left-info shadow h-100 py-2 bg-info-subtle"> <!-- لون فاتح أزرق -->
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                    {{__('admin.Accept News')}}
-                    </div>
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                {{ $acceptnews_count}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-tags fa-2x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="col-xl-3 col-md-6 mb-3">
-    <div class="card border-left-info shadow h-100 py-2 bg-info-subtle"> <!-- لون فاتح أزرق -->
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                    {{__('admin.My News')}}
-                    </div>
-                    <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-tags fa-2x text-gray-300"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    </div>
     <!-- Both borders table start -->
     <div class="col-span-12">
         <div class="card">
-           
+            <div class="card-header d-flex justify-content-between">
+                <div class="row">
+                    <h5>{{ __('admin.News') }}</h5>
+                </div>
+                <div>
+                        <a href="{{ route('publisher.nw.create') }}" class="btn btn-primary">
+                            {{ __('admin.Add News') }}
+                        </a>
+                </div>
+            </div>
+
+            <!-- Filters Section -->
+            <div class="filters-container">
+                <div class="filter-item">
+                    <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
+                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter news of keyword') }}" />
+                </div>
+                <div class="filter-item">
+                    <label for="date">{{ __('admin.From Date') }}:</label>
+                    <x-form.input name="date" id="date" type="date" placeholder="{{ __('admin.enter article of date') }}" />
+                </div>
+                <div class="filter-item">
+                    <label for="to_date">{{ __('admin.To Date') }}:</label>
+                    <x-form.input name="to_date" id="to_date" type="date" placeholder="{{ __('admin.enter article of date') }}" />
+                </div>
+                <div class="filter-item">
+                    <label for="category_id">{{ __('admin.Category') }}:</label>
+                    <select id="category_id" name="category_id" class="form-control">
+                        <option value="" selected>{{ __('admin.Choose') }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->$name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button class="btn" id="search">{{ __('admin.Filter') }}</button>
+            </div>
+
             <div class="card-body">
                 <div class="dt-responsive table-responsive">
                     <table id="footer-search" class="table table-striped table-bordered nowrap">
@@ -211,9 +176,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-between" dir="ltr" id="pagination-links">
-                    {{ $news->links() }}
-                </div>
+                
             </div>
         </div>
     </div>
@@ -340,4 +303,3 @@
 
     @endpush
 </x-publisher-layout>
-
