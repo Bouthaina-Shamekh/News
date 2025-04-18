@@ -91,7 +91,7 @@
             <div class="filters-container">
                 <div class="filter-item">
                     <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
-                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter news of keyword') }}" />
+                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
@@ -125,9 +125,9 @@
                                 <th>{{ __('admin.Category') }}</th>
                                 <th>{{ __('admin.Date') }}</th>
                                 <th>{{ __('admin.Created') }}</th>
-                                <th>{{ __('admin.Keyword_Ar') }}</th>
+                                <th>{{ __('admin.Keyword_AR') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -170,7 +170,7 @@
                                     {{ app()->getLocale() == 'ar' ? $new->status->name_ar : $new->status->name_en }}
                                     </td>
 
-                                    
+
                                 </tr>
                             @endforeach
                         </tbody>

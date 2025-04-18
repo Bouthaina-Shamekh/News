@@ -7198,7 +7198,7 @@ ul.scrollmenu a:hover {
     }
     .list--widget-nav .nav>li>a {
         padding: 35px;
-        font-size: 41px;
+        font-size: 39px;
     }
     .h4{
         font-size: 23px !important;
@@ -7282,6 +7282,7 @@ ul.scrollmenu a:hover {
         padding: 18px 15px 19px;
         border-bottom: 2px solid transparent;
     }
+
 }
 
 @media (min-width:992px) {
@@ -7399,9 +7400,15 @@ ul.scrollmenu a:hover {
     .sleder-mob{
         display: none;
     }
+    .list--widget-nav .nav li a{
+        font-size: 11px;
+    }
 }
 
 @media (min-width:1200px) {
+    .list--widget-nav .nav li a{
+        font-size: 13px !important;
+    }
     .list--widget-nav .nav>li>a {
         padding: 5px 3px;
         line-height: 18px;
@@ -7413,6 +7420,9 @@ ul.scrollmenu a:hover {
 }
 
 @media (min-width:1400px) {
+    .list--widget-nav .nav li a{
+        font-size: 18px !important;
+    }
     .container {
         width: 94%;
     }

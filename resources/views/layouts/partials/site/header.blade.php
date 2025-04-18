@@ -124,9 +124,9 @@
                         @endphp
                         <a href="{{ route('site.index') }}" class="btn-link col-sm-4 nav_logo_img" style="padding-right: 0px;">
                             @if($logo)
-                                <img src="{{ asset('uploads/logos/' . $logo) }}" alt="" style="width: 100%;">
+                                <img src="{{ asset('uploads/logos/' . $logo) }}" alt="" style="width: 80%;">
                             @else
-                                <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 100%;">
+                                <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 80%;">
                             @endif
                             <span class="hidden"> Logo</span>
                         </a>

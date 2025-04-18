@@ -36,12 +36,12 @@
 
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Site_ar') }}</label>
+                                    <label class="form-label">{{ __('admin.Site_ar') }}<span style="color: red">*</span></label>
                                     <input type="text" class="form-control" placeholder="site_ar" name="site_ar" value="{{ old('site_ar', $settings['site_ar'] ?? '') }}" />
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Site_en') }}</label>
+                                    <label class="form-label">{{ __('admin.Site_en') }}<span style="color: red">*</span></label>
                                     <input type="text" class="form-control" placeholder="site_en" name="site_en" value="{{ old('site_en', $settings['site_en'] ?? '') }}" />
                                 </div>
 
@@ -63,43 +63,43 @@
 
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Phone') }}</label>
+                                    <label class="form-label">{{ __('admin.Phone') }}<span style="color: red">*</span></label>
                                     <input type="text" class="form-control" placeholder="phone" name="phone" value="{{ old('phone', $settings['phone'] ?? '') }}" />
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Contact Email') }}</label>
+                                    <label class="form-label">{{ __('admin.Contact Email') }}<span style="color: red">*</span></label>
                                     <input type="email" class="form-control" name="contact_email" value="{{ old('contact_email', $settings['contact_email'] ?? '') }}" />
                                 </div>
 
 
 
                                 <div div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Title_EN') }}</label>
+                                    <label class="form-label">{{ __('admin.Title_EN') }}<span style="color: red">*</span></label>
                                     <textarea id="mytextarea" rows="5" class="form-control" name="titel_en">{{ old('titel_en', $settings['titel_en'] ?? '') }}</textarea>
                                 </div>
 
                                 <div div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Title_AR') }}</label>
+                                    <label class="form-label">{{ __('admin.Title_AR') }}<span style="color: red">*</span></label>
                                     <textarea id="mytextarea" rows="5" class="form-control" name="titel_ar">{{ old('titel_ar', $settings['titel_ar'] ?? '') }}</textarea>
                                 </div>
 
 
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.about_en') }}</label>
+                                    <label class="form-label">{{ __('admin.about_en') }}<span style="color: red">*</span></label>
                                     <textarea id="mytextarea" name="about_en" rows="10">{{ old('about_en', $settings['about_en'] ?? '') }}</textarea>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.about_ar') }}</label>
+                                    <label class="form-label">{{ __('admin.about_ar') }}<span style="color: red">*</span></label>
                                     <textarea id="mytextarea" name="about_ar" rows="10">{{ old('about_ar', $settings['about_ar'] ?? '') }}</textarea>
                                 </div>
 
 
 
                                 <div class="mb-4">
-                                    <label class="form-label">{{ __('admin.Logo') }}</label>
+                                    <label class="form-label">{{ __('admin.Logo') }}<span style="color: red">*</span></label>
                                     <input type="file" class="form-control" name="logo" />
 
                                     <?php

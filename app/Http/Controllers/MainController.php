@@ -23,16 +23,16 @@ class MainController extends Controller
     public function home()
     {
         $ads = Ad::orderBy('id', 'desc')->get();
-        $sliders  = Nw::where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
+        $sliders  = Nw::where('new_place_id', 4)->where('statu_id', 2)->orderBy('id', 'desc')->take(5)->get();
 
         // Categories
         $categoryOne = Category::find(6) ?? Category::first();
         $categoryTwo = Category::find(4) ?? Category::first();
         $categoryThree = Category::find(1) ?? Category::first();
 
-        $articlesOne = Artical::where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
-        $articlesTwo = Artical::where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
-        $articlesThree = Artical::where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
+        $articlesOne = Artical::where('category_id', $categoryOne->id)->where('statu_id', 2)->orderBy('id', 'desc')->get();
+        $articlesTwo = Artical::where('category_id', $categoryTwo->id)->where('statu_id', 2)->orderBy('id', 'desc')->get();
+        $articlesThree = Artical::where('category_id', $categoryThree->id)->where('statu_id', 2)->orderBy('id', 'desc')->get();
         return view('site.home', compact('ads', 'sliders','categoryOne', 'categoryTwo', 'categoryThree','articlesOne', 'articlesTwo', 'articlesThree'));
     }
 
@@ -81,7 +81,7 @@ class MainController extends Controller
 
     public function news(Request $request)
     {
-        $news = Nw::orderBy('id', 'desc');
+        $news = Nw::orderBy('id', 'desc')->where('statu_id', 2);
         $category = $request->query('c');
         $place = $request->query('pl');
         $search = $request->search;
@@ -92,7 +92,6 @@ class MainController extends Controller
             $news = $news->where('new_place_id', $place);
         }
         if ($search) {
-
             $news = $news->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
         $news = $news->paginate(10);
@@ -103,7 +102,7 @@ class MainController extends Controller
     public function new($id)
     {
         $new = Nw::findOrFail($id);
-        $news = Nw::orderby('id','desc')->where('category_id', $new->category_id)->take(5)->get();
+        $news = Nw::orderby('id','desc')->where('statu_id', 2)->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
             'visit' => $new->visit + 1
         ]);

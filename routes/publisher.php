@@ -35,12 +35,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::get('/acceptnews',[HomeController::class , 'acceptnews'])->name('acceptnews');
         Route::get('/waitnews',[HomeController::class , 'waitnews'])->name('waitnews');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
-
-        // Route::get('/login', function () {
-        //     return view('auth.publishers.login'); // صفحة تسجيل الدخول الخاصة بالناشر
-        // })->name('login');
-        // Route::get('/register', function () {
-        //     return view('auth.publishers.register'); // صفحة تسجيل الدخول الخاصة بالناشر
-        // })->name('register');
     });
 });

@@ -17,7 +17,7 @@ class AdController extends Controller
     public function index()
     {
         $this->authorize('view', Ad::class);
-        $ads = Ad::with(['adplace'])->orderBy('id', 'desc')->get();
+        $ads = Ad::with(['adplace'])->orderBy('id', 'desc')->paginate(10);
         return view('dashboard.ads.index', compact('ads'));
     }
 

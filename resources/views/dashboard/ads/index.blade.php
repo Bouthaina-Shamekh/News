@@ -78,6 +78,7 @@
                     </tbody>
                 </table>
             </div>
+            {{$ads->links()}}
         </div>
         @endcan
     </div>

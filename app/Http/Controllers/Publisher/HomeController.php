@@ -15,26 +15,21 @@ class HomeController extends Controller
     {
 
         $acceptnews_count = Nw::where('publisher_id', Auth::guard('publisherGuard')->user()->id)
-                     ->where('statu_id', 2)
-                     ->count();
-
-
+            ->where('statu_id', 2)
+            ->count();
         $waitnews_count = Nw::where('publisher_id', Auth::guard('publisherGuard')->user()->id)
-                     ->where('statu_id', 1)
-                     ->count();
-
-       
-
-        $news = Nw::with(['newplace','category','publisher','status'])
-        ->where('publisher_id', Auth::guard('publisherGuard')->user()->id)
-        ->orderBy('id','desc');
+            ->where('statu_id', 1)
+            ->count();
+        $news_count = Nw::where('publisher_id', Auth::guard('publisherGuard')->user()->id)
+            ->count();
+        $news = Nw::with(['newplace', 'category', 'publisher', 'status'])
+            ->where('publisher_id', Auth::guard('publisherGuard')->user()->id)
+            ->orderBy('id', 'desc');
         $categories  = Category::get();
 
         $news = $news->paginate(10);
 
-        return view('publisher.home', compact('news', 'categories','acceptnews_count','waitnews_count'));
-
-       
+        return view('publisher.home', compact('news', 'categories', 'acceptnews_count', 'waitnews_count', 'news_count'));
     }
     public function non_active()
     {
@@ -42,37 +37,42 @@ class HomeController extends Controller
     }
 
 
-    public function publisherNews(Request $request,$id)
+    public function publisherNews(Request $request, $id)
     {
         $publisher = Publisher::findOrFail($id);
-        $news = Nw::where('publisher_id',$id)->paginate(10);
-        return view('site.newsPublisher',compact('publisher','news'));
+        $news = Nw::where('publisher_id', $id)->paginate(10);
+        return view('site.newsPublisher', compact('publisher', 'news'));
+    }
+    public function publisher(Request $request, $id)
+    {
+        $publisher = Publisher::findOrFail($id);
+        return view('site.publisher', compact('publisher'));
     }
 
-    public function acceptnews(){
+    public function acceptnews()
+    {
 
-     $publisher = Auth::guard('publisherGuard')->user();
+        $publisher = Auth::guard('publisherGuard')->user();
 
-     $news = Nw::where('publisher_id', $publisher->id)
-     ->where('statu_id', 2)
-     ->get();
-    
-    $categories  = Category::get();
-        return view('publisher.acceptnews' , compact('news','categories'));
+        $news = Nw::where('publisher_id', $publisher->id)
+            ->where('statu_id', 2)
+            ->get();
 
-
+        $categories  = Category::get();
+        return view('publisher.acceptnews', compact('news', 'categories'));
     }
 
-    public function waitnews(){
+    public function waitnews()
+    {
 
-    $publisher = Auth::guard('publisherGuard')->user();
+        $publisher = Auth::guard('publisherGuard')->user();
 
-    $news = Nw::where('publisher_id', $publisher->id)
-    ->where('statu_id', 1)
-    ->get();
+        $news = Nw::where('publisher_id', $publisher->id)
+            ->where('statu_id', 1)
+            ->get();
 
-    
-    $categories  = Category::get();
-        return view('publisher.waitnews', compact('news','categories'));
+
+        $categories  = Category::get();
+        return view('publisher.waitnews', compact('news', 'categories'));
     }
 }

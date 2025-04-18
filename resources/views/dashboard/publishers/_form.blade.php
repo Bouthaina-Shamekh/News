@@ -1,19 +1,19 @@
 <div class="row">
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="name" label="{{ __('admin.Name') }}" type="text" placeholder="{{ __('admin.enter publisher name') }}" required :value="$publishers->name" />
+    <x-form.input name="name" label="{{ __('admin.Name') }}" :re="true" type="text" placeholder="{{ __('admin.enter publisher name') }}" required :value="$publishers->name" />
 </div>
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="email" label="{{ __('admin.Email') }}" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="$publishers->email" />
+    <x-form.input name="email" label="{{ __('admin.Email') }}"  :re="true" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="$publishers->email" />
 </div>
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="password" label="{{ __('admin.Password') }}" type="password" placeholder="{{ __('admin.enter publisher password') }}" required :value="$publishers->password" />
+    <x-form.input name="password" label="{{ __('admin.Password') }}" :re="true" type="password" placeholder="{{ __('admin.enter publisher password') }}" required/>
 </div>
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="phone" label="{{ __('admin.Phone') }}" type="text" placeholder="{{ __('admin.enter publisher phone') }}" required :value="$publishers->phone" />
+    <x-form.input name="phone" label="{{ __('admin.Phone') }}" :re="true" type="text" placeholder="{{ __('admin.enter publisher phone') }}" required :value="$publishers->phone" />
 </div>
 
 <div class="form-group col-6 mb-3">
@@ -26,11 +26,11 @@
 </div>
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="birth_of_date" label="{{ __('admin.Birth of Date') }}" type="date" placeholder="{{ __('admin.enter publisher Birth of Date') }}" required :value="$publishers->birth_of_date" />
+    <x-form.input name="birth_of_date" label="{{ __('admin.Birth of Date') }}" :re="true" type="date" placeholder="{{ __('admin.enter publisher Birth of Date') }}" required :value="$publishers->birth_of_date" />
 </div>
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="address" label="{{ __('admin.Address') }}" type="text" placeholder="{{ __('admin.enter publisher address') }}" required :value="$publishers->address" />
+    <x-form.input name="address" label="{{ __('admin.Address') }}" :re="true" type="text" placeholder="{{ __('admin.enter publisher address') }}" required :value="$publishers->address" />
 </div>
 
 
@@ -38,7 +38,7 @@
 
 
 <div class="form-group col-6 mb-3">
-    <label for="content_en" class="form-label">{{__('admin.About')}}</label>
+    <label for="content_en" class="form-label">{{__('admin.About')}}<span style="color: red">*</span></label>
     <textarea name="about" id="mytextarea" rows="3" class="form-control" required>{{$publishers->about}}</textarea>
 </div>
 
@@ -48,7 +48,7 @@
 
 
 <div class="form-group col-6 mb-3">
-<label for="status" class="form-label">{{__('admin.Status')}}</label>
+<label for="status" class="form-label">{{__('admin.Status')}} <span style="color: red">*</span></label>
 <div>
     <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="status" id="status-active"

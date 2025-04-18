@@ -50,6 +50,7 @@ Route::group([
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
 
         Route::get('publisher/{id}/news', [PublisherHomeController::class, 'publisherNews'])->name('publisherNews');
+        Route::get('publisher/{id}/profile', [PublisherHomeController::class, 'publisher'])->name('publisher');
     });
 
     // Main Routes

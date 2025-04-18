@@ -74,12 +74,13 @@
                         <div class="post--items post--items-2 pd--30-0">
                             <ul class="nav row AdjustRow">
                                 @foreach ($news as $new )
-                                <li class="col-md-5 col-sm-12 col-xs-6 col-lg-6 col-xss-12">
+                                <li class="col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xss-12">
                                     <div class="post--item post--layout-2">
-                                        <div class="post--img">
-                                            <a href="{{ route('site.new', $new->id)}}" class="thumb"><img
+                                        <div class="post--img" style="display: flex; align-items: center;justify-content: space-between;">
+                                            <a href="{{ route('site.new', $new->id)}}" class="thumb" style="width: 215px; justify-content: space-evenly;">
+                                                <img
                                                     src="{{ asset('storage/' . $new->img_view) }}" alt=""
-                                                    style="height: 193px; object-fit: cover;" /></a>
+                                                    style="height: 193px; object-fit: contain;" /></a>
                                             <div class="post--info">
                                                 <ul class="nav meta">
                                                     <li>

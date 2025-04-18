@@ -106,7 +106,7 @@
                                                     <!-- Content for أخبار عاجلة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->orderBy('id','desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->where('statu_id', 2)->orderBy('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($breaking_news as $new)
@@ -128,7 +128,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
@@ -147,7 +147,7 @@
                                                     <!-- Content for أحدث الأخبار -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->orderby('id','desc')->get()->take(3);
+                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($latest_news as $new)
@@ -169,7 +169,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
@@ -188,7 +188,7 @@
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     <ul class="nav" id="nav_sider">
                                                         @php
-                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->orderby('id','desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
                                                         @endphp
                                                         <!-- Example content for أحدث الأخبار -->
                                                         @foreach ($most_viewed as $new)
@@ -210,7 +210,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
@@ -332,7 +332,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
@@ -373,7 +373,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>
@@ -414,7 +414,7 @@
                                                                                 </h5>
                                                                             </div>
                                                                             <ul class="nav meta text-center">
-                                                                                <li><a href="#">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
+                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
                                                                                 </li>
                                                                                 <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
                                                                                 </li>

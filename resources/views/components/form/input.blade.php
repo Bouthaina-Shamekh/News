@@ -3,10 +3,14 @@
     'value' => '',
     'name',
     'label'=>'',
+    're' => false
 ])
 @if ($label)
     <label  class="form-label" for="{{$name}}">
         {{ $label }}
+        @if($re)
+            <span style="color: red">*</span>
+        @endif
     </label>
 @endif
 

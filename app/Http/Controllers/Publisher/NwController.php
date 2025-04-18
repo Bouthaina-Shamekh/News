@@ -128,7 +128,7 @@ class NwController extends Controller
             'statu_id' => 1,
         ]);
 
-        return redirect()->route('publisher.nw.index')->with('success', __('Item created successfully.'));
+        return redirect()->route('publisher.nw.waitnews')->with('success', __('Item created successfully.'));
     }
 
     /**
@@ -169,7 +169,6 @@ class NwController extends Controller
             'keyword_ar' => 'required',
             'keyword_en' => 'nullable',
             'category_id' => 'required',
-
         ]);
 
         $keywords_ar_text = '';
@@ -236,7 +235,7 @@ class NwController extends Controller
             'vedio' => $vedioPath,
         ]);
 
-        return redirect()->route('publisher.nw.index')->with('success', __('admin.Item updated successfully.'));
+        return redirect()->back()->with('success', __('admin.Item updated successfully.'));
     }
 
     /**
@@ -262,6 +261,6 @@ class NwController extends Controller
         // Delete the news item
         $news->delete();
 
-        return redirect()->route('publisher.nw.index')->with('success', __('Item deleted successfully.'));
+        return redirect()->back()->with('success', __('Item deleted successfully.'));
     }
 }

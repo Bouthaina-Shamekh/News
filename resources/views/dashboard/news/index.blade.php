@@ -93,7 +93,7 @@
             <div class="filters-container">
                 <div class="filter-item">
                     <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
-                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter news of keyword') }}" />
+                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
@@ -306,7 +306,7 @@
     });
 </script>
 
-   
+
 
     @endpush
 </x-dashboard-layout>

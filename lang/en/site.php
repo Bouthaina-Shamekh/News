@@ -107,6 +107,6 @@ return [
     'write_a_comment' => 'Write a Comment',
     'no_worry_text' => 'do not worry Your email address will not be published. Mandatory fields are marked (*).',
     'submit' => 'Submit',
-    '' => '',
+    'dashboard' => 'Dashboard',
     '' => '',
 ];

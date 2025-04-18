@@ -71,10 +71,10 @@ $userDone = Auth::guard('publisherGuard')->user();
                 </li>
 
                 <li class="pc-item">
-                    <a href="{{route('publisher.nw.create')}}" class="pc-link" target="_blank">
+                    <a href="{{route('publisher.nw.create')}}" class="pc-link">
                         <span class="pc-micon">
                             <span class="pc-micon">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-plus"></i>
                             </span>
                         </span>
                         <span class="pc-mtext">{{__('admin.Create News')}}</span>
@@ -86,7 +86,7 @@ $userDone = Auth::guard('publisherGuard')->user();
                     <a href="{{route('publisher.waitnews')}}" class="pc-link">
                         <span class="pc-micon">
                             <span class="pc-micon">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-clock"></i>
                             </span>
                         </span>
                         <span class="pc-mtext">{{__('admin.Wait News')}}</span>
@@ -98,26 +98,36 @@ $userDone = Auth::guard('publisherGuard')->user();
                     <a href="{{route('publisher.acceptnews')}}" class="pc-link">
                         <span class="pc-micon">
                             <span class="pc-micon">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-check"></i>
                             </span>
                         </span>
                         <span class="pc-mtext">{{__('admin.Accept News')}}</span>
                     </a>
                 </li>
 
-                
+
                 <li class="pc-item">
-                    <a href="{{route('site.publisherNews',$userDone->id)}}" class="pc-link">
+                    <a href="{{route('site.publisherNews',$userDone->id)}}" class="pc-link" target="_blank">
                         <span class="pc-micon">
                             <span class="pc-micon">
-                                <i class="fas fa-list"></i>
+                                <i class="fas fa-check"></i>
                             </span>
                         </span>
                         <span class="pc-mtext">{{__('admin.My News')}}</span>
                     </a>
                 </li>
+                <li class="pc-item">
+                    <a href="{{route('site.publisher',$userDone->id)}}" class="pc-link" target="_blank">
+                        <span class="pc-micon">
+                            <span class="pc-micon">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </span>
+                        <span class="pc-mtext">{{__('admin.My_account')}}</span>
+                    </a>
+                </li>
 
-              
+
             </ul>
             @else
                 <div class="text-center">

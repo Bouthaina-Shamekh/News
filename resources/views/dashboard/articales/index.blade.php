@@ -67,7 +67,7 @@
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
-        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Article') }}</li>
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Articals') }}</li>
     </x-slot:breadcrumb>
 
     <!-- Both borders table start -->
@@ -90,7 +90,7 @@
             <div class="filters-container">
                 <div class="filter-item">
                     <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
-                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter news of keyword') }}" />
+                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
@@ -294,6 +294,6 @@
     });
 </script>
 
-  
+
     @endpush
 </x-dashboard-layout>
