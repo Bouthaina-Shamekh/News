@@ -43,6 +43,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
         Route::get('users/{user}/profile', [UserController::class, 'profile'])->name('users.profile');
 
+
+        Route::post('/publisher/{id}/accept', [PublisherController::class, 'accept'])->name('publisher.accept');
+        Route::post('/nw/{id}/remove-image', [NwController::class, 'removeImage'])->name('nw.removeImage');
+        Route::post('/articale/{id}/remove-image', [ArticalController::class, 'removeImage'])->name('articale.removeImage');
+
         Route::resources([
             'users' => UserController::class,
             'category' => CategoryController::class,
@@ -66,6 +71,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
 
         Route::get('/constant',[SettingController::class , 'index'])->name('constant.index');
+
     });
 });
 

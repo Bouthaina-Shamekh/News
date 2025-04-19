@@ -100,7 +100,11 @@
                             <div class="post--content dir_rtl">
                                 {!! $new->$text !!}
                             </div>
-                            @if($new->vedio)
+                            @php
+                                $vedio = $new->vedio;
+                                $check = Storage::disk('public')->exists($new->vedio);
+                            @endphp
+                            @if($new->vedio && $check)
                             <div>
                                 <video src="{{asset('storage/'.$new->vedio)}}" height="320" width="100%" controls></video>
                             </div>
@@ -109,12 +113,14 @@
                         @php
                             $ads = App\Models\Ad::where('ad_place_id', 9)->get();
                             foreach ($ads as $ad) {
-                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                if ($timeDifference > $ad->time) {
-                                    $ad->status = 'expired';
-                                } else {
+                                $now = Carbon\Carbon::now();
+                                $startDate = Carbon\Carbon::parse($ad->date);
+                                $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                if ($now->between($startDate, $endDate)) {
                                     $ad->status = 'active';
+                                } else {
+                                    $ad->status = 'inactive';
                                 }
                             }
                         @endphp
@@ -211,7 +217,7 @@
                                     <p>
                                         {{-- لا تقلق! لن يتم نشر عنوان بريدك الإلكتروني. الحقول الإلزامية مشار إليها
                                         بعلامة (*).  --}}
-                                        {{ __('site.no_worry_text') }}
+                                        {{-- {{ __('site.no_worry_text') }} --}}
                                     </p>
                                     <div class="row">
                                         <input type="hidden" name="nw_id" value="{{$new->id}}">
@@ -387,12 +393,14 @@
                         @php
                             $ads = App\Models\Ad::where('ad_place_id', 10)->get();
                             foreach ($ads as $ad) {
-                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                if ($timeDifference > $ad->time) {
-                                    $ad->status = 'expired';
-                                } else {
+                                $now = Carbon\Carbon::now();
+                                $startDate = Carbon\Carbon::parse($ad->date);
+                                $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                if ($now->between($startDate, $endDate)) {
                                     $ad->status = 'active';
+                                } else {
+                                    $ad->status = 'inactive';
                                 }
                             }
                         @endphp

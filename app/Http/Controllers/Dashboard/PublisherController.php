@@ -167,4 +167,20 @@ class PublisherController extends Controller
 
         return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher deleted successfully.'));
     }
+
+    public function accept($id)
+    {
+        $publisher = Publisher::findOrFail($id);
+        $status = $publisher->status;
+        if($status == 1) {
+            $publisher->status = 0;
+        }else{
+            $publisher->status = 1;
+        }
+        $publisher->save();
+        return response()->json([
+            'status' => $publisher->status,
+            'message' => __('Publisher status updated successfully.')
+        ]);
+    }
 }

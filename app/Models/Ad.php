@@ -18,7 +18,7 @@ class Ad extends Model
         'owner_phone',
         'price',
         'date',
-        'time',
+        'end_date',
         'notes',
         'visit',
         'created_by',

@@ -78,7 +78,7 @@ class ArticalController extends Controller
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
             'vedio' => 'nullable',
-            'img_view' => 'nullable|image',
+            'img_view' => 'required|image',
             'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'required',
@@ -175,7 +175,7 @@ class ArticalController extends Controller
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
             'vedio' => 'nullable',
-            'img_view' => 'nullable|image',
+            'img_view' => 'required|image',
             'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'required',
@@ -278,5 +278,34 @@ class ArticalController extends Controller
         $articals->delete();
 
         return redirect()->route('dashboard.articale.index')->with('success', __('Item deleted successfully.'));
+    }
+
+    public function removeImage(Request $request, string $id)
+    {
+        $article = Artical::findOrFail($id);
+
+        // Delete the image from storage
+        if($request->name == 'img_view') {
+            if($article->img_view != null){
+                Storage::disk('public')->delete($article->img_view);
+            }
+        }
+        if($request->name == 'img_article') {
+            if($article->img_article != null){
+                Storage::disk('public')->delete($article->img_article);
+            }
+        }
+        if($request->name == 'vedio') {
+            if($article->vedio != null){
+                Storage::disk('public')->delete($article->vedio);
+            }
+        }
+
+        // Update the article item
+        $article->update([
+            $request->name => null
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

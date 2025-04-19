@@ -128,7 +128,7 @@ class NwController extends Controller
             'statu_id' => 1,
         ]);
 
-        return redirect()->route('publisher.nw.waitnews')->with('success', __('Item created successfully.'));
+        return redirect()->route('publisher.waitnews')->with('success', __('Item created successfully.'));
     }
 
     /**

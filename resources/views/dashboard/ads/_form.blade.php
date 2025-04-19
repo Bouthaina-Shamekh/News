@@ -10,12 +10,12 @@
 
 
     <div class="form-group col-6 mb-3">
-        <x-form.input name="url" label="{{ __('admin.Url') }}" :re="true" type="text"
+        <x-form.input name="url" type="url" label="{{ __('admin.Url') }}" :re="true" type="text"
             placeholder="{{ __('admin.enter url') }}" required :value="$ads->url" />
     </div>
     <div class="form-group col-6 mb-3">
         <label for="image">{{ __('admin.Image') }}</label>
-        <input type="file" name="imageFile" class="form-control" />
+        <input type="file" name="imageFile" class="form-control" accept="image/*" />
         <span class="text-muted">{{__('admin.By Advertising Site')}}</span>
         @if ($ads->image)
             <!-- تأكد من أن المتغير صحيح -->
@@ -48,12 +48,9 @@
         <x-form.input name="date" label="{{ __('admin.Ad Date') }}" :re="true" type="date"
             placeholder="{{ __('admin.enter date') }}" required :value="$ads->date" />
     </div>
-
-
-
     <div class="form-group col-6 mb-3">
-        <x-form.input name="time" label="{{ __('admin.Duration') }}" :re="true" type="time"
-            placeholder="{{ __('admin.enter Duration') }}" required :value="$ads->time" />
+        <x-form.input name="end_date" label="{{ __('admin.To Date') }}" :re="true" type="date"
+            placeholder="{{ __('admin.enter date') }}" required :value="$ads->end_date" />
     </div>
 
     <input type="hidden" name="visit" value="{{ $ads->visit ?? 0 }}">

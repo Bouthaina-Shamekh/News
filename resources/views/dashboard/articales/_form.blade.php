@@ -43,11 +43,14 @@
         </div>
         <input type="hidden" name="visit" value="{{ $articals->visit }}">
         <div class="form-group col-6 mb-3">
-            <label for="image">{{__('admin.Image View')}}</label>
-            <input type="file" name="img_view" class="form-control" accept="image/*"/>
+            <label for="image">{{__('admin.Image View')}}<span style="color: red">*</span></label>
+            <input type="file" name="img_view" class="form-control" accept="image/*" required/>
             <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
             @if ($articals->img_view)
-                <img src="{{ asset('storage/' . $articals->img_view) }}" alt="Current Image" width="50">
+                <div class="d-flex align-items-center justify-content-between mt-3" id="img_view">
+                    <img src="{{ asset('storage/' . $articals->img_view) }}" alt="Current Image" width="50">
+                    {{-- <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('img_view')"><i class="fa fa-trash"></i></button> --}}
+                </div>
             @endif
         </div>
         <div class="form-group col-6 mb-3">
@@ -55,20 +58,31 @@
             <input type="file" name="img_article" class="form-control" accept="image/*" />
             <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
             @if($articals->img_article)
-                <img src="{{ asset('storage/' . $articals->img_article) }}" alt="Current Image" width="50">
+                <div class="d-flex align-items-center justify-content-between mt-3" id="img_article">
+                    <img src="{{ asset('storage/' . $articals->img_article) }}" alt="Current Image" width="50">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('img_article')"><i class="fa fa-trash"></i></button>
+                </div>
             @endif
         </div>
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Vedio')}}</label>
             <input type="file" name="vedio" class="form-control" accept="video/*" />
             <span class="text-muted">{{__('admin.Size Vedio')}}: 1920*1080 (16:9)</span>
-            @if($articals->vedio)
-                <video width="320" height="240" controls="controls">
-                    <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/mp4">
-                    <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/webm">
-                    <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/ogg">
-                    Your browser does not support the video tag.
-                </video>
+            @php
+                $vedio = $article->vedio;
+                $check = $vedio ? Storage::disk('public')->exists($article->vedio) : false;
+            @endphp
+            @if($article->vedio && $check)
+
+                <div class="d-flex align-items-start justify-content-between mt-3" id="vedio">
+                    <video width="320" height="240" controls="controls">
+                        <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/mp4">
+                        <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/webm">
+                        <source src="{{ asset('storage/' . $articals->vedio) }}" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('vedio')"><i class="fa fa-trash"></i></button>
+                </div>
             @endif
         </div>
         <div class="form-group col-6 mb-3">
@@ -127,4 +141,24 @@
         }
     });
 </script>
+<script>
+        function removeImage(name) {
+            const id = "{{ $news->id }}";
+            $.ajax({
+                url: `{{ route('dashboard.nw.removeImage', $news->id) }}`,
+                type: 'POST',
+                data: {
+                    name: name,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $(`#${name}`).remove();
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+</script>
+
 @endpush

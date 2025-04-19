@@ -157,12 +157,14 @@
                         @php
                             $ads = App\Models\Ad::where('ad_place_id', 10)->get();
                             foreach ($ads as $ad) {
-                                $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                if ($timeDifference > $ad->time) {
-                                    $ad->status = 'expired';
-                                } else {
+                                $now = Carbon\Carbon::now();
+                                $startDate = Carbon\Carbon::parse($ad->date);
+                                $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                if ($now->between($startDate, $endDate)) {
                                     $ad->status = 'active';
+                                } else {
+                                    $ad->status = 'inactive';
                                 }
                             }
                         @endphp

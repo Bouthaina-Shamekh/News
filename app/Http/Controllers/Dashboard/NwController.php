@@ -73,7 +73,7 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'img_view' => 'nullable|image',
+            'img_view' => 'required|image',
             'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'nullable',
@@ -174,7 +174,7 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'img_view' => 'nullable|image',
+            'img_view' => 'required|image',
             'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'nullable',
@@ -281,5 +281,34 @@ class NwController extends Controller
         $news->delete();
 
         return redirect()->route('dashboard.nw.index')->with('success', __('Item deleted successfully.'));
+    }
+
+    public function removeImage(Request $request, string $id)
+    {
+        $news = Nw::findOrFail($id);
+
+        // Delete the image from storage
+        if($request->name == 'img_view') {
+            if($news->img_view != null){
+                Storage::disk('public')->delete($news->img_view);
+            }
+        }
+        if($request->name == 'img_article') {
+            if($news->img_article != null){
+                Storage::disk('public')->delete($news->img_article);
+            }
+        }
+        if($request->name == 'vedio') {
+            if($news->vedio != null){
+                Storage::disk('public')->delete($news->vedio);
+            }
+        }
+
+        // Update the news item
+        $news->update([
+            $request->name => null
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

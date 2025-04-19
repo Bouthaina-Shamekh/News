@@ -226,6 +226,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12  text-center">
+                                            <a href="{{route('site.news')}}" class="btn-link">{{__('site.More')}}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -236,15 +239,14 @@
                                 @php
                                     $ads = App\Models\Ad::where('ad_place_id', 3)->get();
                                     foreach ($ads as $ad) {
-                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
-                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
-                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
-                                        if ($timeDifference > $ad->time) {
-                                            $ad->status = 'expired';
-                                        } else {
+                                        $now = Carbon\Carbon::now();
+                                        $startDate = Carbon\Carbon::parse($ad->date);
+                                        $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                        if ($now->between($startDate, $endDate)) {
                                             $ad->status = 'active';
+                                        } else {
+                                            $ad->status = 'inactive';
                                         }
                                     }
                                 @endphp
@@ -430,6 +432,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12 text-center">
+                                            <a href="{{route('site.articles')}}" class="btn-link">{{__('site.More')}}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -441,15 +446,14 @@
                                 @php
                                     $ads = App\Models\Ad::where('ad_place_id', 4)->get();
                                     foreach ($ads as $ad) {
-                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
-                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
-                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
-                                        if ($timeDifference > $ad->time) {
-                                            $ad->status = 'expired';
-                                        } else {
+                                        $now = Carbon\Carbon::now();
+                                        $startDate = Carbon\Carbon::parse($ad->date);
+                                        $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                        if ($now->between($startDate, $endDate)) {
                                             $ad->status = 'active';
+                                        } else {
+                                            $ad->status = 'inactive';
                                         }
                                     }
                                 @endphp
@@ -529,7 +533,7 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryOne->id])}}">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryOne->id])}}">
                                             {{$categoryOne->$name}}
                                         </a>
                                     </div>
@@ -602,6 +606,9 @@
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <a href="{{route('site.articles',['c' => $categoryOne->id])}}" class="btn-link pull-left">{{__('site.More')}}</a>
+                                </div>
                             </div>
                             <!-- مساحة اعلانية  -->
                             <div class="col-md-12 ptop--30 ">
@@ -609,12 +616,13 @@
                                     @php
                                         $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
                                         if($ads5){
-                                            $updateTime = $ads5->updated_at ? Carbon\Carbon::parse($ads5->updated_at) : Carbon\Carbon::parse($ads5->created_at);
-                                            $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                            if ($timeDifference > $ads5->time) {
-                                                $ads5->status = 'expired';
-                                            } else {
+                                            $now = Carbon\Carbon::now();
+                                            $startDate = Carbon\Carbon::parse($ad->date);
+                                            $endDate = Carbon\Carbon::parse($ad->end_date);
+                                            if ($now->between($startDate, $endDate)) {
                                                 $ads5->status = 'active';
+                                            } else {
+                                                $ads5->status = 'inactive';
                                             }
                                         }
                                     @endphp
@@ -634,7 +642,7 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryTwo->id])}}">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryTwo->id])}}">
                                             {{$categoryTwo->$name}}
                                         </a>
                                     </div>
@@ -707,6 +715,9 @@
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <a href="{{route('site.articles',['c' => $categoryTwo->id])}}" class="btn-link pull-left">{{__('site.More')}}</a>
+                                </div>
                             </div>
                             <!-- مساحة اعلانية  -->
                             <div class="col-md-12 ptop--30 ">
@@ -714,15 +725,14 @@
                                     @php
                                         $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
                                         if($ads6){
-                                            // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
-                                            $updateTime = $ads6->updated_at ? Carbon\Carbon::parse($ads6->updated_at) : Carbon\Carbon::parse($ads6->created_at);
-                                            // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
-                                            $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                            // فرضًا أن المدة المسموح بها هي 30 دقيقة
-                                            if ($timeDifference > $ads6->time) {
-                                                $ads6->status = 'expired';
+                                            $now = Carbon\Carbon::now();
+                                            $startDate = Carbon\Carbon::parse($ad->date);
+                                            $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                            if ($now->between($startDate, $endDate)) {
+                                                $ad->status = 'active';
                                             } else {
-                                                $ads6->status = 'active';
+                                                $ad->status = 'inactive';
                                             }
                                         }
                                     @endphp
@@ -742,7 +752,7 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30 ">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.news',['c' => $categoryThree->id])}}">
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryThree->id])}}">
                                             {{$categoryThree->$name}}
                                         </a>
                                     </div>
@@ -815,6 +825,11 @@
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <a href="{{route('site.articles',['c' => $categoryThree->id])}}" class="btn-link pull-left">
+                                        {{__('site.More')}}
+                                    </a>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
@@ -866,15 +881,14 @@
                                 @php
                                     $ads = App\Models\Ad::where('ad_place_id', 7)->get();
                                     foreach ($ads as $ad) {
-                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
-                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
-                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
-                                        if ($timeDifference > $ad->time) {
-                                            $ad->status = 'expired';
-                                        } else {
+                                        $now = Carbon\Carbon::now();
+                                        $startDate = Carbon\Carbon::parse($ad->date);
+                                        $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                        if ($now->between($startDate, $endDate)) {
                                             $ad->status = 'active';
+                                        } else {
+                                            $ad->status = 'inactive';
                                         }
                                     }
                                 @endphp
@@ -900,15 +914,14 @@
                                 @php
                                     $ads = App\Models\Ad::where('ad_place_id', 5)->get();
                                     foreach ($ads as $ad) {
-                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
-                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
-                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
-                                        if ($timeDifference > $ad->time) {
-                                            $ad->status = 'expired';
-                                        } else {
+                                        $now = Carbon\Carbon::now();
+                                        $startDate = Carbon\Carbon::parse($ad->date);
+                                        $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                        if ($now->between($startDate, $endDate)) {
                                             $ad->status = 'active';
+                                        } else {
+                                            $ad->status = 'inactive';
                                         }
                                     }
                                 @endphp
@@ -963,15 +976,14 @@
                                 @php
                                     $ads = App\Models\Ad::where('ad_place_id', 6)->get();
                                     foreach ($ads as $ad) {
-                                        // إذا كان يوجد وقت تحديث (update_at) فالمقارنة تكون مع هذا الوقت
-                                        $updateTime = $ad->updated_at ? Carbon\Carbon::parse($ad->updated_at) : Carbon\Carbon::parse($ad->created_at);
-                                        // حساب الفرق بين الوقت الحالي ووقت التحديث أو الإنشاء
-                                        $timeDifference = Carbon\Carbon::now()->diffInMinutes($updateTime);
-                                        // فرضًا أن المدة المسموح بها هي 30 دقيقة
-                                        if ($timeDifference > $ad->time) {
-                                            $ad->status = 'expired';
-                                        } else {
+                                        $now = Carbon\Carbon::now();
+                                        $startDate = Carbon\Carbon::parse($ad->date);
+                                        $endDate = Carbon\Carbon::parse($ad->end_date);
+
+                                        if ($now->between($startDate, $endDate)) {
                                             $ad->status = 'active';
+                                        } else {
+                                            $ad->status = 'inactive';
                                         }
                                     }
                                 @endphp

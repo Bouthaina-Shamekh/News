@@ -40,6 +40,8 @@
                         <th>{{__('admin.Owner Phone')}}</th>
                         <th>{{__('admin.Add Place')}}</th>
                         <th>{{__('admin.Url')}}</th>
+                        <th>{{__('admin.From Date')}}</th>
+                        <th>{{__('admin.To Date')}}</th>
                         <th>{{__('admin.Actions')}}</th>
                     </tr>
                     </thead>
@@ -59,6 +61,8 @@
                                 <td>{{$ad->owner_phone}}</td>
                                 <td>{{$ad->adplace->name_en}}</td>
                                 <td>{{$ad->url}}</td>
+                                <td>{{$ad->date}}</td>
+                                <td>{{$ad->end_date}}</td>
                                 <td>
                                 @can('edit', 'App\Models\Ad')
                                     <a href="{{route('dashboard.ad.edit',$ad->id)}}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
