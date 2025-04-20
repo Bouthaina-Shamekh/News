@@ -54,7 +54,7 @@
                             </li>
                             @endauth
                         </ul>
-                        <ul class="header--topbar-lang nav">
+                        <ul class="header--topbar-lang nav hidden-sm">
                             <li class="dropdown">
                                 <a href="#"
                                     onclick="if (!window.__cfRLUnblockHandlers) return false; langc('ar')"
@@ -156,6 +156,33 @@
             <div id="headerNav" class="navbar-collapse collapse float--right " style='margin-right:30%;'>
                 <span class="close-menu"><i class="fa fa-times"></i></span>
                 <ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
+                    <li class="hidden-md hidden-lg">
+                        <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right">
+                            <input type="search" name="search" id="stxt" placeholder="Search... "
+                                class="header--search-control form-control " required
+                                >
+                            <button type="button" class="header--search-btn btn btn-header-1">
+                                <i class="header--search-icon fa fa-search "></i>
+                            </button>
+                            <button type="submit" class="header--search-btn btn btn-header-2" style="display: none;">
+                                <i class="header--search-icon fa fa-search "></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="hidden-md hidden-lg ">
+                        @php
+                            $lang = app()->getLocale() == 'en' ? 'ar' : 'en';
+                        @endphp
+                        <a href="{{ Str::replaceFirst(app()->getLocale(), $lang, url()->current()) }}"
+                            id="toLang2">
+                            <i class="fa fm fa-language"></i>
+                            @if(app()->getLocale() == 'en')
+                                العربية
+                            @else
+                                English
+                            @endif
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{__('site.More')}}
                             <i class="fa flm fa-angle-left"></i>
@@ -195,7 +222,7 @@
                     </li>
                 </ul>
             </div>
-            <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right">
+            <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right hidden-sm">
                 <input type="search" name="search" id="stxt" placeholder="Search... "
                     class="header--search-control form-control " required
                     >

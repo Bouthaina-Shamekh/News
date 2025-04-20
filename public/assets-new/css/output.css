@@ -7220,6 +7220,11 @@ ul.scrollmenu a:hover {
     .navbar-header{
         display: block;
     }
+    .header--topbar-action{
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+    }
     .header--topbar .nav{
         font-size: 32px;
     }
@@ -7270,7 +7275,7 @@ ul.scrollmenu a:hover {
         display: block;
         direction: rtl;
         transform: rotate(180deg);
-        height: 31%;
+        height: 34%;
         margin-top: 150px;
     }
     .header--menu-links>li {
@@ -7286,6 +7291,9 @@ ul.scrollmenu a:hover {
 }
 
 @media (min-width:992px) {
+    .header--topbar-action{
+        display: inline-block !important;
+    }
     .header--menu-links>li>a {
         padding: 1px 13px 0px;
         border-bottom: 2px solid transparent
@@ -7296,7 +7304,7 @@ ul.scrollmenu a:hover {
         display: block;
         direction: rtl;
         transform: rotate(0deg);
-        height: 31%;
+        height: 34%;
         margin-top: 0px;
     }
     .header--menu-links>li {
