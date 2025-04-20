@@ -51,7 +51,12 @@ $name = 'name_' . app()->getLocale();
 
     <div class="form-group col-6 mb-3">
         <label for="image">{{__('admin.Image View')}}<span style="color: red">*</span></label>
+        
+        @if ($news->id == null)
         <input type="file" name="img_view" class="form-control" accept="image/*" required />
+        @else
+        <input type="file" name="img_view" class="form-control" accept="image/*" />
+        @endif
         <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
         @if ($news->img_view)
         <div class="d-flex align-items-center justify-content-between mt-3" id="img_view">
@@ -165,7 +170,7 @@ $name = 'name_' . app()->getLocale();
         function removeImage(name) {
             const id = "{{ $news->id }}";
             $.ajax({
-                url: `{{ route('dashboard.nw.removeImage', $news->id) }}`,
+                url: `{{ route('dashboard.nw.removeImage', ':id') }}`.replace(':id', id),
                 type: 'POST',
                 data: {
                     name: name,

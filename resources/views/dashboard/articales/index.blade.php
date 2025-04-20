@@ -6,6 +6,7 @@
     @push('styles')
     <!-- data tables css -->
     <link rel="stylesheet" href="{{ asset('assets-dashboard/css/plugins/dataTables.bootstrap5.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets-dashboard/css/edit.css') }}" />
     <style>
         .title {
             width: 100px;

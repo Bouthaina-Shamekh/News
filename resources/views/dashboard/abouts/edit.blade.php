@@ -21,7 +21,7 @@
                         @method('PUT')
                         @include('dashboard.abouts._form')
                         <div class="row justify-content-end mt-3">
-                            <button type="submit" class="btn btn-primary col-1  mr-3">
+                            <button type="submit" class="btn btn-primary col-md-1 col-sm-3  mr-3">
                                 {{__('admin.Update')}}
                             </button>
                         </div>

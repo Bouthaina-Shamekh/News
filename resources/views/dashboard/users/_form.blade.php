@@ -42,10 +42,10 @@
 
 </div>
 <div class="row justify-content-end mt-3">
-    <a href="{{route('dashboard.users.index')}}" class="btn btn-secondary col-1 mr-3">
+    <a href="{{route('dashboard.users.index')}}" class="btn btn-secondary col-md-1 col-sm-3 mr-3">
         {{__('Back')}}
     </a>
-    <button type="submit" class="btn btn-primary col-1  mr-3">
+    <button type="submit" class="btn btn-primary col-md-1 col-sm-3 mr-3">
         {{$btn_label ?? __('Add')}}
     </button>
 </div>

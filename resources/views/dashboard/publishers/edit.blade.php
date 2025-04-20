@@ -25,10 +25,10 @@
                         @method('PUT')
                         @include('dashboard.publishers._form')
                         <div class="row justify-content-end mt-3">
-                            <a href="{{route('dashboard.publisher.index')}}" class="btn btn-secondary col-1 mr-3">
+                            <a href="{{route('dashboard.publisher.index')}}" class="btn btn-secondary col-md-1 col-sm-3 mr-3">
                                 {{__('admin.Back')}}
                             </a>
-                            <button type="submit" class="btn btn-primary col-1  mr-3">
+                            <button type="submit" class="btn btn-primary col-md-1 col-sm-3  mr-3">
                                 {{__('admin.Update')}}
                             </button>
                         </div>

@@ -174,7 +174,7 @@ class NwController extends Controller
             'title_ar' => 'required',
             'title_en' => 'nullable',
             'date' => 'required|date',
-            'img_view' => 'required|image',
+            'img_view' => 'nullable|image',
             'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'nullable',

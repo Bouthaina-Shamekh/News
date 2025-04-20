@@ -1,0 +1,18 @@
+.filters-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* تقليل التباعد بين العناصر */
+    margin-bottom: 20px;
+    flex-wrap: nowrap; /* منع الانتقال إلى سطر جديد */
+    margin: 20px;
+}
+@media (min-width:768px) {
+    .filters-container {
+        flex-wrap: wrap;
+    }
+}
+@media (min-width:992px) {
+    .filters-container{
+        flex-wrap: nowrap;
+    }
+}

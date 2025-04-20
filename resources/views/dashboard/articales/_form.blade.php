@@ -44,7 +44,11 @@
         <input type="hidden" name="visit" value="{{ $articals->visit }}">
         <div class="form-group col-6 mb-3">
             <label for="image">{{__('admin.Image View')}}<span style="color: red">*</span></label>
-            <input type="file" name="img_view" class="form-control" accept="image/*" required/>
+            @if ($articals->id == null)
+            <input type="file" name="img_view" class="form-control" accept="image/*" required />
+            @else
+            <input type="file" name="img_view" class="form-control" accept="image/*" />
+            @endif
             <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
             @if ($articals->img_view)
                 <div class="d-flex align-items-center justify-content-between mt-3" id="img_view">
@@ -69,10 +73,10 @@
             <input type="file" name="vedio" class="form-control" accept="video/*" />
             <span class="text-muted">{{__('admin.Size Vedio')}}: 1920*1080 (16:9)</span>
             @php
-                $vedio = $article->vedio;
-                $check = $vedio ? Storage::disk('public')->exists($article->vedio) : false;
+                $vedio = $articals->vedio;
+                $check = $vedio ? Storage::disk('public')->exists($articals->vedio) : false;
             @endphp
-            @if($article->vedio && $check)
+            @if($articals->vedio && $check)
 
                 <div class="d-flex align-items-start justify-content-between mt-3" id="vedio">
                     <video width="320" height="240" controls="controls">
@@ -143,9 +147,9 @@
 </script>
 <script>
         function removeImage(name) {
-            const id = "{{ $news->id }}";
+            const id = "{{ $articals->id }}";
             $.ajax({
-                url: `{{ route('dashboard.nw.removeImage', $news->id) }}`,
+                url: `{{ route('dashboard.articale.removeImage', ':id') }}`.replace(':id', id),
                 type: 'POST',
                 data: {
                     name: name,

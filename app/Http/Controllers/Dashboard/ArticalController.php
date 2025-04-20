@@ -175,7 +175,7 @@ class ArticalController extends Controller
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
             'vedio' => 'nullable',
-            'img_view' => 'required|image',
+            'img_view' => 'nullable|image',
             'img_article' => 'nullable|image',
             'text_ar' => 'required',
             'text_en' => 'required',
