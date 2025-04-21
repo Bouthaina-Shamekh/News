@@ -102,7 +102,7 @@
                             </div>
                             @php
                                 $vedio = $new->vedio;
-                                $check = Storage::disk('public')->exists($new->vedio);
+                                $check = $vedio ? Storage::disk('public')->exists($new->vedio) : false;
                             @endphp
                             @if($new->vedio && $check)
                             <div>

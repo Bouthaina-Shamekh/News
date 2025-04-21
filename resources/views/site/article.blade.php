@@ -88,7 +88,7 @@
                             </div>
                             @php
                                 $vedio = $article->vedio;
-                                $check = Storage::disk('public')->exists($article->vedio);
+                                $check = $vedio ? Storage::disk('public')->exists($article->vedio) : false;
                             @endphp
                             @if($article->vedio && $check)
                             <div>
