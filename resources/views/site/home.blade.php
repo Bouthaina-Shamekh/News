@@ -227,7 +227,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12  text-center">
-                                            <a href="{{route('site.news')}}" class="btn-link">{{__('site.More')}}</a>
+                                            <a href="{{route('site.news')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -433,7 +433,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-center">
-                                            <a href="{{route('site.articles')}}" class="btn-link">{{__('site.More')}}</a>
+                                            <a href="{{route('site.articles')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -607,18 +607,18 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="{{route('site.articles',['c' => $categoryOne->id])}}" class="btn-link pull-left">{{__('site.More')}}</a>
+                                    <a href="{{route('site.articles',['c' => $categoryOne->id])}}" class="btn-link pull-left btn-link--secondary-more">{{__('site.More')}}</a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
                             <div class="col-md-12 ptop--30 ">
                                 <div class="post--items-title" style="padding: 0;" data-ajax="tab">
                                     @php
-                                        $ads5 = App\Models\Ad::where('ad_place_id', '1')->first();
+                                        $ads5 = App\Models\Ad::where('ad_place_id', '1')->orderBy('id', 'desc')->first();
                                         if($ads5){
                                             $now = Carbon\Carbon::now();
-                                            $startDate = Carbon\Carbon::parse($ad->date);
-                                            $endDate = Carbon\Carbon::parse($ad->end_date);
+                                            $startDate = Carbon\Carbon::parse($ads5->date);
+                                            $endDate = Carbon\Carbon::parse($ads5->end_date);
                                             if ($now->between($startDate, $endDate)) {
                                                 $ads5->status = 'active';
                                             } else {
@@ -716,27 +716,27 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="{{route('site.articles',['c' => $categoryTwo->id])}}" class="btn-link pull-left">{{__('site.More')}}</a>
+                                    <a href="{{route('site.articles',['c' => $categoryTwo->id])}}" class="btn-link pull-left btn-link--secondary-more">{{__('site.More')}}</a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
                             <div class="col-md-12 ptop--30 ">
                                 <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
                                     @php
-                                        $ads6 = App\Models\Ad::where('ad_place_id', 2)->first();
+                                        $ads6 = App\Models\Ad::where('ad_place_id', 2)->orderBy('id', 'desc')->first();
                                         if($ads6){
                                             $now = Carbon\Carbon::now();
-                                            $startDate = Carbon\Carbon::parse($ad->date);
-                                            $endDate = Carbon\Carbon::parse($ad->end_date);
+                                            $startDate = Carbon\Carbon::parse($ads6->date);
+                                            $endDate = Carbon\Carbon::parse($ads6->end_date);
 
                                             if ($now->between($startDate, $endDate)) {
-                                                $ad->status = 'active';
+                                                $ads6->status = 'active';
                                             } else {
-                                                $ad->status = 'inactive';
+                                                $ads6->status = 'inactive';
                                             }
                                         }
                                     @endphp
-                                    @if($ads6)
+                                    @if($ads6 && $ads6->status == 'active')
                                     <a href="{{ $ads6->url }}" title="{{ $ads6->title }}" target="_blank">
                                         <img src="{{ asset('storage/' . $ads6->image) }}" alt="No Image For Ad"
                                             style="border: 1px solid gold;width: 100%;height:100px;">
@@ -826,7 +826,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="{{route('site.articles',['c' => $categoryThree->id])}}" class="btn-link pull-left">
+                                    <a href="{{route('site.articles',['c' => $categoryThree->id])}}" class="btn-link pull-left btn-link--secondary-more">
                                         {{__('site.More')}}
                                     </a>
                                 </div>

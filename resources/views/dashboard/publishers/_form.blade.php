@@ -9,7 +9,11 @@
 </div>
 
 <div class="form-group col-6 mb-3">
+    @if($publishers->id == null)
     <x-form.input name="password" label="{{ __('admin.Password') }}" :re="true" type="password" placeholder="{{ __('admin.enter publisher password') }}" required/>
+    @else
+    <x-form.input name="password" label="{{ __('admin.Password') }}" type="password" placeholder="{{ __('admin.enter publisher password') }}"/>
+    @endif
 </div>
 
 <div class="form-group col-6 mb-3">

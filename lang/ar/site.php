@@ -111,6 +111,11 @@ return [
     'write_a_comment' => 'اترك تعليقا',
     'no_worry_text' => 'لا تقلق! لن يتم نشر عنوان بريدك الإلكتروني. الحقول الإلزامية مشار إليها بعلامة (*).',
     'dashboard' => 'لوحة التحكم',
+    'page_not_found' => 'الصفحة غير متوفرة',
+    'back_to_home' => 'الرجوع للصفحة الرئيسية',
+    'You are not allowed in this newspaper.' => 'غير مسموح لك بالدخول لهذه الصحفة',
+    'A simple error occurred please go back and try again' => 'حدث خطأ بسيط يرجى العودة وإعادة المحاولة',
+    'Please contact the engineer at this moment.' => 'حدث بالإتصال بالسيرفر يرجى التواصل مع المهندس بهذا اللحظة',
     '' => '',
     '' => '',
 ];

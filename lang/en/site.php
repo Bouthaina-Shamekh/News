@@ -108,5 +108,10 @@ return [
     'no_worry_text' => 'do not worry Your email address will not be published. Mandatory fields are marked (*).',
     'submit' => 'Submit',
     'dashboard' => 'Dashboard',
+    'page_not_found' => 'Page Not Found',
+    'back_to_home' => 'Back To Home',
+    'You are not allowed in this newspaper.' => 'You are not allowed in this newspaper.',
+    'A simple error occurred please go back and try again' => 'A simple error occurred please go back and try again',
+    'Please contact the engineer at this moment.' => 'Please contact the engineer at this moment.',
     '' => '',
 ];

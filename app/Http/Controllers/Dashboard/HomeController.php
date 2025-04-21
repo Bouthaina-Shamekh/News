@@ -87,10 +87,10 @@ class HomeController extends Controller
             'goal_ar' => 'required',
             'goal_en' => 'required',
             'image' => 'required|image',
-            
+
         ]);
 
-        $abouts = About::findOrFail($id); 
+        $abouts = About::findOrFail($id);
 
     if ($request->hasFile('image')) {
         // حذف الصورة القديمة إذا كانت موجودة
@@ -122,7 +122,7 @@ class HomeController extends Controller
 
 
 
-       
+
         return redirect()->route('dashboard.about.edit')->with('success', __('About updated successfully.'));
     }
 

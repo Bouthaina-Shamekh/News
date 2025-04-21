@@ -124,9 +124,9 @@
                         @endphp
                         <a href="{{ route('site.index') }}" class="btn-link col-sm-4 nav_logo_img" style="padding-right: 0px;">
                             @if($logo)
-                                <img src="{{ asset('uploads/logos/' . $logo) }}" alt="" style="width: 80%;">
+                                <img src="{{ asset('uploads/logos/' . $logo) }}" alt="">
                             @else
-                                <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="" style="width: 80%;">
+                                <img src="{{ asset('assets/img/صورة_واتساب_بتاريخ_2024-10-09_في_12.53.11_cd9169ce.jpg') }}" alt="">
                             @endif
                             <span class="hidden"> Logo</span>
                         </a>
@@ -139,11 +139,11 @@
                     <div class="col-md-8 col-sm-12">
                         @if($adsHerder)
                             <a href="{{ $adsHerder->url }}" target="_blank">
-                                <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 104px;">
+                                <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 90px;">
                             </a>
                         @else
                             <a href="#">
-                                <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 104px;">
+                                <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 90px;">
                             </a>
                         @endif
                     </div>
