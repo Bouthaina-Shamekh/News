@@ -6,13 +6,15 @@ use PhpParser\Node\Expr\New_;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Publisher extends User
+class Publisher extends User implements CanResetPassword
 {
-    use HasFactory , Notifiable;
+    use HasFactory , Notifiable, CanResetPasswordTrait;
 
-   
+
 
     protected $fillable = [
         'name',
@@ -35,5 +37,10 @@ class Publisher extends User
     public function nw()
     {
         return $this->hasMany(Nw::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotificationCustom($token));
     }
 }

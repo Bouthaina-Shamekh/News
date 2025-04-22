@@ -831,14 +831,14 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="display: flex;justify-content: space-between;align-items: center;flex-direction: row-reverse;">
                                 <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
                                     <div class="row">
                                         <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/rr37.png') }}); background-repeat: no-repeat;">
                                             <h5><a href="{{ route('site.news') }}" style="color: #fff;">&nbsp; </a></h5>
                                         </div>
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
-                                            <h5 style="text-align: left;">
+                                            <h5 style="text-align: left;" class="hid--r">
                                                 <a href="{{ route('site.news') }}" style="color: #fff;">
                                                     {{-- المزيد من الاخبار --}}
                                                     {{ __('site.more_news') }}
@@ -847,12 +847,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-xs-0 col-sm-2  col-lg-4 "></div>
                                 <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style="  background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
                                     <div class="row">
 
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9" style="">
-                                            <h5 style="text-align: right;">
+                                            <h5 style="text-align: right;" class="hid--r">
                                                 <a href="{{ route('site.articles') }}" style="color: #fff;">
                                                     {{-- المزيد من المقالات --}}
                                                     {{ __('site.more_articles') }}

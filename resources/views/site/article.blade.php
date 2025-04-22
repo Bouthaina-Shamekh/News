@@ -176,7 +176,7 @@
                             <div class=" style--1">
                                 {{-- <ul class="nav">
                                     <li style="    width: 50%;     float: left;">
-                                        <a href="{{route('author',['id'=>$article->publisher->id])}}" class="btn btn-lg btn-default active">
+                                        <a href="{{route('author',['id'=>$article->publisher ? $article->publisher->id : 0])}}" class="btn btn-lg btn-default active">
                                             اخبار الناشر <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                                         </a>
                                     </li>

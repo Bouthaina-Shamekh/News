@@ -51,7 +51,12 @@ Route::group([
 
         Route::get('publisher/{id}/news', [PublisherHomeController::class, 'publisherNews'])->name('publisherNews');
         Route::get('publisher/{id}/profile', [PublisherHomeController::class, 'publisher'])->name('publisher');
+
     });
+    Route::get('forgot-password', [PublisherHomeController::class, 'forgot_password'])->middleware('guest')->name('publisher.forgot_password');
+    Route::post('forgot-password', [PublisherHomeController::class, 'forgot_password_store'])->middleware('guest')->name('publisher.forgot_password_store');
+    Route::get('/reset-password/{token}', [PublisherHomeController::class, 'resetPasswordView'])->middleware('guest')->name('publisher.resetPassword');
+    Route::post('reset-password', [PublisherHomeController::class, 'resetPassword'])->middleware('guest')->name('publisher.resetPassword');
 
     // Main Routes
     Route::get('/dashboard', function () {

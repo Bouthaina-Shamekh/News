@@ -43,18 +43,17 @@
         <div class="container">
             <div class="login--form">
                 <div class="title">
-                    <h1 class="h1">تسجيل الدخول</h1>
-                    <p>تسجيل الدخول إلى الحساب عن طريق ملء النموذج أدناه</p>
+                    <h1 class="h1">تغير كلمة المرور</h1>
                 </div>
-                <form action="{{ route('login.store') }}" method="post" style="direction: rtl; text-align: right">
+                @if (session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                </div>
+                @endif
+                <form action="{{ route('publisher.resetPassword') }}" method="post" style="direction: rtl; text-align: right">
                     @csrf
-                    <div class="form-group">
-                        <label>
-                            <span style="text-align: center">اسم المستخدم أو عنوان البريد الإلكتروني
-                            </span>
-                            <input type="email" name="email" id="email" class="form-control" required onkeyup="if (!window.__cfRLUnblockHandlers) return false; myFn2('email')" data-cf-modified-="" />
-                        </label>
-                    </div>
+                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                    <input type="hidden" name="email" value="{{ request()->email }}">
                     <div class="form-group" dir="rtl">
                         <label for="psw">كلمة المرور</label>
                         <div class="password-container">
@@ -62,13 +61,18 @@
                             <span class="toggle-password" onclick="togglePassword(this, 'psw')"><i class="fa fa-eye"></i></span>
                         </div>
                     </div>
-
+                    <div class="form-group" dir="rtl">
+                        <label for="cpsw">تأكيد كلمة المرور</label>
+                        <div class="password-container">
+                            <input type="password" id="cpsw" name="confirm_password" class="form-control" required>
+                            <span class="toggle-password" onclick="togglePassword(this, 'cpsw')"><i class="fa fa-eye"></i></span>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-lg btn-block btn-primary">
-                        تسجيل الدخول
+                        ارسل
                     </button>
                     <p class="help-block clearfix">
-                        <a href="{{route('publisher.forgot_password')}}" class="btn-link pull-left">هل نسيت إسم المستخدم أو كلمة السر؟</a>
-                        <a href="{{ route('register.store') }}" class="btn-link pull-right">إنشاء حساب</a>
+                        <a href="{{ url(app()->getLocale() . '/publisher/register') }}" class="btn-link pull-right">إنشاء حساب</a>
                     </p>
                 </form>
             </div>
@@ -96,17 +100,16 @@
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9120635dabb7b37f","version":"2025.1.0","r":1,"token":"602890b0b80540f5a9da77dde812b1ae","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
 <script>
     function togglePassword(el, inputId) {
-        const input = document.getElementById(inputId);
-        if (input.type === 'password') {
-            input.type = 'text';
-            el.innerHTML = '<i class="fa fa-eye-slash"></i> ';
-        } else {
-            input.type = 'password';
-            el.innerHTML = '<i class="fa fa-eye"></i>';
-        }
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        el.innerHTML = '<i class="fa fa-eye-slash"></i> ';
+    } else {
+        input.type = 'password';
+        el.innerHTML = '<i class="fa fa-eye"></i>';
     }
-
-</script>
+    }
+    </script>
 </body>
 
 </html>

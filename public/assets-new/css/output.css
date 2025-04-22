@@ -7201,7 +7201,7 @@ ul.scrollmenu a:hover {
         font-size: 39px;
     }
     .h4{
-        font-size: 23px !important;
+        font-size: 35px !important;
     }
     .title h5{
         font-size: 40px;
@@ -7225,10 +7225,14 @@ ul.scrollmenu a:hover {
         justify-content: center;
         align-items: center;
     }
-    .header--topbar .nav{
-        font-size: 32px;
+    .header--top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-
+    .header--topbar .nav{
+        font-size: 27px;
+    }
     .header--topbar .nav>li {
         float: none;
         margin: 1px 10px 15px;
@@ -7275,7 +7279,7 @@ ul.scrollmenu a:hover {
         display: block;
         direction: rtl;
         transform: rotate(180deg);
-        height: 34%;
+        height: 40%;
         margin-top: 150px;
     }
     .header--menu-links>li {
@@ -7304,9 +7308,35 @@ ul.scrollmenu a:hover {
     .nav_logo_img img{
         width: 107%;
     }
+
+    .hid--r{
+        font-size: 32px;
+    }
+    .post--content p,
+    .post--content ol{
+        font-size: 50px;
+    }
+    .main--breadcrumb .breadcrumb li a, .main--breadcrumb .breadcrumb li span, .news-updates--list .nav li, .product--item .rating .nav li i, .product--summery .rating .nav>li>i {
+        font-size: 36px;
+        line-height: 24px;
+    }
 }
 
 @media (min-width:992px) {
+    .main--breadcrumb .breadcrumb li a, .main--breadcrumb .breadcrumb li span, .news-updates--list .nav li, .product--item .rating .nav li i, .product--summery .rating .nav>li>i {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .post--content p,
+    .post--content ol{
+        font-size: 20px;
+    }
+    .hid--r{
+        font-size: 18px;
+    }
+    .header--top{
+        display: block;
+    }
     .main--content .sticky-content-inner{
         display: block;
     }
@@ -7328,7 +7358,7 @@ ul.scrollmenu a:hover {
         display: block;
         direction: rtl;
         transform: rotate(0deg);
-        height: 34%;
+        height: 40%;
         margin-top: 0px;
     }
     .header--menu-links>li {

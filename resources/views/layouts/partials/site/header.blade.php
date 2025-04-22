@@ -8,24 +8,9 @@
     <div class="header--topbar bg--color-2">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 header--top">
                     <div class=" float--right text-xs-center">
                         <ul class="header--topbar-info nav">
-                            <li id="cur">
-                                1&nbsp; <i class="fa fa-ils" style="font-size: 12px;"></i>
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"
-                                    style="font-size: 12px;"></i> <i class="fa fa-usd"
-                                    style="font-size: 13px;"></i>&nbsp;&nbsp; 1&nbsp; <i class="fa fa-ils"
-                                    style="font-size: 12px;"></i>
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"
-                                    style="font-size: 12px;"></i> JOD &nbsp;&nbsp; 1&nbsp; <i class="fa fa-ils"
-                                    style="font-size: 12px;"></i>
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"
-                                    style="font-size: 12px;"></i> <i class="fa fa-euro"
-                                    style="font-size: 13px;"></i>
-                                <i class="fa fm fa-map-marker"></i><span id="city"></span>
-                                <i class="fa fm fa-mixcloud"></i>
-                                <sup>0</sup> C
                             <li id="temp">
                                 <i class="fa fm fa-calendar"></i><span id="datetime"></span>
                             </li>

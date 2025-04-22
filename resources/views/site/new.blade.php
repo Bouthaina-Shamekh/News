@@ -146,7 +146,7 @@
                             <div class="img">
                                 <div class="vc--parent">
                                     <div class="vc--child">
-                                        <a href="{{route('site.publisherNews',$new->publisher->id)}}" class="btn-link">
+                                        <a href="{{route('site.publisherNews',$new->publisher ? $new->publisher->id : 0)}}" class="btn-link">
                                             @if($new->publisher)
                                             <img src="{{asset('storage/'.$new->publisher->img)}}" alt="">
                                             @endif
@@ -263,7 +263,7 @@
                             <div class=" style--1">
                                 {{-- <ul class="nav">
                                     <li style="    width: 50%;     float: left;">
-                                        <a href="{{route('author',['id'=>$article->publisher->id])}}" class="btn btn-lg btn-default active">
+                                        <a href="{{route('author',['id'=>$article->publisher ? $article->publisher->id : 0])}}" class="btn btn-lg btn-default active">
                                             اخبار الناشر <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                                         </a>
                                     </li>
