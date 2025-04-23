@@ -227,7 +227,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12  text-center">
-                                            <a href="{{route('site.news')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}}</a>
+                                            <a href="{{route('site.news')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}} <i class="fa flm fa-angle-double-left"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -433,7 +433,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-center">
-                                            <a href="{{route('site.articles')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}}</a>
+                                            <a href="{{route('site.articles')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}} <i class="fa flm fa-angle-double-left"></i></a>
                                         </div>
                                     </div>
                                 </div>

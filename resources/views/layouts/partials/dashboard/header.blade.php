@@ -5,12 +5,12 @@
                 <!-- ======= Menu collapse Icon ===== -->
                 <li class="pc-h-item pc-sidebar-collapse max-lg:hidden lg:inline-flex">
                     <a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="sidebar-hide">
-                        <i class="ti ti-menu-2"></i>
+                        طي
                     </a>
                 </li>
                 <li class="pc-h-item pc-sidebar-popup lg:hidden">
                     <a href="#" class="pc-head-link ltr:!ml-0 rtl:!mr-0" id="mobile-collapse">
-                        <i class="ti ti-menu-2 text-2xl leading-none"></i>
+                        طي
                     </a>
                 </li>
                 <li class="pc-h-item max-md:hidden md:inline-flex">

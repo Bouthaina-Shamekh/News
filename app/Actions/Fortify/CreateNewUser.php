@@ -25,6 +25,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         if(Config::get('fortify.guard') == 'publisherGuard'){
             Validator::make($input, [
+                'email' => 'required|email|unique:publishers,email',
                 'password' => 'same:confirm_password',
             ])->validate();
             $img =  $input['pic'];

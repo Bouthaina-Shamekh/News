@@ -6,9 +6,13 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Admin;
+use App\Models\Publisher;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -101,6 +105,32 @@ class FortifyServiceProvider extends ServiceProvider
                 return view('auth.publishers.register');
             }
             return view('auth.register');
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            if (Config::get('fortify.guard') === 'publisherGuard') {
+                $publisher = Publisher::where('email', $request->email)->first();
+                if (!$publisher || !Hash::check($request->password, $publisher->password)) {
+                    session()->flash('errorStatus', 'البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+                    return null; // فشل المصادقة
+                }
+
+                if ($publisher->status == 0) {
+                    session()->flash('errorStatus', 'لم يتم تفعيل الحساب بعد.');
+                    return null; // هنا نرجع null وليس redirect
+                }
+
+                return $publisher; // ✅ رجع الكائن المصادق عليه
+            }
+            if (Config::get('fortify.guard') === 'admin') {
+                $admin = Admin::where('email', $request->email)->first();
+
+                if (!$admin || !Hash::check($request->password, $admin->password)) {
+                    return null; // فشل المصادقة
+                }
+
+                return $admin; // ✅ رجع الكائن المصادق عليه
+            }
         });
 
         Fortify::createUsersUsing(CreateNewUser::class);

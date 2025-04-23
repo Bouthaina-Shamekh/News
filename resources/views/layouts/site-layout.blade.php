@@ -17,7 +17,7 @@
                                 {{-- تحديثات الأخبار --}}
                                 {{ __('site.news updates') }}</div>
                             @php
-                                $news = \App\Models\Nw::orderBy('id', 'desc')->get();
+                                $news = \App\Models\Nw::orderBy('id', 'desc')->where('statu_id', 2)->get();
                                 // $title = app()->getLocale() == 'ar' ? 'title_ar' : 'title_en';
                                 $title = 'title_' . app()->getLocale();
                             @endphp

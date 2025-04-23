@@ -103,7 +103,7 @@ return [
     'related_news' => 'أخبار ذات صلة',
     'related_articles' => 'مقالات ذات صلة',
     'about_publisher' => 'عن الناشر',
-    'publisher_marina_post' => 'ناشرة في مجلة مارينا بوست',
+    'publisher_marina_post' => 'ناشر/ة في مجلة مارينا بوست',
     'comments' => 'تعليقات',
     'comment' => 'تعليق',
     'name' => 'الاسم',

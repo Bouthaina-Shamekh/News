@@ -7320,9 +7320,84 @@ ul.scrollmenu a:hover {
         font-size: 36px;
         line-height: 24px;
     }
+
+    .about--widget{
+        font-size: 30px;
+    }
+    .widget .links--widget .nav li{
+        font-size: 30px;
+        padding: 23px 22px;
+    }
+    .about--widget>.nav>li>span {
+        display: inline-block;
+        padding-right: 10px;
+        font-size: 33px;
+        line-height: 24px;
+        padding: 12px 10px;
+    }
+    .pagination>li>a, .pagination>li>span {
+        min-width: 36px;
+        padding: 15px 20px;
+        color: #999;
+        font-size: 35px;
+        line-height: 34px;
+        text-align: center;
+    }
+    .nav--widget .nav>li>a{
+        font-size: 32px;
+    }
+    .footer--copyright .text {
+        font-size: 43px;
+    }
+    .footer--copyright .links{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+    }
+    .footer--copyright .links>li>a{
+        font-size: 34px;
+    }
 }
 
 @media (min-width:992px) {
+    .footer--copyright .links{
+        display: block;
+    }
+    .footer--copyright .links>li>a{
+        font-size: 16px;
+    }
+    .footer--copyright .text {
+        font-size: 16px;
+    }
+    .nav--widget .nav>li>a{
+        font-size: 18px;
+    }
+    .pagination>li>a, .pagination>li>span {
+        min-width: 36px;
+        padding: 3px 4px;
+        color: #999;
+        font-size: 16px;
+        line-height: 34px;
+        text-align: center;
+    }
+    .about--widget>.nav>li>span {
+        display: inline-block;
+        padding-right: 10px;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 0;
+    }
+    .about--widget>.nav>li>span{
+        font-size: 16px;
+    }
+    .about--widget {
+        font-size: 18px;
+    }
+    .widget .links--widget .nav li {
+        font-size: 16px;
+        padding: 7px 22px;
+    }
     .main--breadcrumb .breadcrumb li a, .main--breadcrumb .breadcrumb li span, .news-updates--list .nav li, .product--item .rating .nav li i, .product--summery .rating .nav>li>i {
         font-size: 20px;
         line-height: 24px;

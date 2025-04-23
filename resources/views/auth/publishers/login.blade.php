@@ -1,12 +1,4 @@
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ol>
-        @foreach ($errors->getMessages() as $key => $val)
-        <li>{{ $key . " : " . $val[0] }} </li>
-        @endforeach
-    </ol>
-</div>
-@endif
+@include('layouts.partials.site.head')
 <style>
     .password-container {
         position: relative;
@@ -30,9 +22,10 @@
         color: #555;
         user-select: none;
     }
-
+    .invalid-feedback{
+        color: red;
+    }
 </style>
-@include('layouts.partials.site.head')
 <div id="preloader">
     <div class="preloader bg--color-1--b" data-preloader="1">
         <div class="preloader--inner"></div>
@@ -48,11 +41,15 @@
                 </div>
                 <form action="{{ route('login.store') }}" method="post" style="direction: rtl; text-align: right">
                     @csrf
+                    @if(session()->has('errorStatus'))
+                        <div class="alert alert-danger">
+                            {{ session('errorStatus') }}
+                        </div>
+                    @endif
                     <div class="form-group">
                         <label>
-                            <span style="text-align: center">اسم المستخدم أو عنوان البريد الإلكتروني
-                            </span>
-                            <input type="email" name="email" id="email" class="form-control" required onkeyup="if (!window.__cfRLUnblockHandlers) return false; myFn2('email')" data-cf-modified-="" />
+                            <span style="text-align: center">اسم المستخدم أو عنوان البريد الإلكتروني</span>
+                            <input type="email" name="email" id="email" class="form-control" required value="{{ old('email') }}" />
                         </label>
                     </div>
                     <div class="form-group" dir="rtl">

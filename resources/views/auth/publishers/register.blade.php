@@ -1,23 +1,13 @@
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ol>
-        @foreach ($errors->getMessages() as $key => $val)
-        <li>{{ $key . " : " . $val[0] }} </li>
-        @endforeach
-    </ol>
-</div>
-@endif
 @include('layouts.partials.site.head')
-@push('styles')
 <style>
     label {
         direction: rtl;
         text-align: right !important;
     }
-
+    .invalid-feedback{
+        color: red;
+    }
 </style>
-
-@endpush
 <style>
     .password-container {
         position: relative;
@@ -65,14 +55,10 @@
                                     <p style="color: red; float: left">*</p>
                                     هاتف
                                 </label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="" required data-cf-modified-="" />
+                                <input type="text" value="{{ old('phone') }}" class="form-control" name="phone" id="phone" placeholder="" required />
                             </div>
                             <div class="form-group">
-                                <label>
-                                    <p style="color: red; float: left">*</p>
-                                    البريد الإلكتروني
-                                </label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="" required data-cf-modified-="" />
+                                <x-form.input name="email" label="{{ __('admin.Email') }}"  :re="true" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="old('email')" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -81,16 +67,14 @@
                                     <p style="color: red; float: left">*</p>
                                     اسم المستخدم
                                 </label>
-                                <input type="text" class="form-control" name="id" style="display: none" value="0" placeholder="" style="display: none" />
-                                <input type="text" class="form-control" name="name" id="name" placeholder="" value="" data-cf-modified-="" required />
+                                <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ old('name') }}" required />
                             </div>
-
                             <div class="form-group">
                                 <label>
                                     <p style="color: red; float: left">*</p>
                                     تاريخ الميلاد
                                 </label>
-                                <input type="date" class="form-control" name="barth_date" id="barth_date" placeholder="تاريخ الاضافة" required data-cf-modified-="" />
+                                <input type="date" value="{{ old('barth_date') }}" class="form-control" name="barth_date" id="barth_date" placeholder="تاريخ الاضافة" required />
                             </div>
                         </div>
                     </div>
@@ -103,6 +87,11 @@
                                     <input type="password" id="psw" name="password" class="form-control" required>
                                     <span class="toggle-password" onclick="togglePassword(this, 'psw')"><i class="fa fa-eye"></i></span>
                                 </div>
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
 
@@ -111,7 +100,7 @@
                                     <p style="color: red; float: left">*</p>
                                     العنوان
                                 </label>
-                                <textarea rows="5" cols="5" class="form-control" name="address" id="address" required placeholder="" data-cf-modified-=""></textarea>
+                                <textarea rows="5" cols="5" class="form-control" name="address" id="address" required placeholder="" data-cf-modified-="">{{ old('address') }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -121,12 +110,17 @@
                                     <input type="password" id="cpsw" name="confirm_password" class="form-control" required>
                                     <span class="toggle-password" onclick="togglePassword(this, 'cpsw')"><i class="fa fa-eye"></i></span>
                                 </div>
+                                @error('confirm_password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
 
                             <div class="form-group">
                                 <label>عن الناشر</label>
-                                <textarea rows="5" cols="5" class="form-control" name="about" id="about" required placeholder="" data-cf-modified-=""></textarea>
+                                <textarea rows="5" cols="5" class="form-control" name="about" id="about" placeholder="" data-cf-modified-="">{{ old('about') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -137,9 +131,8 @@
                                 <label>
                                     مرفقات
                                 </label>
-
                                 <input type="file" class="form-control" name="attachments" placeholder="" accept="image/*,application/pdf,application/msword,
-  application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document" value="{{ old('attachments') }}" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -148,8 +141,7 @@
                                     <p style="color: red; float: left">*</p>
                                     صورة شخصية
                                 </label>
-
-                                <input type="file" required class="form-control" name="pic" placeholder="" accept="image/*" />
+                                <input type="file" value="{{ old('pic') }}" required class="form-control" name="pic" placeholder="" accept="image/*" />
                             </div>
                         </div>
                     </div>

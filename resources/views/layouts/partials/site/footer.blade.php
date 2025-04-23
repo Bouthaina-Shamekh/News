@@ -24,11 +24,11 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="action">
+                            <div class="action text-left">
                                 <a href="{{route('site.about')}}" class="btn-link">
                                     {{-- اقرأ أكثر --}}
                                     {{__('site.read_more')}}
-                                    <i class="fa flm fa-angle-double-right"></i>
+                                    <i class="fa flm fa-angle-double-left"></i>
                                 </a>
                             </div>
 

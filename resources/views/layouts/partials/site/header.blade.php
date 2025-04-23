@@ -40,7 +40,7 @@
                             @endauth
                         </ul>
                         <ul class="header--topbar-lang nav hidden-sm">
-                            <li class="dropdown">
+                            {{-- <li class="dropdown">
                                 <a href="#"
                                     onclick="if (!window.__cfRLUnblockHandlers) return false; langc('ar')"
                                     class="dropdown-toggle" data-toggle="dropdown"
@@ -76,7 +76,7 @@
                                             data-cf-modified-6a7e8b1cabee735aa3fb2ed4-="">French</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                         </ul>
 
                     </div>
@@ -154,7 +154,7 @@
                             </button>
                         </form>
                     </li>
-                    <li class="hidden-md hidden-lg ">
+                    {{-- <li class="hidden-md hidden-lg ">
                         @php
                             $lang = app()->getLocale() == 'en' ? 'ar' : 'en';
                         @endphp
@@ -167,7 +167,7 @@
                                 English
                             @endif
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{__('site.More')}}
                             <i class="fa flm fa-angle-left"></i>

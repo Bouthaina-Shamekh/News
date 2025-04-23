@@ -173,7 +173,7 @@
                             </div>
                         </div>
 
-                        <div class="comment--list pd--30-0">
+                        {{-- <div class="comment--list pd--30-0">
                             <div class="post--items-title">
                                 <h2 class="h4">
                                     {{$new->comment->count()}} {{ __('site.comments') }} </h2> <i class="icon fa fa-comments-o"></i>
@@ -201,11 +201,10 @@
                                     </li>
                                 @endforeach
                             </ul>
-                        </div>
-                        <div class="comment--form pd--30-0">
+                        </div> --}}
+                        {{-- <div class="comment--form pd--30-0">
                             <div class="post--items-title">
                                 <h2 class="h4">
-                                    {{-- اترك تعليقا --}}
                                     {{ __('site.write_a_comment') }}
                                 </h2> <i class="icon fa fa-pencil-square-o"></i>
                             </div>
@@ -215,9 +214,7 @@
                                 <form action="{{route('site.comment')}}" method="post" data-form="validate">
                                     @csrf
                                     <p>
-                                        {{-- لا تقلق! لن يتم نشر عنوان بريدك الإلكتروني. الحقول الإلزامية مشار إليها
-                                        بعلامة (*).  --}}
-                                        {{-- {{ __('site.no_worry_text') }} --}}
+                                        {{ __('site.no_worry_text') }}
                                     </p>
                                     <div class="row">
                                         <input type="hidden" name="nw_id" value="{{$new->id}}">
@@ -254,7 +251,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="main--sidebar col-md-4 ptop--30 pbottom--30" data-sticky-content="true">
@@ -279,7 +276,7 @@
                             <div class="widget--title">
                                 <h2 class="h4">
                                     {{-- ابق على اتصال --}}
-                                    {{__('site.stay connected')}}
+                                    تابعنا على مواقع التواصل الاجتماعي
                                 </h2> <i class="icon fa fa-share-alt"></i>
                             </div>
                             <div class="social--widget style--1">
@@ -373,7 +370,7 @@
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4"
-                                                                style="text-align: right; padding-right: 27px;">
+                                                                style="text-align: end; padding-right: 27px;">
                                                                 <a href="{{ route('site.new',$newS->id) }}" class="btn-link news-title">{{$newS->$title}}</a>
                                                             </h3>
                                                         </div>

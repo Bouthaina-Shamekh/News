@@ -14,10 +14,15 @@
                 text-align: start !important;
             }
             .AdjustRow li {
-                padding: 6px 14px !important;
+                padding: 6px 9px !important;
+                margin: 0 0.5px !important;
             }
             .h4{
                 text-align: start !important;
+            }
+            .post--item.post--layout-2 .post--info {
+                margin-top: 7px;
+                margin-right: 40px;
             }
         </style>
     @endpush
@@ -36,7 +41,7 @@
     <div class="main-content--section pbottom--30">
         <div class="container">
             <div class="row" id="contentRow">
-                <div class="main--content col-md-8 col-sm-7" data-sticky-content="true">
+                <div class="main--content col-md-8 col-sm-12" data-sticky-content="true">
                     <div class="sticky-content-inner">
                         <div class="post--author-info clearfix" id="com">
                             <div class="img">
@@ -76,22 +81,22 @@
                                 @foreach ($news as $new )
                                 <li class="col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xss-12">
                                     <div class="post--item post--layout-2">
-                                        <div class="post--img" style="display: flex; align-items: center;justify-content: space-between;">
-                                            <a href="{{ route('site.new', $new->id)}}" class="thumb" style="width: 215px; justify-content: space-evenly;">
+                                        <div class="post--img" style="display: flex; align-items: center;">
+                                            <a href="{{ route('site.new', $new->id)}}" class="thumb" style="width: 300px; justify-content: space-evenly;">
                                                 <img
                                                     src="{{ asset('storage/' . $new->img_view) }}" alt=""
-                                                    style="height: 193px; object-fit: contain;" /></a>
+                                                    style="object-fit: contain;" /></a>
                                             <div class="post--info">
                                                 <ul class="nav meta">
                                                     <li>
-                                                        <a href="author?id=0"></a>
+                                                        <a href="{{ route('site.news',['c' => $new->category_id]) }}" style="background-color: #454545; padding: 2px 10px; border-radius: 7px; color: #fff;">{{ $new->category ? $new->category->$name : '' }}</a>
                                                     </li>
                                                     <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a></li>
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
                                                         <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link news-title">
-                                                            {{ $new->$title }}
+                                                            {{ Illuminate\Support\Str::words($new->$title, 30, '...') }}
                                                         </a>
                                                     </h3>
                                                 </div>
@@ -136,7 +141,7 @@
 
                     </div>
                 </div>
-                <div class="main--sidebar col-md-4 col-sm-5 ptop--30 pbottom--30 text_dir"
+                <div class="main--sidebar col-md-4 col-sm-12 ptop--30 pbottom--30 text_dir"
                     data-sticky-content="true">
                     <div class="sticky-content-inner">
                         <div class="widget">

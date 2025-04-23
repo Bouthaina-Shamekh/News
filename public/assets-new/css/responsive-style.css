@@ -243,7 +243,23 @@ Author URI  : https://themeforest.net/user/themelooks
     }
 }
 
+@media (min-width:767px) {
+    .header--menu-links{
+        overflow: visible;
+    }
+    .header--menu-links>.dropdown>.dropdown-menu {
+        float: none;
+        position: absolute;
+        border-bottom-width: 0;
+        box-shadow: none;
+        top: 0;
+        left: 201px;
+        width: 184px;
+    }
+}
+
 @media screen and (max-width:767px) {
+
     .float--xs-none {
         float: none
     }

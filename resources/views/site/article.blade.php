@@ -192,7 +192,7 @@
                             <div class="widget--title">
                                 <h2 class="h4">
                                     {{-- ابق على اتصال --}}
-                                    {{__('site.stay connected')}}
+                                    تابعنا على مواقع التواصل الاجتماعي
                                 </h2> <i class="icon fa fa-share-alt"></i>
                             </div>
                             <div class="social--widget style--1">
@@ -283,7 +283,7 @@
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4"
-                                                                style="text-align: right;     padding-right: 27px;">
+                                                                style="text-align: end;     padding-right: 27px;">
                                                                 <a href="{{ route('site.article',$articleS->id) }}" class="btn-link">{{$articleS->$title}}</a>
                                                             </h3>
                                                         </div>
