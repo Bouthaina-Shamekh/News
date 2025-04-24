@@ -122,3 +122,28 @@ updateDateTime(); // Run immediately
 // Function to update the weatherwidget every second
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 // end of weather widget function
+
+
+// تطبيق Flatpickr على كل الحقول من نوع date
+document.addEventListener("DOMContentLoaded", function () {
+    // اختار كل الحقول التي نوعها date أو تحتوي كلاس مخصص للتاريخ
+    const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker');
+
+    dateInputs.forEach(function (input) {
+      flatpickr(input, {
+        dateFormat: "m/d/Y", // التنسيق الذي يظهر للمستخدم
+        locale: "en",
+        onChange: function(selectedDates, dateStr, instance) {
+          // هنا يتم تحويل التاريخ من "mm/dd/yyyy" إلى "yyyy-mm-dd"
+          const formattedDate = formatDateToISO(dateStr);
+          input.value = formattedDate; // تعيين القيمة المعدلة للحقول
+        }
+      });
+    });
+  });
+
+  // دالة لتنسيق التاريخ إلى الشكل الذي يعتمده السيرفر "yyyy-mm-dd"
+  function formatDateToISO(dateStr) {
+    const [month, day, year] = dateStr.split('/');
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }

@@ -95,11 +95,11 @@
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
-                    <x-form.input name="date" id="date" type="date" placeholder="{{ __('admin.enter artical of date') }}" />
+                    <x-form.input name="date" id="date" type="date" placeholder="mm/dd/yyyy"  />
                 </div>
                 <div class="filter-item">
                     <label for="to_date">{{ __('admin.To Date') }}:</label>
-                    <x-form.input name="to_date" id="to_date" type="date" placeholder="{{ __('admin.enter artical of date') }}" />
+                    <x-form.input name="to_date" id="to_date" type="date" placeholder="mm/dd/yyyy"  />
                 </div>
                 <div class="filter-item">
                     <label for="category_id">{{ __('admin.Category') }}:</label>

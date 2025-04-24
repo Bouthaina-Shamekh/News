@@ -25,6 +25,8 @@
         <i class="fa fa-angle-double-up"></i>
     </a>
 </div>
+<!-- Include CSS & JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{ asset('assets-new/js/script.js') }}"></script>
 @stack('scripts')
 </body>

@@ -18,6 +18,7 @@
 <script src="{{asset('assets-dashboard/js/plugins/feather.min.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/component.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/theme.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('assets-dashboard/js/script.js')}}"></script>
 
 

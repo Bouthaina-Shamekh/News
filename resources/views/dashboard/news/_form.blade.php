@@ -15,7 +15,7 @@ $name = 'name_' . app()->getLocale();
 
 
     <div class="form-group col-6 mb-3">
-        <x-form.input name="date" label="{{__('admin.Date')}}" :re='true' type="date" placeholder="{{__('admin.enter news of date')}}" required :value="$news->date" />
+        <x-form.input name="date" label="{{__('admin.Date')}}" :re='true' type="date" placeholder="mm/dd/yyyy"  required :value="$news->date" />
     </div>
 
     <!-- <div class="form-group col-6 mb-3">
@@ -51,7 +51,7 @@ $name = 'name_' . app()->getLocale();
 
     <div class="form-group col-6 mb-3">
         <label for="image">{{__('admin.Image View')}}<span style="color: red">*</span></label>
-        
+
         @if ($news->id == null)
         <input type="file" name="img_view" class="form-control" accept="image/*" required />
         @else

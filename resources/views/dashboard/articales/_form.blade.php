@@ -12,7 +12,7 @@
         </div>
         <div class="form-group col-6 mb-3">
             <x-form.input name="date" label="{{ __('admin.Date') }}" :re='true' type="date"
-                placeholder="{{ __('admin.enter artical of date') }}" required :value="$articals->date" />
+                placeholder="mm/dd/yyyy"  required :value="$articals->date" />
         </div>
         <!-- <div class="form-group col-6 mb-3">
             <x-form.input name="place" label="{{ __('admin.Place') }}" type="string" placeholder="{{ __('admin.enter artical of place') }}" required :value="$articals->place" />

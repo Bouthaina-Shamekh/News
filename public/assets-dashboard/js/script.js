@@ -5,14 +5,37 @@ Template Name: Able Pro - Tailwind Admin Template
 Author: Phoenixcoded
 Support: https://phoenixcoded.authordesk.app
 File: script.js
-Description:  this file will contains behavior, properties, 
-              functionality and interactions of a small module of ui element 
+Description:  this file will contains behavior, properties,
+              functionality and interactions of a small module of ui element
               which used to build a theme layout.
 =========================================================================
 =========================================================================
 */
 'use strict';
 var flg = '0';
+// تطبيق Flatpickr على كل الحقول من نوع date
+document.addEventListener("DOMContentLoaded", function () {
+    // اختار كل الحقول التي نوعها date أو تحتوي كلاس مخصص للتاريخ
+    const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker');
+
+    dateInputs.forEach(function (input) {
+      flatpickr(input, {
+        dateFormat: "m/d/Y", // التنسيق الذي يظهر للمستخدم
+        locale: "en",
+        onChange: function(selectedDates, dateStr, instance) {
+          // هنا يتم تحويل التاريخ من "mm/dd/yyyy" إلى "yyyy-mm-dd"
+          const formattedDate = formatDateToISO(dateStr);
+          input.value = formattedDate; // تعيين القيمة المعدلة للحقول
+        }
+      });
+    });
+  });
+
+  // دالة لتنسيق التاريخ إلى الشكل الذي يعتمده السيرفر "yyyy-mm-dd"
+  function formatDateToISO(dateStr) {
+    const [month, day, year] = dateStr.split('/');
+    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
 
 // Function to handle menu click events (collpase menus and it's submenu also collapse)
 
@@ -166,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('.profile-notification-scroll')) {
     new SimpleBar(document.querySelector('.profile-notification-scroll'));
   }
-  
+
   if (document.querySelector('.announcement-scroll-block')) {
     new SimpleBar(document.querySelector('.announcement-scroll-block'));
   }

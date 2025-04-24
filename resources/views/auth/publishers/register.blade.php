@@ -4,9 +4,11 @@
         direction: rtl;
         text-align: right !important;
     }
-    .invalid-feedback{
+
+    .invalid-feedback {
         color: red;
     }
+
 </style>
 <style>
     .password-container {
@@ -31,7 +33,10 @@
         color: #555;
         user-select: none;
     }
-
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        background-color: transparent;
+        opacity: 1;
+    }
 </style>
 <div id="preloader">
     <div class="preloader bg--color-1--b" data-preloader="1">
@@ -58,7 +63,7 @@
                                 <input type="text" value="{{ old('phone') }}" class="form-control" name="phone" id="phone" placeholder="" required />
                             </div>
                             <div class="form-group">
-                                <x-form.input name="email" label="{{ __('admin.Email') }}"  :re="true" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="old('email')" />
+                                <x-form.input name="email" label="{{ __('admin.Email') }}" :re="true" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="old('email')" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -74,7 +79,7 @@
                                     <p style="color: red; float: left">*</p>
                                     تاريخ الميلاد
                                 </label>
-                                <input type="date" value="{{ old('barth_date') }}" class="form-control" name="barth_date" id="barth_date" placeholder="تاريخ الاضافة" required />
+                                <input type="date" placeholder="mm/dd/yyyy" value="{{ old('barth_date') }}" class="form-control" name="barth_date" id="barth_date" placeholder="تاريخ الاضافة" required />
                             </div>
                         </div>
                     </div>
@@ -88,9 +93,9 @@
                                     <span class="toggle-password" onclick="togglePassword(this, 'psw')"><i class="fa fa-eye"></i></span>
                                 </div>
                                 @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
 
@@ -111,9 +116,9 @@
                                     <span class="toggle-password" onclick="togglePassword(this, 'cpsw')"><i class="fa fa-eye"></i></span>
                                 </div>
                                 @error('confirm_password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
 
@@ -177,18 +182,51 @@
 <script src="{{ asset('assets/js/main.js') }}" type="text/javascript"></script>
 <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="|49" defer></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"9120635dabb7b37f","version":"2025.1.0","r":1,"token":"602890b0b80540f5a9da77dde812b1ae","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+
 <script>
     function togglePassword(el, inputId) {
-      const input = document.getElementById(inputId);
-      if (input.type === 'password') {
-        input.type = 'text';
-        el.innerHTML = '<i class="fa fa-eye-slash"></i> ';
-    } else {
-        input.type = 'password';
-        el.innerHTML = '<i class="fa fa-eye"></i>';
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            el.innerHTML = '<i class="fa fa-eye-slash"></i> ';
+        } else {
+            input.type = 'password';
+            el.innerHTML = '<i class="fa fa-eye"></i>';
+        }
     }
-    }
-    </script>
+
+</script>
+<!-- Include CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- Initialize -->
+<script>
+// تطبيق Flatpickr على كل الحقول من نوع date
+document.addEventListener("DOMContentLoaded", function () {
+  // اختار كل الحقول التي نوعها date أو تحتوي كلاس مخصص للتاريخ
+  const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker');
+
+  dateInputs.forEach(function (input) {
+    flatpickr(input, {
+      dateFormat: "m/d/Y", // التنسيق الذي يظهر للمستخدم
+      locale: "en",
+      onChange: function(selectedDates, dateStr, instance) {
+        // هنا يتم تحويل التاريخ من "mm/dd/yyyy" إلى "yyyy-mm-dd"
+        const formattedDate = formatDateToISO(dateStr);
+        input.value = formattedDate; // تعيين القيمة المعدلة للحقول
+      }
+    });
+  });
+});
+
+// دالة لتنسيق التاريخ إلى الشكل الذي يعتمده السيرفر "yyyy-mm-dd"
+function formatDateToISO(dateStr) {
+  const [month, day, year] = dateStr.split('/');
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+}
+
+
+</script>
 </body>
 
 </html>
