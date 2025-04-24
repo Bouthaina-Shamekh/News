@@ -252,6 +252,11 @@
                                         </div>
                                     </div>
                                     <div class="status"></div>
+                                    @if(session('successAdd'))
+                                        <div class="alert alert-success mt-3">
+                                            نجح الإشتراك في الخدمة
+                                        </div>
+                                    @endif
                                 </form>
                             </div>
                         </div>

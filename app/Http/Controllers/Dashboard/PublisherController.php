@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\ActivatePublisherMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+
 
 class PublisherController extends Controller
 {
@@ -63,7 +66,12 @@ class PublisherController extends Controller
 
 
 
-        Publisher::create($request->all());
+        $publisher = Publisher::create($request->all());
+
+        if($publisher->status == 1) {
+            Mail::to($publisher->email)->send(new ActivatePublisherMail($publisher));
+        }
+
 
         return redirect()->route('dashboard.publisher.index')->with('success', __('admin.Iteam created successfully.'));
     }
@@ -143,6 +151,9 @@ class PublisherController extends Controller
         }
         $publishers->update($request->all());
 
+        if($publishers->status == 1) {
+            Mail::to($publishers->email)->send(new ActivatePublisherMail($publishers));
+        }
 
 
         return redirect()->route('dashboard.publisher.index')->with('success', __('Publisher updated successfully.'));
@@ -176,8 +187,10 @@ class PublisherController extends Controller
             $publisher->status = 0;
         }else{
             $publisher->status = 1;
+            Mail::to($publisher->email)->send(new ActivatePublisherMail($publisher));
         }
         $publisher->save();
+
         return response()->json([
             'status' => $publisher->status,
             'message' => __('Publisher status updated successfully.')

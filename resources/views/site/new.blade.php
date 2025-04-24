@@ -324,11 +324,10 @@
                                         {{__('site.subscribe_to_our_newsletter_text')}}
                                     </p>
                                 </div>
-                                <form action="{{ route('site.addEmail') }}" method="post" name="mc-embedded-subscribe-form" target="_blank"
-                                    data-form="mailchimpAjax">
+                                <form action="{{ route('site.addEmail') }}" method="post" name="mc-embedded-subscribe-form" data-form="mailchimpAjax">
                                     @csrf
                                     <div class="input-group">
-                                        <input type="email" name="EMAIL"
+                                        <input type="email" name="email"
                                             placeholder="عنوان بريد الكتروني" class="form-control"
                                             autocomplete="off" required
                                             data-cf-modified-74f1811ed9adbc6538a65f0a-="">
@@ -339,6 +338,11 @@
                                         </div>
                                     </div>
                                     <div class="status"></div>
+                                    @if(session('successAdd'))
+                                        <div class="alert alert-success mt-3">
+                                            نجح الإشتراك في الخدمة
+                                        </div>
+                                    @endif
                                 </form>
                             </div>
                         </div>

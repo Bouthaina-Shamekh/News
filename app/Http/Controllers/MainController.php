@@ -7,6 +7,7 @@ use App\Models\Nw;
 use App\Models\About;
 use App\Models\Visit;
 use App\Mail\SendMail;
+use App\Mail\SubscribeServiceMail;
 use App\Models\Artical;
 use App\Models\Comment;
 use App\Models\Setting;
@@ -209,9 +210,14 @@ class MainController extends Controller
             'email' => 'required|email',
         ]);
         $email = $request->email;
-        DB::table('email')->insert([
-            'email' => $email,
-        ]);
-        return redirect()->back()->with('success', 'Email added successfully');
+        if(DB::table('email')->where('email', $email)->exists()){
+            return redirect()->back()->with('successAdd', true);
+        }else{
+            DB::table('email')->insert([
+                'email' => $email,
+            ]);
+            Mail::to($request->email)->send(new SubscribeServiceMail($email));
+        }
+        return redirect()->back()->with('successAdd', true);
     }
 }
