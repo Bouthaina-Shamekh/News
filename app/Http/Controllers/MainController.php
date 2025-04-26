@@ -76,7 +76,7 @@ class MainController extends Controller
             'placename' => '',
             'phone' => ''
         ]);
-        Mail::to($request->email)->send(new SendMail($data));
+        Mail::to('info@marenapost.com')->send(new SendMail($data));
         return redirect()->back()->with('successSend', true);
     }
 

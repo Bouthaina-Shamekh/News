@@ -44,6 +44,18 @@
                 <div class="main--content col-md-8 col-sm-12" data-sticky-content="true">
                     <div class="sticky-content-inner">
                         <div class="post--author-info clearfix" id="com">
+                            <div class="info">
+                                <h2 class="h4">
+                                    {{-- عن الناشر  --}}
+                                    {{ __('site.about_publisher') }}
+                                </h2>
+                                <div class="content">
+                                    <p>
+                                        {{-- ناشرة في مجلة مارينا بوست  --}}
+                                        {{ __('site.publisher_marina_post') }}
+                                    </p>
+                                </div>
+                            </div>
                             <div class="img">
                                 <div class="vc--parent">
                                     <div class="vc--child">
@@ -57,20 +69,6 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="info">
-                                <h2 class="h4">
-                                    {{-- عن الناشر  --}}
-                                    {{ __('site.about_publisher') }}
-                                </h2>
-                                <div class="content">
-                                    <p>
-                                        {{-- ناشرة في مجلة مارينا بوست  --}}
-                                        {{ __('site.publisher_marina_post') }}
-                                    </p>
-                                </div>
-
                             </div>
                         </div>
                         <div class="page--title ptop--30">
@@ -95,7 +93,7 @@
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link news-title">
+                                                        <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link">
                                                             {{ Illuminate\Support\Str::words($new->$title, 30, '...') }}
                                                         </a>
                                                     </h3>

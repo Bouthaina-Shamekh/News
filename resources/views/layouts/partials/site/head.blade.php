@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="ar">
+<html dir="rtl" lang="ar">
     <head>
         <meta charset="utf-8">
         <title>مارينا بوست </title>

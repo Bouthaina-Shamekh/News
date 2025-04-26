@@ -119,16 +119,19 @@
                     </div>
                     <!--Marena-header.png-->
                     @php
-                        $adsHerder = App\Models\Ad::where('ad_place_id', 8)->first();
+                        $adsHerder = App\Models\Ad::where('ad_place_id', 8)->orderBy('id', 'desc')->first();
                     @endphp
-                    <div class="col-md-8 col-sm-12">
+                    <div class="col-md-8 col-sm-12 ad-header">
                         @if($adsHerder)
                             <a href="{{ $adsHerder->url }}" target="_blank">
                                 <img src="{{ asset('storage/' . $adsHerder->image) }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 90px;">
                             </a>
                         @else
                             <a href="#">
-                                <img src="{{ asset('assets/img/Marena-header.png') }}" alt="jinn" style="border: 1px solid gold;width: 100%; height: 90px;">
+                                <h2 class="h4" style="    direction: rtl;">
+                                    <i class="icon fa fa-bullhorn"></i>
+                                    {{__('admin.Ad')}}
+                                </h2>
                             </a>
                         @endif
                     </div>
@@ -136,7 +139,7 @@
             </div>
         </div>
     </div>
-    <div class="header--navbar style--1 navbar bd--color-1 bg--color-1" data-trigger="sticky">
+    <div class="header--navbar style--1 navbar bd--color-1 bg--color-1 hidden-sm" data-trigger="sticky">
         <div class="container">
             <div id="headerNav" class="navbar-collapse collapse float--right " style='margin-right:30%;'>
                 <span class="close-menu"><i class="fa fa-times"></i></span>

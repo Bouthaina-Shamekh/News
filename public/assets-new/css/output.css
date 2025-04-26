@@ -125,7 +125,7 @@ body {
         object-fit: fill;
     }
     .home-sml-div {
-        margin-bottom: 28px;
+        margin-bottom: 50px;
         height: 340px;
         text-align: right;
     }
@@ -7312,10 +7312,7 @@ ul.scrollmenu a:hover {
     .hid--r{
         font-size: 32px;
     }
-    .post--content p,
-    .post--content ol{
-        font-size: 50px;
-    }
+
     .main--breadcrumb .breadcrumb li a, .main--breadcrumb .breadcrumb li span, .news-updates--list .nav li, .product--item .rating .nav li i, .product--summery .rating .nav>li>i {
         font-size: 36px;
         line-height: 24px;
@@ -7358,9 +7355,67 @@ ul.scrollmenu a:hover {
     .footer--copyright .links>li>a{
         font-size: 34px;
     }
+    .ad-header{
+        border-top: 2px solid #670006;
+        border-bottom: 2px solid #670006;
+        padding: 30px 0;
+    }
+    .post--content * {
+        font-size: 45px;
+        line-height: 1.8;
+    }
+    .post--content ul{
+        padding-right: 130px;
+    }
+    .post--content ul *{
+        font-size: 40px;
+    }
+    .post--content ol{
+        padding-right: 130px;
+    }
+    .post--content ol *{
+        font-size: 40px;
+    }
+    .post--content h3 *,
+    .post--content h4 *,
+    .post--content h5 *,
+    .post--content h6 *,
+    .post--content h1 *,
+    .post--content h2 *{
+        font-size: 55px;
+    }
+
 }
 
 @media (min-width:992px) {
+    .post--content * {
+        font-size: 18px;
+        line-height: 1.8;
+    }
+    .post--content ul{
+        padding-right: 30px;
+    }
+    .post--content ul *{
+        font-size: 17px;
+    }
+    .post--content ol{
+        padding-right: 30px;
+    }
+    .post--content ol *{
+        font-size: 17px;
+    }
+    .post--content h3 *,
+    .post--content h4 *,
+    .post--content h5 *,
+    .post--content h6 *,
+    .post--content h1 *,
+    .post--content h2 *{
+        font-size: 25px;
+    }
+    .ad-header{
+        border: none;
+        padding: 0px 15px;
+    }
     .footer--copyright .links{
         display: block;
     }
@@ -7402,8 +7457,7 @@ ul.scrollmenu a:hover {
         font-size: 20px;
         line-height: 24px;
     }
-    .post--content p,
-    .post--content ol{
+    .post--content{
         font-size: 20px;
     }
     .hid--r{
@@ -7490,7 +7544,7 @@ ul.scrollmenu a:hover {
         width: 100%;
     }
     .nav_logo_img img{
-        width: 87%;
+        width: 77%;
     }
     .hrader_logo_ads{
         display: flex;

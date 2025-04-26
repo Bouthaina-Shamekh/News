@@ -37,6 +37,11 @@
         background-color: transparent;
         opacity: 1;
     }
+    @media (min-width: 992px) {
+        .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
+            float: right;
+        }
+    }
 </style>
 <div id="preloader">
     <div class="preloader bg--color-1--b" data-preloader="1">
@@ -54,19 +59,10 @@
                 <form method="post" action="{{ route('register.store') }}" enctype="multipart/form-data" style="direction: rtl; text-align: right">
                     @csrf
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>
-                                    <p style="color: red; float: left">*</p>
-                                    هاتف
-                                </label>
-                                <input type="text" value="{{ old('phone') }}" class="form-control" name="phone" id="phone" placeholder="" required />
-                            </div>
-                            <div class="form-group">
-                                <x-form.input name="email" label="{{ __('admin.Email') }}" :re="true" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="old('email')" />
-                            </div>
+                        <div class="alert alert-danger" id="error" style="display: none;">
+
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group">
                                 <label>
                                     <p style="color: red; float: left">*</p>
@@ -74,18 +70,35 @@
                                 </label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{ old('name') }}" required />
                             </div>
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group">
                                 <label>
                                     <p style="color: red; float: left">*</p>
                                     تاريخ الميلاد
                                 </label>
-                                <input type="date" placeholder="mm/dd/yyyy" value="{{ old('barth_date') }}" class="form-control" name="barth_date" id="barth_date" placeholder="تاريخ الاضافة" required />
+                                <input type="date" required placeholder="mm/dd/yyyy" value="{{ old('barth_date') }}" class="form-control" name="barth_date" id="barth_date" placeholder="تاريخ الاضافة" required />
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="margin-bottom: 10px">
+                            <div class="form-group">
+                                <label>
+                                    <p style="color: red; float: left">*</p>
+                                    هاتف
+                                </label>
+                                <input type="text" value="{{ old('phone') }}" class="form-control" name="phone" id="phone" placeholder="" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 10px">
+                            <div class="form-group">
+                                <label>
+                                    <p style="color: red; float: left">*</p>
+                                    {{ __('admin.Email') }}
+                                </label>
+                                <x-form.input name="email" type="email" placeholder="{{ __('admin.enter publisher email') }}" required :value="old('email')" />
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group" dir="rtl">
                                 <label for="psw">كلمة المرور</label>
                                 <div class="password-container">
@@ -98,17 +111,8 @@
                                 </div>
                                 @enderror
                             </div>
-
-
-                            <div class="form-group">
-                                <label>
-                                    <p style="color: red; float: left">*</p>
-                                    العنوان
-                                </label>
-                                <textarea rows="5" cols="5" class="form-control" name="address" id="address" required placeholder="" data-cf-modified-="">{{ old('address') }}</textarea>
-                            </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group" dir="rtl">
                                 <label for="cpsw">تأكيد كلمة المرور</label>
                                 <div class="password-container">
@@ -121,17 +125,8 @@
                                 </div>
                                 @enderror
                             </div>
-
-
-                            <div class="form-group">
-                                <label>عن الناشر</label>
-                                <textarea rows="5" cols="5" class="form-control" name="about" id="about" placeholder="" data-cf-modified-="">{{ old('about') }}</textarea>
-                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group">
                                 <label>
                                     مرفقات
@@ -140,7 +135,7 @@
   application/vnd.openxmlformats-officedocument.wordprocessingml.document" value="{{ old('attachments') }}" />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group">
                                 <label>
                                     <p style="color: red; float: left">*</p>
@@ -149,6 +144,22 @@
                                 <input type="file" value="{{ old('pic') }}" required class="form-control" name="pic" placeholder="" accept="image/*" />
                             </div>
                         </div>
+                        <div class="col-md-6" style="margin-bottom: 10px">
+                            <div class="form-group">
+                                <label>
+                                    <p style="color: red; float: left">*</p>
+                                    العنوان
+                                </label>
+                                <textarea rows="5" cols="5" class="form-control" name="address" id="address" required placeholder="" data-cf-modified-="">{{ old('address') }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="margin-bottom: 10px">
+                            <div class="form-group">
+                                <label>عن الناشر</label>
+                                <textarea rows="5" cols="5" class="form-control" name="about" id="about" placeholder="" data-cf-modified-="">{{ old('about') }}</textarea>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="text-end mt-4">
                         <p style="color: red" id="valid"></p>
@@ -201,29 +212,51 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <!-- Initialize -->
 <script>
-// تطبيق Flatpickr على كل الحقول من نوع date
+// تطبيق Flatpickr على جميع الحقول عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", function () {
-  // اختار كل الحقول التي نوعها date أو تحتوي كلاس مخصص للتاريخ
-  const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker');
+  const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker, input.flatpickr-input');
 
   dateInputs.forEach(function (input) {
     flatpickr(input, {
-      dateFormat: "m/d/Y", // التنسيق الذي يظهر للمستخدم
+      altInput: true,
+      altFormat: "m/d/Y",
+      dateFormat: "Y-m-d",
       locale: "en",
-      onChange: function(selectedDates, dateStr, instance) {
-        // هنا يتم تحويل التاريخ من "mm/dd/yyyy" إلى "yyyy-mm-dd"
-        const formattedDate = formatDateToISO(dateStr);
-        input.value = formattedDate; // تعيين القيمة المعدلة للحقول
+      allowInput: true,
+      defaultDate: input.value ? input.value.replace(/\//g, "-") : null,
+      onReady: function (selectedDates, dateStr, instance) {
+        if (instance.altInput) {
+          instance.altInput.setAttribute('required', 'true');
+          instance.altInput.setAttribute('tabindex', '0');
+          instance.altInput.setAttribute('placeholder', 'mm/dd/yyyy');
+        }
+      },
+      onChange: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length > 0) {
+          const dateObj = selectedDates[0];
+          const today = new Date();
+          const age = today.getFullYear() - dateObj.getFullYear();
+
+          // لو العمر أقل من 18 سنة
+          if (age < 18) {
+            $("#error").text('يجب أن يكون عمرك أكثر من 18 سنة!');
+            $("#error").show();
+            instance.clear(); // امسح الحقل (flatpickr نفسه يمسح)
+            return;
+          }
+          $("#error").hide();
+
+          // إذا العمر مقبول، خزنه بطريقة yyyy-mm-dd
+          const year = dateObj.getFullYear();
+          const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+          const day = String(dateObj.getDate()).padStart(2, '0');
+          input.value = `${year}-${month}-${day}`;
+        }
       }
     });
   });
 });
 
-// دالة لتنسيق التاريخ إلى الشكل الذي يعتمده السيرفر "yyyy-mm-dd"
-function formatDateToISO(dateStr) {
-  const [month, day, year] = dateStr.split('/');
-  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-}
 
 
 </script>
