@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/tabler-icons.min.css')}}" />
     <!-- [Feather Icons] https://feathericons.com -->
     <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/feather.css')}}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
     <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/fontawesome.css')}}" />
     <!-- [Material Icons] https://fonts.google.com/icons -->

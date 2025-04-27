@@ -25,9 +25,9 @@
 
     .toggle-password {
         position: absolute;
-        left: 10px;
+        left: 21px;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translate(-50%, -20%);
         cursor: pointer;
         font-size: 18px;
         color: #555;
@@ -100,7 +100,10 @@
                         </div>
                         <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group" dir="rtl">
-                                <label for="psw">كلمة المرور</label>
+                                <label for="psw">
+                                    <p style="color: transparent; float: left">*</p>
+                                    كلمة المرور
+                                </label>
                                 <div class="password-container">
                                     <input type="password" id="psw" name="password" class="form-control" required>
                                     <span class="toggle-password" onclick="togglePassword(this, 'psw')"><i class="fa fa-eye"></i></span>
@@ -114,7 +117,10 @@
                         </div>
                         <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group" dir="rtl">
-                                <label for="cpsw">تأكيد كلمة المرور</label>
+                                <label for="cpsw">
+                                    <p style="color: transparent; float: left">*</p>
+                                    تأكيد كلمة المرور
+                                </label>
                                 <div class="password-container">
                                     <input type="password" id="cpsw" name="confirm_password" class="form-control" required>
                                     <span class="toggle-password" onclick="togglePassword(this, 'cpsw')"><i class="fa fa-eye"></i></span>
@@ -129,6 +135,7 @@
                         <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group">
                                 <label>
+                                    <p style="color: transparent; float: left">*</p>
                                     مرفقات
                                 </label>
                                 <input type="file" class="form-control" name="attachments" placeholder="" accept="image/*,application/pdf,application/msword,
@@ -155,7 +162,10 @@
                         </div>
                         <div class="col-md-6" style="margin-bottom: 10px">
                             <div class="form-group">
-                                <label>عن الناشر</label>
+                                <label>
+                                    <p style="color: transparent; float: left">*</p>
+                                    عن الناشر
+                                </label>
                                 <textarea rows="5" cols="5" class="form-control" name="about" id="about" placeholder="" data-cf-modified-="">{{ old('about') }}</textarea>
                             </div>
                         </div>

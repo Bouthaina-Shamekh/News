@@ -7315,7 +7315,7 @@ ul.scrollmenu a:hover {
 
     .main--breadcrumb .breadcrumb li a, .main--breadcrumb .breadcrumb li span, .news-updates--list .nav li, .product--item .rating .nav li i, .product--summery .rating .nav>li>i {
         font-size: 36px;
-        line-height: 24px;
+        line-height: 1.4;
     }
 
     .about--widget{
