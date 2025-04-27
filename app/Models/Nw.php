@@ -10,6 +10,7 @@ class Nw extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title_org',
         'title_ar',
         'title_en',
         'date',
@@ -17,8 +18,10 @@ class Nw extends Model
         'vedio',
         'img_view',
         'img_article',
+        'text_org',
         'text_ar',
         'text_en',
+        'keyword_org',
         'keyword_ar',
         'keyword_en',
         'place_new',

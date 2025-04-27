@@ -146,7 +146,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title }}</a>
+                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->title_org }}</a>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>
                                     <td>
@@ -159,11 +159,7 @@
                                     <td>{{ Carbon\Carbon::parse($new->date)->format('Y-m-d') }}</td>
                                     <td>{{ $new->created_at->format('Y-m-d') }}</td>
                                     <td>
-                                        @if(app()->getLocale() == 'ar')
-                                            {{ $new->keyword_ar ?? '' }}
-                                        @else
-                                            {{ $new->keyword_en ?? '' }}
-                                        @endif
+                                        {{ $new->keyword_org ?? '' }}
                                     </td>
 
                                     <td>
@@ -212,13 +208,15 @@
                 let accept = "{{__('admin.accept')}}";
                 let not_accepted = "{{__('admin.not accepted yet')}}";
                 $.ajax({
-                    url: '{{ route('dashboard.nw.index') }}',
+                    url: '{{ route('publisher.nw.index') }}',
                     method: 'GET',
                     data: {
                         date: date,
                         to_date: to_date,
                         category_id: category_id,
                         keyword: keyword,
+                        publisher_id : "{{ Auth::guard('publisherGuard')->user() ? Auth::guard('publisherGuard')->user()->id : 0 }}",
+                        status_id : 2,
                     },
                     success: function(data) {
                         $('#footer-search tbody').empty();
@@ -231,11 +229,7 @@
                                         <img src="../../storage/${newsItem.img_view}" width="100" alt="No Image">
                                     </td>
                                     <td>
-                                        @if(app()->getLocale() == 'ar')
-                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_ar}</a>
-                                        @else
-                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_en}</a>
-                                        @endif
+                                        <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_org}</a>
                                     </td>
                                     <td>${newsItem.publisher ? newsItem.publisher.name : ''}</td>
                                     <td>

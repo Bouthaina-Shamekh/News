@@ -4,65 +4,55 @@ $name = 'name_' . app()->getLocale();
 <div class="row">
 
     <div class="form-group col-6 mb-3">
+        <x-form.input name="title_org" label="{{__('admin.Title')}}" type="text" placeholder="{{__('admin.enter news of title')}}" required :value="$news->title_org" />
+    </div>
+    <div class="form-group col-6 mb-3">
         <x-form.input name="title_ar" label="{{__('admin.Title_AR')}}" :re='true' type="text" placeholder="{{__('admin.enter news of title')}}" required :value="$news->title_ar" />
     </div>
-
-
     <div class="form-group col-6 mb-3">
         <x-form.input name="title_en" label="{{__('admin.Title_EN')}}" :re='true' type="text" placeholder="{{__('admin.enter news of title')}}" required :value="$news->title_en" />
     </div>
-
-
-
     <div class="form-group col-6 mb-3">
         <x-form.input name="date" label="{{__('admin.Date')}}" :re='true' type="date" placeholder="mm/dd/yyyy"  required :value="$news->date" />
     </div>
-
     <!-- <div class="form-group col-6 mb-3">
             <x-form.input name="visit" label="{{__('admin.Visit')}}" type="number" placeholder="{{__('admin.enter news')}}" required :value="$news->visit" disabled/>
         </div> -->
     <input type="hidden" name="visit" value="{{ $news->visit }}">
-
-
-
+    <div class="form-group col-12 mb-3">
+        <label for="text_org" class="form-label">{{app()->getLocale() == 'ar' ? 'المحتوى باللغة الأصلية' : 'Content in the original language'}}<span style="color: red">*</span></label>
+        <textarea name="text_org" rows="3" class="form-control mytextarea" required>{!!$news->text_org!!}</textarea>
+    </div>
     <div class="form-group col-12 mb-3">
         <label for="text_ar" class="form-label">{{__('admin.Text_AR')}}<span style="color: red">*</span></label>
         <textarea name="text_ar" rows="3" class="form-control mytextarea" required>{!!$news->text_ar!!}</textarea>
     </div>
-
-
     <div class="form-group col-12 mb-3">
         <label for="text_en" class="form-label">{{__('admin.Text_EN')}}<span style="color: red">*</span></label>
         <textarea name="text_en" rows="3" class="form-control mytextarea">{!!$news->text_en!!}</textarea>
     </div>
-
+    <div class="form-group col-6 mb-3">
+        <x-form.input name="keyword_org" class="TagifyBasic" label="{{app()->getLocale() == 'ar' ? 'الكلمات المفتاحية' : 'Keywords'}}" type="text" placeholder="{{__('admin.enter keyword')}}" required :value="$news->keyword_org" />
+    </div>
     <div class="form-group col-6 mb-3">
         <x-form.input name="keyword_ar" class="TagifyBasic" label="{{__('admin.Keyword_AR')}}" type="text" placeholder="{{__('admin.enter keyword')}}" required :value="$news->keyword_ar" />
     </div>
-
-
     <div class="form-group col-6 mb-3">
         <x-form.input name="keyword_en" class="TagifyBasic" label="{{__('admin.Keyword_EN')}}" type="text" placeholder="{{__('admin.enter keyword')}}" :value="$news->keyword_en" />
     </div>
-
-
-
-
-
     <div class="form-group col-6 mb-3">
         <label for="image">{{__('admin.Image View')}}<span style="color: red">*</span></label>
-
         @if ($news->id == null)
-        <input type="file" name="img_view" class="form-control" accept="image/*" required />
+            <input type="file" name="img_view" class="form-control" accept="image/*" required />
         @else
-        <input type="file" name="img_view" class="form-control" accept="image/*" />
+            <input type="file" name="img_view" class="form-control" accept="image/*" />
         @endif
         <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
         @if ($news->img_view)
-        <div class="d-flex align-items-center justify-content-between mt-3" id="img_view">
-            <img src="{{ asset('storage/' . $news->img_view) }}" alt="Current Image" width="50">
-            {{-- <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('img_view')"><i class="fa fa-trash"></i></button> --}}
-        </div>
+            <div class="d-flex align-items-center justify-content-between mt-3" id="img_view">
+                <img src="{{ asset('storage/' . $news->img_view) }}" alt="Current Image" width="50">
+                {{-- <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('img_view')"><i class="fa fa-trash"></i></button> --}}
+            </div>
         @endif
     </div>
     <div class="form-group col-6 mb-3">

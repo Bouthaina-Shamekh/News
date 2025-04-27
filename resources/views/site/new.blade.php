@@ -3,11 +3,27 @@
         $title = 'title_' . app()->getLocale();
         $name = 'name_' . app()->getLocale();
         $text = 'text_' . app()->getLocale();
+
+        $lang = request()->query('lang') ?? false;
     @endphp
     @push('styles')
         <style>
             .#nav_sider li .post--item .post--img{
                 padding: 0;
+            }
+            .link__org{
+                color: red;
+                font-size: 16px;
+            }
+            @media (min-width: 720px){
+                .link__org{
+                    font-size: 40px;
+                }
+            }
+            @media (min-width: 992px){
+                .link__org{
+                    font-size: 16px;
+                }
             }
         </style>
     @endpush
@@ -78,7 +94,6 @@
                                 </ul>
                             </div>
                             <div class="post--info">
-
                                 <ul class="nav meta">
                                     <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">
                                         {{$new->publisher->name ?? ''}}
@@ -92,8 +107,13 @@
                                     </li>
                                 </ul>
                                 <div class="title dir_rtl">
-                                    <h2 class="h2 text-dark">{{$new->$title}}</h2>
+                                    <h2 class="h2 text-dark">{{$lang == 'org' ? $new->title_org : $new->$title}}</h2>
                                 </div>
+                            </div>
+                            <div style="margin:20px 10px">
+                                <a href="{{route('site.new',$new->slug)}}?lang=org" class="link__org">
+                                    عرض النص باللغة الأصلية *
+                                </a>
                             </div>
                             @if($new->img_article)
                             <div class="post--img">
@@ -101,7 +121,7 @@
                             </div>
                             @endif
                             <div class="post--content dir_rtl">
-                                {!! $new->$text !!}
+                                {!! $lang == 'org' ? $new->text_org : $new->$text !!}
                             </div>
                             @php
                                 $vedio = $new->vedio;

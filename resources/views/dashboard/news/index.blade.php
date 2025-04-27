@@ -149,7 +149,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title }}</a>
+                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title != null && $new->$title != '' ? $new->$title : $new->title_org }}</a>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>
                                     <td>
@@ -239,9 +239,9 @@
                                     </td>
                                     <td>
                                         @if(app()->getLocale() == 'ar')
-                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_ar}</a>
+                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_ar != '' && newsItem.title_ar != null ? newsItem.title_ar : newsItem.title_org}</a>
                                         @else
-                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_en}</a>
+                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_en != '' && newsItem.title_en != null ? newsItem.title_en : newsItem.title_org}</a>
                                         @endif
                                     </td>
                                     <td>${newsItem.publisher ? newsItem.publisher.name : ''}</td>

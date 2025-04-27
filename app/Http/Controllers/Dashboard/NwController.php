@@ -122,6 +122,9 @@ class NwController extends Controller
 
         // Create the news item
         Nw::create([
+            'title_org' => $request->title_org,
+            'text_org' => $request->text_org,
+            'keyword_org' => $request->keyword_org,
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
@@ -189,6 +192,9 @@ class NwController extends Controller
             'publisher_id' => 'nullable',
         ]);
 
+        // Find the news item
+        $news = Nw::where('slug', $slug)->first();
+
         $keywords_ar_text = '';
         if($request->keyword_ar != null){
             $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
@@ -207,8 +213,6 @@ class NwController extends Controller
             'slug' => $slug
         ]);
 
-        // Find the news item
-        $news = Nw::where('slug', $slug)->first();
 
         // Handle image uploads
         $imgViewPath = $news->img_view;
@@ -243,6 +247,9 @@ class NwController extends Controller
 
         // Update the news item
         $news->update([
+            'title_org' => $request->title_org,
+            'text_org' => $request->text_org,
+            'keyword_org' => $request->keyword_org,
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
