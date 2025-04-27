@@ -9,6 +9,7 @@ use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ArticalController extends Controller
 {
@@ -98,9 +99,12 @@ class ArticalController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
+        $slug = Str::slug($request->title_en ?? $request->title_ar);
+        $slug = Str::limit($slug, 255, '');
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',
+            'slug' => $slug
         ]);
         // Handle image uploads
         $imgViewPath = null;
@@ -134,6 +138,7 @@ class ArticalController extends Controller
             'statu_id' => $request->statu_id,
             'publisher_id' => $request->publisher_id,
             'category_id' => $request->category_id,
+            'slug' => $slug
         ]);
 
         return redirect()->route('dashboard.articale.index')->with('success', __('Item created successfully.'));
@@ -150,11 +155,11 @@ class ArticalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($slug)
     {
         $this->authorize('edit', Artical::class);
 
-        $articals = Artical::findOrFail($id);
+        $articals = Artical::where('slug', $slug)->first();
         $status = Statu::all();
         $publishers = Publisher::all();
         $categories = Category::all();
@@ -165,7 +170,7 @@ class ArticalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $slug)
     {
         $this->authorize('edit', Artical::class);
         $request->validate([
@@ -195,13 +200,16 @@ class ArticalController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
+        $slug = Str::slug($request->title_en ?? $request->title_ar);
+        $slug = Str::limit($slug, 255, '');
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',
+            'slug' => $slug
         ]);
 
         // Find the article
-        $articals = Artical::findOrFail($id);
+        $articals = Artical::where('slug', $slug)->first();
 
         $imgViewPath = $articals->img_view;
         // Handle image uploads
@@ -249,6 +257,7 @@ class ArticalController extends Controller
             'category_id' => $request->category_id,
             'img_view' => $imgViewPath,
             'img_article' => $imgArticalPath,
+            'slug' => $slug
         ]);
 
         return redirect()->route('dashboard.articale.index')->with('success', __('admin.Item updated successfully.'));
@@ -257,11 +266,11 @@ class ArticalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($slug)
     {
         $this->authorize('delete', Artical::class);
 
-        $articals = Artical::findOrFail($id);
+        $articals = Artical::where('slug', $slug)->first();
 
         // Delete images from storage
         if($articals->img_view != null){
@@ -280,10 +289,9 @@ class ArticalController extends Controller
         return redirect()->route('dashboard.articale.index')->with('success', __('Item deleted successfully.'));
     }
 
-    public function removeImage(Request $request, string $id)
+    public function removeImage(Request $request, $slug)
     {
-        $article = Artical::findOrFail($id);
-
+        $article = Artical::where('slug', $slug)->first();
         // Delete the image from storage
         if($request->name == 'img_view') {
             if($article->img_view != null){

@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
@@ -76,7 +77,7 @@ class MainController extends Controller
             'placename' => '',
             'phone' => ''
         ]);
-        Mail::to($request->email)->send(new SendMail($data));
+        Mail::to('info@marenapost.com')->send(new SendMail($data));
         return redirect()->back()->with('successSend', true);
     }
 
@@ -100,20 +101,20 @@ class MainController extends Controller
         $newPalces = NewPlace::all();
         return view('site.news', compact('news', 'categories', 'newPalces'));
     }
-    public function new($id)
+    public function new($slug)
     {
-        $new = Nw::findOrFail($id);
+        $new = Nw::where('slug', $slug)->first();
         $news = Nw::orderby('id','desc')->where('statu_id', 2)->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
             'visit' => $new->visit + 1
         ]);
-        $comments = Comment::where('news_id', $id)->get();
+        $comments = Comment::where('news_id', $new->id)->get();
         return view('site.new', compact('new', 'comments','news'));
     }
-    public function newLike(Request $request, $id)
+    public function newLike(Request $request, $slug)
     {
-        $new = Nw::findOrFail($id);
         $type = $request->type;
+        $new = Nw::where('slug', $slug)->first();
         if($type == true){
             $new->update([
                 'like' => $new->like + 1
@@ -155,9 +156,9 @@ class MainController extends Controller
         $newPalces = NewPlace::all();
         return view('site.articles', compact('articles', 'categories', 'newPalces'));
     }
-    public function article($id)
+    public function article($slug)
     {
-        $article = Artical::findOrFail($id);
+        $article = Artical::where('slug', $slug)->first();
         $article->update([
             'visit' => $article->visit + 1
         ]);
@@ -165,10 +166,10 @@ class MainController extends Controller
         return view('site.article', compact('article', 'articles'));
     }
 
-    public function articleLike(Request $request, $id)
+    public function articleLike(Request $request, $slug)
     {
-        $article = Artical::findOrFail($id);
         $type = $request->type;
+        $article = Artical::where('slug', $slug)->first();
         if($type == true){
             $article->update([
                 'like' => $article->like + 1
@@ -219,5 +220,44 @@ class MainController extends Controller
             Mail::to($request->email)->send(new SubscribeServiceMail($email));
         }
         return redirect()->back()->with('successAdd', true);
+    }
+
+
+
+    public function setSlug()
+    {
+        $news = Nw::get();
+        foreach ($news as $new) {
+            $title = $new->title_en ?? $new->title_ar;
+
+            if (empty($title)) {
+                $slug = (string) $new->id; // لو العنوان فاضي، استخدم الـ id
+            } else {
+                $slug = Str::slug($title);
+                $slug = Str::limit($slug, 255, '');
+            }
+
+            $new->update([
+                'slug' => $slug
+            ]);
+        }
+
+        $articles = Artical::get();
+        foreach ($articles as $article) {
+            $title = $article->title_en ?? $article->title_ar;
+
+            if (empty($title)) {
+                $slug = (string) $article->id;
+            } else {
+                $slug = Str::slug($title);
+                $slug = Str::limit($slug, 255, '');
+            }
+
+            $article->update([
+                'slug' => $slug
+            ]);
+        }
+
+        return 'success';
     }
 }

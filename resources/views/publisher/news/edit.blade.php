@@ -4,21 +4,21 @@
     @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
-       
+
         <li class="breadcrumb-item"><a href="{{route('dashboard.nw.index')}}">{{__('admin.News')}}</a></li>
-      
+
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit News')}}</li>
     </x-slot:breadcrumb>
     <div class="col-span-12 xl:col-span-12">
         <div class="col-md-12">
             <div class="card">
-              
+
                 <div class="card-header">
                     <h5>{{__('admin.Edit News')}}</h5>
                 </div>
-                
+
                 <div class="card-body">
-                    <form action="{{route('publisher.nw.index',$news->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('publisher.nw.index',$news->slug) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('publisher.news._form')
@@ -32,7 +32,7 @@
                         </div>
                     </form>
                 </div>
-            
+
             </div>
         </div>
     </div>

@@ -29,8 +29,14 @@ class Nw extends Model
         'statu_id',
         'publisher_id',
         'like',
-        'dislike'
+        'dislike',
+        'slug'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
 
     public function category()

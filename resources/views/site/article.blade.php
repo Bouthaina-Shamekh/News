@@ -4,6 +4,13 @@
         $name = 'name_' . app()->getLocale();
         $text = 'text_' . app()->getLocale();
     @endphp
+    @push('styles')
+        <style>
+            .#nav_sider li .post--item .post--img{
+                padding: 0;
+            }
+        </style>
+    @endpush
     <x-slot:header>
         <div class="main--breadcrumb">
             <div class="container">
@@ -40,12 +47,12 @@
                             <div class="post--cats">
                                 <ul class="nav">
                                     <li><span><i class="fa fa-share"></i></span></li>
-                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'article/' . $article->id}}"
+                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'article/' .  $article->slug}}"
                                                 target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
-                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . 'article/' . $article->id}}"
+                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . 'article/' .  $article->slug}}"
                                                 target="_blank"><i class="fa fa-twitter"></i></a></span></li>
-                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' . $article->id}}"
+                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' .  $article->slug}}"
                                                 target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
                                     <li class="like_v_btn" data-type="true">
                                         <a>
@@ -176,7 +183,7 @@
                             <div class=" style--1">
                                 {{-- <ul class="nav">
                                     <li style="    width: 50%;     float: left;">
-                                        <a href="{{route('author',['id'=>$article->publisher ? $article->publisher->id : 0])}}" class="btn btn-lg btn-default active">
+                                        <a href="{{route('author',['id'=>$article->publisher ? $article->publisher : 0])}}" class="btn btn-lg btn-default active">
                                             اخبار الناشر <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                                         </a>
                                     </li>
@@ -273,23 +280,23 @@
                                         @foreach ($articles as $articleS)
                                         <li>
                                             <div class="post--item post--layout-3">
-                                                <div class="post--img">
-                                                    <a href="{{ route('site.article',$articleS->id) }}" class="thumb" style="float: right;">
-                                                        <img src="{{asset('storage/'.$articleS->img_view)}}" alt="">
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta" style="text-align: center;">
+                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                    <a href="{{ route('site.article', $articleS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
+                                                        <img
+                                                            src="{{ asset('storage/' . $articleS->img_view) }}" alt=""
+                                                            style="object-fit: contain;" /></a>
+                                                    <div class="post--info" style="width: 50%;padding-right: 15px;">
+                                                        <ul class="nav meta">
                                                             <li>
-                                                                <a href="#"></a>
+                                                                <a href="{{ route('site.articles',['c' => $articleS->category_id]) }}" style="background-color: #454545; padding: 2px 10px; border-radius: 7px; color: #fff;">{{ $articleS->category ? $articleS->category->$name : '' }}</a>
                                                             </li>
-                                                            <li>
-                                                                <a href="{{ route('site.article',$articleS->id) }}">{{$articleS->created_at->format('Y-M-d')}}</a>
-                                                            </li>
+                                                            <li><a href="#">{{ $articleS->created_at->format('Y-m-d') }}</a></li>
                                                         </ul>
                                                         <div class="title">
-                                                            <h3 class="h4"
-                                                                style="text-align: end;     padding-right: 27px;">
-                                                                <a href="{{ route('site.article',$articleS->id) }}" class="btn-link">{{$articleS->$title}}</a>
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.article', $articleS->slug)}}" title="{{ $articleS->$title }}" class="btn-link">
+                                                                    {{ Illuminate\Support\Str::words($articleS->$title, 10, '...') }}
+                                                                </a>
                                                             </h3>
                                                         </div>
                                                     </div>
@@ -334,7 +341,7 @@
         $('.like_v_btn').on('click',function(){
             let type = $(this).data('type');
             $.ajax({
-                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{ $article->id }}"),
+                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{  $article->slug }}"),
                 method: 'POST',
                 data: {
                     type: type,

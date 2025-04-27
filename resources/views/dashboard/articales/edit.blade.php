@@ -19,7 +19,7 @@
                  @endcan
                  @can('edit', 'App\Models\Artical')
                 <div class="card-body">
-                    <form action="{{route('dashboard.articale.update',$articals->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.articale.update',$articals->slug) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('dashboard.articales._form')

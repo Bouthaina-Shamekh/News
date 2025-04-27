@@ -10,6 +10,7 @@ use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class NwController extends Controller
 {
@@ -96,6 +97,8 @@ class NwController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
+        $slug = Str::slug($request->title_en ?? $request->title_ar);
+        $slug = Str::limit($slug, 255, '');
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',
@@ -134,6 +137,7 @@ class NwController extends Controller
             'category_id' => $request->category_id,
             'new_place_id' => $request->new_place_id,
             'publisher_id' => $request->publisher_id,
+            'slug' => $slug
         ]);
 
         return redirect()->route('dashboard.nw.index')->with('success', __('Item created successfully.'));
@@ -150,11 +154,10 @@ class NwController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($slug)
     {
         $this->authorize('edit', Nw::class);
-
-        $news = Nw::findOrFail($id);
+        $news = Nw::where('slug', $slug)->first();
         $status = Statu::all();
         $categories = Category::all();
         $newplaces = NewPlace::all();
@@ -166,7 +169,7 @@ class NwController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $slug)
     {
         $this->authorize('edit', Nw::class);
 
@@ -196,13 +199,16 @@ class NwController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
+        $slug = Str::slug($request->title_en ?? $request->title_ar);
+        $slug = Str::limit($slug, 255, '');
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',
+            'slug' => $slug
         ]);
 
         // Find the news item
-        $news = Nw::findOrFail($id);
+        $news = Nw::where('slug', $slug)->first();
 
         // Handle image uploads
         $imgViewPath = $news->img_view;
@@ -252,6 +258,7 @@ class NwController extends Controller
             'img_view' => $imgViewPath,
             'img_article' => $imgArticlePath,
             'vedio' => $vedioPath,
+            'slug' => $slug
         ]);
 
         return redirect()->route('dashboard.nw.index')->with('success', __('admin.Item updated successfully.'));
@@ -260,11 +267,11 @@ class NwController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($slug)
     {
         $this->authorize('delete', Nw::class);
 
-        $news = Nw::findOrFail($id);
+        $news = Nw::where('slug', $slug)->first();
 
         // Delete images from storage
         if($news->img_view != null){
@@ -283,10 +290,9 @@ class NwController extends Controller
         return redirect()->route('dashboard.nw.index')->with('success', __('Item deleted successfully.'));
     }
 
-    public function removeImage(Request $request, string $id)
+    public function removeImage(Request $request, $slug)
     {
-        $news = Nw::findOrFail($id);
-
+        $news = Nw::where('slug', $slug)->first();
         // Delete the image from storage
         if($request->name == 'img_view') {
             if($news->img_view != null){

@@ -34,13 +34,19 @@ Route::group([
         'as' => 'site.',
     ],function(){
         Route::get('/', [MainController::class, 'home'])->name('index');
+
+
+        Route::get('/setSlug', [MainController::class, 'setSlug'])->name('setSlug');
+
+
+
         Route::get('/about', [MainController::class, 'about'])->name('about');
 
-        Route::get('news/{id}', [MainController::class, 'new'])->name('new');
-        Route::post('news/{id}/like', [MainController::class, 'newLike'])->name('new.like');
+        Route::get('news/{new}', [MainController::class, 'new'])->name('new');
+        Route::post('news/{new}/like', [MainController::class, 'newLike'])->name('new.like');
         Route::get('news', [MainController::class, 'news'])->name('news');
-        Route::get('articles/{id}', [MainController::class, 'article'])->name('article');
-        Route::post('articles/{id}/like', [MainController::class, 'articleLike'])->name('article.like');
+        Route::get('articles/{article}', [MainController::class, 'article'])->name('article');
+        Route::post('articles/{article}/like', [MainController::class, 'articleLike'])->name('article.like');
         Route::get('articles', [MainController::class, 'articles'])->name('articles');
         // Route::get('contact', [MainController::class, 'contact'])->name('contact');
         Route::post('comment', [MainController::class, 'comment'])->name('comment');

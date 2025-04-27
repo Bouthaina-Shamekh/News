@@ -63,7 +63,7 @@
                                 <li class="col-md-5 col-sm-12 col-xs-6 col-lg-6 col-xss-12">
                                     <div class="post--item post--layout-2">
                                         <div class="post--img">
-                                            <a href="{{ route('site.new', $new->id)}}" class="thumb"><img
+                                            <a href="{{ route('site.new', $new->slug)}}" class="thumb"><img
                                                     src="{{ asset('storage/' . $new->img_view) }}" alt=""
                                                     style="height: 193px; object-fit: cover;" /></a>
                                             <div class="post--info">
@@ -75,7 +75,7 @@
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link news-title">
+                                                        <a href="{{ route('site.new', $new->slug)}}" title="{{ $new->$title }}" class="btn-link news-title">
                                                             {{ $new->$title }}
                                                         </a>
                                                     </h3>

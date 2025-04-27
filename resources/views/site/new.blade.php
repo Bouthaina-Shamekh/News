@@ -6,13 +6,8 @@
     @endphp
     @push('styles')
         <style>
-        .news-title{
-                display: inline-block !important;
-                max-width: 395px !important;
-                white-space: nowrap;
-                overflow: clip;
-                text-overflow: ellipsis;
-                text-align: start !important;
+            .#nav_sider li .post--item .post--img{
+                padding: 0;
             }
         </style>
     @endpush
@@ -52,13 +47,19 @@
                             </div>
                             <div class="post--cats">
                                 <ul class="nav">
-                                    <li><span><i class="fa fa-share"></i></span></li>
-                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'new/' . $new->id}}"
+                                    <li>
+                                        <span>
+                                            <a href="#">
+                                                <i class="fa fa-share"></i>
+                                            </a>
+                                        </span>
+                                    </li>
+                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'new/' . $new->slug}}"
                                                 target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
-                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$new->$title}}&url={{config('app.url') . 'new/' . $new->id}}"
+                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$new->$title}}&url={{config('app.url') . 'new/' . $new->slug}}"
                                                 target="_blank"><i class="fa fa-twitter"></i></a></span></li>
-                                    <li><span><a href="https://wa.me/?text={{$new->$title}}%20{{config('app.url') . 'new/' . $new->id}}"
+                                    <li><span><a href="https://wa.me/?text={{$new->$title}}%20{{config('app.url') . 'new/' . $new->slug}}"
                                                 target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
                                     <li class="like_v_btn" data-type="true">
                                         <a>
@@ -82,7 +83,7 @@
                                     </a>
                                     </li>
                                     <li><a href="#">{{date('Y-m-d',strtotime($new->created_at))}}</a></li>
-                                    <li><span><i class="fa fm fa-eye"></i>{{$new->visit}}</span></li>
+                                    <li><a href="#"><i class="fa fm fa-eye"></i>{{$new->visit}}</a></li>
                                     {{-- <li><span id="slike"><i class="fa fa-thumbs-up"></i> 0</span></li>
                                     <li><span id="sdislike"><i class="fa fa-thumbs-down"></i> 0</span></li>
                                     <li><a href="#"><i class="fa fm fa-comments-o"></i>0</a> --}}
@@ -217,7 +218,7 @@
                                         {{ __('site.no_worry_text') }}
                                     </p>
                                     <div class="row">
-                                        <input type="hidden" name="nw_id" value="{{$new->id}}">
+                                        <input type="hidden" name="nw_id" value="{{$new->slug}}">
                                         <div class="col-sm-6"> <label>
                                                 <input type="text" value="a" style="display:none;" name="artical">
                                                 <span>{{__('site.comment')}} * </span>
@@ -359,23 +360,23 @@
                                         @foreach ($news as $newS)
                                         <li>
                                             <div class="post--item post--layout-3">
-                                                <div class="post--img">
-                                                    <a href="{{ route('site.new',$newS->id) }}" class="thumb" style="float: right;">
-                                                        <img src="{{asset('storage/'.$newS->img_view)}}" alt="">
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta" style="text-align: center;">
+                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
+                                                        <img
+                                                            src="{{ asset('storage/' . $newS->img_view) }}" alt=""
+                                                            style="object-fit: contain;" /></a>
+                                                    <div class="post--info" style="width: 50%;padding-right: 15px;">
+                                                        <ul class="nav meta">
                                                             <li>
-                                                                <a href="#"></a>
+                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; padding: 2px 10px; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
                                                             </li>
-                                                            <li>
-                                                                <a href="{{ route('site.new',$newS->id) }}">{{$newS->created_at->format('Y-M-d')}}</a>
-                                                            </li>
+                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                         </ul>
                                                         <div class="title">
-                                                            <h3 class="h4"
-                                                                style="text-align: end; padding-right: 27px;">
-                                                                <a href="{{ route('site.new',$newS->id) }}" class="btn-link news-title">{{$newS->$title}}</a>
+                                                            <h3 class="h4">
+                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                    {{ Illuminate\Support\Str::words($newS->$title, 10, '...') }}
+                                                                </a>
                                                             </h3>
                                                         </div>
                                                     </div>
@@ -436,7 +437,7 @@
             let type = $(this).data('type');
             let $btn = $(this);
             $.ajax({
-                url: `{{ route('site.new.like',':id')}}`.replace(':id', "{{ $new->id }}"),
+                url: `{{ route('site.new.like',':id')}}`.replace(':id', "{{ $new->slug }}"),
                 method: 'POST',
                 data: {
                     type: type,

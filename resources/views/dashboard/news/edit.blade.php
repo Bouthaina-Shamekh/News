@@ -19,7 +19,7 @@
                  @endcan
                  @can('edit', 'App\Models\Nw')
                 <div class="card-body">
-                    <form action="{{route('dashboard.nw.update',$news->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.nw.update',$news->slug) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('dashboard.news._form')

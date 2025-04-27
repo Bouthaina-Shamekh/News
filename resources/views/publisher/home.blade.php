@@ -201,7 +201,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('site.new', $new->id) }}" target="_blank" class="title">{{ $new->$title }}</a>
+                                    <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title }}</a>
                                 </td>
                                 <td>{{ $new->publisher->name ?? '' }}</td>
                                 <td>
@@ -329,7 +329,7 @@
                                     </td>
                                 </tr>
                             `;
-                            row = row.replace(/:id/g, newsItem.id);
+                            row = row.replace(/:id/g, newsItem.slug);
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();

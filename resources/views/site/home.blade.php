@@ -33,7 +33,7 @@
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
                                                 <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.new', $slider->id) }}">
+                                                    <a href="{{ route('site.new', $slider->slug) }}">
                                                         <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
                                                     </a>
                                                     <div style=" margin: 0%;height: 70px; margin-top: -76px;">
@@ -114,7 +114,7 @@
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -122,7 +122,7 @@
                                                                         <div class="post--info">
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
                                                                                         {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
                                                                                     </a>
                                                                                 </h5>
@@ -155,7 +155,7 @@
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -163,7 +163,7 @@
                                                                         <div class="post--info">
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
                                                                                         {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
                                                                                     </a>
                                                                                 </h5>
@@ -196,7 +196,7 @@
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -204,7 +204,7 @@
                                                                         <div class="post--info">
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
                                                                                         {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
                                                                                     </a>
                                                                                 </h5>
@@ -320,7 +320,7 @@
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.article', $new->slug) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -328,7 +328,7 @@
                                                                         <div class="post--info">
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.article', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.article', $new->slug) }}" class="btn-link">
                                                                                         {{ $new->$title }}
                                                                                     </a>
                                                                                 </h5>
@@ -361,7 +361,7 @@
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.article', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.article', $new->slug) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -369,7 +369,7 @@
                                                                         <div class="post--info">
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.article', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.article', $new->slug) }}" class="btn-link">
                                                                                         {{ $new->$title }}
                                                                                     </a>
                                                                                 </h5>
@@ -402,7 +402,7 @@
                                                             <div class="post--item post--layout-3">
                                                                 <div class="post--img">
                                                                     <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->id) }}" class="thumb">
+                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
                                                                             <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
                                                                         </a>
                                                                     </div>
@@ -410,7 +410,7 @@
                                                                         <div class="post--info">
                                                                             <div class="title">
                                                                                 <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->id) }}" class="btn-link">
+                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
                                                                                         {{ $new->$title }}
                                                                                     </a>
                                                                                 </h5>
@@ -501,7 +501,7 @@
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
                                                 <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.new', $slider->id) }}">
+                                                    <a href="{{ route('site.new', $slider->slug) }}">
                                                         <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
                                                     </a>
                                                     <div style=" margin: 0%;height: 70px; margin-top: -76px;">
@@ -531,83 +531,76 @@
                     <div class="main--content col-md-12 col-sm-12" data-sticky-content="true" style="float: right;">
                         <div class="sticky-content-inner">
                             <div class="row">
-                                <div class="col-md-12 ptop--30 ">
+                                <div class="col-md-12 ptop--30">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryOne->id])}}">
-                                            {{$categoryOne->$name}}
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
+                                            {{ $categoryOne->$name }}
                                         </a>
                                     </div>
                                 </div>
+
                                 <div class="post--items" data-ajax-content="outer">
-                                    <ul class="nav row gutter--15" data-ajax-content="inner">
-                                        @php
-                                        $articleFirst = $articlesOne->first() ? $articlesOne->first() : \App\Models\Artical::first();
-                                        @endphp
-                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
-                                            <div class="post--item post--layout-1">
-                                                <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $articleFirst->img_view) }}" alt="{{ $articleFirst->$title }}" style="object-fit: cover;" class="imgss">
-                                                    </a>
-                                                    <a href="#" class="cat"></a>
-                                                    <a href="#" class="icon">
-                                                        <i class="fa fa-flash"></i>
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta">
-                                                            <li>
-                                                                <a href="author?id=0"></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href=" #">{{ $articleFirst->created_at->format('Y-m-d') }}</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="title" style="height:80px;">
-                                                            <h3 class="text h4">
-                                                                <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="btn-link text">{{ $articleFirst->$title }}</a>
-                                                            </h3>
+                                    <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                        @foreach($articlesOne->take(7) as $article)
+                                            @if($loop->first)
+                                                {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                    <div class="post--item post--layout-1">
+                                                        <div class="post--img mrg-top-m-34">
+                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                            </a>
+                                                            <div class="post--info">
+                                                                <ul class="nav meta">
+                                                                    <li><a href="author?id=0"></a></li>
+                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                                </ul>
+                                                                <div class="title" style="height:80px;">
+                                                                    <h3 class="text h4">
+                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
-                                            <hr class="divider">
-                                        </li>
-                                        @foreach($articlesOne->skip(1)->take(6) as $article)
-                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
-                                            <div class="post--item post--layout-2">
-                                                <div class="post--img">
-                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta">
-                                                            <li>
-                                                                <a href="author?id=0"></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href=" #">{{ $article->created_at->format('Y-m-d') }}</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
-                                                            <h3 class="h4">
-                                                                <a href="{{ route('site.article', $article->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
-                                                            </h3>
-                                                            <br>
+                                                {{-- فاصل بسيط إن أردت
+                                                <div class="col-xs-12">
+                                                    <hr class="divider">
+                                                </div> --}}
+                                            @else
+                                                {{-- بقية العناصر --}}
+                                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
+                                                    <div class="post--item post--layout-2">
+                                                        <div class="post--img">
+                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                            </a>
+                                                            <div class="post--info">
+                                                                <ul class="nav meta">
+                                                                    <li><a href="author?id=0"></a></li>
+                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                                </ul>
+                                                                <div class="title" style="height: auto;margin-bottom: 7px;">
+                                                                    <h3 class="h4">
+                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
+                                            @endif
                                         @endforeach
-                                    </ul>
+                                    </div>
+
                                     <div class="preloader bg--color-0--b" data-preloader="1">
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
-                                    <a href="{{route('site.articles',['c' => $categoryOne->id])}}" class="btn-link pull-left btn-link--secondary-more">{{__('site.More')}}</a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
@@ -640,83 +633,76 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 ptop--30 ">
+                                <div class="col-md-12 ptop--30">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryTwo->id])}}">
-                                            {{$categoryTwo->$name}}
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
+                                            {{ $categoryTwo->$name }}
                                         </a>
                                     </div>
                                 </div>
+
                                 <div class="post--items" data-ajax-content="outer">
-                                    <ul class="nav row gutter--15" data-ajax-content="inner">
-                                        @php
-                                        $articleFirst = $articlesTwo->first() ? $articlesTwo->first() : \App\Models\Artical::first();
-                                        @endphp
-                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
-                                            <div class="post--item post--layout-1">
-                                                <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $articleFirst->img_view) }}" alt="{{ $articleFirst->$title }}" style="object-fit: cover;" class="imgss">
-                                                    </a>
-                                                    <a href="#" class="cat"></a>
-                                                    <a href="#" class="icon">
-                                                        <i class="fa fa-flash"></i>
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta">
-                                                            <li>
-                                                                <a href="author?id=0"></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href=" #">{{ $articleFirst->created_at->format('Y-m-d') }}</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="title" style="height:80px;">
-                                                            <h3 class="text h4">
-                                                                <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="btn-link text">{{ $articleFirst->$title }}</a>
-                                                            </h3>
+                                    <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                        @foreach($articlesTwo->take(7) as $article)
+                                            @if($loop->first)
+                                                {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                    <div class="post--item post--layout-1">
+                                                        <div class="post--img mrg-top-m-34">
+                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                            </a>
+                                                            <div class="post--info">
+                                                                <ul class="nav meta">
+                                                                    <li><a href="author?id=0"></a></li>
+                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                                </ul>
+                                                                <div class="title" style="height:80px;">
+                                                                    <h3 class="text h4">
+                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
-                                            <hr class="divider">
-                                        </li>
-                                        @foreach($articlesTwo->skip(1)->take(6) as $article)
-                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
-                                            <div class="post--item post--layout-2">
-                                                <div class="post--img">
-                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta">
-                                                            <li>
-                                                                <a href="author?id=0"></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href=" #">{{ $article->created_at->format('Y-m-d') }}</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
-                                                            <h3 class="h4">
-                                                                <a href="{{ route('site.article', $article->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
-                                                            </h3>
-                                                            <br>
+                                                {{-- فاصل بسيط إن أردت
+                                                <div class="col-xs-12">
+                                                    <hr class="divider">
+                                                </div> --}}
+                                            @else
+                                                {{-- بقية العناصر --}}
+                                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
+                                                    <div class="post--item post--layout-2">
+                                                        <div class="post--img">
+                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                            </a>
+                                                            <div class="post--info">
+                                                                <ul class="nav meta">
+                                                                    <li><a href="author?id=0"></a></li>
+                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                                </ul>
+                                                                <div class="title" style="height: auto;margin-bottom: 7px;">
+                                                                    <h3 class="h4">
+                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
+                                            @endif
                                         @endforeach
-                                    </ul>
+                                    </div>
+
                                     <div class="preloader bg--color-0--b" data-preloader="1">
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
-                                    <a href="{{route('site.articles',['c' => $categoryTwo->id])}}" class="btn-link pull-left btn-link--secondary-more">{{__('site.More')}}</a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
@@ -750,88 +736,79 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 ptop--30 ">
+                                <div class="col-md-12 ptop--30">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{route('site.articles',['c' => $categoryThree->id])}}">
-                                            {{$categoryThree->$name}}
+                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
+                                            {{ $categoryThree->$name }}
                                         </a>
                                     </div>
                                 </div>
+
                                 <div class="post--items" data-ajax-content="outer">
-                                    <ul class="nav row gutter--15" data-ajax-content="inner">
-                                        @php
-                                        $articleFirst = $articlesThree->first() ? $articlesThree->first() : \App\Models\Artical::first();
-                                        @endphp
-                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6 ">
-                                            <div class="post--item post--layout-1">
-                                                <div class="post--img mrg-top-m-34">
-                                                    <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $articleFirst->img_view) }}" alt="{{ $articleFirst->$title }}" style="object-fit: cover;" class="imgss">
-                                                    </a>
-                                                    <a href="#" class="cat"></a>
-                                                    <a href="#" class="icon">
-                                                        <i class="fa fa-flash"></i>
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta">
-                                                            <li>
-                                                                <a href="author?id=0"></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href=" #">{{ $articleFirst->created_at->format('Y-m-d') }}</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="title" style="height:80px;">
-                                                            <h3 class="text h4">
-                                                                <a href="{{ route('site.article', $articleFirst->id ?? 0) }}" class="btn-link text">{{ $articleFirst->$title }}</a>
-                                                            </h3>
+                                    <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                        @foreach($articlesThree->take(7) as $article)
+                                            @if($loop->first)
+                                                {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                    <div class="post--item post--layout-1">
+                                                        <div class="post--img mrg-top-m-34">
+                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                            </a>
+                                                            <div class="post--info">
+                                                                <ul class="nav meta">
+                                                                    <li><a href="author?id=0"></a></li>
+                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                                </ul>
+                                                                <div class="title" style="height:80px;">
+                                                                    <h3 class="text h4">
+                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="col-xs-12 col-sm-12 col-md-12 col-lg-6  ">
-                                            <hr class="divider">
-                                        </li>
-                                        @foreach($articlesThree->skip(1)->take(6) as $article)
-                                        <li class="col-xs-4 col-sm-6 col-md-4 col-lg-3 col-xl-3 home-sml-div">
-                                            <div class="post--item post--layout-2">
-                                                <div class="post--img">
-                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
-                                                        <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
-                                                    </a>
-                                                    <div class="post--info">
-                                                        <ul class="nav meta">
-                                                            <li>
-                                                                <a href="author?id=0"></a>
-                                                            </li>
-                                                            <li>
-                                                                <a href=" #">{{ $article->created_at->format('Y-m-d') }}</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="title" style="height: 50px;margin-bottom: 7px;">
-                                                            <h3 class="h4">
-                                                                <a href="{{ route('site.article', $article->id ?? 0) }}" maxlength="80" class="btn-link text">{{ $article->$title }}</a>
-                                                            </h3>
-                                                            <br>
+                                                {{-- فاصل بسيط إن أردت
+                                                <div class="col-xs-12">
+                                                    <hr class="divider">
+                                                </div> --}}
+                                            @else
+                                                {{-- بقية العناصر --}}
+                                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
+                                                    <div class="post--item post--layout-2">
+                                                        <div class="post--img">
+                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                            </a>
+                                                            <div class="post--info">
+                                                                <ul class="nav meta">
+                                                                    <li><a href="author?id=0"></a></li>
+                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                                </ul>
+                                                                <div class="title" style="height: a;margin-bottom: 7px;">
+                                                                    <h3 class="h4">
+                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </li>
+                                            @endif
                                         @endforeach
-                                    </ul>
+                                    </div>
+
                                     <div class="preloader bg--color-0--b" data-preloader="1">
                                         <div class="preloader--inner"></div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
-                                    <a href="{{route('site.articles',['c' => $categoryThree->id])}}" class="btn-link pull-left btn-link--secondary-more">
-                                        {{__('site.More')}}
-                                    </a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
-                            <div class="row" style="display: flex;justify-content: space-between;align-items: center;flex-direction: row-reverse;">
+                            {{-- <div class="row" style="display: flex;justify-content: space-between;align-items: center;flex-direction: row-reverse;">
                                 <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
                                     <div class="row">
                                         <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/rr37.png') }}); background-repeat: no-repeat;">
@@ -840,7 +817,6 @@
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
                                             <h5 style="text-align: left;" class="hid--r">
                                                 <a href="{{ route('site.news') }}" style="color: #fff;">
-                                                    {{-- المزيد من الاخبار --}}
                                                     {{ __('site.more_news') }}
                                                 </a>
                                             </h5>
@@ -853,7 +829,6 @@
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9" style="">
                                             <h5 style="text-align: right;" class="hid--r">
                                                 <a href="{{ route('site.articles') }}" style="color: #fff;">
-                                                    {{-- المزيد من المقالات --}}
                                                     {{ __('site.more_articles') }}
                                                 </a>
                                             </h5>
@@ -863,7 +838,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

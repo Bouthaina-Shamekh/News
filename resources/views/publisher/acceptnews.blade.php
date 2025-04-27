@@ -95,11 +95,11 @@
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
-                    <x-form.input name="date" id="date" type="date" placeholder="{{ __('admin.enter article of date') }}" />
+                    <x-form.input name="date" id="date" type="date" placeholder="mm/dd/yyyy"  />
                 </div>
                 <div class="filter-item">
                     <label for="to_date">{{ __('admin.To Date') }}:</label>
-                    <x-form.input name="to_date" id="to_date" type="date" placeholder="{{ __('admin.enter article of date') }}" />
+                    <x-form.input name="to_date" id="to_date" type="date" placeholder="mm/dd/yyyy"  />
                 </div>
                 <div class="filter-item">
                     <label for="category_id">{{ __('admin.Category') }}:</label>
@@ -146,7 +146,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('site.new', $new->id) }}" target="_blank" class="title">{{ $new->$title }}</a>
+                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title }}</a>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>
                                     <td>
@@ -275,7 +275,7 @@
                                     </td>
                                 </tr>
                             `;
-                            row = row.replace(/:id/g, newsItem.id);
+                            row = row.replace(/:id/g, newsItem.slug);
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();

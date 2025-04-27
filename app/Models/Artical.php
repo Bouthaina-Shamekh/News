@@ -26,10 +26,14 @@ class Artical extends Model
         'keyword_ar',
         'keyword_en',
         'like',
-        'dislike'
+        'dislike',
+        'slug'
     ];
 
-
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function category()
     {
