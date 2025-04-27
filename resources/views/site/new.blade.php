@@ -47,7 +47,13 @@
                             </div>
                             <div class="post--cats">
                                 <ul class="nav">
-                                    <li><span><i class="fa fa-share"></i></span></li>
+                                    <li>
+                                        <span>
+                                            <a href="#">
+                                                <i class="fa fa-share"></i>
+                                            </a>
+                                        </span>
+                                    </li>
                                     <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'new/' . $new->id}}"
                                                 target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
@@ -77,7 +83,7 @@
                                     </a>
                                     </li>
                                     <li><a href="#">{{date('Y-m-d',strtotime($new->created_at))}}</a></li>
-                                    <li><span><i class="fa fm fa-eye"></i>{{$new->visit}}</span></li>
+                                    <li><a href="#"><i class="fa fm fa-eye"></i>{{$new->visit}}</a></li>
                                     {{-- <li><span id="slike"><i class="fa fa-thumbs-up"></i> 0</span></li>
                                     <li><span id="sdislike"><i class="fa fa-thumbs-down"></i> 0</span></li>
                                     <li><a href="#"><i class="fa fm fa-comments-o"></i>0</a> --}}

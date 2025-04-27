@@ -600,7 +600,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }}</a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
@@ -702,7 +702,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }}</a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
@@ -805,7 +805,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }}</a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             {{-- <div class="row" style="display: flex;justify-content: space-between;align-items: center;flex-direction: row-reverse;">

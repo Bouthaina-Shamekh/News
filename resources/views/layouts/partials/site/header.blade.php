@@ -139,7 +139,7 @@
             </div>
         </div>
     </div>
-    <div class="header--navbar style--1 navbar bd--color-1 bg--color-1 hidden-sm" data-trigger="sticky">
+    <div class="header--navbar style--1 navbar bd--color-1 bg--color-1" data-trigger="sticky">
         <div class="container">
             <div id="headerNav" class="navbar-collapse collapse float--right " style='margin-right:30%;'>
                 <span class="close-menu"><i class="fa fa-times"></i></span>
