@@ -122,3 +122,38 @@ updateDateTime(); // Run immediately
 // Function to update the weatherwidget every second
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 // end of weather widget function
+
+
+// تطبيق Flatpickr على جميع الحقول عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", function () {
+    const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker, input.flatpickr-input');
+
+    dateInputs.forEach(function (input) {
+      flatpickr(input, {
+        altInput: true, // إنشاء حقل عرض بديل للمستخدم
+        altFormat: "m/d/Y", // عرض للمستخدم بصيغة mm/dd/yyyy (تصحيح الكومنت كمان)
+        dateFormat: "Y-m-d", // القيمة المخزنة في input الأساسي hidden بصيغة yyyy-mm-dd
+        locale: "en", // لغة التقويم
+        allowInput: true, // عدم السماح بالكتابة اليدوية
+        defaultDate: input.value ? input.value.replace(/\//g, "-") : null, // تأكد من تنسيق التاريخ عند الفتح
+        onReady: function (selectedDates, dateStr, instance) {
+          if (instance.altInput) {
+            instance.altInput.setAttribute('required', 'true'); // إضافة required للحقل الظاهر
+            instance.altInput.setAttribute('tabindex', '0'); // للتنقل الصحيح بلوحة المفاتيح
+            instance.altInput.setAttribute('placeholder', 'mm/dd/yyyy'); // placeholder واضح
+          }
+        },
+        onChange: function (selectedDates, dateStr, instance) {
+          if (selectedDates.length > 0) {
+            const dateObj = selectedDates[0];
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            input.value = `${year}-${month}-${day}`; // تخزين التاريخ بشكل yyyy-mm-dd داخل input الأصلي
+          } else {
+            input.value = ''; // لو مسح المستخدم التاريخ
+          }
+        }
+      });
+    });
+  });

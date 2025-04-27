@@ -8,6 +8,7 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\Admin;
 use App\Models\Publisher;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,7 +124,7 @@ class FortifyServiceProvider extends ServiceProvider
                 return $publisher; // ✅ رجع الكائن المصادق عليه
             }
             if (Config::get('fortify.guard') === 'admin') {
-                $admin = Admin::where('email', $request->email)->first();
+                $admin = User::where('email', $request->email)->first();
 
                 if (!$admin || !Hash::check($request->password, $admin->password)) {
                     return null; // فشل المصادقة

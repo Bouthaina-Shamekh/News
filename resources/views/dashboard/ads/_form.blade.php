@@ -46,11 +46,11 @@
 
     <div class="form-group col-6 mb-3">
         <x-form.input name="date" label="{{ __('admin.Ad Date') }}" :re="true" type="date"
-            placeholder="{{ __('admin.enter date') }}" required :value="$ads->date" />
+            required :value="$ads->date" placeholder="mm/dd/yyyy"  />
     </div>
     <div class="form-group col-6 mb-3">
         <x-form.input name="end_date" label="{{ __('admin.To Date') }}" :re="true" type="date"
-            placeholder="{{ __('admin.enter date') }}" required :value="$ads->end_date" />
+            required :value="$ads->end_date" placeholder="mm/dd/yyyy"  />
     </div>
 
     <input type="hidden" name="visit" value="{{ $ads->visit ?? 0 }}">

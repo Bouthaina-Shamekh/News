@@ -30,7 +30,7 @@
 </div>
 
 <div class="form-group col-6 mb-3">
-    <x-form.input name="birth_of_date" label="{{ __('admin.Birth of Date') }}" :re="true" type="date" placeholder="{{ __('admin.enter publisher Birth of Date') }}" required :value="$publishers->birth_of_date" />
+    <x-form.input name="birth_of_date" label="{{ __('admin.Birth of Date') }}" :re="true" type="date" placeholder="mm/dd/yyyy"  required :value="$publishers->birth_of_date" />
 </div>
 
 <div class="form-group col-6 mb-3">

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="ar">
+<html dir="rtl" lang="ar">
     <head>
         <meta charset="utf-8">
         <title>مارينا بوست </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="stylesheet " href="{{ asset('assets-new/css/font-awesome.min.css') }}">
         <link rel="stylesheet " href="{{ asset('assets-new/css/bootstrap.min.css') }}">
         <link rel="stylesheet " href="{{ asset('assets-new/css/fontawesome-stars-o.min.css') }}">

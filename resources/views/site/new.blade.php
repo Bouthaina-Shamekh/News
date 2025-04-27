@@ -54,7 +54,9 @@
                                             </a>
                                         </span>
                                     </li>
+
                                     <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'new/' . $new->slug}}"
+
                                                 target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
                                     <li><span><a href="https://twitter.com/intent/tweet?text={{$new->$title}}&url={{config('app.url') . 'new/' . $new->slug}}"
@@ -361,7 +363,9 @@
                                         <li>
                                             <div class="post--item post--layout-3">
                                                 <div class="post--img" style="display: flex; align-items: center;">
+
                                                     <a href="{{ route('site.new', $newS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
+
                                                         <img
                                                             src="{{ asset('storage/' . $newS->img_view) }}" alt=""
                                                             style="object-fit: contain;" /></a>
@@ -374,7 +378,9 @@
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4">
+
                                                                 <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+
                                                                     {{ Illuminate\Support\Str::words($newS->$title, 10, '...') }}
                                                                 </a>
                                                             </h3>

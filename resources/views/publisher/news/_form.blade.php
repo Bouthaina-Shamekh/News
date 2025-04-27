@@ -15,7 +15,7 @@
 
 
         <div class="form-group col-6 mb-3">
-            <x-form.input name="date" label="{{__('admin.Date')}}" :re="true" type="date" required :value="$news->date" />
+            <x-form.input name="date" label="{{__('admin.Date')}}" placeholder="mm/dd/yyyy"  :re="true" type="date" required :value="$news->date" />
         </div>
 
 

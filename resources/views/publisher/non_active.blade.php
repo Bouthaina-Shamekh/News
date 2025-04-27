@@ -1,10 +1,10 @@
 @include('layouts.partials.publisher.head',['title' => 'User is not active'])
 
-{{-- @if(Auth::guard('publisherGuard')->user()->status == 1)
+@if(Auth::guard('publisherGuard')->user()->status == 1)
     <script>
         window.location.href = "{{ route('publisher.home') }}";
     </script>
-@endif --}}
+@endif
 
 <div class="auth-main relative">
     <div class="auth-wrapper v1 flex items-center w-full h-full min-h-screen">
@@ -16,9 +16,9 @@
                     <div class="flex justify-center items-end mb-4">
                         <h3 class="text-center">
                             @if(app()->getLocale() == 'ar')
-                                شكرا لتسجيلك في موقع ماريتا بوست الرجاء الإنتظار لحين الموافقة على المستخدم من قبل الإدارة
+                                شكرا لتسجيلك في موقع مارينا بوست الرجاء الإنتظار لحين الموافقة على المستخدم من قبل الإدارة
                             @else
-                                Thank you for registering on the Marietta Post website. Please wait until the user is approved by the administration
+                                Thank you for registering on the Marina Post website. Please wait until the user is approved by the administration
                             @endif
                         </h3>
                     </div>

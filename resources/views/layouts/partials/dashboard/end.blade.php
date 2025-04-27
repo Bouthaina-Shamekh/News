@@ -18,6 +18,7 @@
 <script src="{{asset('assets-dashboard/js/plugins/feather.min.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/component.js')}}"></script>
 <script src="{{asset('assets-dashboard/js/theme.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('assets-dashboard/js/script.js')}}"></script>
 
 
@@ -67,13 +68,12 @@
     main_layout_change('vertical');
 </script>
 
-
 {{-- <script
   src="https://code.jquery.com/jquery-3.7.1.min.js"
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
   crossorigin="anonymous"></script>
 
-<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script src="https://js.pusher.com/7.2/pusher.min.js"></scrip>
   <script>
 
     // Enable pusher logging - don't include this in production

@@ -5,14 +5,49 @@ Template Name: Able Pro - Tailwind Admin Template
 Author: Phoenixcoded
 Support: https://phoenixcoded.authordesk.app
 File: script.js
-Description:  this file will contains behavior, properties, 
-              functionality and interactions of a small module of ui element 
+Description:  this file will contains behavior, properties,
+              functionality and interactions of a small module of ui element
               which used to build a theme layout.
 =========================================================================
 =========================================================================
 */
 'use strict';
 var flg = '0';
+
+// تطبيق Flatpickr على جميع الحقول عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", function () {
+    const dateInputs = document.querySelectorAll('input[type="date"], input.datepicker, input.flatpickr-input');
+
+    dateInputs.forEach(function (input) {
+      flatpickr(input, {
+        altInput: true, // إنشاء حقل عرض بديل للمستخدم
+        altFormat: "m/d/Y", // عرض للمستخدم بصيغة mm/dd/yyyy (تصحيح الكومنت كمان)
+        dateFormat: "Y-m-d", // القيمة المخزنة في input الأساسي hidden بصيغة yyyy-mm-dd
+        locale: "en", // لغة التقويم
+        allowInput: true, // عدم السماح بالكتابة اليدوية
+        defaultDate: input.value ? input.value.replace(/\//g, "-") : null, // تأكد من تنسيق التاريخ عند الفتح
+        onReady: function (selectedDates, dateStr, instance) {
+          if (instance.altInput) {
+            instance.altInput.setAttribute('required', 'true'); // إضافة required للحقل الظاهر
+            instance.altInput.setAttribute('tabindex', '0'); // للتنقل الصحيح بلوحة المفاتيح
+            instance.altInput.setAttribute('placeholder', 'mm/dd/yyyy'); // placeholder واضح
+          }
+        },
+        onChange: function (selectedDates, dateStr, instance) {
+          if (selectedDates.length > 0) {
+            const dateObj = selectedDates[0];
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            input.value = `${year}-${month}-${day}`; // تخزين التاريخ بشكل yyyy-mm-dd داخل input الأصلي
+          } else {
+            input.value = ''; // لو مسح المستخدم التاريخ
+          }
+        }
+      });
+    });
+  });
+
 
 // Function to handle menu click events (collpase menus and it's submenu also collapse)
 
@@ -166,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('.profile-notification-scroll')) {
     new SimpleBar(document.querySelector('.profile-notification-scroll'));
   }
-  
+
   if (document.querySelector('.announcement-scroll-block')) {
     new SimpleBar(document.querySelector('.announcement-scroll-block'));
   }

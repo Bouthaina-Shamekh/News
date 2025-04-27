@@ -93,7 +93,9 @@
                                                 </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
+
                                                         <a href="{{ route('site.new', $new->slug)}}" title="{{ $new->$title }}" class="btn-link">
+
                                                             {{ Illuminate\Support\Str::words($new->$title, 30, '...') }}
                                                         </a>
                                                     </h3>

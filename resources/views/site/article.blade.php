@@ -281,7 +281,10 @@
                                         <li>
                                             <div class="post--item post--layout-3">
                                                 <div class="post--img" style="display: flex; align-items: center;">
+
                                                     <a href="{{ route('site.article', $articleS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
+
+                                                   
                                                         <img
                                                             src="{{ asset('storage/' . $articleS->img_view) }}" alt=""
                                                             style="object-fit: contain;" /></a>
@@ -294,7 +297,9 @@
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4">
+
                                                                 <a href="{{ route('site.article', $articleS->slug)}}" title="{{ $articleS->$title }}" class="btn-link">
+
                                                                     {{ Illuminate\Support\Str::words($articleS->$title, 10, '...') }}
                                                                 </a>
                                                             </h3>

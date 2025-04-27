@@ -103,7 +103,7 @@
     <div class="footer--copyright bg--color-3">
         <div class="social--bg bg--color-1"></div>
         <div class="container">
-            <p class="text float--left" style="color:#fff;">&copy; 2022 . جميع الحقوق محفوظة لدى.
+            <p class="text float--left" style="color:#fff;">&copy; 2025 . جميع الحقوق محفوظة.
                 <a href="{{route('site.index')}}" style="color:white;">مارينا بوست</a>
             </p>
 

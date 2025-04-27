@@ -125,9 +125,11 @@ body {
         object-fit: fill;
     }
     .home-sml-div {
+
         margin-bottom: 10px;
         height: auto;
-        text-align: right;
+
+       
     }
     .post--items-2 ul .home-sml-div {
         margin-bottom: 5010pxpx;
