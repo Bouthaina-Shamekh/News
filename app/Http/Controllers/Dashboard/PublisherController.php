@@ -69,7 +69,7 @@ class PublisherController extends Controller
         $publisher = Publisher::create($request->all());
 
         if($publisher->status == 1) {
-            Mail::to($publisher->email)->send(new ActivatePublisherMail($publisher));
+            // Mail::to($publisher->email)->send(new ActivatePublisherMail($publisher));
         }
 
 
@@ -152,7 +152,7 @@ class PublisherController extends Controller
         $publishers->update($request->all());
 
         if($publishers->status == 1) {
-            Mail::to($publishers->email)->send(new ActivatePublisherMail($publishers));
+            // Mail::to($publishers->email)->send(new ActivatePublisherMail($publishers));
         }
 
 
@@ -187,7 +187,7 @@ class PublisherController extends Controller
             $publisher->status = 0;
         }else{
             $publisher->status = 1;
-            Mail::to($publisher->email)->send(new ActivatePublisherMail($publisher));
+            // Mail::to($publisher->email)->send(new ActivatePublisherMail($publisher));
         }
         $publisher->save();
 

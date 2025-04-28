@@ -7,25 +7,7 @@
         $lang = request()->query('lang') ?? false;
     @endphp
     @push('styles')
-        <style>
-            .#nav_sider li .post--item .post--img{
-                padding: 0;
-            }
-            .link__org{
-                color: red;
-                font-size: 16px;
-            }
-            @media (min-width: 720px){
-                .link__org{
-                    font-size: 40px;
-                }
-            }
-            @media (min-width: 992px){
-                .link__org{
-                    font-size: 16px;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
     @endpush
     <x-slot:header>
         <div class="main--breadcrumb">

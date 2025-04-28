@@ -77,7 +77,7 @@ class MainController extends Controller
             'placename' => '',
             'phone' => ''
         ]);
-        Mail::to('info@marenapost.com')->send(new SendMail($data));
+        // Mail::to('info@marenapost.com')->send(new SendMail($data));
         return redirect()->back()->with('successSend', true);
     }
 
@@ -217,7 +217,7 @@ class MainController extends Controller
             DB::table('email')->insert([
                 'email' => $email,
             ]);
-            Mail::to($request->email)->send(new SubscribeServiceMail($email));
+            // Mail::to($request->email)->send(new SubscribeServiceMail($email));
         }
         return redirect()->back()->with('successAdd', true);
     }

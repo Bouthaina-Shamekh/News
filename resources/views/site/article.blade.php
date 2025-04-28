@@ -5,12 +5,8 @@
         $text = 'text_' . app()->getLocale();
     @endphp
     @push('styles')
-        <style>
-            .#nav_sider li .post--item .post--img{
-                padding: 0;
-            }
-        </style>
-    @endpush
+    <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
+@endpush
     <x-slot:header>
         <div class="main--breadcrumb">
             <div class="container">
@@ -284,7 +280,7 @@
 
                                                     <a href="{{ route('site.article', $articleS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
 
-                                                   
+
                                                         <img
                                                             src="{{ asset('storage/' . $articleS->img_view) }}" alt=""
                                                             style="object-fit: contain;" /></a>
