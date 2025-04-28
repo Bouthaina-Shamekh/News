@@ -287,8 +287,8 @@ return [
     'Site_en' => 'Site_en',
     'Logo Icon' => 'Logo Icon',
     'Logo' => '',
-    '' => '',
-    '' => '',
+    'View News Admin' => 'View News Admin',
+    'View News Publisher' => 'View News Publisher',
     '' => '',
     '' => '',
 ];

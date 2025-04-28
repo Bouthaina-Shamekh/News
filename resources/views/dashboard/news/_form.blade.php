@@ -4,7 +4,7 @@ $name = 'name_' . app()->getLocale();
 <div class="row">
 
     <div class="form-group col-6 mb-3">
-        <x-form.input name="title_org" label="{{__('admin.Title')}}" type="text" placeholder="{{__('admin.enter news of title')}}" required :value="$news->title_org" />
+        <x-form.input name="title_org" label="{{__('admin.Title')}}" type="text" placeholder="{{__('admin.enter news of title')}}" :value="$news->title_org" />
     </div>
     <div class="form-group col-6 mb-3">
         <x-form.input name="title_ar" label="{{__('admin.Title_AR')}}" :re='true' type="text" placeholder="{{__('admin.enter news of title')}}" required :value="$news->title_ar" />
@@ -20,8 +20,8 @@ $name = 'name_' . app()->getLocale();
         </div> -->
     <input type="hidden" name="visit" value="{{ $news->visit }}">
     <div class="form-group col-12 mb-3">
-        <label for="text_org" class="form-label">{{app()->getLocale() == 'ar' ? 'المحتوى باللغة الأصلية' : 'Content in the original language'}}<span style="color: red">*</span></label>
-        <textarea name="text_org" rows="3" class="form-control mytextarea" required>{!!$news->text_org!!}</textarea>
+        <label for="text_org" class="form-label">{{app()->getLocale() == 'ar' ? 'المحتوى باللغة الأصلية' : 'Content in the original language'}}</label>
+        <textarea name="text_org" rows="3" class="form-control mytextarea">{!!$news->text_org!!}</textarea>
     </div>
     <div class="form-group col-12 mb-3">
         <label for="text_ar" class="form-label">{{__('admin.Text_AR')}}<span style="color: red">*</span></label>
@@ -32,7 +32,7 @@ $name = 'name_' . app()->getLocale();
         <textarea name="text_en" rows="3" class="form-control mytextarea">{!!$news->text_en!!}</textarea>
     </div>
     <div class="form-group col-6 mb-3">
-        <x-form.input name="keyword_org" class="TagifyBasic" label="{{app()->getLocale() == 'ar' ? 'الكلمات المفتاحية' : 'Keywords'}}" type="text" placeholder="{{__('admin.enter keyword')}}" required :value="$news->keyword_org" />
+        <x-form.input name="keyword_org" class="TagifyBasic" label="{{app()->getLocale() == 'ar' ? 'الكلمات المفتاحية' : 'Keywords'}}" type="text" placeholder="{{__('admin.enter keyword')}}" :value="$news->keyword_org" />
     </div>
     <div class="form-group col-6 mb-3">
         <x-form.input name="keyword_ar" class="TagifyBasic" label="{{__('admin.Keyword_AR')}}" type="text" placeholder="{{__('admin.enter keyword')}}" required :value="$news->keyword_ar" />
@@ -118,15 +118,29 @@ $name = 'name_' . app()->getLocale();
 
 
 
+    @if($news->id != null)
     <div class="form-group col-6 mb-3">
         <label for="publisher_id" class="form-label">{{__('admin.Publisher')}}<span style="color: red">*</span></label>
-        <select id="publisher_id" name="publisher_id" class="form-control" required>
-            <option value="" disabled selected>{{__('admin.Choose')}}</option>
-            @foreach ($publishers as $publisher)
-            <option value="{{$publisher->id}}" @selected( $news->publisher_id == $publisher->id)>{{$publisher->name}}</option>
-            @endforeach
-        </select>
+        @if($news->publisher_id == 0)
+        <input type="hidden" name="publisher_id" value="0">
+        <x-form.input value="{{__('admin.Admin')}}" disabled/>
+        @else
+            <input type="hidden" name="publisher_id" value="{{$news->publisher_id}}">
+            <select id="publisher_id" name="publisher_id" class="form-control" required disabled>
+                <option value="" disabled selected>{{__('admin.Choose')}}</option>
+                @foreach ($publishers as $publisher)
+                    <option value="{{$publisher->id}}" @selected( $news->publisher_id == $publisher->id)>{{$publisher->name}}</option>
+                @endforeach
+            </select>
+        @endif
     </div>
+    @else
+    <div class="form-group col-6 mb-3">
+        {{-- <label for="publisher_id" class="form-label">{{__('admin.Publisher')}}<span style="color: red">*</span></label> --}}
+        <input type="hidden" name="publisher_id" value="0">
+    </div>
+    @endif
+
 
 </div>
 

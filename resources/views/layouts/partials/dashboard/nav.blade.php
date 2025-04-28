@@ -154,8 +154,13 @@
 
                         <!-- @can('view', 'App\Models\Nw') -->
                         <li class="pc-item">
-                            <a class="pc-link" href="{{route('dashboard.nw.index')}}">
-                                {{__('admin.View News')}}
+                            <a class="pc-link" href="{{route('dashboard.nw.index',['publisher' => 'Admin'])}}">
+                                {{__('admin.View News Admin')}}
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.nw.index',['publisher' => 'Publisher'])}}">
+                                {{__('admin.View News Publisher')}}
                             </a>
                         </li>
                         <!-- @endcan -->

@@ -24,6 +24,13 @@ class NwController extends Controller
         $news = Nw::with(['newplace','category','publisher','status'])->orderBy('id','desc');
         $categories  = Category::get();
         $request = request();
+        if($request->publisher != null){
+            if($request->publisher == 'Admin'){
+                $news = $news->where('publisher_id', null)->orWhere('publisher_id', 0);
+            }else{
+                $news = $news->where('publisher_id', '!=', 0)->where('publisher_id', '!=', null);
+            }
+        }
         if($request->ajax()){
             if($request->keyword != null){
                 $decoded_en = json_decode($request->keyword, true); // نحول الـ JSON إلى مصفوفة

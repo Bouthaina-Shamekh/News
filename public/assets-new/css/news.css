@@ -9,6 +9,13 @@
 .post--info .meta > li > a{
     padding: 15px 13px !important;
 }
+.post--item.post--layout-3 .post--img .thumb{
+    max-width: 279px;
+}
+.post--info-3{
+    width: 60%;
+    padding-right: 5px;
+}
 /* لما يكون العرض 768px أو أكثر (آيباد ولابتوب) */
 @media (min-width: 992px) {
     .grid-container {
@@ -20,6 +27,13 @@
     }
     .post--info .meta > li > a{
         padding: 2px 6px !important;
+    }
+    .post--item.post--layout-3 .post--img .thumb{
+        max-width: 100px;
+    }
+    .post--info-3{
+        width: 80%;
+        padding-right: 12px;
     }
 }
 .news-title {

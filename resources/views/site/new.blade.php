@@ -368,7 +368,7 @@
                                                     <a href="{{ route('site.new', $newS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                     </a>
-                                                    <div class="post--info" style="width: 50%;padding-right: 15px;">
+                                                    <div class="post--info post--info-3">
                                                         <ul class="nav meta">
                                                             <li>
                                                                 <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; padding: 2px 6px; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
