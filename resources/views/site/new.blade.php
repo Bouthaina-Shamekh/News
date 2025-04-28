@@ -383,24 +383,19 @@
                                         <li>
                                             <div class="post--item post--layout-3">
                                                 <div class="post--img" style="display: flex; align-items: center;">
-
                                                     <a href="{{ route('site.new', $newS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
-
-                                                        <img
-                                                            src="{{ asset('storage/' . $newS->img_view) }}" alt=""
-                                                            style="object-fit: contain;" /></a>
+                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                    </a>
                                                     <div class="post--info" style="width: 50%;padding-right: 15px;">
                                                         <ul class="nav meta">
                                                             <li>
-                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; padding: 2px 10px; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; padding: 2px 6px; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
                                                             </li>
                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4">
-
                                                                 <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
-
                                                                     {{ Illuminate\Support\Str::words($newS->$title, 10, '...') }}
                                                                 </a>
                                                             </h3>

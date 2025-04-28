@@ -65,7 +65,7 @@
                                         <div class="post--img">
                                             <a href="{{ route('site.new', $new->slug)}}" class="thumb"><img
                                                     src="{{ asset('storage/' . $new->img_view) }}" alt=""
-                                                    style="height: 193px; object-fit: cover;" /></a>
+                                                    style="height: 193px; object-fit: fill;" /></a>
                                             <div class="post--info">
                                                 <ul class="nav meta">
                                                     <li>

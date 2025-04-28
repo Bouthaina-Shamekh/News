@@ -104,124 +104,106 @@
                                                 <div class="tab-pane fade" id="nav-home" role="tabpanel"
                                                     aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
-                                                    <ul class="nav" id="nav_sider">
-                                                        @php
+                                                    @php
                                                         $breaking_news = App\Models\Nw::where('new_place_id', 6)->where('statu_id', 2)->orderBy('id','desc')->get()->take(3);
-                                                        @endphp
-                                                        <!-- Example content for أحدث الأخبار -->
-                                                        @foreach ($breaking_news as $new)
+                                                    @endphp
+                                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                                        @foreach ($breaking_news as $newS)
                                                         <li>
-                                                            <div class="post--item post--layout-3">
-                                                                <div class="post--img">
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="post--img-1">
-                                                                        <div class="post--info">
-                                                                            <div class="title">
-                                                                                <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
-                                                                                        {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
-                                                                                    </a>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
+                                                            <div class="post--item post--layout-3 post--side-2">
+                                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                                    </a>
+                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
+                                                                        <ul class="nav meta">
+                                                                            <li>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                            </li>
+                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
+                                                                        </ul>
+                                                                        <div class="title">
+                                                                            <h3 class="h4">
+                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                </a>
+                                                                            </h3>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         @endforeach
-                                                        <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
                                                 <div class="tab-pane show active" id="nav-profile"
                                                     role="tabpanel" aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
-                                                    <ul class="nav" id="nav_sider">
-                                                        @php
+                                                    @php
                                                         $latest_news = App\Models\Nw::orderBy('id', 'desc')->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
-                                                        @endphp
-                                                        <!-- Example content for أحدث الأخبار -->
-                                                        @foreach ($latest_news as $new)
+                                                    @endphp
+                                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                                        @foreach ($latest_news as $newS)
                                                         <li>
-                                                            <div class="post--item post--layout-3">
-                                                                <div class="post--img">
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="post--img-1">
-                                                                        <div class="post--info">
-                                                                            <div class="title">
-                                                                                <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
-                                                                                        {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
-                                                                                    </a>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
+                                                            <div class="post--item post--layout-3 post--side-2">
+                                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                                    </a>
+                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
+                                                                        <ul class="nav meta">
+                                                                            <li>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                            </li>
+                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
+                                                                        </ul>
+                                                                        <div class="title">
+                                                                            <h3 class="h4">
+                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                </a>
+                                                                            </h3>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         @endforeach
-                                                        <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
                                                 <div class="tab-pane fade" id="nav-contact" role="tabpanel"
                                                     aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
-                                                    <ul class="nav" id="nav_sider">
-                                                        @php
+                                                    @php
                                                         $most_viewed = App\Models\Nw::where('new_place_id', 3)->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
-                                                        @endphp
-                                                        <!-- Example content for أحدث الأخبار -->
-                                                        @foreach ($most_viewed as $new)
+                                                    @endphp
+                                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                                        @foreach ($most_viewed as $newS)
                                                         <li>
-                                                            <div class="post--item post--layout-3">
-                                                                <div class="post--img">
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="post--img-1">
-                                                                        <div class="post--info">
-                                                                            <div class="title">
-                                                                                <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
-                                                                                        {{ \Illuminate\Support\Str::words($new->$title, 8, '...') }}
-                                                                                    </a>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
+                                                            <div class="post--item post--layout-3 post--side-2">
+                                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                                    </a>
+                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
+                                                                        <ul class="nav meta">
+                                                                            <li>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                            </li>
+                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
+                                                                        </ul>
+                                                                        <div class="title">
+                                                                            <h3 class="h4">
+                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                </a>
+                                                                            </h3>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         @endforeach
-                                                        <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
                                             </div>
@@ -310,124 +292,106 @@
                                                 <div class="tab-pane fade" id="nav-home2" role="tabpanel"
                                                     aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
-                                                    <ul class="nav" id="nav_sider">
-                                                        @php
+                                                    @php
                                                         $breaking_news = App\Models\Artical::where('place', 'war')->orderby('id','desc')->get()->take(3);
-                                                        @endphp
-                                                        <!-- Example content for أحدث الأخبار -->
-                                                        @foreach ($breaking_news as $new)
+                                                    @endphp
+                                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                                        @foreach ($breaking_news as $newS)
                                                         <li>
-                                                            <div class="post--item post--layout-3">
-                                                                <div class="post--img">
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.article', $new->slug) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="post--img-1">
-                                                                        <div class="post--info">
-                                                                            <div class="title">
-                                                                                <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.article', $new->slug) }}" class="btn-link">
-                                                                                        {{ $new->$title }}
-                                                                                    </a>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
+                                                            <div class="post--item post--layout-3 post--side-2">
+                                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                                    </a>
+                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
+                                                                        <ul class="nav meta">
+                                                                            <li>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                            </li>
+                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
+                                                                        </ul>
+                                                                        <div class="title">
+                                                                            <h3 class="h4">
+                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                </a>
+                                                                            </h3>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         @endforeach
-                                                        <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
                                                 <div class="tab-pane show active" id="nav-profile2"
                                                     role="tabpanel" aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
-                                                    <ul class="nav" id="nav_sider">
-                                                        @php
+                                                    @php
                                                         $latest_news = App\Models\Artical::orderby('id','desc')->get()->take(3);
-                                                        @endphp
-                                                        <!-- Example content for أحدث الأخبار -->
-                                                        @foreach ($latest_news as $new)
+                                                    @endphp
+                                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                                        @foreach ($latest_news as $newS)
                                                         <li>
-                                                            <div class="post--item post--layout-3">
-                                                                <div class="post--img">
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.article', $new->slug) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="post--img-1">
-                                                                        <div class="post--info">
-                                                                            <div class="title">
-                                                                                <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.article', $new->slug) }}" class="btn-link">
-                                                                                        {{ $new->$title }}
-                                                                                    </a>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
+                                                            <div class="post--item post--layout-3 post--side-2">
+                                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                                    </a>
+                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
+                                                                        <ul class="nav meta">
+                                                                            <li>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                            </li>
+                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
+                                                                        </ul>
+                                                                        <div class="title">
+                                                                            <h3 class="h4">
+                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                </a>
+                                                                            </h3>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         @endforeach
-                                                        <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
                                                 <div class="tab-pane fade" id="nav-contact2" role="tabpanel"
                                                     aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
-                                                    <ul class="nav" id="nav_sider">
-                                                        @php
+                                                    @php
                                                         $most_viewed = App\Models\Artical::orderBy('visit', 'asc')->orderby('id','desc')->get()->take(3);
-                                                        @endphp
-                                                        <!-- Example content for أحدث الأخبار -->
-                                                        @foreach ($most_viewed as $new)
+                                                    @endphp
+                                                    <ul class="nav" data-ajax-content="inner" id="nav_sider">
+                                                        @foreach ($most_viewed as $newS)
                                                         <li>
-                                                            <div class="post--item post--layout-3">
-                                                                <div class="post--img">
-                                                                    <div class="post--img-2">
-                                                                        <a href="{{ route('site.new', $new->slug) }}" class="thumb">
-                                                                            <img src="{{ asset('storage/' . $new->img_view) }}" alt="" class="h-20 object-cover" />
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="post--img-1">
-                                                                        <div class="post--info">
-                                                                            <div class="title">
-                                                                                <h5 class="text-right" style="padding-right: 8px;">
-                                                                                    <a href="{{ route('site.new', $new->slug) }}" class="btn-link">
-                                                                                        {{ $new->$title }}
-                                                                                    </a>
-                                                                                </h5>
-                                                                            </div>
-                                                                            <ul class="nav meta text-center">
-                                                                                <li><a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">{{ isset($new->publisher) ? $new->publisher->name : "" }}</a>
-                                                                                </li>
-                                                                                <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a>
-                                                                                </li>
-                                                                            </ul>
+                                                            <div class="post--item post--layout-3 post--side-2">
+                                                                <div class="post--img" style="display: flex; align-items: center;">
+                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
+                                                                    </a>
+                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
+                                                                        <ul class="nav meta">
+                                                                            <li>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                            </li>
+                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
+                                                                        </ul>
+                                                                        <div class="title">
+                                                                            <h3 class="h4">
+                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                </a>
+                                                                            </h3>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </li>
                                                         @endforeach
-                                                        <!-- Add more list items here -->
                                                     </ul>
                                                 </div>
                                             </div>
@@ -544,7 +508,7 @@
                                         @foreach($articlesOne->take(7) as $article)
                                             @if($loop->first)
                                                 {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
                                                     <div class="post--item post--layout-1">
                                                         <div class="post--img mrg-top-m-34">
 
@@ -654,7 +618,7 @@
                                         @foreach($articlesTwo->take(7) as $article)
                                             @if($loop->first)
                                                 {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
                                                     <div class="post--item post--layout-1">
                                                         <div class="post--img mrg-top-m-34">
 
@@ -765,7 +729,7 @@
                                         @foreach($articlesThree->take(7) as $article)
                                             @if($loop->first)
                                                 {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
                                                     <div class="post--item post--layout-1">
                                                         <div class="post--img mrg-top-m-34">
 
