@@ -7714,6 +7714,7 @@ table.rates-table{
     .post--side-2 .post--info .meta > li > a{
         font-size: 34px;
         padding: 17px 12px;
+        width: auto;
     }
     .post--side-2 .post--info .meta {
         margin: 0 -7.5px;
@@ -7735,6 +7736,7 @@ table.rates-table{
     }
     .post--side-2 .post--info .meta > li > a{
         font-size: 13px;
-        padding: 2px 10px;
+        padding: 2px 6px;
+        width: auto;
     }
 }

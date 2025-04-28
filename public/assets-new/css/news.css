@@ -38,7 +38,6 @@
 }
 .news-title {
     display: inline-block !important;
-    max-width: 395px !important;
     white-space: nowrap;
     overflow: clip;
     text-overflow: ellipsis;
