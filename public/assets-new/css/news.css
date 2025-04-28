@@ -3,7 +3,7 @@
     grid-template-columns: 1fr; /* عمود واحد بشكل افتراضي (للموبايل) */
     gap: 16px; /* مسافة بين العناصر - يمكنك تغييرها حسب الحاجة */
 }
-.post--item .post--img .thumb{
+.list--widget .post--img .thumb{
     width: 357px !important;
 }
 .post--info .meta > li > a{
@@ -22,7 +22,7 @@
         grid-template-columns: repeat(2, 1fr); /* عمودين */
         gap: 30px 60px;
     }
-    .post--item .post--img .thumb{
+    .list--widget .post--img .thumb{
         width: 146px !important;
     }
     .post--info .meta > li > a{
