@@ -4,22 +4,7 @@
         $name = 'name_' . app()->getLocale();
     @endphp
     @push('styles')
-        <style>
-            .news-title{
-                display: inline-block !important;
-                max-width: 395px !important;
-                white-space: nowrap;
-                overflow: clip;
-                text-overflow: ellipsis;
-                text-align: start !important;
-            }
-            .AdjustRow li {
-                padding: 6px 14px !important;
-            }
-            .h4{
-                text-align: start !important;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
     @endpush
     <x-slot:header>
         <div class="posts--filter-bar style--1 hidden-xs">
@@ -52,15 +37,15 @@
     <div class="main-content--section pbottom--30">
         <div class="container">
             <div class="row" id="contentRow">
-                <div class="main--content col-md-8 col-sm-7" data-sticky-content="true">
+                <div class="main--content col-md-8 col-sm-12" data-sticky-content="true">
                     <div class="sticky-content-inner">
                         <div class="page--title ptop--30">
                             <h2 class="h2"></h2>
                         </div>
                         <div class="post--items post--items-2 pd--30-0">
-                            <ul class="nav row AdjustRow">
+                            <ul class="AdjustRow grid-container">
                                 @foreach ($news as $new )
-                                <li class="col-md-5 col-sm-12 col-xs-6 col-lg-6 col-xss-12">
+                                <li class="col-12">
                                     <div class="post--item post--layout-2">
                                         <div class="post--img">
                                             <a href="{{ route('site.new', $new->slug)}}" class="thumb"><img
@@ -121,7 +106,7 @@
 
                     </div>
                 </div>
-                <div class="main--sidebar col-md-4 col-sm-5 ptop--30 pbottom--30 text_dir"
+                <div class="main--sidebar col-md-4 col-sm-12 ptop--30 pbottom--30 text_dir"
                     data-sticky-content="true">
                     <div class="sticky-content-inner">
                         <div class="widget"></div>

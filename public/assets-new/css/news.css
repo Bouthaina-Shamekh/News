@@ -1,0 +1,38 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /* عمود واحد بشكل افتراضي (للموبايل) */
+    gap: 16px; /* مسافة بين العناصر - يمكنك تغييرها حسب الحاجة */
+}
+
+/* لما يكون العرض 768px أو أكثر (آيباد ولابتوب) */
+@media (min-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* عمودين */
+        gap: 30px 60px;
+    }
+}
+.news-title {
+    display: inline-block !important;
+    max-width: 395px !important;
+    white-space: nowrap;
+    overflow: clip;
+    text-overflow: ellipsis;
+    text-align: start !important;
+}
+.AdjustRow{
+    padding-left: 0;
+    list-style: none;
+}
+.AdjustRow li {
+    padding: 6px 14px !important;
+
+}
+.h4 {
+    text-align: start !important;
+}
+.post--item .post--info .title .h4 a {
+    text-wrap: auto;
+}
+.post--img .thumb img{
+    height: auto !important;
+}
