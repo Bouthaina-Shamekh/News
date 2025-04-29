@@ -76,4 +76,15 @@
     .link__org{
         font-size: 16px;
     }
+    .post--img .thumb img{
+        height: 200px !important;
+    }
+}
+@media (min-width: 1200px){
+    .link__org{
+        font-size: 16px;
+    }
+    .post--img .thumb img{
+        height: 240px !important;
+    }
 }
