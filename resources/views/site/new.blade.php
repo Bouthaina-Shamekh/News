@@ -7,7 +7,7 @@
         $lang = request()->query('lang') ?? false;
     @endphp
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets-new/css/new.css') }}">
     @endpush
     <x-slot:header>
         <div class="main--breadcrumb">
@@ -121,7 +121,6 @@
                                 $now = Carbon\Carbon::now();
                                 $startDate = Carbon\Carbon::parse($ad->date);
                                 $endDate = Carbon\Carbon::parse($ad->end_date);
-
                                 if ($now->between($startDate, $endDate)) {
                                     $ad->status = 'active';
                                 } else {
@@ -162,7 +161,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="info">
                                 <h2 class="h4">
                                     {{-- عن الناشر  --}}
@@ -174,89 +172,8 @@
                                         {{ __('site.publisher_marina_post') }}
                                     </p>
                                 </div>
-
                             </div>
                         </div>
-
-                        {{-- <div class="comment--list pd--30-0">
-                            <div class="post--items-title">
-                                <h2 class="h4">
-                                    {{$new->comment->count()}} {{ __('site.comments') }} </h2> <i class="icon fa fa-comments-o"></i>
-                            </div>
-                            <ul class="comment--items nav">
-                                @foreach ($comments as $comment)
-                                    <li class="comment--item mb-3">
-                                        <div class="comment--info">
-                                            <div class="title">
-                                                <h3 class="name">
-                                                    {{$comment->sender_name}}
-                                                </h3>
-                                            </div>
-                                            <div class="content">
-                                                <p>
-                                                    {{$comment->text}}
-                                                </p>
-                                            </div>
-                                            <div class="meta">
-                                                <span class="date">
-                                                    {{date('Y-m-d',strtotime($comment->created_at))}}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div> --}}
-                        {{-- <div class="comment--form pd--30-0">
-                            <div class="post--items-title">
-                                <h2 class="h4">
-                                    {{ __('site.write_a_comment') }}
-                                </h2> <i class="icon fa fa-pencil-square-o"></i>
-                            </div>
-                            <div class="comment-respond text_dir {
-                                text-align: left;
-                            }">
-                                <form action="{{route('site.comment')}}" method="post" data-form="validate">
-                                    @csrf
-                                    <p>
-                                        {{ __('site.no_worry_text') }}
-                                    </p>
-                                    <div class="row">
-                                        <input type="hidden" name="nw_id" value="{{$new->slug}}">
-                                        <div class="col-sm-6"> <label>
-                                                <input type="text" value="a" style="display:none;" name="artical">
-                                                <span>{{__('site.comment')}} * </span>
-                                                <textarea name="comment" id="comment" class="form-control" required onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('comment')" data-cf-modified-74f1811ed9adbc6538a65f0a-=""></textarea>
-                                            </label> </div>
-                                        <div class="col-sm-6">
-                                            <label>
-                                                <span>{{__('site.name')}} *</span>
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                    required
-                                                    onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('name')"
-                                                    data-cf-modified-74f1811ed9adbc6538a65f0a-="">
-                                                <input type="text" name="id" id="id" class="form-control" required
-                                                    onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('id')"
-                                                    value="1155" style="display: none;"
-                                                    data-cf-modified-74f1811ed9adbc6538a65f0a-="">
-                                            </label>
-                                            <label>
-                                                <span>{{__('site.Your Email')}} *</span>
-                                                <input type="email" name="email" id="email" class="form-control"
-                                                    required
-                                                    onkeyup="if (!window.__cfRLUnblockHandlers) return false;  myFn2('email')"
-                                                    data-cf-modified-74f1811ed9adbc6538a65f0a-="">
-                                            </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{__('site.submit')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
                 <div class="main--sidebar col-md-4 ptop--30 pbottom--30" data-sticky-content="true">

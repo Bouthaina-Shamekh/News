@@ -7638,6 +7638,9 @@ ul.scrollmenu a:hover {
     .list--widget-nav .nav li a{
         font-size: 11px;
     }
+    .list--widget .h4{
+        font-size: 17px !important;
+    }
 }
 
 @media (min-width:1200px) {

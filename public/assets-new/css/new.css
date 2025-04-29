@@ -1,0 +1,74 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /* عمود واحد بشكل افتراضي (للموبايل) */
+    gap: 16px; /* مسافة بين العناصر - يمكنك تغييرها حسب الحاجة */
+}
+.list--widget .post--img .thumb{
+    width: 357px !important;
+}
+.post--info .meta > li > a{
+    padding: 15px 13px !important;
+}
+.post--item.post--layout-3 .post--img .thumb{
+    max-width: 279px;
+}
+.post--info-3{
+    width: 60%;
+    padding-right: 5px;
+}
+/* لما يكون العرض 768px أو أكثر (آيباد ولابتوب) */
+@media (min-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* عمودين */
+        gap: 30px 60px;
+    }
+    .list--widget .post--img .thumb{
+        width: 146px !important;
+    }
+    .post--info .meta > li > a{
+        padding: 2px 6px !important;
+    }
+    .post--item.post--layout-3 .post--img .thumb{
+        max-width: 100px;
+    }
+    .post--info-3{
+        width: 80%;
+        padding-right: 12px;
+    }
+}
+.h4 {
+    text-align: start !important;
+    text-wrap: auto;
+    font-size: 35px;
+}
+.post--item .post--info .title .h4 a {
+    text-wrap: auto;
+}
+.post--img .thumb img{
+    height: auto !important;
+}
+#nav_sider li .post--item .post--img{
+    padding: 0;
+}
+.link__org{
+    color: red;
+    font-size: 16px;
+}
+@media (min-width: 720px){
+    .link__org{
+        font-size: 40px;
+    }
+}
+@media (min-width: 992px){
+    .link__org{
+        font-size: 16px;
+    }
+    .h4 {
+        font-size: 17px;
+    }
+}
+@media (min-width: 1200px){
+    .link__org{
+        font-size: 16px;
+    }
+}

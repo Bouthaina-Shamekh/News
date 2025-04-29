@@ -118,7 +118,9 @@
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                </a>
                                                                             </li>
                                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
@@ -153,7 +155,9 @@
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                </a>
                                                                             </li>
                                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
@@ -188,7 +192,9 @@
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                </a>
                                                                             </li>
                                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
@@ -306,7 +312,9 @@
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                </a>
                                                                             </li>
                                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
@@ -341,7 +349,9 @@
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                </a>
                                                                             </li>
                                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
@@ -376,7 +386,9 @@
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">{{ $newS->category ? $newS->category->$name : '' }}</a>
+                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                </a>
                                                                             </li>
                                                                             <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>

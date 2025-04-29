@@ -256,6 +256,9 @@ Author URI  : https://themeforest.net/user/themelooks
         left: -94px;
         width: 184px;
     }
+    .header--menu-links>.dropdown>.dropdown-menu>li{
+        display: block;
+    }
 }
 @media (min-width:992px) {
     .header--menu-links{
@@ -268,8 +271,12 @@ Author URI  : https://themeforest.net/user/themelooks
         box-shadow: none;
         top: 75px;
         left: 0;
-        width: 900px;
+        width: 750px;
     }
+    .header--menu-links>.dropdown>.dropdown-menu>li{
+        display: inline-block;
+    }
+
 }
 
 @media screen and (max-width:767px) {

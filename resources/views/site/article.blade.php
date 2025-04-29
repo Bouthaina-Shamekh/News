@@ -1,12 +1,12 @@
 <x-site-layout>
     @php
-        $title = 'title_' . app()->getLocale();
-        $name = 'name_' . app()->getLocale();
-        $text = 'text_' . app()->getLocale();
+    $title = 'title_' . app()->getLocale();
+    $name = 'name_' . app()->getLocale();
+    $text = 'text_' . app()->getLocale();
     @endphp
     @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
-@endpush
+    <link rel="stylesheet" href="{{ asset('assets-new/css/new.css') }}">
+    @endpush
     <x-slot:header>
         <div class="main--breadcrumb">
             <div class="container">
@@ -33,10 +33,9 @@
                                 <a href="#" class="thumb">
                                     <br>
                                     @if($article->img_view)
-                                        <img src="{{asset('storage/'.$article->img_view)}}" alt="">
+                                    <img src="{{asset('storage/'.$article->img_view)}}" alt="">
                                     @endif
-                                </a> <a href="#"
-                                    class="icon"><i class="fa fa-star-o"></i></a>
+                                </a> <a href="#" class="icon"><i class="fa fa-star-o"></i></a>
                                 <div class="post--map">
                                 </div>
                             </div>
@@ -49,13 +48,10 @@
                                             </a>
                                         </span>
                                     </li>
-                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'article/' .  $article->slug}}"
-                                                target="_blank"><i class="fa fa-facebook"></i></a></span></li>
+                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'article/' .  $article->slug}}" target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
-                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . 'article/' .  $article->slug}}"
-                                                target="_blank"><i class="fa fa-twitter"></i></a></span></li>
-                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' .  $article->slug}}"
-                                                target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
+                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . 'article/' .  $article->slug}}" target="_blank"><i class="fa fa-twitter"></i></a></span></li>
+                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' .  $article->slug}}" target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
                                     <li class="like_v_btn" data-type="true">
                                         <a>
                                             <i class="fa fa-thumbs-up"></i>
@@ -73,8 +69,8 @@
                             <div class="post--info">
                                 <ul class="nav meta">
                                     <li><a href="news?psh=31">
-                                        {{$article->publisher->name ?? ''}}
-                                    </a>
+                                            {{$article->publisher->name ?? ''}}
+                                        </a>
                                     </li>
                                     <li><a href="#">{{date('Y-m-d',strtotime($article->created_at))}}</a></li>
                                     <li><span><i class="fa fm fa-eye"></i>{{$article->visit}}</span></li>
@@ -96,8 +92,8 @@
                                 {!! $article->$text !!}
                             </div>
                             @php
-                                $vedio = $article->vedio;
-                                $check = $vedio ? Storage::disk('public')->exists($article->vedio) : false;
+                            $vedio = $article->vedio;
+                            $check = $vedio ? Storage::disk('public')->exists($article->vedio) : false;
                             @endphp
                             @if($article->vedio && $check)
                             <div>
@@ -111,36 +107,36 @@
                             @endif
                         </div>
                         @php
-                            $ads = App\Models\Ad::where('ad_place_id', 9)->get();
-                            foreach ($ads as $ad) {
-                                $now = Carbon\Carbon::now();
-                                $startDate = Carbon\Carbon::parse($ad->date);
-                                $endDate = Carbon\Carbon::parse($ad->end_date);
+                        $ads = App\Models\Ad::where('ad_place_id', 9)->get();
+                        foreach ($ads as $ad) {
+                        $now = Carbon\Carbon::now();
+                        $startDate = Carbon\Carbon::parse($ad->date);
+                        $endDate = Carbon\Carbon::parse($ad->end_date);
 
-                                if ($now->between($startDate, $endDate)) {
-                                    $ad->status = 'active';
-                                } else {
-                                    $ad->status = 'inactive';
-                                }
-                            }
+                        if ($now->between($startDate, $endDate)) {
+                        $ad->status = 'active';
+                        } else {
+                        $ad->status = 'inactive';
+                        }
+                        }
                         @endphp
                         @forelse ($ads->where('status', 'active') as $index => $ad)
-                            <div class="widget">
-                                <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
-                                </div>
-                                <div class="">
-                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
-                                    </a>
-                                </div>
+                        <div class="widget">
+                            <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
                             </div>
+                            <div class="">
+                                <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                    <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                </a>
+                            </div>
+                        </div>
                         @empty
-                            <div class="widget">
-                                <h2 class="h4" style="    direction: rtl;">
-                                    <i class="icon fa fa-bullhorn"></i>
-                                    {{__('admin.Ad')}}
-                                </h2>
-                            </div>
+                        <div class="widget">
+                            <h2 class="h4" style="    direction: rtl;">
+                                <i class="icon fa fa-bullhorn"></i>
+                                {{__('admin.Ad')}}
+                            </h2>
+                        </div>
                         @endforelse
                         <div class="post--author-info clearfix" id="com">
                             <div class="img">
@@ -186,14 +182,14 @@
                                 {{-- <ul class="nav">
                                     <li style="    width: 50%;     float: left;">
                                         <a href="{{route('author',['id'=>$article->publisher ? $article->publisher : 0])}}" class="btn btn-lg btn-default active">
-                                            اخبار الناشر <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li style="    width: 50%;     float: left;">
-                                        <a href="{{}}" class="btn btn-lg btn-default active">
-                                            نبذه عن الناشر <i class="fa fa-user" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
+                                اخبار الناشر <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                </a>
+                                </li>
+                                <li style="    width: 50%;     float: left;">
+                                    <a href="{{}}" class="btn btn-lg btn-default active">
+                                        نبذه عن الناشر <i class="fa fa-user" aria-hidden="true"></i>
+                                    </a>
+                                </li>
                                 </ul> --}}
                             </div>
                         </div>
@@ -207,7 +203,7 @@
                             <div class="social--widget style--1">
                                 <ul class="nav">
                                     @php
-                                        $settings= App\Models\Setting::get();
+                                    $settings= App\Models\Setting::get();
                                     @endphp
                                     <li class="facebook">
                                         {{-- <a href="https://www.facebook.com/marena.post.news?locale=ar_AR"> --}}
@@ -250,10 +246,7 @@
                                 <form action="{{ route('site.addEmail') }}" method="post">
                                     @csrf
                                     <div class="input-group">
-                                        <input type="email" name="email"
-                                            placeholder="عنوان بريد الكتروني" class="form-control"
-                                            autocomplete="off" required
-                                            data-cf-modified-74f1811ed9adbc6538a65f0a-="">
+                                        <input type="email" name="email" placeholder="عنوان بريد الكتروني" class="form-control" autocomplete="off" required data-cf-modified-74f1811ed9adbc6538a65f0a-="">
                                         <div class="input-group-btn">
                                             <button type="submit" class="btn btn-lg btn-default active">
                                                 <i class="fa fa-paper-plane-o"></i>
@@ -262,9 +255,9 @@
                                     </div>
                                     <div class="status"></div>
                                     @if(session('successAdd'))
-                                        <div class="alert alert-success mt-3">
-                                            نجح الإشتراك في الخدمة
-                                        </div>
+                                    <div class="alert alert-success mt-3">
+                                        نجح الإشتراك في الخدمة
+                                    </div>
                                     @endif
                                 </form>
                             </div>
@@ -287,9 +280,7 @@
                                                     <a href="{{ route('site.article', $articleS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
 
 
-                                                        <img
-                                                            src="{{ asset('storage/' . $articleS->img_view) }}" alt=""
-                                                            style="object-fit: contain;" /></a>
+                                                        <img src="{{ asset('storage/' . $articleS->img_view) }}" alt="" style="object-fit: contain;" /></a>
                                                     <div class="post--info" style="width: 50%;padding-right: 15px;">
                                                         <ul class="nav meta">
                                                             <li>
@@ -320,21 +311,21 @@
                         </div>
                         <!--جانبي صفحة الخبر 300x250 -->
                         @php
-                            $ads = App\Models\Ad::where('ad_place_id', 10)->take(3)->get();
+                        $ads = App\Models\Ad::where('ad_place_id', 10)->take(3)->get();
                         @endphp
                         @forelse ($ads as $ad)
-                            <div class="widget">
-                                <div class="">
-                                    <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ad->image) }}" alt="off"  style="width: -webkit-fill-available;">
-                                    </a>
-                                </div>
+                        <div class="widget">
+                            <div class="">
+                                <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                    <img src="{{ asset('storage/' . $ad->image) }}" alt="off" style="width: -webkit-fill-available;">
+                                </a>
                             </div>
+                        </div>
                         @empty
-                            <div class="widget">
-                                <h2 class="h4" style="direction: rtl;">
-                                    <i class="icon fa fa-bullhorn"></i> إعلان </h2>
-                            </div>
+                        <div class="widget">
+                            <h2 class="h4" style="direction: rtl;">
+                                <i class="icon fa fa-bullhorn"></i> إعلان </h2>
+                        </div>
                         @endforelse
                     </div>
                 </div>
@@ -345,19 +336,20 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('.like_v_btn').on('click',function(){
+        $('.like_v_btn').on('click', function() {
             let type = $(this).data('type');
             $.ajax({
-                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{  $article->slug }}"),
-                method: 'POST',
-                data: {
-                    type: type,
-                },
-                success: function(response) {
+                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{  $article->slug }}")
+                , method: 'POST'
+                , data: {
+                    type: type
+                , }
+                , success: function(response) {
                     $(this).attr('style', 'background-color: #670005')
                 }
             });
         });
     });
+
 </script>
 @endpush
