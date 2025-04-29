@@ -69,7 +69,7 @@ $name = 'name_' . app()->getLocale();
 
     <div class="form-group col-6 mb-3">
         <label for="image">{{__("admin.Vedio")}}</label>
-        <input type="file" name="vedio" class="form-control" accept="video/*" />
+        <input type="file" name="vedio" class="form-control" accept="video/mp4" />
         <span class="text-muted">{{__('admin.Size Vedio')}}: 1920*1080 (16:9)</span>
         @php
             $vedio = $news->vedio;

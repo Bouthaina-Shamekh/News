@@ -168,6 +168,9 @@ class NwController extends Controller
     {
         $this->authorize('edit', Nw::class);
         $news = Nw::where('slug', $slug)->first();
+        if(!$news){
+            $news = Nw::findOrFail((int)$slug);
+        }
         $status = Statu::all();
         $categories = Category::all();
         $newplaces = NewPlace::all();
@@ -286,6 +289,9 @@ class NwController extends Controller
         $this->authorize('delete', Nw::class);
 
         $news = Nw::where('slug', $slug)->first();
+        if(!$news){
+            $news = Nw::findOrFail((int)$slug);
+        }
 
         // Delete images from storage
         if($news->img_view != null){
@@ -307,6 +313,9 @@ class NwController extends Controller
     public function removeImage(Request $request, $slug)
     {
         $news = Nw::where('slug', $slug)->first();
+        if(!$news){
+            $news = Nw::findOrFail((int)$slug);
+        }
         // Delete the image from storage
         if($request->name == 'img_view') {
             if($news->img_view != null){

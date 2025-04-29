@@ -160,6 +160,9 @@ class ArticalController extends Controller
         $this->authorize('edit', Artical::class);
 
         $articals = Artical::where('slug', $slug)->first();
+        if(!$articals){
+            $articals = Artical::findOrFail((int)$slug);
+        }
         $status = Statu::all();
         $publishers = Publisher::all();
         $categories = Category::all();
@@ -271,6 +274,9 @@ class ArticalController extends Controller
         $this->authorize('delete', Artical::class);
 
         $articals = Artical::where('slug', $slug)->first();
+        if(!$articals){
+            $articals = Artical::findOrFail((int)$slug);
+        }
 
         // Delete images from storage
         if($articals->img_view != null){
@@ -292,6 +298,9 @@ class ArticalController extends Controller
     public function removeImage(Request $request, $slug)
     {
         $article = Artical::where('slug', $slug)->first();
+        if(!$article){
+            $article = Artical::findOrFail((int)$slug);
+        }
         // Delete the image from storage
         if($request->name == 'img_view') {
             if($article->img_view != null){

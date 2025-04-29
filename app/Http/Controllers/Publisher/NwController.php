@@ -152,6 +152,9 @@ class NwController extends Controller
     {
 
         $news = Nw::where('slug', $slug)->first();
+        if(!$news){
+            $news = Nw::findOrFail((int)$slug);
+        }
         $categories = Category::all();
 
         return view('publisher.news.edit', compact('news','categories'));
@@ -253,7 +256,9 @@ class NwController extends Controller
     public function destroy($slug)
     {
         $news = Nw::where('slug', $slug)->first();
-
+        if(!$news){
+            $news = Nw::findOrFail((int)$slug);
+        }
         // Delete images from storage
         if($news->img_view != null){
             Storage::disk('public')->delete($news->img_view);
