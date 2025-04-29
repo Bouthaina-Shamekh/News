@@ -42,7 +42,13 @@
                             </div>
                             <div class="post--cats">
                                 <ul class="nav">
-                                    <li><span><i class="fa fa-share"></i></span></li>
+                                    <li>
+                                        <span>
+                                            <a href="#">
+                                                <i class="fa fa-share"></i>
+                                            </a>
+                                        </span>
+                                    </li>
                                     <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'article/' .  $article->slug}}"
                                                 target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 

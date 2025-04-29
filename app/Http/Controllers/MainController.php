@@ -104,6 +104,9 @@ class MainController extends Controller
     public function new($slug)
     {
         $new = Nw::where('slug', $slug)->first();
+        if(!$new){
+            $new = Nw::findOrFail((int)$slug);
+        }
         $news = Nw::orderby('id','desc')->where('statu_id', 2)->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
             'visit' => $new->visit + 1
@@ -159,6 +162,9 @@ class MainController extends Controller
     public function article($slug)
     {
         $article = Artical::where('slug', $slug)->first();
+        if(!$article){
+            $article = Artical::findOrFail((int)$slug);
+        }
         $article->update([
             'visit' => $article->visit + 1
         ]);
