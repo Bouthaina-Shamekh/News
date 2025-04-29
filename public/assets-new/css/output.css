@@ -7650,7 +7650,7 @@ ul.scrollmenu a:hover {
         font-size: 18px;
     }
     .container {
-        width: 96%;
+        width: 1170px;
     }
 }
 
@@ -7659,7 +7659,7 @@ ul.scrollmenu a:hover {
         font-size: 18px !important;
     }
     .container {
-        width: 94%;
+        width: 1300px;
     }
 }
 
