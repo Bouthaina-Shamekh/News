@@ -514,75 +514,67 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                    @foreach($articlesOne->take(7) as $article)
+                                        @if($loop->first)
+                                            {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
+                                                <div class="post--item post--layout-1">
+                                                    <div class="post--img mrg-top-m-34">
 
-                                <div class="post--items" data-ajax-content="outer">
-                                    <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
-                                        @foreach($articlesOne->take(7) as $article)
-                                            @if($loop->first)
-                                                {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
-                                                    <div class="post--item post--layout-1">
-                                                        <div class="post--img mrg-top-m-34">
+                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
 
-                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                        </a>
+                                                        <div class="post--info">
+                                                            <ul class="nav meta">
+                                                                <li><a href="author?id=0"></a></li>
+                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                            </ul>
+                                                            <div class="title" style="height:80px;">
+                                                                <h3 class="text h4">
 
-                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
-                                                            </a>
-                                                            <div class="post--info">
-                                                                <ul class="nav meta">
-                                                                    <li><a href="author?id=0"></a></li>
-                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                                </ul>
-                                                                <div class="title" style="height:80px;">
-                                                                    <h3 class="text h4">
+                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
-                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
-
-                                                                    </h3>
-                                                                </div>
+                                                                </h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- فاصل بسيط إن أردت
-                                                <div class="col-xs-12">
-                                                    <hr class="divider">
-                                                </div> --}}
-                                            @else
-                                                {{-- بقية العناصر --}}
-                                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
-                                                    <div class="post--item post--layout-2">
-                                                        <div class="post--img">
+                                            </div>
+                                            {{-- فاصل بسيط إن أردت
+                                            <div class="col-xs-12">
+                                                <hr class="divider">
+                                            </div> --}}
+                                        @else
+                                            {{-- بقية العناصر --}}
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
+                                                <div class="post--item post--layout-2">
+                                                    <div class="post--img">
 
-                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
 
-                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
-                                                            </a>
-                                                            <div class="post--info">
-                                                                <ul class="nav meta">
-                                                                    <li><a href="author?id=0"></a></li>
-                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                                </ul>
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                        </a>
+                                                        <div class="post--info">
+                                                            <ul class="nav meta">
+                                                                <li><a href="author?id=0"></a></li>
+                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                            </ul>
 
-                                                                <div class="title" style="height: auto;margin-bottom: 7px;">
-                                                                    <h3 class="h4">
-                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                            <div class="title" style="height: auto;margin-bottom: 7px;">
+                                                                <h3 class="h4">
+                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
-                                                                    </h3>
-                                                                </div>
+                                                                </h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-
-                                    <div class="preloader bg--color-0--b" data-preloader="1">
-                                        <div class="preloader--inner"></div>
-                                    </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
-
                                 <div class="col-md-12">
                                     <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
                                 </div>
@@ -624,73 +616,66 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                    @foreach($articlesTwo->take(7) as $article)
+                                        @if($loop->first)
+                                            {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
+                                                <div class="post--item post--layout-1">
+                                                    <div class="post--img mrg-top-m-34">
 
-                                <div class="post--items" data-ajax-content="outer">
-                                    <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
-                                        @foreach($articlesTwo->take(7) as $article)
-                                            @if($loop->first)
-                                                {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
-                                                    <div class="post--item post--layout-1">
-                                                        <div class="post--img mrg-top-m-34">
+                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
 
-                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                        </a>
+                                                        <div class="post--info">
+                                                            <ul class="nav meta">
+                                                                <li><a href="author?id=0"></a></li>
+                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                            </ul>
+                                                            <div class="title" style="height:80px;">
+                                                                <h3 class="text h4">
 
-                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
-                                                            </a>
-                                                            <div class="post--info">
-                                                                <ul class="nav meta">
-                                                                    <li><a href="author?id=0"></a></li>
-                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                                </ul>
-                                                                <div class="title" style="height:80px;">
-                                                                    <h3 class="text h4">
+                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
-                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
-
-                                                                    </h3>
-                                                                </div>
+                                                                </h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- فاصل بسيط إن أردت
-                                                <div class="col-xs-12">
-                                                    <hr class="divider">
-                                                </div> --}}
-                                            @else
-                                                {{-- بقية العناصر --}}
-                                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
-                                                    <div class="post--item post--layout-2">
-                                                        <div class="post--img">
+                                            </div>
+                                            {{-- فاصل بسيط إن أردت
+                                            <div class="col-xs-12">
+                                                <hr class="divider">
+                                            </div> --}}
+                                        @else
+                                            {{-- بقية العناصر --}}
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
+                                                <div class="post--item post--layout-2">
+                                                    <div class="post--img">
 
-                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
 
-                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
-                                                            </a>
-                                                            <div class="post--info">
-                                                                <ul class="nav meta">
-                                                                    <li><a href="author?id=0"></a></li>
-                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                                </ul>
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                        </a>
+                                                        <div class="post--info">
+                                                            <ul class="nav meta">
+                                                                <li><a href="author?id=0"></a></li>
+                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                            </ul>
 
-                                                                <div class="title" style="height: auto;margin-bottom: 7px;">
-                                                                    <h3 class="h4">
-                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                            <div class="title" style="height: auto;margin-bottom: 7px;">
+                                                                <h3 class="h4">
+                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
-                                                                    </h3>
-                                                                </div>
+                                                                </h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-
-                                    <div class="preloader bg--color-0--b" data-preloader="1">
-                                        <div class="preloader--inner"></div>
-                                    </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
 
                                 <div class="col-md-12">
@@ -736,72 +721,66 @@
                                     </div>
                                 </div>
 
-                                <div class="post--items" data-ajax-content="outer">
-                                    <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
-                                        @foreach($articlesThree->take(7) as $article)
-                                            @if($loop->first)
-                                                {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
-                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
-                                                    <div class="post--item post--layout-1">
-                                                        <div class="post--img mrg-top-m-34">
+                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                    @foreach($articlesThree->take(7) as $article)
+                                        @if($loop->first)
+                                            {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
+                                                <div class="post--item post--layout-1">
+                                                    <div class="post--img mrg-top-m-34">
 
-                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
 
-                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
-                                                            </a>
-                                                            <div class="post--info">
-                                                                <ul class="nav meta">
-                                                                    <li><a href="author?id=0"></a></li>
-                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                                </ul>
-                                                                <div class="title" style="height:80px;">
-                                                                    <h3 class="text h4">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                        </a>
+                                                        <div class="post--info">
+                                                            <ul class="nav meta">
+                                                                <li><a href="author?id=0"></a></li>
+                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                            </ul>
+                                                            <div class="title" style="height:80px;">
+                                                                <h3 class="text h4">
 
-                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
-                                                                    </h3>
-                                                                </div>
+                                                                </h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {{-- فاصل بسيط إن أردت
-                                                <div class="col-xs-12">
-                                                    <hr class="divider">
-                                                </div> --}}
-                                            @else
-                                                {{-- بقية العناصر --}}
-                                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
-                                                    <div class="post--item post--layout-2">
-                                                        <div class="post--img">
+                                            </div>
+                                            {{-- فاصل بسيط إن أردت
+                                            <div class="col-xs-12">
+                                                <hr class="divider">
+                                            </div> --}}
+                                        @else
+                                            {{-- بقية العناصر --}}
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 home-sml-div">
+                                                <div class="post--item post--layout-2">
+                                                    <div class="post--img">
 
-                                                            <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
 
-                                                                <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
-                                                            </a>
-                                                            <div class="post--info">
-                                                                <ul class="nav meta">
-                                                                    <li><a href="author?id=0"></a></li>
-                                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                                </ul>
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                        </a>
+                                                        <div class="post--info">
+                                                            <ul class="nav meta">
+                                                                <li><a href="author?id=0"></a></li>
+                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                            </ul>
 
-                                                                <div class="title" style="height: a;margin-bottom: 7px;">
-                                                                    <h3 class="h4">
-                                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                            <div class="title" style="height: a;margin-bottom: 7px;">
+                                                                <h3 class="h4">
+                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
-                                                                    </h3>
-                                                                </div>
+                                                                </h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-
-                                    <div class="preloader bg--color-0--b" data-preloader="1">
-                                        <div class="preloader--inner"></div>
-                                    </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
                                 </div>
 
                                 <div class="col-md-12">
