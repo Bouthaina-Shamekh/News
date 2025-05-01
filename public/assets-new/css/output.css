@@ -7012,7 +7012,7 @@ body.isScrolling #backToTop {
     .slider_img {
         width: 100%;
         object-fit: fill;
-        height: 357px !important;
+        height: 460px !important;
     }
 }
 
@@ -7023,7 +7023,7 @@ body.isScrolling #backToTop {
     .slider_img {
         width: 100%;
         object-fit: fill;
-        height: 357px !important;
+        height: 460px !important;
     }
 }
 
@@ -7034,7 +7034,7 @@ body.isScrolling #backToTop {
     .slider_img {
         width: 100%;
         object-fit: fill;
-        height: 357px !important;
+        height: 460px !important;
     }
 }
 
@@ -7177,9 +7177,7 @@ ul.scrollmenu a:hover {
 .sticky-content-inner {
     text-align: right;
 }
-.carousel-inner{
-    height: 357px !important;
-}
+
 
 
 
@@ -7408,9 +7406,15 @@ ul.scrollmenu a:hover {
         border: none;
         box-shadow: none;
     }
+    .carousel-inner{
+        height: 460px !important;
+    }
 }
 
 @media (min-width:992px) {
+    .carousel-inner{
+        height: 357px !important;
+    }
     .header--navbar{
         background-color: #670006;
         border: #670006;

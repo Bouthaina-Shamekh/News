@@ -7,6 +7,26 @@
         $vission = 'vission_' . app()->getLocale();
         $goal = 'goal_' . app()->getLocale();
     @endphp
+    @push('styles')
+        <style>
+            @media (max-width: 768px) {
+                .info--block .title .h5 {
+                    font-size: 60px;
+                }
+                .info--block .icon{
+                    font-size: 60px;
+                }
+            }
+            @media (max-width: 992px) {
+                .info--block .title .h5 {
+                    font-size: 18px;
+                }
+                .info--block .icon{
+                    font-size: 20px;
+                }
+            }
+        </style>
+    @endpush
     <div class="container">
         <div class="main--content">
             <div class="post--item post--single pd--30-0">
@@ -36,7 +56,7 @@
             </div>
             <div class="info--blocks ptop--30">
                 <ul class="nav row">
-                    <li class="col-md-3 col-xs-6 col-xxs-12 pbottom--30">
+                    <li class="col-md-3 col-sm-12 col-xxs-12 pbottom--30">
                         <div class="info--block">
                             <div class="icon text--color-1">
                                 <i class="fa fa-dashboard"></i>
@@ -51,7 +71,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="col-md-3 col-xs-6 col-xxs-12 pbottom--30">
+                    <li class="col-md-3 col-sm-12 col-xxs-12 pbottom--30">
                         <div class="info--block">
                             <div class="icon text--color-1">
                                 <i class="fa fa-cog"></i>
@@ -66,7 +86,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="col-md-3 col-xs-6 col-xxs-12 pbottom--30">
+                    <li class="col-md-3 col-sm-12 col-xxs-12 pbottom--30">
                         <div class="info--block">
                             <div class="icon text--color-1">
                                 <i class="fa fa-diamond"></i>
@@ -81,7 +101,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="col-md-3 col-xs-6 col-xxs-12 pbottom--30">
+                    <li class="col-md-3 col-sm-12 col-xxs-12 pbottom--30">
                         <div class="info--block">
                             <div class="icon text--color-1">
                                 <i class="fa fa-object-group"></i>
