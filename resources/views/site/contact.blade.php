@@ -54,6 +54,11 @@
                 <div class="col-md-9 col-sm-12 ptop--30 pbottom--30 footer_nav">
                     <div class="comment--form">
                         <div class="comment-respond">
+                            @if(session('successSend'))
+                                <div class="alert alert-success mt-3">
+                                    تم إرسال الرسالة بنجاح
+                                </div>
+                            @endif
                             <form action="{{ route('site.contactdata')}}" method="post">
                                 @csrf
                                 <div class="status"></div>

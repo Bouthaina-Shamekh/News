@@ -5,7 +5,7 @@
     @endphp
     <style>
         .title {
-            width: 150px;
+            width: 350px;
             display: block;
             overflow: hidden;
             white-space: nowrap;
@@ -13,7 +13,7 @@
             transition: width 0.5s;
         }
         .title:hover {
-            width: auto;
+            width: 350px;
             overflow: visible;
             white-space: normal;
             text-overflow: clip;
