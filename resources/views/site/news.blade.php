@@ -9,10 +9,10 @@
     <x-slot:header>
         <div class="posts--filter-bar style--1 hidden-xs">
             <div class="container">
-                <ul class="nav">
+                <ul class="nav d-flex justify-content-between">
                     @foreach ($newPalces as $newPalce)
-                    <li>
-                        <a href="news?pl={{ $newPalce->id }}">
+                    <li class="nav-item">
+                        <a href="news?pl={{ $newPalce->id }}" class="nav-link">
                             <i class="fa fa-heart-o"></i>
                             <span>{{ $newPalce->$name }}</span>
                         </a>
