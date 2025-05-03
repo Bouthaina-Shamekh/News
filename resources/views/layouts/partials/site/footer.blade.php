@@ -41,9 +41,9 @@
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope-o"></i>
-
-                                    <span class="__cf_email__"
-                                        data-cfemail="a8c1c6cec7e8c5c9dacdc6c9d8c7dbdc86cbc7c5">{!! $setting->where('key', 'contact_email')->first() ? $setting->where('key', 'contact_email')->first()->value : '' !!}</span>
+                                    <span>
+                                        {{$setting->where('key', 'contact_email')->first() ? $setting->where('key', 'contact_email')->first()->value : ''}}
+                                    </span>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
