@@ -9,20 +9,27 @@
     @endphp
     @push('styles')
         <style>
-            @media (max-width: 768px) {
+            .info--block .content p{
+                color: #000;
+            }
+            @media (min-width: 768px) {
                 .info--block .title .h5 {
                     font-size: 60px;
+                    margin: 10px;
                 }
                 .info--block .icon{
                     font-size: 60px;
+                    margin: 44px 10px;
                 }
             }
-            @media (max-width: 992px) {
+            @media (min-width: 992px) {
                 .info--block .title .h5 {
-                    font-size: 18px;
+                    font-size: 23px;
+                    margin: 0px;
                 }
                 .info--block .icon{
-                    font-size: 20px;
+                    font-size: 34px;
+                    margin: 0;
                 }
             }
         </style>
@@ -43,7 +50,7 @@
                     <div class="col-md-6">
                         <div class="post--info">
                             <div class="title">
-                                <h2 class="h4">{!! $title && $title->value != null ? $title->value : 'مارينا بوست' !!}</h2>
+                                <h2 class="h5">{!! $title && $title->value != null ? $title->value : 'مارينا بوست' !!}</h2>
                             </div>
                         </div>
                         <div class="post--content">
@@ -64,7 +71,7 @@
                             <div class="title">
                                 <h3 class="h5">{{ app()->getLocale() == 'ar' ? 'أهدافنا' : 'goal'}}</h3>
                             </div>
-                            <div class="content">
+                            <div class="content post--content">
                                 <p>
                                     {{ $abouts[$goal] ? $abouts[$goal] : '' }}
                                 </p>
@@ -79,7 +86,7 @@
                             <div class="title">
                                 <h3 class="h5">{{ app()->getLocale() == 'ar' ? 'رؤيتنا' : 'vission'}}</h3>
                             </div>
-                            <div class="content">
+                            <div class="content post--content">
                                 <p>
                                     {{ $abouts[$vission] ? $abouts[$vission] : '' }}
                                 </p>
@@ -94,7 +101,7 @@
                             <div class="title">
                                 <h3 class="h5">{{ app()->getLocale() == 'ar' ? 'مهمتنا' : 'mission'}}</h3>
                             </div>
-                            <div class="content">
+                            <div class="content post--content">
                                 <p>
                                     {{ $abouts[$mission] ? $abouts[$mission] : '' }}
                                 </p>
@@ -109,7 +116,7 @@
                             <div class="title">
                                 <h3 class="h5">{{ app()->getLocale() == 'ar' ? 'قيمتنا' : 'objective'}}</h3>
                             </div>
-                            <div class="content">
+                            <div class="content post--content">
                                 <p>
                                     {{ $abouts[$objective] ? $abouts[$objective] : '' }}
                                 </p>

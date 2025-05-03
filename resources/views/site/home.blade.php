@@ -122,7 +122,6 @@
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
-                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
@@ -159,7 +158,6 @@
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
-                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
@@ -196,7 +194,6 @@
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
-                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
@@ -240,9 +237,10 @@
                                 @endphp
                                 @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
-                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
-                                        </div>
-
+                                        @if ($index != 0)
+                                            <div class="widget--title">
+                                            </div>
+                                        @endif
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
                                                 <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
@@ -316,7 +314,6 @@
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
-                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
@@ -353,7 +350,6 @@
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
-                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
@@ -390,7 +386,6 @@
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
-                                                                            <li><a href="#">{{ $newS->created_at->format('Y-m-d') }}</a></li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
@@ -435,9 +430,10 @@
                                 @endphp
                                 @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
-                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
-                                        </div>
-
+                                        @if ($index != 0)
+                                            <div class="widget--title">
+                                            </div>
+                                        @endif
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
                                                 <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
@@ -521,21 +517,16 @@
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
                                                 <div class="post--item post--layout-1">
                                                     <div class="post--img mrg-top-m-34">
-
                                                         <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
-
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
-                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                             </ul>
                                                             <div class="title" style="height:80px;">
                                                                 <h3 class="text h4">
-
                                                                     <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
-
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -559,13 +550,10 @@
                                                         <div class="post--info">
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
-                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                             </ul>
-
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
                                                                     <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
-
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -631,7 +619,6 @@
                                                         <div class="post--info">
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
-                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                             </ul>
                                                             <div class="title" style="height:80px;">
                                                                 <h3 class="text h4">
@@ -661,7 +648,6 @@
                                                         <div class="post--info">
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
-                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                             </ul>
 
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
@@ -736,7 +722,6 @@
                                                         <div class="post--info">
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
-                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                             </ul>
                                                             <div class="title" style="height:80px;">
                                                                 <h3 class="text h4">
@@ -766,7 +751,6 @@
                                                         <div class="post--info">
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
-                                                                <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
                                                             </ul>
 
                                                             <div class="title" style="height: a;margin-bottom: 7px;">

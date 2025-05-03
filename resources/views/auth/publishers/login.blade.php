@@ -25,14 +25,79 @@
     .invalid-feedback{
         color: red;
     }
+    @media (min-width: 768px) {
+        .login--form{
+            max-width: 780px;
+        }
+        .login--form .title .h1{
+            font-size: 75px;
+        }
+        .login--form .title p{
+            font-size: 34px;
+        }
+        .login--form label span{
+            font-size: 29px;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        .login--form form{
+            max-width: 543px;
+        }
+        .login--form label{
+            color: #fff;
+            font-size: 25px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .help-block a{
+            text-align: right;
+            font-size: 30px;
+        }
+        .pull-left{
+            float: right !important;
+        }
+        .form-control{
+            font-size: 25px;
+            height: 53px;
+        }
+    }
+    @media (min-width: 992px) {
+        .form-control{
+            font-size: 17px;
+            height: 36px;
+        }
+        .login--form{
+            max-width: 670px;
+        }
+        .pull-left{
+            float: left !important;
+        }
+        .help-block a{
+            font-size: 18px;
+        }
+        .login--form .title .h1{
+            font-size: 50px;
+        }
+        .login--form .title p{
+            font-size: 17px;
+        }
+        .login--form label span{
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .login--form form{
+            max-width: 470px;
+        }
+    }
 </style>
 <div id="preloader">
     <div class="preloader bg--color-1--b" data-preloader="1">
         <div class="preloader--inner"></div>
     </div>
 </div>
-<div class="wrapper">
-    <div class="login--section pd--100-0 bg--overlay" data-bg-img="{{ asset('assets/img/bg.jpg') }}">
+<div class="wrapper" >
+    <div class="login--section pd--100-0 bg--overlay" style="height: 100vh; display: flex; align-items: center;" data-bg-img="{{ asset('assets/img/bg.jpg') }}">
         <div class="container">
             <div class="login--form">
                 <div class="title">
@@ -48,7 +113,7 @@
                     @endif
                     <div class="form-group">
                         <label>
-                            <span style="text-align: center">اسم المستخدم أو عنوان البريد الإلكتروني</span>
+                            <span>اسم المستخدم أو عنوان البريد الإلكتروني</span>
                             <input type="email" name="email" id="email" class="form-control" required value="{{ old('email') }}" />
                         </label>
                     </div>
