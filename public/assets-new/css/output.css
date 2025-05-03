@@ -4111,11 +4111,11 @@ ul.header--menu-links.nav>li>a:hover {
 }
 
 .posts--filter-bar .nav>li:first-child>a {
-    padding-left: 0
+    /* padding-left: 0 */
 }
 
 .posts--filter-bar .nav>li:last-child>a {
-    padding-right: 0
+    /* padding-right: 0 */
 }
 
 .posts--filter-bar .nav>li:last-child>a:before {
