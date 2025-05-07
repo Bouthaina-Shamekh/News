@@ -146,6 +146,7 @@
                                 </h2>
                             </div>
                         @endforelse
+                        @if($new->publisher && $new->publisher->id != 0)
                         <div class="post--author-info clearfix" id="com">
                             <div class="img">
                                 <div class="vc--parent">
@@ -174,6 +175,8 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
+
                     </div>
                 </div>
                 <div class="main--sidebar col-md-4 ptop--30 pbottom--30" data-sticky-content="true">

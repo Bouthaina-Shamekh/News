@@ -146,7 +146,7 @@
                 <ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
                     <li class="hidden-md hidden-lg">
                         <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right">
-                            <input type="search" name="search" id="stxt" placeholder="Search... "
+                            <input type="search" name="search" id="stxt" placeholder="إبحث... "
                                 class="header--search-control form-control " required
                                 >
                             <button type="button" class="header--search-btn btn btn-header-1">
@@ -211,7 +211,7 @@
                 </ul>
             </div>
             <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right hidden-sm">
-                <input type="search" name="search" id="stxt" placeholder="Search... "
+                <input type="search" name="search" id="stxt" placeholder="إبحث... "
                     class="header--search-control form-control " required
                     >
                 <button type="button" class="header--search-btn btn btn-header-1">
