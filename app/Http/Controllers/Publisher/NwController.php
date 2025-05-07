@@ -15,6 +15,23 @@ use Illuminate\Support\Str;
 
 class NwController extends Controller
 {
+    protected function generateUniqueSlug($model, $title, $currentId = null, $field = 'slug', $maxLength = 150)
+    {
+        $slug = Str::slug($title);
+        $slug = Str::limit($slug, $maxLength, '');
+
+        $original = $slug;
+        $i = 1;
+
+        // تحقق من التعارض مع مقالات أخرى (باستثناء المقال الحالي)
+        while ($model::where($field, $slug)
+            ->when($currentId, fn($q) => $q->where('id', '!=', $currentId))
+            ->exists()) {
+            $slug = Str::limit($original . '-' . $i, $maxLength, '');
+            $i++;
+        }
+        return $slug;
+    }
     public function index()
     {
 
@@ -82,8 +99,7 @@ class NwController extends Controller
             'category_id' => 'required',
         ]);
 
-        $slug = Str::slug($request->title_org);
-        $slug = Str::limit($slug, 255, '');
+        $slug = $this->generateUniqueSlug(Nw::class, $request->title_org);
 
 
         $keywords_org_text = '';
@@ -192,8 +208,13 @@ class NwController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
-        $slug = Str::slug($request->title_en ?? $request->title_ar);
-        $slug = Str::limit($slug, 255, '');
+        $title = $request->title_en ?? $request->title_ar;
+
+        if (Str::slug($title) !== Str::slug($news->title_en ?? $news->title_ar)) {
+            $slug = $this->generateUniqueSlug(Nw::class, $title, $news->id);
+        } else {
+            $slug = $news->slug;
+        }
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',

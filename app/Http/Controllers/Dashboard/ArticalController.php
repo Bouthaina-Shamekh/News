@@ -13,6 +13,23 @@ use Illuminate\Support\Str;
 
 class ArticalController extends Controller
 {
+    protected function generateUniqueSlug($model, $title, $currentId = null, $field = 'slug', $maxLength = 150)
+    {
+        $slug = Str::slug($title);
+        $slug = Str::limit($slug, $maxLength, '');
+
+        $original = $slug;
+        $i = 1;
+
+        // تحقق من التعارض مع مقالات أخرى (باستثناء المقال الحالي)
+        while ($model::where($field, $slug)
+            ->when($currentId, fn($q) => $q->where('id', '!=', $currentId))
+            ->exists()) {
+            $slug = Str::limit($original . '-' . $i, $maxLength, '');
+            $i++;
+        }
+        return $slug;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -99,8 +116,8 @@ class ArticalController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
-        $slug = Str::slug($request->title_en ?? $request->title_ar);
-        $slug = Str::limit($slug, 255, '');
+        $slug = $this->generateUniqueSlug(Artical::class, $request->title_en ?? $request->title_ar);
+
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',
@@ -193,6 +210,9 @@ class ArticalController extends Controller
             'category_id' => 'required',
         ]);
 
+        // Find the article
+        $articals = Artical::where('slug', $slug)->first();
+
         $keywords_ar_text = '';
         if($request->keyword_ar != null){
             $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
@@ -203,16 +223,19 @@ class ArticalController extends Controller
             $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
             $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
         }
-        $slug = Str::slug($request->title_en ?? $request->title_ar);
-        $slug = Str::limit($slug, 255, '');
+        $title = $request->title_en ?? $request->title_ar;
+
+        if (Str::slug($title) !== Str::slug($articals->title_en ?? $articals->title_ar)) {
+            $slug = $this->generateUniqueSlug(Artical::class, $title, $articals->id);
+        } else {
+            $slug = $articals->slug;
+        }
         $request->merge([
             'keyword_ar' => $keywords_ar_text ?? '',
             'keyword_en' => $keywords_en_text ?? '',
             'slug' => $slug
         ]);
 
-        // Find the article
-        $articals = Artical::where('slug', $slug)->first();
 
         $imgViewPath = $articals->img_view;
         // Handle image uploads
