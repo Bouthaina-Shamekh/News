@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -89,74 +90,81 @@ class ArticalController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Artical::class);
-        $request->validate([
-            'title_ar' => 'required',
-            'title_en' => 'required',
-            'date' => 'required|date',
-            'keyword_ar' => 'nullable',
-            'keyword_en' => 'nullable',
-            'vedio' => 'nullable',
-            'img_view' => 'required|image',
-            'img_article' => 'nullable|image',
-            'text_ar' => 'required',
-            'text_en' => 'required',
-            'place' => 'required',
-            'statu_id' => 'required',
-            'publisher_id' => 'required',
-            'category_id' => 'required',
-        ]);
+        DB::beginTransaction();
+        try {
+            $request->validate([
+                'title_ar' => 'required',
+                'title_en' => 'required',
+                'date' => 'required|date',
+                'keyword_ar' => 'nullable',
+                'keyword_en' => 'nullable',
+                'vedio' => 'nullable',
+                'img_view' => 'required|image',
+                'img_article' => 'nullable|image',
+                'text_ar' => 'required',
+                'text_en' => 'required',
+                'place' => 'required',
+                'statu_id' => 'required',
+                'publisher_id' => 'required',
+                'category_id' => 'required',
+            ]);
 
-        $keywords_ar_text = '';
-        if($request->keyword_ar != null){
-            $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
-            $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
-        }
-        $keywords_en_text = '';
-        if($request->keyword_en != null){
-            $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
-            $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
-        }
-        $slug = $this->generateUniqueSlug(Artical::class, $request->title_en ?? $request->title_ar);
+            $keywords_ar_text = '';
+            if($request->keyword_ar != null){
+                $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
+                $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+            }
+            $keywords_en_text = '';
+            if($request->keyword_en != null){
+                $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
+                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+            }
+            $slug = $this->generateUniqueSlug(Artical::class, $request->title_en ?? $request->title_ar);
 
-        $request->merge([
-            'keyword_ar' => $keywords_ar_text ?? '',
-            'keyword_en' => $keywords_en_text ?? '',
-            'slug' => $slug
-        ]);
-        // Handle image uploads
-        $imgViewPath = null;
-        if ($request->hasFile('img_view')) {
-            $imgViewPath = $request->file('img_view')->store('uploads', 'public');
-        }
+            $request->merge([
+                'keyword_ar' => $keywords_ar_text ?? '',
+                'keyword_en' => $keywords_en_text ?? '',
+                'slug' => $slug
+            ]);
+            // Handle image uploads
+            $imgViewPath = null;
+            if ($request->hasFile('img_view')) {
+                $imgViewPath = $request->file('img_view')->store('uploads', 'public');
+            }
 
-        $imgArticalPath = null;
-        if ($request->hasFile('img_article')) {
-            $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
-        }
+            $imgArticalPath = null;
+            if ($request->hasFile('img_article')) {
+                $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
+            }
 
-        $vedioFilePath = null;
-        if ($request->hasFile('vedio')) {
-            $vedioFilePath = $request->file('vedio')->store('uploads', 'public');
-        }
+            $vedioFilePath = null;
+            if ($request->hasFile('vedio')) {
+                $vedioFilePath = $request->file('vedio')->store('uploads', 'public');
+            }
 
-        // Create the article
-        Artical::create([
-            'title_ar' => $request->title_ar,
-            'title_en' => $request->title_en,
-            'date' => $request->date,
-            'keyword_ar' => $request->keyword_ar,
-            'keyword_en' => $request->keyword_en,
-            'vedio' => $vedioFilePath,
-            'img_view' => $imgViewPath,
-            'img_article' => $imgArticalPath,
-            'text_ar' => $request->text_ar,
-            'text_en' => $request->text_en,
-            'place' => $request->place,
-            'statu_id' => $request->statu_id,
-            'publisher_id' => $request->publisher_id,
-            'category_id' => $request->category_id,
-            'slug' => $slug
-        ]);
+            // Create the article
+            Artical::create([
+                'title_ar' => $request->title_ar,
+                'title_en' => $request->title_en,
+                'date' => $request->date,
+                'keyword_ar' => $request->keyword_ar,
+                'keyword_en' => $request->keyword_en,
+                'vedio' => $vedioFilePath,
+                'img_view' => $imgViewPath,
+                'img_article' => $imgArticalPath,
+                'text_ar' => $request->text_ar,
+                'text_en' => $request->text_en,
+                'place' => $request->place,
+                'statu_id' => $request->statu_id,
+                'publisher_id' => $request->publisher_id,
+                'category_id' => $request->category_id,
+                'slug' => $slug
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
 
         return redirect()->route('dashboard.articale.index')->with('success', __('Item created successfully.'));
     }
@@ -193,98 +201,105 @@ class ArticalController extends Controller
     public function update(Request $request, $slug)
     {
         $this->authorize('edit', Artical::class);
-        $request->validate([
-            'title_ar' => 'required',
-            'title_en' => 'required',
-            'date' => 'required|date',
-            'keyword_ar' => 'nullable',
-            'keyword_en' => 'nullable',
-            'vedio' => 'nullable',
-            'img_view' => 'nullable|image',
-            'img_article' => 'nullable|image',
-            'text_ar' => 'required',
-            'text_en' => 'required',
-            'place' => 'required',
-            'statu_id' => 'required',
-            'publisher_id' => 'required',
-            'category_id' => 'required',
-        ]);
+        DB::beginTransaction();
+        try {
+            $request->validate([
+                'title_ar' => 'required',
+                'title_en' => 'required',
+                'date' => 'required|date',
+                'keyword_ar' => 'nullable',
+                'keyword_en' => 'nullable',
+                'vedio' => 'nullable',
+                'img_view' => 'nullable|image',
+                'img_article' => 'nullable|image',
+                'text_ar' => 'required',
+                'text_en' => 'required',
+                'place' => 'required',
+                'statu_id' => 'required',
+                'publisher_id' => 'required',
+                'category_id' => 'required',
+            ]);
 
-        // Find the article
-        $articals = Artical::where('slug', $slug)->first();
+            // Find the article
+            $articals = Artical::where('slug', $slug)->first();
 
-        $keywords_ar_text = '';
-        if($request->keyword_ar != null){
-            $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
-            $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
-        }
-        $keywords_en_text = '';
-        if($request->keyword_en != null){
-            $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
-            $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
-        }
-        $title = $request->title_en ?? $request->title_ar;
-
-        if (Str::slug($title) !== Str::slug($articals->title_en ?? $articals->title_ar)) {
-            $slug = $this->generateUniqueSlug(Artical::class, $title, $articals->id);
-        } else {
-            $slug = $articals->slug;
-        }
-        $request->merge([
-            'keyword_ar' => $keywords_ar_text ?? '',
-            'keyword_en' => $keywords_en_text ?? '',
-            'slug' => $slug
-        ]);
-
-
-        $imgViewPath = $articals->img_view;
-        // Handle image uploads
-        if ($request->hasFile('img_view')) {
-            // Delete the old image
-            if($articals->img_view != null){
-                Storage::disk('public')->delete($articals->img_view);
+            $keywords_ar_text = '';
+            if($request->keyword_ar != null){
+                $decoded_ar = json_decode($request->keyword_ar, true); // نحول الـ JSON إلى مصفوفة
+                $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
             }
-            // Store the new image
-            $imgViewPath = $request->file('img_view')->store('uploads', 'public');
-        }
-
-        $imgArticalPath = $articals->img_article;
-        if ($request->hasFile('img_article')) {
-            // Delete the old image
-            if($articals->img_article != null){
-                Storage::disk('public')->delete($articals->img_article);
+            $keywords_en_text = '';
+            if($request->keyword_en != null){
+                $decoded_en = json_decode($request->keyword_en, true); // نحول الـ JSON إلى مصفوفة
+                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
             }
-            // Store the new image
-            $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
-        }
-        $vedioPath = $articals->vedio;
-        if ($request->hasFile('vedio')) {
-            // Delete the old image
-            if($articals->vedio != null){
-                Storage::disk('public')->delete($articals->vedio);
-            }
-            // Store the new image
-            $vedioPath = $request->file('vedio')->store('uploads', 'public');
-        }
+            $title = $request->title_en ?? $request->title_ar;
 
-        // Update the article
-        $articals->update([
-            'title_ar' => $request->title_ar,
-            'title_en' => $request->title_en,
-            'date' => $request->date,
-            'keyword_ar' => $request->keyword_ar,
-            'keyword_en' => $request->keyword_en,
-            'vedio' => $vedioPath,
-            'text_ar' => $request->text_ar,
-            'text_en' => $request->text_en,
-            'place' => $request->place,
-            'statu_id' => $request->statu_id,
-            'publisher_id' => $request->publisher_id,
-            'category_id' => $request->category_id,
-            'img_view' => $imgViewPath,
-            'img_article' => $imgArticalPath,
-            'slug' => $slug
-        ]);
+            if (Str::slug($title) !== Str::slug($articals->title_en ?? $articals->title_ar)) {
+                $slug = $this->generateUniqueSlug(Artical::class, $title, $articals->id);
+            } else {
+                $slug = $articals->slug;
+            }
+            $request->merge([
+                'keyword_ar' => $keywords_ar_text ?? '',
+                'keyword_en' => $keywords_en_text ?? '',
+                'slug' => $slug
+            ]);
+
+
+            $imgViewPath = $articals->img_view;
+            // Handle image uploads
+            if ($request->hasFile('img_view')) {
+                // Delete the old image
+                if($articals->img_view != null){
+                    Storage::disk('public')->delete($articals->img_view);
+                }
+                // Store the new image
+                $imgViewPath = $request->file('img_view')->store('uploads', 'public');
+            }
+
+            $imgArticalPath = $articals->img_article;
+            if ($request->hasFile('img_article')) {
+                // Delete the old image
+                if($articals->img_article != null){
+                    Storage::disk('public')->delete($articals->img_article);
+                }
+                // Store the new image
+                $imgArticalPath = $request->file('img_article')->store('uploads', 'public');
+            }
+            $vedioPath = $articals->vedio;
+            if ($request->hasFile('vedio')) {
+                // Delete the old image
+                if($articals->vedio != null){
+                    Storage::disk('public')->delete($articals->vedio);
+                }
+                // Store the new image
+                $vedioPath = $request->file('vedio')->store('uploads', 'public');
+            }
+
+            // Update the article
+            $articals->update([
+                'title_ar' => $request->title_ar,
+                'title_en' => $request->title_en,
+                'date' => $request->date,
+                'keyword_ar' => $request->keyword_ar,
+                'keyword_en' => $request->keyword_en,
+                'vedio' => $vedioPath,
+                'text_ar' => $request->text_ar,
+                'text_en' => $request->text_en,
+                'place' => $request->place,
+                'statu_id' => $request->statu_id,
+                'publisher_id' => $request->publisher_id,
+                'category_id' => $request->category_id,
+                'img_view' => $imgViewPath,
+                'img_article' => $imgArticalPath,
+                'slug' => $slug
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
 
         return redirect()->route('dashboard.articale.index')->with('success', __('admin.Item updated successfully.'));
     }
