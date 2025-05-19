@@ -1,4 +1,4 @@
-@include('layouts.partials.head', ['title' => Config::get('app.name', 'دار اليتيم الفلسطيني')])
+@include('layouts.partials.head', ['title' => Config::get('app.name', 'laravel')])
 <div class="wrapper vh-100">
     <div class="align-items-center h-100 d-flex w-50 mx-auto">
         <div class="mx-auto text-center">

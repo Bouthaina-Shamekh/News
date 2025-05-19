@@ -48,10 +48,10 @@
                                             </a>
                                         </span>
                                     </li>
-                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . 'article/' .  $article->slug}}" target="_blank"><i class="fa fa-facebook"></i></a></span></li>
+                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . '/article/' .  $article->slug}}" target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
-                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . 'article/' .  $article->slug}}" target="_blank"><i class="fa fa-twitter"></i></a></span></li>
-                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . 'article/' .  $article->slug}}" target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
+                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . '/article/' .  $article->slug}}" target="_blank"><i class="fa fa-twitter"></i></a></span></li>
+                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . '/article/' .  $article->slug}}" target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
                                     <li class="like_v_btn" data-type="true">
                                         <a>
                                             <i class="fa fa-thumbs-up"></i>

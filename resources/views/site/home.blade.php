@@ -304,20 +304,20 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.article', $newS->slug)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                <a href="{{ route('site.articles',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.article', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -340,20 +340,20 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.article', $newS->slug)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                <a href="{{ route('site.articles',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.article', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -376,20 +376,20 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.article', $newS->slug)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
                                                                         <ul class="nav meta">
                                                                             <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                <a href="{{ route('site.articles',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
                                                                                     {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.article', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
