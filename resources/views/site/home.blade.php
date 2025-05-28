@@ -237,7 +237,7 @@
                                 @endphp
                                 @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
-                                        @if ($index != 0)
+                                        @if ($index != 1)
                                             <div class="widget--title">
                                             </div>
                                         @endif
@@ -430,7 +430,7 @@
                                 @endphp
                                 @forelse ($ads->where('status', 'active') as $index => $ad)
                                     <div class="widget">
-                                        @if ($index != 0)
+                                        @if ($index != 1)
                                             <div class="widget--title">
                                             </div>
                                         @endif
@@ -897,19 +897,45 @@
                                 </div>
                                 <div class="widget">
                                     <div class="widget--title">
-                                        <h2 class="h4" style="    direction: rtl;">
+                                        <h2 class="h4" style="direction: rtl;">
                                             {{-- أسعار العملات --}}
-                                            {{__('site.currency')}}
+                                            {{ __('site.currency') }}
                                         </h2>
                                         <i class="icon fa fa-money"></i>
                                     </div>
-                                    <div class="">
-                                        <a href="#">
-                                            <iframe src="https://ecwidgets.economies.ae/rates?quotes=35,93,67,79,37,65&type=forex&hideColumn='change'&width=900&height=800&borderColor=670005&columnHeadColor=white&tableHeadBackground=670005&fontSize=18" width="100%" height="195px" style="border:1px solid #670005; " title="أسعار العملات" class="div-mobile"></iframe>
-                                            <iframe src="https://ecwidgets.economies.ae/rates?quotes=35,93,67,79,37,65&type=forex&hideColumn='change'&width=100%&height=219&borderColor=670005&columnHeadColor=white&tableHeadBackground=670005" width="100%" height="194px" style="border:1px solid #670005;" title="أسعار العملات" class="div-ipad"></iframe>
-                                        </a>
+                                    <div>
+                                        <!-- TradingView Widget BEGIN -->
+                                        <div class="tradingview-widget-container" style="border:1px solid #670005; padding: 10px; border-radius: 5px;">
+                                            <div class="tradingview-widget-container__widget"></div>
+                                            <div class="tradingview-widget-copyright" style="text-align: center; margin-top: 5px;">
+                                                <a href="https://ar.tradingview.com/" rel="noopener nofollow" target="_blank">
+                                                    <span class="blue-text">تتبع جميع الأسواق على TradingView</span>
+                                                </a>
+                                            </div>
+                                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+                                            {
+                                              "width": "100%",
+                                              "height": 195,
+                                              "currencies": [
+                                                "EUR",
+                                                "USD",
+                                                "JPY",
+                                                "GBP",
+                                                "AUD",
+                                                "TRY",
+                                                "SEK",
+                                                "ILS"
+                                              ],
+                                              "isTransparent": false,
+                                              "colorTheme": "light",
+                                              "locale": "ar_AE",
+                                              "backgroundColor": "#ffffff"
+                                            }
+                                            </script>
+                                        </div>
+                                        <!-- TradingView Widget END -->
                                     </div>
-                                </div>
+                                </div
                                 @php
                                     $ads = App\Models\Ad::where('ad_place_id', 6)->get();
                                     foreach ($ads as $ad) {
