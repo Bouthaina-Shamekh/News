@@ -105,10 +105,11 @@
                                     <?php
                                     $logos = App\Models\Setting::Where('key', 'logo')->first();
                                     ?>
-                                    @if ($logos)
-                                    <img src="{{ asset('uploads/logos/' . $logos->value) }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
-                                    @else
-                                    <img src="{{ asset('asset/img/extra/marina.jpg') }}" alt="Logo" style="max-width: 100px; max-height: 100px;">
+                                    @if($logos)
+                                    <div class="d-flex align-items-center justify-content-between mt-3" id="logo">
+                                        <img src="{{ asset('uploads/logos/' . $logos->value) }}" alt="Current Image" width="50">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('logo')"><i class="fa fa-trash"></i></button>
+                                    </div>
                                     @endif
                                 </div>
 
@@ -119,10 +120,11 @@
                                     <?php
                                     $logo_icon = App\Models\Setting::Where('key', 'logo_icon')->first();
                                     ?>
-                                    @if ($logo_icon)
-                                    <img src="{{ asset('uploads/logos/' . $logo_icon->value) }}" alt="Logo Icon" style="max-width: 100px; max-height: 100px;">
-                                    @else
-                                    <img src="{{ asset('asset/img/extra/marina.jpg') }}" alt="Logo Icon" style="max-width: 100px; max-height: 100px;">
+                                    @if($logo_icon)
+                                    <div class="d-flex align-items-center justify-content-between mt-3" id="logo_icon">
+                                        <img src="{{ asset('uploads/logos/' . $logo_icon->value) }}" alt="Current Image" width="50">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('logo_icon')"><i class="fa fa-trash"></i></button>
+                                    </div>
                                     @endif
                                 </div>
 
@@ -147,6 +149,26 @@
             });
 
         </script>
+        <script>
+            function removeImage(name) {
+                $.ajax({
+                    url: `{{ route('dashboard.setting.removeImage') }}`,
+                    type: 'POST',
+                    data: {
+                        name: name,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $(`#${name}`).remove();
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            }
+        </script>
+
         @endpush
 
 

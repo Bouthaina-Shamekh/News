@@ -17,7 +17,6 @@ use App\Http\Controllers\Dashboard\CommentController;
 use App\Http\Controllers\Dashboard\MessageController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\Dashboard\ConstantController;
 use App\Http\Controllers\Dashboard\NewPlaceController;
 use App\Http\Controllers\Dashboard\PublisherController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -69,6 +68,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
         Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
+        Route::post('/setting/removeImage',[SettingController::class , 'removeImage'])->name('setting.removeImage');
 
         Route::get('/constant',[SettingController::class , 'index'])->name('constant.index');
 

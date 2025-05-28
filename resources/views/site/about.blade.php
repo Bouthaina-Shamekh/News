@@ -114,7 +114,7 @@
                                 <i class="fa fa-object-group"></i>
                             </div>
                             <div class="title">
-                                <h3 class="h5">{{ app()->getLocale() == 'ar' ? 'قيمتنا' : 'objective'}}</h3>
+                                <h3 class="h5">{{ app()->getLocale() == 'ar' ? 'قيمنا' : 'objective'}}</h3>
                             </div>
                             <div class="content post--content">
                                 <p>
