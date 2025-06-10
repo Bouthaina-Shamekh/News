@@ -162,13 +162,28 @@ $name = 'name_' . app()->getLocale();
         new Tagify(el);
     });
     tinymce.init({
-        selector: '.mytextarea'
-        , setup: function(editor) {
-            editor.on('change', function() {
-                editor.save();
-            });
-        }
-    });
+    selector: '.mytextarea',
+    height: 300,
+    menubar: false,
+    plugins: 'paste lists link image code',
+    toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+
+    // أهم الإعدادات
+    paste_as_text: true, // لصق كنص عادي (يحل المشكلة)
+    paste_word_valid_elements: 'b,strong,i,em,u,ul,ol,li,p,br',
+    paste_retain_style_properties: '',
+
+    entity_encoding: 'raw', // يحافظ على الترميز بشكل صحيح
+
+    // دعم RTL أو LTR بناء على اللغة الحالية
+    directionality: '{{ app()->getLocale() == "ar" ? "rtl" : "ltr" }}',
+
+    setup: function (editor) {
+        editor.on('change', function () {
+            editor.save();
+        });
+    }
+});
 </script>
 <script>
         function removeImage(name) {
