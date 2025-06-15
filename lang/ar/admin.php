@@ -223,8 +223,8 @@ return [
     'Site_en' => 'موقع الخبر بالانجليزية',
     'Logo Icon' => 'الايقونة',
     'Logo' => 'الشعار',
-    'View News Admin' => 'عرض الاخبار للادمن',
-    'View News Publisher' => 'عرض الاخبار للناشرين',
+    'View News Admin' => 'عرض اخبار الادمن',
+    'View News Publisher' => 'عرض اخبار الناشرين',
 ];
 
 

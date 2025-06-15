@@ -23,13 +23,13 @@
 
 
 
-<div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]">
+<!--<div class="floting-button fixed bottom-[50px] right-[30px] z-[1030]">
     <a href="#header"
         class="btn btn-danger buynowlinks animate-[btn-floating_2s_infinite] max-sm:p-[13px] max-sm:rounded-full inline-flex items-center gap-2"
         data-pc-toggle="tooltip" data-pc-title="Buy Now">
         <i class="fas fa-angle-double-up"></i>
     </a>
-</div>
+</div>-->
 
 
 <script>

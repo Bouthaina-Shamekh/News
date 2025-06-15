@@ -8,7 +8,7 @@
     @push('styles')
     <!-- data tables css -->
     <link rel="stylesheet" href="{{ asset('assets-dashboard/css/plugins/dataTables.bootstrap5.min.css') }}" />
-    <style>
+    {{-- <style>
         .title {
             width: 303px;
             display: block;
@@ -65,7 +65,7 @@
         #search:hover {
             background-color: #218838; /* Darker green on hover */
         }
-    </style>
+    </style> --}}
     @endpush
 
     <x-slot:breadcrumbs>
@@ -90,7 +90,7 @@
             </div>
 
             <!-- Filters Section -->
-            <div class="filters-container">
+            <!--<div class="filters-container">
                 <div class="filter-item">
                     <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
                     <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
@@ -113,69 +113,128 @@
                     </select>
                 </div>
                 <button class="btn" id="search">{{ __('admin.Filter') }}</button>
+            </div>-->
+            <div class="filters-container flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-md">
+                <!-- Keyword Input -->
+                <div class="flex flex-col space-y-2 w-full sm:w-48">
+                    <label for="keyword" class="text-sm font-medium text-gray-700">{{ __('admin.Keyword_EN') }}</label>
+                    <x-form.input
+                        name="title_ar"
+                        id="title_ar"
+                        type="text"
+                        placeholder="{{ __('admin.enter keyword') }}"
+                        class="h-11 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    />
+                </div>
+                <!-- From Date -->
+                <div class="flex flex-col space-y-2 w-full sm:w-40">
+                    <label for="date" class="text-sm font-medium text-gray-700">{{ __('admin.From Date') }}</label>
+                    <x-form.input
+                        name="date"
+                        id="date"
+                        type="date"
+                        placeholder="mm/dd/yyyy"
+                        class="h-11 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    />
+                </div>
+                <!-- To Date -->
+                <div class="flex flex-col space-y-2 w-full sm:w-40">
+                    <label for="to_date" class="text-sm font-medium text-gray-700">{{ __('admin.To Date') }}</label>
+                    <x-form.input
+                        name="to_date"
+                        id="to_date"
+                        type="date"
+                        placeholder="mm/dd/yyyy"
+                        class="h-11 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    />
+                </div>
+                <!-- Category Dropdown -->
+                <div class="flex flex-col space-y-2 w-full sm:w-44">
+                    <label for="category_id" class="text-sm font-medium text-gray-700">{{ __('admin.Category') }}</label>
+                    <select
+                        id="category_id"
+                        name="category_id"
+                        class="h-11 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    >
+                        <option value="" selected>{{ __('admin.Choose') }}</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->$name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <!-- Filter Button -->
+                <div class="w-full sm:w-auto mt-2 sm:mt-6">
+                    <button
+                        type="submit"
+                        id="search"
+                        class="w-full sm:w-auto h-11 px-6 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg transition"
+                    >
+                        {{ __('admin.Filter') }}
+                    </button>
+                </div>
             </div>
-
-            @can('view', 'App\Models\Nw')
-            <div class="card-body">
-                <div class="dt-responsive table-responsive">
-                    <table id="footer-search" class="table table-striped table-bordered nowrap">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ __('admin.Image') }}</th>
-                                <th>{{ __('admin.Title') }}</th>
-                                <th>{{ __('admin.Publisher') }}</th>
-                                <th>{{ __('admin.Category') }}</th>
-                                <th>{{ __('admin.New Place') }}</th>
-                                <th>{{ __('admin.Created') }}</th>
-                                <th>{{ __('admin.Visit') }}</th>
-                                <th>{{ __('admin.Status') }}</th>
-                                <th>{{ __('admin.Actions') }}</th>
+        </div>
+        @can('view', 'App\Models\Nw')
+        <div class="card-body pt-3">
+            <div class="table-responsive">
+                <table id="footer-search" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ __('admin.Image') }}</th>
+                            <th>{{ __('admin.Title') }}</th>
+                            <th>{{ __('admin.Publisher') }}</th>
+                            <th>{{ __('admin.Category') }}</th>
+                            <th>{{ __('admin.New Place') }}</th>
+                            <th>{{ __('admin.Created') }}</th>
+                            <th>{{ __('admin.Visit') }}</th>
+                            <th>{{ __('admin.Status') }}</th>
+                            <th>{{ __('admin.Actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($news as $new)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                @if ($new->img_view)
+                                @if(Storage::disk('public')->exists($new->img_view))
+                                <img src="{{ asset('storage/' . $new->img_view) }}" width="50" alt="Image">
+                                @else
+                                {{ __('No Image') }}
+                                @endif
+                                @else
+                                {{ __('No Image') }}
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title != null && $new->$title != '' ? $new->$title : $new->title_org }}</a>
+                            </td>
+                            <td>{{ $new->publisher->name ?? 'Admin' }}</td>
+                            <td>
+                                @if(app()->getLocale() == 'ar')
+                                    {{ $new->category->name_ar ?? '' }}
+                                    @else
+                                    {{ $new->category->name_en ?? '' }}
+                                @endif
+                            </td>
+                                <td>{{ $new->newplace ? $new->newplace->$name : '-' }}</td>
+                                <td>{{ $new->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $new->visit }}</td>
+                                <td>{{ $new->status ? $new->status->$name : '' }}</td>
+                                <td class="d-flex">
+                                    <a href="{{ route('dashboard.nw.edit', $new->slug) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <i class="ti ti-edit text-xl leading-none"></i>
+                                    </a>
+                                    <form action="{{ route('dashboard.nw.destroy', $new->slug) }}" method="post" class="delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
+                                            <i class="ti ti-trash text-xl leading-none"></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($news as $new)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        @if ($new->img_view)
-                                            @if(Storage::disk('public')->exists($new->img_view))
-                                            <img src="{{ asset('storage/' . $new->img_view) }}" width="50" alt="Image">
-                                            @else
-                                            {{ __('No Image') }}
-                                            @endif
-                                        @else
-                                        {{ __('No Image') }}
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title != null && $new->$title != '' ? $new->$title : $new->title_org }}</a>
-                                    </td>
-                                    <td>{{ $new->publisher->name ?? 'Admin' }}</td>
-                                    <td>
-                                        @if(app()->getLocale() == 'ar')
-                                            {{ $new->category->name_ar ?? '' }}
-                                        @else
-                                            {{ $new->category->name_en ?? '' }}
-                                        @endif
-                                    </td>
-                                    <td>{{ $new->newplace ? $new->newplace->$name : '-' }}</td>
-                                    <td>{{ $new->created_at->format('Y-m-d') }}</td>
-                                    <td>{{ $new->visit }}</td>
-                                    <td>{{ $new->status ? $new->status->$name : '' }}</td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('dashboard.nw.edit', $new->slug) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                            <i class="ti ti-edit text-xl leading-none"></i>
-                                        </a>
-                                        <form action="{{ route('dashboard.nw.destroy', $new->slug) }}" method="post" class="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
-                                                <i class="ti ti-trash text-xl leading-none"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -188,11 +247,9 @@
         </div>
     </div>
     <!-- Both borders table end -->
-
-
-@push('styles')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
-@endpush
+    @push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
+    @endpush
     @push('scripts')
     <script src="{{ asset('assets-dashboard/js/plugins/dataTables.min.js') }}"></script>
     <script src="{{ asset('assets-dashboard/js/plugins/dataTables.bootstrap5.min.js') }}"></script>

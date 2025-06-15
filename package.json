@@ -6,12 +6,15 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
+        "autoprefixer": "^10.4.21",
         "axios": "^1.1.2",
         "bootstrap": "^5.2.3",
         "laravel-echo": "^1.17.1",
         "laravel-vite-plugin": "^0.7.2",
+        "postcss": "^8.5.5",
         "pusher-js": "^8.4.0-rc2",
         "sass": "^1.56.1",
+        "tailwindcss": "^4.1.10",
         "vite": "^4.0.0"
     }
 }

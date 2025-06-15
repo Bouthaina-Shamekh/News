@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('assets-dashboard/fonts/material.css')}}" />
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{asset('assets-dashboard/css/style.css')}}" id="" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         .offcanvas.offcanvas-end {
