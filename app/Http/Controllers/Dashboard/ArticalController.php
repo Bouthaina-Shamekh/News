@@ -42,10 +42,8 @@ class ArticalController extends Controller
         $categories  = Category::get();
         $request = request();
         if($request->ajax()){
-            if($request->keyword != null){
-                $decoded_en = json_decode($request->keyword, true); // نحول الـ JSON إلى مصفوفة
-                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
-                $articals = $articals->where('keyword_en', 'like', "$keywords_en_text");
+            if($request->title != null){
+                $articals = $articals->where('title_en', 'like', "%{$request->title}%")->orWhere('title_ar', 'like', "%{$request->title}%");
             }
             if($request->date  != null){
                 $articals = $articals->where('date','>=', $request->date);

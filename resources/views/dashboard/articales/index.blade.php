@@ -90,8 +90,8 @@
             <!-- Filters Section -->
             <div class="filters-container">
                 <div class="filter-item">
-                    <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
-                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
+                    <label for="title">{{ __('admin.Title') }}:</label>
+                    <x-form.input name="title" id="title" type="text" placeholder="{{ __('admin.Title') }}" />
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
@@ -215,7 +215,7 @@
                     url: '{{ route('dashboard.articale.index')}}',
                     method: 'GET',
                     data: {
-                        keyword: $('#keyword').val(),
+                        title: $('#title').val(),
                         date: date,
                         to_date: to_date,
                         category_id: category_id,

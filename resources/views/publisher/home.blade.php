@@ -31,7 +31,7 @@
             gap: 5px;
             /* تقليل التباعد بين العناصر */
             margin-bottom: 20px;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             /* منع الانتقال إلى سطر جديد */
             margin: 20px;
         }

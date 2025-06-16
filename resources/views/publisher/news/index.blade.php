@@ -28,7 +28,7 @@
             align-items: center;
             gap: 5px; /* تقليل التباعد بين العناصر */
             margin-bottom: 20px;
-            flex-wrap: nowrap; /* منع الانتقال إلى سطر جديد */
+            flex-wrap: wrap; /* منع الانتقال إلى سطر جديد */
             margin: 20px;
         }
         .filter-item {
@@ -69,7 +69,7 @@
     @endpush
 
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('publisher.home') }}">{{ __('admin.Home') }}</a></li>
         <li class="breadcrumb-item" aria-current="page">{{ __('admin.News') }}</li>
     </x-slot:breadcrumb>
 

@@ -3,9 +3,9 @@
         <link rel="stylesheet" href="{{asset('assets-dashboard/css/media.css')}}">
     @endpush
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{route('publisher.home')}}">{{__('admin.Home')}}</a></li>
 
-        <li class="breadcrumb-item"><a href="{{route('dashboard.nw.index')}}">{{__('admin.News')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{route('publisher.nw.index')}}">{{__('admin.News')}}</a></li>
 
         <li class="breadcrumb-item" aria-current="page">{{__('admin.Edit News')}}</li>
     </x-slot:breadcrumb>

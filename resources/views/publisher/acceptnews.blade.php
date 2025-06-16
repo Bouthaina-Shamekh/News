@@ -28,7 +28,7 @@
             align-items: center;
             gap: 5px; /* تقليل التباعد بين العناصر */
             margin-bottom: 20px;
-            flex-wrap: nowrap; /* منع الانتقال إلى سطر جديد */
+            flex-wrap: wrap;
             margin: 20px;
         }
         .filter-item {
@@ -69,7 +69,7 @@
     @endpush
 
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('publisher.home') }}">{{ __('admin.Home') }}</a></li>
         <li class="breadcrumb-item" aria-current="page">{{ __('admin.News') }}</li>
     </x-slot:breadcrumb>
 
@@ -90,8 +90,8 @@
             <!-- Filters Section -->
             <div class="filters-container">
                 <div class="filter-item">
-                    <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
-                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
+                    <label for="title">{{ __('admin.Title') }}:</label>
+                    <x-form.input name="title" id="title" type="text" placeholder="{{ __('admin.Title') }}" />
                 </div>
                 <div class="filter-item">
                     <label for="date">{{ __('admin.From Date') }}:</label>
@@ -204,7 +204,7 @@
                 let date = $('#date').val();
                 let to_date = $('#to_date').val();
                 let category_id = $('#category_id').val();
-                let keyword = $('#keyword').val();
+                let title = $('#title').val();
                 let accept = "{{__('admin.accept')}}";
                 let not_accepted = "{{__('admin.not accepted yet')}}";
                 $.ajax({
@@ -214,7 +214,7 @@
                         date: date,
                         to_date: to_date,
                         category_id: category_id,
-                        keyword: keyword,
+                        title: title,
                         publisher_id : "{{ Auth::guard('publisherGuard')->user() ? Auth::guard('publisherGuard')->user()->id : 0 }}",
                         status_id : 2,
                     },

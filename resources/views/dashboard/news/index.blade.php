@@ -89,40 +89,15 @@
                 @endcan
             </div>
 
-            <!-- Filters Section -->
-            <!--<div class="filters-container">
-                <div class="filter-item">
-                    <label for="keyword">{{ __('admin.Keyword_EN') }}:</label>
-                    <x-form.input name="keyword" id="keyword" type="text" placeholder="{{ __('admin.enter keyword') }}" />
-                </div>
-                <div class="filter-item">
-                    <label for="date">{{ __('admin.From Date') }}:</label>
-                    <x-form.input name="date" id="date" type="date" placeholder="mm/dd/yyyy"  />
-                </div>
-                <div class="filter-item">
-                    <label for="to_date">{{ __('admin.To Date') }}:</label>
-                    <x-form.input name="to_date" id="to_date" type="date" placeholder="mm/dd/yyyy"  />
-                </div>
-                <div class="filter-item">
-                    <label for="category_id">{{ __('admin.Category') }}:</label>
-                    <select id="category_id" name="category_id" class="form-control">
-                        <option value="" selected>{{ __('admin.Choose') }}</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->$name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <button class="btn" id="search">{{ __('admin.Filter') }}</button>
-            </div>-->
             <div class="filters-container flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-md">
-                <!-- Keyword Input -->
+                <!-- Title Input -->
                 <div class="flex flex-col space-y-2 w-full sm:w-48">
-                    <label for="keyword" class="text-sm font-medium text-gray-700">{{ __('admin.Keyword_EN') }}</label>
+                    <label for="title" class="text-sm font-medium text-gray-700">{{ __('admin.Title') }}</label>
                     <x-form.input
-                        name="title_ar"
-                        id="title_ar"
+                        name="title"
+                        id="title"
                         type="text"
-                        placeholder="{{ __('admin.enter keyword') }}"
+                        placeholder="{{ __('admin.Title') }}"
                         class="h-11 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
                     />
                 </div>
@@ -269,20 +244,20 @@
                 return `${year}-${month}-${day}`;
             }
             $('#search').on('click', function() {
+                let title = $('#title').val();
                 let date = $('#date').val();
                 let to_date = $('#to_date').val();
                 let category_id = $('#category_id').val();
-                let keyword = $('#keyword').val();
                 let accept = "{{__('admin.accept')}}";
                 let not_accepted = "{{__('admin.not accepted yet')}}";
                 $.ajax({
                     url: '{{ route('dashboard.nw.index') }}',
                     method: 'GET',
                     data: {
+                        title: title,
                         date: date,
                         to_date: to_date,
                         category_id: category_id,
-                        keyword: keyword,
                     },
                     success: function(data) {
                         $('#footer-search tbody').empty();
