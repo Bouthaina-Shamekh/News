@@ -92,7 +92,7 @@
             <div class="filters-container flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-md">
                 <!-- Title Input -->
                 <div class="flex flex-col space-y-2 w-full sm:w-48">
-                    <label for="title" class="text-sm font-medium text-gray-700">{{ __('admin.Title') }}</label>
+                    <label for="title" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.Title') }}</label>
                     <x-form.input
                         name="title"
                         id="title"
@@ -103,7 +103,7 @@
                 </div>
                 <!-- From Date -->
                 <div class="flex flex-col space-y-2 w-full sm:w-40">
-                    <label for="date" class="text-sm font-medium text-gray-700">{{ __('admin.From Date') }}</label>
+                    <label for="date" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.From Date') }}</label>
                     <x-form.input
                         name="date"
                         id="date"
@@ -114,7 +114,7 @@
                 </div>
                 <!-- To Date -->
                 <div class="flex flex-col space-y-2 w-full sm:w-40">
-                    <label for="to_date" class="text-sm font-medium text-gray-700">{{ __('admin.To Date') }}</label>
+                    <label for="to_date" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.To Date') }}</label>
                     <x-form.input
                         name="to_date"
                         id="to_date"
@@ -125,7 +125,7 @@
                 </div>
                 <!-- Category Dropdown -->
                 <div class="flex flex-col space-y-2 w-full sm:w-44">
-                    <label for="category_id" class="text-sm font-medium text-gray-700">{{ __('admin.Category') }}</label>
+                    <label for="category_id" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.Category') }}</label>
                     <select
                         id="category_id"
                         name="category_id"
@@ -139,6 +139,7 @@
                 </div>
                 <!-- Filter Button -->
                 <div class="w-full sm:w-auto mt-2 sm:mt-6">
+                    <div class="mb-6"></div>
                     <button
                         type="submit"
                         id="search"

@@ -23,11 +23,11 @@
                         @csrf
                         @method('PUT')
                         @include('dashboard.articales._form')
-                        <div class="row justify-content-end mt-3">
-                            <a href="{{route('dashboard.articale.index')}}" class="btn btn-secondary col-md-1 col-sm-3 mr-3">
+                        <div class="col-span-12 text-left">
+                            <a href="{{route('dashboard.articale.index')}}" class="btn btn-secondary">
                                 {{__('admin.Back')}}
                             </a>
-                            <button type="submit" class="btn btn-primary col-md-1 col-sm-3  mr-3">
+                            <button type="submit" class="btn btn-primary">
                                 {{__('admin.Update')}}
                             </button>
                         </div>

@@ -22,11 +22,11 @@
                         <form action="{{route('dashboard.category.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @include('dashboard.categories._form')
-                            <div class="row justify-content-end mt-3">
-                                <a href="{{route('dashboard.category.index')}}" class="btn btn-secondary col-md-1 col-sm-3 mr-3">
+                            <div class="col-span-12 text-left">
+                                <a href="{{route('dashboard.category.index')}}" class="btn btn-secondary">
                                     {{__('admin.Back')}}
                                 </a>
-                                <button type="submit" class="btn btn-primary col-md-1 col-sm-3  mr-3">
+                                <button type="submit" class="btn btn-primary">
                                     {{$btn_label ?? __('admin.Add')}}
                                 </button>
                             </div>

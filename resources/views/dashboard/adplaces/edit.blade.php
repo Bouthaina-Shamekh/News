@@ -23,7 +23,7 @@
                         @csrf
                         @method('PUT')
                         @include('dashboard.adplaces._form')
-                        <div class="row justify-content-end mt-3">
+                        <div class="col-span-12 text-left">
                             <a href="{{route('dashboard.adplace.index')}}" class="btn btn-secondary col-md-1 col-sm-3 mr-3">
                                 {{__('admin.Back')}}
                             </a>

@@ -24,7 +24,7 @@
                         @csrf
                         @method('PUT')
                         @include('dashboard.publishers._form')
-                        <div class="row justify-content-end mt-3">
+                        <div class="col-span-12 text-left">
                             <a href="{{route('dashboard.publisher.index')}}" class="btn btn-secondary col-md-1 col-sm-3 mr-3">
                                 {{__('admin.Back')}}
                             </a>

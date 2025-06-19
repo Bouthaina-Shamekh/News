@@ -3,124 +3,92 @@
         $name = 'name_' . app()->getLocale();
         $title = 'title_' . app()->getLocale();
     @endphp
-    @push('styles')
-    <!-- data tables css -->
-    <link rel="stylesheet" href="{{ asset('assets-dashboard/css/plugins/dataTables.bootstrap5.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets-dashboard/css/edit.css') }}" />
-    <style>
-        .title {
-            width: 100px;
-            display: block;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-        .title:hover {
-            width: auto;
-            display: block;
-            overflow: visible;
-            white-space: normal;
-            text-overflow: clip;
-        }
-        .filters-container {
-            display: flex;
-            align-items: center;
-            gap: 5px; /* تقليل التباعد بين العناصر */
-            margin-bottom: 20px;
-            flex-wrap: nowrap; /* منع الانتقال إلى سطر جديد */
-            margin: 20px;
-        }
-        .filter-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            flex: 1; /* جعل العناصر تأخذ مساحة متساوية */
-        }
-        .filter-item label {
-            font-weight: bold;
-            white-space: nowrap;
-            margin-bottom: 0;
-            font-size: 14px; /* تكبير حجم النص */
-        }
-        .filter-item input,
-        .filter-item select {
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 120px; /* تقليل عرض العناصر */
-            font-size: 14px; /* تكبير حجم النص */
-        }
-        #search {
-            background-color: #28a745; /* Green color */
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            font-size: 14px; /* تكبير حجم النص */
-            cursor: pointer;
-            border-radius: 4px;
-            white-space: nowrap; /* منع الانتقال إلى سطر جديد */
-            margin-left: 5px; /* نفس مسافة التباعد بين الفلاتر */
-        }
-        #search:hover {
-            background-color: #218838; /* Darker green on hover */
-        }
-    </style>
-    @endpush
     <x-slot:breadcrumbs>
         <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
         <li class="breadcrumb-item" aria-current="page">{{ __('admin.Articals') }}</li>
     </x-slot:breadcrumb>
-
-    <!-- Both borders table start -->
+    <!-- [ Main Content ] start -->
     <div class="col-span-12">
-        <div class="card">
-            @can('create', 'App\Models\Artical')
-            <div class="card-header d-flex justify-content-between">
-                <div class="row">
-                    <h5>{{ __('admin.Articles') }}</h5>
-                </div>
-                <div>
-                    <a href="{{ route('dashboard.articale.create') }}" class="btn btn-primary">
-                        {{ __('admin.Add Articles') }}
-                    </a>
+        <div class="card table-card">
+            <div class="card-header">
+                <div class="sm:flex items-center justify-between">
+                    <h5 class="mb-3 mb-sm-0">{{ __('admin.Articles') }}</h5>
+                    @can('create', 'App\Models\Artical')
+                        <div>
+                            <a href="{{ route('dashboard.articale.create') }}" class="btn btn-primary">{{ __('admin.Add Articles') }}</a>
+                        </div>
+                    @endcan
                 </div>
             </div>
-            @endcan
-
             <!-- Filters Section -->
-            <div class="filters-container">
-                <div class="filter-item">
-                    <label for="title">{{ __('admin.Title') }}:</label>
-                    <x-form.input name="title" id="title" type="text" placeholder="{{ __('admin.Title') }}" />
+            <div class="filters-container flex flex-col sm:flex-row sm:flex-wrap sm:items-end gap-4 bg-white p-4 sm:p-6 rounded-2xl shadow-md">
+                <!-- Title Input -->
+                <div class="flex flex-col space-y-2 w-full sm:w-48">
+                    <label for="title" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.Title') }}</label>
+                    <x-form.input
+                        name="title"
+                        id="title"
+                        type="text"
+                        placeholder="{{ __('admin.Title') }}"
+                        class="h-15 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    />
                 </div>
-                <div class="filter-item">
-                    <label for="date">{{ __('admin.From Date') }}:</label>
-                    <x-form.input name="date" id="date" type="date" placeholder="mm/dd/yyyy"  />
+                <!-- From Date -->
+                <div class="flex flex-col space-y-2 w-full sm:w-40">
+                    <label for="date" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.From Date') }}</label>
+                    <x-form.input
+                        name="date"
+                        id="date"
+                        type="date"
+                        placeholder="mm/dd/yyyy"
+                        class="h-15 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    />
                 </div>
-                <div class="filter-item">
-                    <label for="to_date">{{ __('admin.To Date') }}:</label>
-                    <x-form.input name="to_date" id="to_date" type="date" placeholder="mm/dd/yyyy"  />
+                <!-- To Date -->
+                <div class="flex flex-col space-y-2 w-full sm:w-40">
+                    <label for="to_date" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.To Date') }}</label>
+                    <x-form.input
+                        name="to_date"
+                        id="to_date"
+                        type="date"
+                        placeholder="mm/dd/yyyy"
+                        class="h-15 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    />
                 </div>
-                <div class="filter-item">
-                    <label for="category_id">{{ __('admin.Category') }}:</label>
-                    <select id="category_id" name="category_id" class="form-control">
+                <!-- Category Dropdown -->
+                <div class="flex flex-col space-y-2 w-full sm:w-44">
+                    <label for="category_id" class="text-sm font-medium text-gray-700 mb-3">{{ __('admin.Category') }}</label>
+                    <select
+                        id="category_id"
+                        name="category_id"
+                        class="h-11 px-4 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm w-full"
+                    >
                         <option value="" selected>{{ __('admin.Choose category') }}</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->$name }}</option>
+                         @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->$name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <button class="btn" id="search">{{ __('admin.Search') }}</button>
+                <!-- Filter Button -->
+                <div class="w-full sm:w-auto mt-2 sm:mt-6">
+                    <div class="mb-6"></div>
+                    <button
+                        type="submit"
+                        id="search"
+                        class="w-full sm:w-auto h-11 px-6 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg transition"
+                    >
+                        {{ __('admin.Search') }}
+                    </button>
+                </div>
             </div>
-
             @can('view', 'App\Models\Artical')
-            <div class="card-body">
-                <div class="dt-responsive table-responsive">
-                    <table id="footer-search" class="table table-striped table-bordered nowrap">
-                        <thead>
-                            <tr>
+                <div class="card-body pt-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="footer-search">
+                            <thead>
+                                <tr>
                                 <th>#</th>
-                                <th></th>
+                                <th>{{ __('admin.Image') }}</th>
                                 <th>{{ __('admin.Title') }}</th>
                                 <th>{{ __('admin.Publisher') }}</th>
                                 <th>{{ __('admin.Category') }}</th>
@@ -129,70 +97,69 @@
                                 <th>{{ __('admin.Visit') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
                                 <th>{{ __('admin.Actions') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($articals as $artical)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    @if ($artical->img_view)
-                                        @if(Storage::disk('public')->exists($artical->img_view))
-                                        <img src="{{ asset('storage/' . $artical->img_view) }}" width="50" alt="Image">
-                                        @else
-                                        {{ __('No Image') }}
-                                        @endif
-                                    @else
-                                    {{ __('No Image') }}
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('site.article', $artical->slug) }}" target="_blank" class="title">{{ $artical->$title }}</a>
-                                </td>
-                                <td>{{ $artical->publisher->name ?? '' }}</td>
-                                <td>
-                                    @if(app()->getLocale() == 'ar')
-                                    {{ $artical->category->name_ar ?? '' }}
-                                    @else
-                                    {{ $artical->category->name_en ?? '' }}
-                                    @endif
-                                </td>
-                                <td>{{ $artical->date}}</td>
-                                <td>{{ $artical->created_at->format('Y-m-d') }}</td>
-                                <td>{{ $artical->visit }}</td>
-                                <td>{{ $artical->status ? $artical->status->$name : '' }}</td>
-                                <td class="d-flex">
-                                    <a href="{{ route('dashboard.articale.edit', $artical->slug) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
-                                        <i class="ti ti-edit text-xl leading-none"></i>
-                                    </a>
-                                    <form action="{{ route('dashboard.articale.destroy', $artical->slug) }}" method="post" class="delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
-                                            <i class="ti ti-trash text-xl leading-none"></i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="d-flex justify-content-between" dir="ltr" id="pagination-links">
-                    {{ $articals->links() }}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($articals as $artical)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            @if ($artical->img_view)
+                                                @if(Storage::disk('public')->exists($artical->img_view))
+                                                    <div class="flex items-center">
+                                                        <div class="shrink-0">
+                                                            <img src="{{ asset('storage/' . $artical->img_view) }}" alt="user image" class="w-10" />
+                                                        </div>
+                                                    </div>
+                                                    @else
+                                                    {{ __('No Image') }}
+                                                @endif
+                                                    @else
+                                                    {{ __('No Image') }}
+                                            @endif
+                                        </td>
+                                        <td><a href="{{ route('site.article', $artical->slug) }}" target="_blank" class="title">{{ $artical->$title }}</a></td>
+                                        <td>{{ $artical->publisher->name ?? '' }}</td>
+                                        <td>
+                                            @if(app()->getLocale() == 'ar')
+                                                {{ $artical->category->name_ar ?? '' }}
+                                                @else
+                                                {{ $artical->category->name_en ?? '' }}
+                                            @endif
+                                        </td>
+                                        <td>{{ $artical->date}}</td>
+                                        <td>{{ $artical->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $artical->visit }}</td>
+                                        <td>{{ $artical->status ? $artical->status->$name : '' }}</td>
+                                        <td>
+                                            {{-- <a href="#" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                                <i class="ti ti-eye text-xl leading-none"></i>
+                                            </a> --}}
+                                            <a href="{{ route('dashboard.articale.edit', $artical->slug) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                                <i class="ti ti-edit text-xl leading-none"></i>
+                                            </a>
+                                            <form action="{{ route('dashboard.articale.destroy', $artical->slug) }}" method="post" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" title="{{ __('Delete') }}">
+                                                    <i class="ti ti-trash text-xl leading-none"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4"  id="pagination-links">
+                        {{ $articals->links() }}
+                    </div>
                 </div>
             </div>
-            @endcan
         </div>
-    </div>
-    <!-- Both borders table end -->
-    @push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
-    @endpush
-    @push('scripts')
-    <script src="{{ asset('assets-dashboard/js/plugins/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets-dashboard/js/plugins/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.min.js" referrerpolicy="origin"></script>
+    @endcan
+    <!-- [ Main Content ] end -->
+
 
     <script>
         const tagifyElements = document.querySelectorAll('#keyword');
@@ -282,19 +249,19 @@
             });
         });
     </script>
-
-
-<script>
-    document.querySelectorAll('.delete-form').forEach(form => {
-        form.addEventListener('submit', function (e) {
-            const confirmMessage = @json(__('admin.confirm_delete'));
-            if (!confirm(confirmMessage)) {
-                e.preventDefault();
-            }
+    <script>
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                const confirmMessage = @json(__('admin.confirm_delete'));
+                if (!confirm(confirmMessage)) {
+                    e.preventDefault();
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-
-    @endpush
 </x-dashboard-layout>
+          
+
+
+

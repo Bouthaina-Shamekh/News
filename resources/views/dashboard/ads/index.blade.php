@@ -69,10 +69,10 @@
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
                                     @endcan
-                                    <form action="{{route('dashboard.ad.destroy',$ad->id)}}" method="post" class="delete-form">
+                                    <form action="{{route('dashboard.ad.destroy',$ad->id)}}" method="post" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{__('Delete')}}">
+                                        <button type="submit" class="" title="{{__('Delete')}}">
                                             <i class="ti ti-trash text-xl leading-none"></i>
                                         </button>
                                     </form>
