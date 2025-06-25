@@ -163,10 +163,22 @@ $name = 'name_' . app()->getLocale();
     });
     tinymce.init({
     selector: '.mytextarea',
-    height: 300,
-    menubar: false,
-    plugins: 'paste lists link image code',
-    toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+    height: 500,
+    menubar: true,
+        plugins: `
+        advlist autolink lists link image charmap print preview anchor
+        searchreplace visualblocks code fullscreen
+        insertdatetime media table code help wordcount
+        emoticons codesample directionality hr pagebreak
+    `,
+        toolbar: `
+        undo redo | blocks | bold italic underline strikethrough forecolor backcolor |
+        alignleft aligncenter alignright alignjustify |
+        bullist numlist outdent indent | link image media table |
+        emoticons charmap hr pagebreak | code fullscreen preview print |
+        ltr rtl | removeformat
+    `,
+
 
     // أهم الإعدادات
     paste_as_text: true, // لصق كنص عادي (يحل المشكلة)
@@ -184,6 +196,7 @@ $name = 'name_' . app()->getLocale();
         });
     }
 });
+
 </script>
 <script>
         function removeImage(name) {
