@@ -5,6 +5,25 @@
     @endphp
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
+        <style>
+            .article--search-form {
+                position: absolute;
+                top: 11px;
+                left: 30px;
+            }
+            .article--search-btn {
+                position: absolute;
+                top: 4px;
+                left: 0px;
+                background: transparent;
+            }
+            .article--search-control {
+                display: block;
+                background-color: #f0f0f0;
+                border: 0;
+                border-radius: 20px;
+            }
+        </style>
     @endpush
     <x-slot:header>
         <div class="posts--filter-bar style--1 hidden-xs">
@@ -23,15 +42,27 @@
         </div>
     </x-slot:header>
     <div class="main--breadcrumb">
-        <div class="container">
-            <ul class="breadcrumb" style="direction: rtl">
-                <li>
-                    <a href="{{ route('site.index')}}" class="btn-link"><i class="fa fm fa-home"></i> الرئيسية</a>
-                </li>
-                <li class="active">
-                    <span>المقالات</span>
-                </li>
-            </ul>
+        <div class="container" style="position: relative;">
+            <div>
+                <ul class="breadcrumb" style="direction: rtl">
+                    <li>
+                        <a href="{{ route('site.index')}}" class="btn-link"><i class="fa fm fa-home"></i> الرئيسية</a>
+                    </li>
+                    <li class="active">
+                        <span>المقالات</span>
+                    </li>
+                </ul>
+            </div>
+            <div style="margin-bottom: 30px;">
+                <form action="{{route('site.articles')}}" method="GET" class="article--search-form float--right">
+                    <input type="search" name="search" id="stxt" placeholder="إبحث عن مقال..."
+                        class="article--search-control form-control " required
+                        >
+                    <button type="submit" class="article--search-btn btn btn-header-2">
+                        <i class="header--search-icon fa fa-search "></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="main-content--section pbottom--30">
@@ -39,9 +70,6 @@
             <div class="row" id="contentRow">
                 <div class="main--content col-md-8 col-sm-12" data-sticky-content="true">
                     <div class="sticky-content-inner">
-                        <div class="page--title ptop--30">
-                            <h2 class="h2"></h2>
-                        </div>
                         <div class="post--items post--items-2 pd--30-0">
                             <ul class="AdjustRow grid-container">
                                 @foreach ($articles as $article )

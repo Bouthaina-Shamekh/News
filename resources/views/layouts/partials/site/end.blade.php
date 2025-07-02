@@ -28,6 +28,36 @@
 <!-- Include CSS & JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{ asset('assets-new/js/script.js') }}"></script>
+<script>
+    const siteName = "مارينا بوست";
+    const siteURL = "{{ config('app.url', 'https://marenapost.com/') }}";
+    document.addEventListener('copy', function(e)  {
+        const selection = window.getSelection().toString();
+
+        if (!selection) return; // إذا ما في نص محدد ما نكمل
+
+        const textToAdd = `\n\n📌 تم النسخ من: ${siteName} - ${siteURL}`;
+
+        const modifiedText = selection + textToAdd;
+
+        e.preventDefault(); // نوقف السلوك الافتراضي
+        e.clipboardData.setData('text/plain', modifiedText);
+    });
+
+    document.addEventListener('cut', function(e) {
+        const selection = window.getSelection().toString();
+
+        if (!selection) return;
+
+        const textToAdd = `\n\n📌 تم النسخ من: ${siteName} - ${siteURL}`;
+
+        const modifiedText = selection + textToAdd;
+
+        e.preventDefault();
+        e.clipboardData.setData('text/plain', modifiedText);
+    });
+</script>
 @stack('scripts')
 </body>
+
 </html>

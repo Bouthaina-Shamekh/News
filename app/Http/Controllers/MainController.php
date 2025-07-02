@@ -151,8 +151,12 @@ class MainController extends Controller
     {
         $articles = Artical::orderBy('id', 'desc');
         $category = $request->query('c');
+        $search = $request->search;
         if ($category) {
             $articles = $articles->where('category_id', $category);
+        }
+        if ($search) {
+            $articles = $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
         $articles = $articles->paginate(10);
         $categories = Category::all();
