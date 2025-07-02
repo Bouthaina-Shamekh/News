@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
-@php
-    $title = 'مارينا بوست';
-    $description = 'مارينا بوست هي منصة إعلامية رقمية متنوعة، فلسطينية الهوى، عربية الامتداد، دولية الرؤية، تنطلق من قلب الواقع الفلسطيني لتعكس نبض الإنسان وقضايا الثقافة والمجتمع والتكنولوجيا والإعلام، في سياق يتجاوز الحدود الجغرافية نحو فضاء معرفي مفتوح.';
-    $keywords = 'مارينا بوست, أخبار, عاجلة, احدث الأخبار, الأكثر مشاهدة, الإعلام, التكنولوجيا';
-    $ogImage = asset('asset/img/extra/logo.png');
-    $url = config('app.url', 'https://marenapost.com/');
-@endphp
 <head>
     <meta charset="utf-8">
-    <title>مارينا بوست </title>
-    <!-- ✅ عنوان ووصف الصفحة -->
-    <title>{{ $title }}</title>
-    <meta name="description" content="{{ $description }}">
-    <meta name="keywords" content="{{ $keywords }}">
-    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ✅ Open Graph -->
-    <meta property="og:title" content="{{ $title }}">
-    <meta property="og:description" content="{{ $description }}">
-    <meta property="og:image" content="{{ $ogImage }}">
-    <meta property="og:url" content="{{ $url }}">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ar_AR">
+    {{-- ميتا من الصفحة نفسها إن وجدت --}}
+    @stack('meta')
 
-    <!-- ✅ Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $title }}">
-    <meta name="twitter:description" content="{{ $description }}">
-    <meta name="twitter:image" content="{{ $ogImage }}">
-    <meta name="twitter:url" content="{{ $url }}">
+    {{-- fallback إذا لم تُحدد meta من الصفحة --}}
+    @if (! View::hasSection('has_custom_meta'))
+        @php
+            $defaultTitle = 'مارينا بوست';
+            $defaultDescription = 'مارينا بوست هي منصة إعلامية رقمية متنوعة، فلسطينية الهوى، عربية الامتداد...';
+            $defaultKeywords = 'مارينا بوست, أخبار, عاجلة, الإعلام, التكنولوجيا';
+            $defaultOgImage = secure_url('asset/img/extra/logo.png');
+            $defaultUrl = url()->current();
+        @endphp
 
+        <title>{{ $defaultTitle }}</title>
+        <meta name="description" content="{{ $defaultDescription }}">
+        <meta name="keywords" content="{{ $defaultKeywords }}">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ $defaultUrl }}">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="{{ $defaultTitle }}">
+        <meta property="og:description" content="{{ $defaultDescription }}">
+        <meta property="og:image" content="{{ $defaultOgImage }}">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:url" content="{{ $defaultUrl }}">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="ar_AR">
+        <meta property="og:site_name" content="مارينا بوست">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $defaultTitle }}">
+        <meta name="twitter:description" content="{{ $defaultDescription }}">
+        <meta name="twitter:image" content="{{ $defaultOgImage }}">
+        <meta name="twitter:url" content="{{ $defaultUrl }}">
+    @endif
     {{-- styles --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet " href="{{ asset('assets-new/css/font-awesome.min.css') }}">
