@@ -60,7 +60,7 @@ a:hover {
 
 .acme-news-ticker-box {
     height: 100%;
-    padding-top: 10px;
+    padding-top: 0;
     overflow: hidden;
 }
 
@@ -68,6 +68,7 @@ a:hover {
     .acme-news-ticker-box {
         padding-left: 10px;
         padding-right: 0px;
+        padding-top: 0;
     }
 }
 
@@ -216,7 +217,7 @@ a:hover {
 
 .acme-news-ticker-box ul li {
     display: inline-block;
-    padding: 15px 15px;
+    padding: 8px 15px;
 }
 
 .acme-news-ticker-box ul li a {
@@ -246,7 +247,7 @@ a:hover {
         padding-top: 10px;
     }
     .acme-news-ticker-box ul li {
-        padding: 15px 15px;
+        padding: 8px 15px;
     }
 }
 @media (min-width: 992px) {
@@ -266,7 +267,7 @@ a:hover {
         padding-top: 0px;
     }
     .acme-news-ticker-box ul li {
-        padding: 10px 15px;
+        padding: 8px 15px;
     }
 }
 
