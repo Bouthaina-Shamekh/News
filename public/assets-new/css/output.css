@@ -7731,8 +7731,25 @@ table.rates-table{
         display: flex;
         align-items: center;
     }
+
+}
+#myCarouselDesktop{
+    display: none;
+}
+#myCarousel{
+    display: block;
+}
+.hrader_logo_ads{
+    display: flex;
+    flex-direction: column;
 }
 @media (min-width:992px) {
+    #myCarouselDesktop{
+        display: block;
+    }
+    #myCarousel{
+        display: none;
+    }
     .post--side-2 .post--img a{
         width: 87px;
         margin: 0;
@@ -7748,5 +7765,8 @@ table.rates-table{
         font-size: 13px;
         padding: 2px 6px;
         width: auto;
+    }
+    .hrader_logo_ads{
+        display: block;
     }
 }
