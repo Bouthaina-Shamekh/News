@@ -7010,9 +7010,10 @@ body.isScrolling #backToTop {
 
 @media (max-width: 575.98px) {
     .slider_img {
-        width: 100%;
+        height: auto !important;
+        aspect-ratio: 16 / 11;
         object-fit: fill;
-        height: 460px !important;
+        border-radius: 8px;
     }
 }
 
@@ -7021,9 +7022,10 @@ body.isScrolling #backToTop {
 
 @media (min-width: 576px) and (max-width: 767.98px) {
     .slider_img {
-        width: 100%;
+        height: auto !important;
+        aspect-ratio: 16 / 11;
         object-fit: fill;
-        height: 460px !important;
+        border-radius: 8px;
     }
 }
 
@@ -7032,9 +7034,10 @@ body.isScrolling #backToTop {
 
 @media (min-width: 768px) and (max-width: 991.98px) {
     .slider_img {
-        width: 100%;
+        height: auto !important;
+        aspect-ratio: 16 / 11;
         object-fit: fill;
-        height: 460px !important;
+        border-radius: 8px;
     }
 }
 
