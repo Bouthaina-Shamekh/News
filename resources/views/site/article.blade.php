@@ -3,6 +3,7 @@
     $title = 'title_' . app()->getLocale();
     $name = 'name_' . app()->getLocale();
     $text = 'text_' . app()->getLocale();
+    $lang = request()->query('lang') ?? false;
     @endphp
     @push('styles')
     <link rel="stylesheet" href="{{ asset('assets-new/css/new.css') }}">
@@ -368,7 +369,7 @@
             </div>
         </div>
     </div>
-</x-site-layout>
+
 @push('scripts')
 <script>
     $(document).ready(function() {
@@ -388,4 +389,42 @@
     });
 
 </script>
+<script>
+document.addEventListener('copy', function (e) {
+    let selection = window.getSelection();
+    let selectedText = selection.toString();
+
+    if (!selectedText || selectedText.length < 20) return;
+
+    let pageUrl = "{{ route('site.article', $article->slug) }}";
+    let sourceText = "\n\n—\nتم النسخ من مارينا بوست\nرابط المقال: " + pageUrl;
+
+    let copiedText = selectedText + sourceText;
+
+    // محاولة استخدام Clipboard API أولاً
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(copiedText).then(() => {
+            console.log('تم نسخ النص مع الرابط.');
+        }).catch(err => {
+            console.error('فشل النسخ الآمن:', err);
+        });
+    } else {
+        // fallback للمتصفحات القديمة
+        const temp = document.createElement('textarea');
+        temp.value = copiedText;
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+            document.execCommand('copy');
+            console.log('تم النسخ (fallback)');
+        } catch (err) {
+            console.error('فشل execCommand:', err);
+        }
+        document.body.removeChild(temp);
+    }
+
+    e.preventDefault();
+});
+</script>
 @endpush
+</x-site-layout>
