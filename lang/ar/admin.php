@@ -225,6 +225,7 @@ return [
     'Logo' => 'الشعار',
     'View News Admin' => 'عرض اخبار الادمن',
     'View News Publisher' => 'عرض اخبار الناشرين',
+    'Action' => 'الاجراءات',
 ];
 
 

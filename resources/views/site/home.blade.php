@@ -510,7 +510,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
                                     @foreach($articlesOne->take(7) as $article)
                                         @if($loop->first)
                                             {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
@@ -604,7 +604,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
                                     @foreach($articlesTwo->take(7) as $article)
                                         @if($loop->first)
                                             {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
@@ -707,7 +707,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse;">
+                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
                                     @foreach($articlesThree->take(7) as $article)
                                         @if($loop->first)
                                             {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}

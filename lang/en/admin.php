@@ -289,6 +289,5 @@ return [
     'Logo' => '',
     'View News Admin' => 'View News Admin',
     'View News Publisher' => 'View News Publisher',
-    '' => '',
-    '' => '',
+    'Action' => 'Action',
 ];

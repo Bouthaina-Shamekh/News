@@ -4446,12 +4446,12 @@ ul.header--menu-links.nav>li>a:hover {
 .post--item.post--layout-3 .post--img .thumb {
     float: left;
     max-width: 100px;
-    margin-right: 20px
+    margin-left: 20px
 }
 
 .post--item.post--layout-4 .post--img .thumb {
     float: left;
-    margin-right: 20px;
+    margin-left: 20px;
     max-width: 150px
 }
 

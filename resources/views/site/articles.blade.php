@@ -54,6 +54,7 @@
                 </ul>
             </div>
             <div style="margin-bottom: 30px;">
+
                 <form action="{{route('site.articles')}}" method="GET" class="article--search-form float--right">
                     <input type="search" name="search" id="stxt" placeholder="إبحث عن مقال..."
                         class="article--search-control form-control " required
@@ -62,6 +63,7 @@
                         <i class="header--search-icon fa fa-search "></i>
                     </button>
                 </form>
+                
             </div>
         </div>
     </div>
