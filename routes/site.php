@@ -36,10 +36,6 @@ Route::group([
         Route::get('/', [MainController::class, 'home'])->name('index');
 
 
-        Route::get('/setSlug', [MainController::class, 'setSlug'])->name('setSlug');
-
-
-
         Route::get('/about', [MainController::class, 'about'])->name('about');
 
         Route::get('news/{new}', [MainController::class, 'new'])->name('new');

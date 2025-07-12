@@ -168,13 +168,10 @@ class NwController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit($id)
     {
 
-        $news = Nw::where('slug', $slug)->first();
-        if(!$news){
-            $news = Nw::findOrFail((int)$slug);
-        }
+        $news = Nw::findOrFail((int)$id);
         $categories = Category::all();
 
         return view('publisher.news.edit', compact('news','categories'));
@@ -183,7 +180,7 @@ class NwController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
     {
         DB::beginTransaction();
         try {
@@ -198,7 +195,7 @@ class NwController extends Controller
             ]);
 
             // Find the news item
-            $news = Nw::where('slug', $slug)->first();
+            $news = Nw::findOrFail((int)$id);
             $slug = $this->generateUniqueSlug(Nw::class, $request->title_org);
 
 
@@ -275,12 +272,9 @@ class NwController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($slug)
+    public function destroy($id)
     {
-        $news = Nw::where('slug', $slug)->first();
-        if(!$news){
-            $news = Nw::findOrFail((int)$slug);
-        }
+        $news = Nw::findOrFail((int)$id);
         // Delete images from storage
         if($news->img_view != null){
             Storage::disk('public')->delete($news->img_view);

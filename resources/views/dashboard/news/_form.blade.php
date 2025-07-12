@@ -200,9 +200,9 @@ $name = 'name_' . app()->getLocale();
 </script>
 <script>
         function removeImage(name) {
-            const slug = "{{ $news->slug }}";
+            const id = "{{ $news->id }}";
             $.ajax({
-                url: `{{ route('dashboard.nw.removeImage', ':slug') }}`.replace(':slug', slug),
+                url: `{{ route('dashboard.nw.removeImage', ':id') }}`.replace(':id', id),
                 type: 'POST',
                 data: {
                     name: name,

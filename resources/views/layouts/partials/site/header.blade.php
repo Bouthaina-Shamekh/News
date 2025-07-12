@@ -145,7 +145,7 @@
                 <span class="close-menu"><i class="fa fa-times"></i></span>
                 <ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
                     <li class="hidden-md hidden-lg">
-                        <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right">
+                        <form action="{{ request()->is(app()->getLocale().'/articles') ? route('site.articles') : route('site.news') }}" method="GET" class="header--search-form float--right">
                             <input type="search" name="search" id="stxt" placeholder="إبحث... "
                                 class="header--search-control form-control " required
                                 >
@@ -210,7 +210,7 @@
                     </li>
                 </ul>
             </div>
-            <form action="{{route('site.news')}}" method="GET" class="header--search-form float--right hidden-sm">
+            <form action="{{ request()->is(app()->getLocale().'/articles') ? route('site.articles') : route('site.news') }}" method="GET" class="header--search-form float--right hidden-sm">
                 <input type="search" name="search" id="stxt" placeholder="إبحث... "
                     class="header--search-control form-control " required
                     >

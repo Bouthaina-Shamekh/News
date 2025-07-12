@@ -185,13 +185,10 @@ class NwController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit($id)
     {
         $this->authorize('edit', Nw::class);
-        $news = Nw::where('slug', $slug)->first();
-        if(!$news){
-            $news = Nw::findOrFail((int)$slug);
-        }
+        $news = Nw::findOrFail((int)$id);
         $status = Statu::all();
         $categories = Category::all();
         $newplaces = NewPlace::all();
@@ -203,7 +200,7 @@ class NwController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
     {
         $this->authorize('edit', Nw::class);
         DB::beginTransaction();
@@ -225,7 +222,7 @@ class NwController extends Controller
             ]);
 
             // Find the news item
-            $news = Nw::where('slug', $slug)->first();
+            $news = Nw::findOrFail((int)$id);
 
             $keywords_ar_text = '';
             if($request->keyword_ar != null){
@@ -314,14 +311,11 @@ class NwController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($slug)
+    public function destroy($id)
     {
         $this->authorize('delete', Nw::class);
 
-        $news = Nw::where('slug', $slug)->first();
-        if(!$news){
-            $news = Nw::findOrFail((int)$slug);
-        }
+        $news = Nw::findOrFail((int)$id);
 
         // Delete images from storage
         if($news->img_view != null){
@@ -340,12 +334,9 @@ class NwController extends Controller
         return redirect()->route('dashboard.nw.index')->with('success', __('Item deleted successfully.'));
     }
 
-    public function removeImage(Request $request, $slug)
+    public function removeImage(Request $request, $id)
     {
-        $news = Nw::where('slug', $slug)->first();
-        if(!$news){
-            $news = Nw::findOrFail((int)$slug);
-        }
+        $news = Nw::findOrFail((int)$id);
         // Delete the image from storage
         if($request->name == 'img_view') {
             if($news->img_view != null){

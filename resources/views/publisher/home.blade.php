@@ -183,6 +183,7 @@
                                 <th>{{ __('admin.Created') }}</th>
                                 <th>{{ __('admin.Keyword_AR') }}</th>
                                 <th>{{ __('admin.Status') }}</th>
+                                <th>{{ __('admin.Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,7 +202,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title }}</a>
+                                    <a href="{{ route('site.new', $new->id) }}" target="_blank" class="title">{{ $new->$title }}</a>
                                 </td>
                                 <td>{{ $new->publisher->name ?? '' }}</td>
                                 <td>
@@ -222,6 +223,22 @@
                                 </td>
                                 <td>
                                     {{ app()->getLocale() == 'ar' ? $new->status->name_ar : $new->status->name_en }}
+                                </td>
+                                <td class="d-flex">
+                                    <a href="{{ route('publisher.nw.edit', $new->id) }}"
+                                        class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <i class="ti ti-edit text-xl leading-none"></i>
+                                    </a>
+                                    <form action="{{ route('publisher.nw.destroy', $new->id) }}" method="post"
+                                        class="delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary"
+                                            title="{{ __('Delete') }}">
+                                            <i class="ti ti-trash text-xl leading-none"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -329,7 +346,7 @@
                                     </td>
                                 </tr>
                             `;
-                            row = row.replace(/:id/g, newsItem.slug);
+                            row = row.replace(/:id/g, newsItem.id);
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();

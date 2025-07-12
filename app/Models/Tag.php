@@ -19,12 +19,6 @@ class Tag extends Model
     ];
 
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-
     public function admin(){
         return $this->belongsTo(Admin::class,'created_by');
     }

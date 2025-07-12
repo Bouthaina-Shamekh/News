@@ -177,9 +177,9 @@
 </script>
 <script>
     function removeImage(name) {
-        const slug = "{{ $articals->slug }}";
+        const id = "{{ $articals->id }}";
         $.ajax({
-            url: `{{ route('dashboard.articale.removeImage', ':id') }}`.replace(':id', slug),
+            url: `{{ route('dashboard.articale.removeImage', ':id') }}`.replace(':id', id),
             type: 'POST',
             data: {
                 name: name,
