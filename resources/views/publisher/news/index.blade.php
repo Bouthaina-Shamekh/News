@@ -146,7 +146,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title }}</a>
+                                        <a href="{{ route('site.new', $new->id) }}" target="_blank" class="title">{{ $new->$title }}</a>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>
                                     <td>
@@ -234,9 +234,9 @@
                                     </td>
                                     <td>
                                         @if(app()->getLocale() == 'ar')
-                                            <a href="{{ route('site.new', ':slug') }}" target="_blank" class="title">${newsItem.title_ar}</a>
+                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_ar}</a>
                                         @else
-                                            <a href="{{ route('site.new', ':slug') }}" target="_blank" class="title">${newsItem.title_en}</a>
+                                            <a href="{{ route('site.new', ':id') }}" target="_blank" class="title">${newsItem.title_en}</a>
                                         @endif
                                     </td>
                                     <td>${newsItem.publisher ? newsItem.publisher.name : ''}</td>
@@ -264,10 +264,10 @@
                                         @endif
                                     </td>
                                     <td class="d-flex">
-                                        <a href="{{ route('dashboard.nw.edit', ':slug') }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <a href="{{ route('dashboard.nw.edit', ':id') }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>
                                         </a>
-                                        <form action="{{ route('dashboard.nw.destroy', ':slug') }}" method="post">
+                                        <form action="{{ route('dashboard.nw.destroy', ':id') }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
@@ -277,7 +277,7 @@
                                     </td>
                                 </tr>
                             `;
-                            row = row.replace(/:slug/g, newsItem.slug);
+                            row = row.replace(/:id/g, newsItem.id);
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();

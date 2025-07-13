@@ -25,7 +25,7 @@
                                 <ul class="my-news-ticker " style=" text-align: right; ">
                                     @foreach ($news as $new)
                                     <li>
-                                        <a href="{{route('site.new', $new->slug)}}" style="text-align: right; ">
+                                        <a href="{{route('site.new', $new->id)}}" style="text-align: right; ">
                                             {{ $new->$title }}
                                         </a>
                                     </li>

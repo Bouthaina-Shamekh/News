@@ -48,23 +48,25 @@
                                 <li class="col-12">
                                     <div class="post--item post--layout-2">
                                         <div class="post--img">
-                                            <a href="{{ route('site.new', $new->slug)}}" class="thumb"><img
+                                            <a href="{{ route('site.new', $new->id)}}" class="thumb"><img
                                                     src="{{ asset('storage/' . $new->img_view) }}" alt=""
                                                     style="height: 193px; object-fit: fill;" /></a>
                                             <div class="post--info">
-                                                <ul class="nav meta">
-                                                    <li>
-                                                        <a href="author?id=0"></a>
-                                                    </li>
-                                                    <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a></li>
-                                                </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.new', $new->slug)}}" title="{{ $new->$title }}" class="btn-link news-title">
+                                                        <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link news-title">
                                                             {{ $new->$title }}
                                                         </a>
                                                     </h3>
                                                 </div>
+                                                <ul class="nav meta">
+                                                    <li>
+                                                        <a href="{{ route('site.publisher', $article->publisher ? $article->publisher->id : 0) }}">
+                                                            {{$article->publisher->name ?? ''}}
+                                                        </a>
+                                                    </li>
+                                                    <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a></li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>

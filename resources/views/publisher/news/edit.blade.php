@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{route('publisher.nw.index',$news->slug) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('publisher.nw.index',$news->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         @include('publisher.news._form')

@@ -165,7 +165,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('site.new', $new->slug) }}" target="_blank"
+                                        <a href="{{ route('site.new', $new->id) }}" target="_blank"
                                             class="title">{{ $new->title_org }}</a>
                                     </td>
                                     <td>{{ $new->publisher->name ?? '' }}</td>
@@ -187,11 +187,11 @@
                                     </td>
 
                                     <td class="d-flex">
-                                        <a href="{{ route('publisher.nw.edit', $new->slug) }}"
+                                        <a href="{{ route('publisher.nw.edit', $new->id) }}"
                                             class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                             <i class="ti ti-edit text-xl leading-none"></i>
                                         </a>
-                                        <form action="{{ route('publisher.nw.destroy', $new->slug) }}" method="post"
+                                        <form action="{{ route('publisher.nw.destroy', $new->id) }}" method="post"
                                             class="delete-form">
                                             @csrf
                                             @method('DELETE')
@@ -305,7 +305,7 @@
                                     </td>
                                 </tr>
                             `;
-                                row = row.replace(/:id/g, newsItem.slug);
+                                row = row.replace(/:id/g, newsItem.id);
                                 $('#footer-search tbody').append(row);
                             });
                             $('#footer-search_info').empty();

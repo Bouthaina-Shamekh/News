@@ -178,14 +178,11 @@ class ArticalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($slug)
+    public function edit($id)
     {
         $this->authorize('edit', Artical::class);
 
-        $articals = Artical::where('slug', $slug)->first();
-        if(!$articals){
-            $articals = Artical::findOrFail((int)$slug);
-        }
+        $articals = Artical::findOrFail((int)$id);
         $status = Statu::all();
         $publishers = Publisher::all();
         $categories = Category::all();
@@ -196,7 +193,7 @@ class ArticalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
     {
         $this->authorize('edit', Artical::class);
         DB::beginTransaction();
@@ -219,7 +216,7 @@ class ArticalController extends Controller
             ]);
 
             // Find the article
-            $articals = Artical::where('slug', $slug)->first();
+            $articals = Artical::findOrFail((int)$id);
 
             $keywords_ar_text = '';
             if($request->keyword_ar != null){
@@ -305,14 +302,11 @@ class ArticalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($slug)
+    public function destroy($id)
     {
         $this->authorize('delete', Artical::class);
 
-        $articals = Artical::where('slug', $slug)->first();
-        if(!$articals){
-            $articals = Artical::findOrFail((int)$slug);
-        }
+        $articals = Artical::findOrFail((int)$id);
 
         // Delete images from storage
         if($articals->img_view != null){
@@ -331,12 +325,9 @@ class ArticalController extends Controller
         return redirect()->route('dashboard.articale.index')->with('success', __('Item deleted successfully.'));
     }
 
-    public function removeImage(Request $request, $slug)
+    public function removeImage(Request $request, $id)
     {
-        $article = Artical::where('slug', $slug)->first();
-        if(!$article){
-            $article = Artical::findOrFail((int)$slug);
-        }
+        $article = Artical::findOrFail((int)$id);
         // Delete the image from storage
         if($request->name == 'img_view') {
             if($article->img_view != null){

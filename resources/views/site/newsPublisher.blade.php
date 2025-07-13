@@ -80,7 +80,7 @@
                                 <li class="col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xss-12">
                                     <div class="post--item post--layout-2">
                                         <div class="post--img" style="display: flex; align-items: center;">
-                                            <a href="{{ route('site.new', $new->slug)}}" class="thumb" style="width: 300px; justify-content: space-evenly;">
+                                            <a href="{{ route('site.new', $new->id)}}" class="thumb" style="width: 300px; justify-content: space-evenly;">
                                                 <img
                                                     src="{{ asset('storage/' . $new->img_view) }}" alt=""
                                                     style="object-fit: contain;" /></a>
@@ -94,7 +94,7 @@
                                                 <div class="title">
                                                     <h3 class="h4">
 
-                                                        <a href="{{ route('site.new', $new->slug)}}" title="{{ $new->$title }}" class="btn-link">
+                                                        <a href="{{ route('site.new', $new->id)}}" title="{{ $new->$title }}" class="btn-link">
 
                                                             {{ Illuminate\Support\Str::words($new->$title, 30, '...') }}
                                                         </a>

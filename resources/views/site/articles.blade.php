@@ -5,25 +5,6 @@
     @endphp
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets-new/css/news.css') }}">
-        <style>
-            .article--search-form {
-                position: absolute;
-                top: 11px;
-                left: 30px;
-            }
-            .article--search-btn {
-                position: absolute;
-                top: 4px;
-                left: 0px;
-                background: transparent;
-            }
-            .article--search-control {
-                display: block;
-                background-color: #f0f0f0;
-                border: 0;
-                border-radius: 20px;
-            }
-        </style>
     @endpush
     <x-slot:header>
         <div class="posts--filter-bar style--1 hidden-xs">
@@ -43,28 +24,14 @@
     </x-slot:header>
     <div class="main--breadcrumb">
         <div class="container" style="position: relative;">
-            <div>
-                <ul class="breadcrumb" style="direction: rtl">
-                    <li>
-                        <a href="{{ route('site.index')}}" class="btn-link"><i class="fa fm fa-home"></i> الرئيسية</a>
-                    </li>
-                    <li class="active">
-                        <span>المقالات</span>
-                    </li>
-                </ul>
-            </div>
-            <div style="margin-bottom: 30px;">
-
-                <form action="{{route('site.articles')}}" method="GET" class="article--search-form float--right">
-                    <input type="search" name="search" id="stxt" placeholder="إبحث عن مقال..."
-                        class="article--search-control form-control " required
-                        >
-                    <button type="submit" class="article--search-btn btn btn-header-2">
-                        <i class="header--search-icon fa fa-search "></i>
-                    </button>
-                </form>
-                
-            </div>
+            <ul class="breadcrumb" style="direction: rtl">
+                <li>
+                    <a href="{{ route('site.index')}}" class="btn-link"><i class="fa fm fa-home"></i> الرئيسية</a>
+                </li>
+                <li class="active">
+                    <span>المقالات</span>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="main-content--section pbottom--30">
@@ -74,27 +41,29 @@
                     <div class="sticky-content-inner">
                         <div class="post--items post--items-2 pd--30-0">
                             <ul class="AdjustRow grid-container">
-                                @foreach ($articles as $article )
+                                @foreach ($articles as $article)
                                 <li class="col-12">
                                     <div class="post--item post--layout-2">
                                         <div class="post--img">
-                                            <a href="{{ route('site.article', $article->slug)}}" class="thumb"><img
+                                            <a href="{{ route('site.article', $article->id)}}" class="thumb"><img
                                                     src="{{ asset('storage/' . $article->img_view) }}" alt=""
                                                     style="height: 193px; object-fit: fill;" /></a>
                                             <div class="post--info">
-                                                <ul class="nav meta">
-                                                    <li>
-                                                        <a href="author?id=0"></a>
-                                                    </li>
-                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
-                                                </ul>
                                                 <div class="title">
                                                     <h3 class="h4">
-                                                        <a href="{{ route('site.article', $article->slug)}}" title="{{ $article->$title }}" class="btn-link  news-title">
+                                                        <a href="{{ route('site.article', $article->id)}}" title="{{ $article->$title }}" class="btn-link  news-title">
                                                             {{ $article->$title }}
                                                         </a>
                                                     </h3>
                                                 </div>
+                                                <ul class="nav meta">
+                                                    <li>
+                                                        <a href="{{ route('site.publisher', $article->publisher ? $article->publisher->id : 0) }}">
+                                                            {{$article->publisher->name ?? ''}}
+                                                        </a>
+                                                    </li>
+                                                    <li><a href="#">{{ $article->created_at->format('Y-m-d') }}</a></li>
+                                                </ul>
                                             </div>
                                             <br />
                                             <br />

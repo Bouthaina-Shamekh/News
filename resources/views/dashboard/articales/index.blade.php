@@ -118,7 +118,7 @@
                                                     {{ __('No Image') }}
                                             @endif
                                         </td>
-                                        <td><a href="{{ route('site.article', $artical->slug) }}" target="_blank" class="title">{{ $artical->$title }}</a></td>
+                                        <td><a href="{{ route('site.article', $artical->id) }}" target="_blank" class="title">{{ $artical->$title }}</a></td>
                                         <td>{{ $artical->publisher->name ?? '' }}</td>
                                         <td>
                                             @if(app()->getLocale() == 'ar')
@@ -135,10 +135,10 @@
                                             {{-- <a href="#" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                                 <i class="ti ti-eye text-xl leading-none"></i>
                                             </a> --}}
-                                            <a href="{{ route('dashboard.articale.edit', $artical->slug) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                            <a href="{{ route('dashboard.articale.edit', $artical->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                                 <i class="ti ti-edit text-xl leading-none"></i>
                                             </a>
-                                            <form action="{{ route('dashboard.articale.destroy', $artical->slug) }}" method="post" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary delete-form">
+                                            <form action="{{ route('dashboard.articale.destroy', $artical->id) }}" method="post" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary delete-form">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" title="{{ __('Delete') }}">
@@ -238,7 +238,7 @@
                                     </td>
                                 </tr>
                             `;
-                            row = row.replace(/:id/g, artical.slug);
+                            row = row.replace(/:id/g, artical.id);
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();
@@ -261,7 +261,7 @@
     </script>
 
 </x-dashboard-layout>
-          
+
 
 
 

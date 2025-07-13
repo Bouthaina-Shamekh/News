@@ -13,7 +13,7 @@
             $titleVal = $lang == 'org' ? $article->title_org : $article->$title;
             $descriptionVal = Str::limit(strip_tags($lang == 'org' ? $article->text_org : $article->$text), 160);
             $image = $article->img_article ? asset('storage/' . $article->img_article) : asset('storage/' . $article->img_view);
-            $url = route('site.article', $article->slug);
+            $url = route('site.article', $article->id);
         @endphp
 
         @section('has_custom_meta', true)
@@ -85,10 +85,10 @@
                                             </a>
                                         </span>
                                     </li>
-                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . '/articles/' .  $article->slug}}" target="_blank"><i class="fa fa-facebook"></i></a></span></li>
+                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . '/articles/' .  $article->id}}" target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
-                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . '/articles/' .  $article->slug}}" target="_blank"><i class="fa fa-twitter"></i></a></span></li>
-                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . '/articles/' .  $article->slug}}" target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
+                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$article->$title}}&url={{config('app.url') . '/articles/' .  $article->id}}" target="_blank"><i class="fa fa-twitter"></i></a></span></li>
+                                    <li><span><a href="https://wa.me/?text={{$article->$title}}%20{{config('app.url') . '/articles/' .  $article->id}}" target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
                                     <li class="like_v_btn" data-type="true">
                                         <a>
                                             <i class="fa fa-thumbs-up"></i>
@@ -105,7 +105,8 @@
                             </div>
                             <div class="post--info">
                                 <ul class="nav meta">
-                                    <li><a href="news?psh=31">
+                                    <li>
+                                        <a href="{{ route('site.publisher', $article->publisher ? $article->publisher->id : 0) }}">
                                             {{$article->publisher->name ?? ''}}
                                         </a>
                                     </li>
@@ -179,7 +180,7 @@
                             <div class="img">
                                 <div class="vc--parent">
                                     <div class="vc--child">
-                                        <a href="author?id=31" class="btn-link">
+                                        <a href="{{ route('site.publisher', $article->publisher ? $article->publisher->id : 0) }}" class="btn-link">
                                             @if($article->publisher)
                                             <img src="{{asset('storage/'.$article->publisher->img)}}" alt="">
                                             <br>
@@ -314,7 +315,7 @@
                                             <div class="post--item post--layout-3">
                                                 <div class="post--img" style="display: flex; align-items: center;">
 
-                                                    <a href="{{ route('site.article', $articleS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
+                                                    <a href="{{ route('site.article', $articleS->id)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
 
 
                                                         <img src="{{ asset('storage/' . $articleS->img_view) }}" alt="" style="object-fit: contain;" /></a>
@@ -328,7 +329,7 @@
                                                         <div class="title">
                                                             <h3 class="h4">
 
-                                                                <a href="{{ route('site.article', $articleS->slug)}}" title="{{ $articleS->$title }}" class="btn-link">
+                                                                <a href="{{ route('site.article', $articleS->id)}}" title="{{ $articleS->$title }}" class="btn-link">
 
                                                                     {{ Illuminate\Support\Str::words($articleS->$title, 10, '...') }}
                                                                 </a>
@@ -376,7 +377,7 @@
         $('.like_v_btn').on('click', function() {
             let type = $(this).data('type');
             $.ajax({
-                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{  $article->slug }}")
+                url: `{{ route('site.article.like',':id')}}`.replace(':id', "{{  $article->id }}")
                 , method: 'POST'
                 , data: {
                     type: type
@@ -396,7 +397,7 @@ document.addEventListener('copy', function (e) {
 
     if (!selectedText || selectedText.length < 20) return;
 
-    let pageUrl = "{{ route('site.article', $article->slug) }}";
+    let pageUrl = "{{ route('site.article', $article->id) }}";
     let sourceText = "\n\n—\nتم النسخ من مارينا بوست\nرابط المقال: " + pageUrl;
 
     let copiedText = selectedText + sourceText;

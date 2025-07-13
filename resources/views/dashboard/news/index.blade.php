@@ -184,7 +184,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('site.new', $new->slug) }}" target="_blank" class="title">{{ $new->$title != null && $new->$title != '' ? $new->$title : $new->title_org }}</a>
+                                <a href="{{ route('site.new', $new->id) }}" target="_blank" class="title">{{ $new->$title != null && $new->$title != '' ? $new->$title : $new->title_org }}</a>
                             </td>
                             <td>{{ $new->publisher->name ?? 'Admin' }}</td>
                             <td>
@@ -199,10 +199,10 @@
                                 <td>{{ $new->visit }}</td>
                                 <td>{{ $new->status ? $new->status->$name : '' }}</td>
                                 <td class="d-flex">
-                                    <a href="{{ route('dashboard.nw.edit', $new->slug) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                    <a href="{{ route('dashboard.nw.edit', $new->id) }}" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
                                         <i class="ti ti-edit text-xl leading-none"></i>
                                     </a>
-                                    <form action="{{ route('dashboard.nw.destroy', $new->slug) }}" method="post" class="delete-form">
+                                    <form action="{{ route('dashboard.nw.destroy', $new->id) }}" method="post" class="delete-form">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary" title="{{ __('Delete') }}">
@@ -315,7 +315,7 @@
                                     </td>
                                 </tr>
                             `;
-                            row = row.replace(/:id/g, newsItem.slug);
+                            row = row.replace(/:id/g, newsItem.id);
                             $('#footer-search tbody').append(row);
                         });
                         $('#footer-search_info').empty();

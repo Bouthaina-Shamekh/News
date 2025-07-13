@@ -14,7 +14,7 @@
         $titleVal = $lang == 'org' ? $new->title_org : $new->$title;
         $descriptionVal = Str::limit(strip_tags($lang == 'org' ? $new->text_org : $new->$text), 160);
         $image = $new->img_article ? asset('storage/' . $new->img_article) : asset('storage/' . $new->img_view);
-        $url = route('site.new', $new->slug);
+        $url = route('site.new', $new->id);
     @endphp
 
     @section('has_custom_meta', true)
@@ -89,13 +89,13 @@
                                         </span>
                                     </li>
 
-                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . '/news/' . $new->slug}}"
+                                    <li><span><a href="https://www.facebook.com/sharer/sharer.php?u={{config('app.url') . '/news/' . $new->id}}"
 
                                                 target="_blank"><i class="fa fa-facebook"></i></a></span></li>
 
-                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$new->$title}}&url={{config('app.url') . '/news/' . $new->slug}}"
+                                    <li><span><a href="https://twitter.com/intent/tweet?text={{$new->$title}}&url={{config('app.url') . '/news/' . $new->id}}"
                                                 target="_blank"><i class="fa fa-twitter"></i></a></span></li>
-                                    <li><span><a href="https://wa.me/?text={{$new->$title}}%20{{config('app.url') . '/news/' . $new->slug}}"
+                                    <li><span><a href="https://wa.me/?text={{$new->$title}}%20{{config('app.url') . '/news/' . $new->id}}"
                                                 target="_blank"><i class="fa fa-whatsapp"></i></a></span></li>
                                     <li class="like_v_btn" data-type="true">
                                         <a>
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                             <div style="margin:20px 10px">
-                                <a href="{{route('site.new',$new->slug)}}?lang=org" class="link__org">
+                                <a href="{{route('site.new',$new->id)}}?lang=org" class="link__org">
                                     عرض النص باللغة الأصلية *
                                 </a>
                             </div>
@@ -321,7 +321,7 @@
                                         <li>
                                             <div class="post--item post--layout-3">
                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
+                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb" style="width: 160px; justify-content: space-evenly;">
                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                     </a>
                                                     <div class="post--info post--info-3">
@@ -333,7 +333,7 @@
                                                         </ul>
                                                         <div class="title">
                                                             <h3 class="h4">
-                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                     {{ Illuminate\Support\Str::words($newS->$title, 10, '...') }}
                                                                 </a>
                                                             </h3>
@@ -396,7 +396,7 @@
             let type = $(this).data('type');
             let $btn = $(this);
             $.ajax({
-                url: `{{ route('site.new.like',':id')}}`.replace(':id', "{{ $new->slug }}"),
+                url: `{{ route('site.new.like',':id')}}`.replace(':id', "{{ $new->id }}"),
                 method: 'POST',
                 data: {
                     type: type,
@@ -419,7 +419,7 @@
 
         if (!selectedText || selectedText.length < 20) return; // تجاهل النسخ القصير
 
-        let pageUrl = "{{ route('site.new', $new->slug) }}";
+        let pageUrl = "{{ route('site.new', $new->id) }}";
         let sourceText = "\n\nرابط المصدر: " + pageUrl;
 
         let newText = selectedText + sourceText;

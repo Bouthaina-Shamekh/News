@@ -33,7 +33,7 @@
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
                                                 <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.new', $slider->slug) }}">
+                                                    <a href="{{ route('site.new', $slider->id) }}">
                                                         <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
                                                     </a>
                                                     <div style=" margin: 0%;height: 70px; margin-top: -76px;">
@@ -112,7 +112,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
@@ -125,7 +125,7 @@
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -148,7 +148,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
@@ -161,7 +161,7 @@
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -184,7 +184,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
@@ -197,7 +197,7 @@
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -304,7 +304,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.article', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.article', $newS->id)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
@@ -317,7 +317,7 @@
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.article', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.article', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -340,7 +340,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.article', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.article', $newS->id)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
@@ -353,7 +353,7 @@
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.article', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.article', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -376,7 +376,7 @@
                                                         <li>
                                                             <div class="post--item post--layout-3 post--side-2">
                                                                 <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.article', $newS->slug)}}" class="thumb">
+                                                                    <a href="{{ route('site.article', $newS->id)}}" class="thumb">
                                                                         <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
                                                                     </a>
                                                                     <div class="post--info" style="width: 60%;padding-right: 5px;">
@@ -389,7 +389,7 @@
                                                                         </ul>
                                                                         <div class="title">
                                                                             <h3 class="h4">
-                                                                                <a href="{{ route('site.article', $newS->slug)}}" title="{{ $newS->$title }}" class="btn-link">
+                                                                                <a href="{{ route('site.article', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
                                                                                     {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
                                                                                 </a>
                                                                             </h3>
@@ -473,7 +473,7 @@
                                         <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
                                             @foreach ($sliders as $index => $slider)
                                                 <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.new', $slider->slug) }}">
+                                                    <a href="{{ route('site.new', $slider->id) }}">
                                                         <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
                                                     </a>
                                                     <div style=" margin: 0%;height: 70px; margin-top: -76px;">
@@ -517,7 +517,7 @@
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="margin-bottom: 20px;">
                                                 <div class="post--item post--layout-1">
                                                     <div class="post--img mrg-top-m-34">
-                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
                                                         </a>
                                                         <div class="post--info">
@@ -526,7 +526,7 @@
                                                             </ul>
                                                             <div class="title" style="height:80px;">
                                                                 <h3 class="text h4">
-                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -543,7 +543,7 @@
                                                 <div class="post--item post--layout-2">
                                                     <div class="post--img">
 
-                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
                                                         </a>
@@ -553,7 +553,7 @@
                                                             </ul>
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -612,7 +612,7 @@
                                                 <div class="post--item post--layout-1">
                                                     <div class="post--img mrg-top-m-34">
 
-                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
                                                         </a>
@@ -623,7 +623,7 @@
                                                             <div class="title" style="height:80px;">
                                                                 <h3 class="text h4">
 
-                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
                                                                 </h3>
                                                             </div>
@@ -641,7 +641,7 @@
                                                 <div class="post--item post--layout-2">
                                                     <div class="post--img">
 
-                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
                                                         </a>
@@ -652,7 +652,7 @@
 
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
                                                                 </h3>
                                                             </div>
@@ -715,7 +715,7 @@
                                                 <div class="post--item post--layout-1">
                                                     <div class="post--img mrg-top-m-34">
 
-                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
                                                         </a>
@@ -726,7 +726,7 @@
                                                             <div class="title" style="height:80px;">
                                                                 <h3 class="text h4">
 
-                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
                                                                 </h3>
                                                             </div>
@@ -744,7 +744,7 @@
                                                 <div class="post--item post--layout-2">
                                                     <div class="post--img">
 
-                                                        <a href="{{ route('site.article', $article->slug ?? 0) }}" class="thumb">
+                                                        <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
                                                             <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
                                                         </a>
@@ -755,7 +755,7 @@
 
                                                             <div class="title" style="height: a;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->slug ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
 
                                                                 </h3>
                                                             </div>

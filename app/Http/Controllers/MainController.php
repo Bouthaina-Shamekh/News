@@ -101,12 +101,10 @@ class MainController extends Controller
         $newPalces = NewPlace::all();
         return view('site.news', compact('news', 'categories', 'newPalces'));
     }
-    public function new($slug)
+    public function new($id)
     {
-        $new = Nw::where('slug', $slug)->first();
-        if(!$new){
-            $new = Nw::findOrFail((int)$slug);
-        }
+        $new = Nw::findOrFail((int)$id);
+
         $news = Nw::orderby('id','desc')->where('statu_id', 2)->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
             'visit' => $new->visit + 1
@@ -114,10 +112,10 @@ class MainController extends Controller
         $comments = Comment::where('news_id', $new->id)->get();
         return view('site.new', compact('new', 'comments','news'));
     }
-    public function newLike(Request $request, $slug)
+    public function newLike(Request $request, $id)
     {
         $type = $request->type;
-        $new = Nw::where('slug', $slug)->first();
+        $new = Nw::findOrFail((int)$id);
         if($type == true){
             $new->update([
                 'like' => $new->like + 1
@@ -163,12 +161,9 @@ class MainController extends Controller
         $newPalces = NewPlace::all();
         return view('site.articles', compact('articles', 'categories', 'newPalces'));
     }
-    public function article($slug)
+    public function article($id)
     {
-        $article = Artical::where('slug', $slug)->first();
-        if(!$article){
-            $article = Artical::findOrFail((int)$slug);
-        }
+        $article = Artical::findOrFail((int)$id);
         $article->update([
             'visit' => $article->visit + 1
         ]);
@@ -176,10 +171,10 @@ class MainController extends Controller
         return view('site.article', compact('article', 'articles'));
     }
 
-    public function articleLike(Request $request, $slug)
+    public function articleLike(Request $request, $id)
     {
         $type = $request->type;
-        $article = Artical::where('slug', $slug)->first();
+        $article = Artical::findOrFail((int)$id);
         if($type == true){
             $article->update([
                 'like' => $article->like + 1
@@ -230,44 +225,5 @@ class MainController extends Controller
             // Mail::to($request->email)->send(new SubscribeServiceMail($email));
         }
         return redirect()->back()->with('successAdd', true);
-    }
-
-
-
-    public function setSlug()
-    {
-        $news = Nw::get();
-        foreach ($news as $new) {
-            $title = $new->title_en ?? $new->title_ar;
-
-            if (empty($title)) {
-                $slug = (string) $new->id; // لو العنوان فاضي، استخدم الـ id
-            } else {
-                $slug = Str::slug($title);
-                $slug = Str::limit($slug, 255, '');
-            }
-
-            $new->update([
-                'slug' => $slug
-            ]);
-        }
-
-        $articles = Artical::get();
-        foreach ($articles as $article) {
-            $title = $article->title_en ?? $article->title_ar;
-
-            if (empty($title)) {
-                $slug = (string) $article->id;
-            } else {
-                $slug = Str::slug($title);
-                $slug = Str::limit($slug, 255, '');
-            }
-
-            $article->update([
-                'slug' => $slug
-            ]);
-        }
-
-        return 'success';
     }
 }
