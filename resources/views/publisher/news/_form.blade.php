@@ -66,6 +66,33 @@
     });
     tinymce.init({
         selector: '.mytextarea',
+        height: 500,
+        menubar: true,
+            plugins: `
+            advlist autolink lists link image charmap print preview anchor
+            searchreplace visualblocks code fullscreen
+            insertdatetime media table code help wordcount
+            emoticons codesample directionality hr pagebreak
+        `,
+            toolbar: `
+            undo redo | blocks | bold italic underline strikethrough forecolor backcolor |
+            alignleft aligncenter alignright alignjustify |
+            bullist numlist outdent indent | link image media table |
+            emoticons charmap hr pagebreak | code fullscreen preview print |
+            ltr rtl | removeformat
+        `,
+
+
+        // أهم الإعدادات
+        paste_as_text: false, // لصق كنص عادي (يحل المشكلة)
+        paste_word_valid_elements: 'b,strong,i,em,u,ul,ol,li,p,br',
+        paste_retain_style_properties: '',
+
+        entity_encoding: 'raw', // يحافظ على الترميز بشكل صحيح
+
+        // دعم RTL أو LTR بناء على اللغة الحالية
+        directionality: '{{ app()->getLocale() == "ar" ? "rtl" : "ltr" }}',
+
         setup: function (editor) {
             editor.on('change', function () {
                 editor.save();

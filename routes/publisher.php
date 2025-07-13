@@ -34,6 +34,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
         Route::get('/acceptnews',[HomeController::class , 'acceptnews'])->name('acceptnews');
         Route::get('/waitnews',[HomeController::class , 'waitnews'])->name('waitnews');
+        Route::get('/profile',[HomeController::class , 'profile'])->name('profile');
+        Route::post('/profile',[HomeController::class , 'profileUpdate'])->name('profile.update');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');
     });
 });

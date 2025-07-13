@@ -179,12 +179,12 @@
                                     </div>
                                 </div> --}}
                                 <p class="text-span mb-3">{{__("Manage")}}</p>
-                                <a href="#" class="dropdown-item">
+                                <a href="{{route('publisher.profile')}}" class="dropdown-item">
                                     <span>
                                         <svg class="pc-icon text-muted me-2 inline-block">
                                             <use xlink:href="#custom-setting-outline"></use>
                                         </svg>
-                                        <span>{{__('Settings')}}</span>
+                                        <span>{{__('admin.My_account')}}</span>
                                     </span>
                                 </a>
                                 <hr class="border-secondary-500/10 my-4" />
@@ -195,7 +195,7 @@
                                             <svg class="pc-icon me-2 w-[22px] h-[22px]">
                                                 <use xlink:href="#custom-logout-1-outline"></use>
                                             </svg>
-                                            {{__('Logout')}}
+                                            {{__('admin.Logout')}}
                                         </button>
                                     </form>
 

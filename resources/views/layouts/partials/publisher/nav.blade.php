@@ -30,7 +30,7 @@ $userDone = Auth::guard('publisherGuard')->user();
                     <div class="hidden pc-user-links" id="pc_sidebar_userlink">
                         <div class="pt-3 *:flex *:items-center *:py-2 *:gap-2.5 hover:*:text-primary-500">
                             @if($userDone && $userDone->status == 1)
-                            <a href="{{route('dashboard.users.profile', Auth::user()->id)}}">
+                            <a href="{{route('publisher.profile')}}">
                                 <i class="text-lg leading-none ti ti-user"></i>
                                 <span>{{__('admin.My_account')}}</span>
                             </a>

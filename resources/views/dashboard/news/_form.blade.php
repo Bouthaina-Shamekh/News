@@ -162,47 +162,46 @@ $name = 'name_' . app()->getLocale();
         new Tagify(el);
     });
     tinymce.init({
-    selector: '.mytextarea',
-    height: 500,
-    menubar: true,
-        plugins: `
-        advlist autolink lists link image charmap print preview anchor
-        searchreplace visualblocks code fullscreen
-        insertdatetime media table code help wordcount
-        emoticons codesample directionality hr pagebreak
-    `,
-        toolbar: `
-        undo redo | blocks | bold italic underline strikethrough forecolor backcolor |
-        alignleft aligncenter alignright alignjustify |
-        bullist numlist outdent indent | link image media table |
-        emoticons charmap hr pagebreak | code fullscreen preview print |
-        ltr rtl | removeformat
-    `,
+        selector: '.mytextarea',
+        height: 500,
+        menubar: true,
+            plugins: `
+            advlist autolink lists link image charmap print preview anchor
+            searchreplace visualblocks code fullscreen
+            insertdatetime media table code help wordcount
+            emoticons codesample directionality hr pagebreak
+        `,
+            toolbar: `
+            undo redo | blocks | bold italic underline strikethrough forecolor backcolor |
+            alignleft aligncenter alignright alignjustify |
+            bullist numlist outdent indent | link image media table |
+            emoticons charmap hr pagebreak | code fullscreen preview print |
+            ltr rtl | removeformat
+        `,
 
 
-    // أهم الإعدادات
-    paste_as_text: true, // لصق كنص عادي (يحل المشكلة)
-    paste_word_valid_elements: 'b,strong,i,em,u,ul,ol,li,p,br',
-    paste_retain_style_properties: '',
+        // أهم الإعدادات
+        paste_as_text: false, // لصق كنص عادي (يحل المشكلة)
+        paste_word_valid_elements: 'b,strong,i,em,u,ul,ol,li,p,br',
+        paste_retain_style_properties: '',
 
-    entity_encoding: 'raw', // يحافظ على الترميز بشكل صحيح
+        entity_encoding: 'raw', // يحافظ على الترميز بشكل صحيح
 
-    // دعم RTL أو LTR بناء على اللغة الحالية
-    directionality: '{{ app()->getLocale() == "ar" ? "rtl" : "ltr" }}',
+        // دعم RTL أو LTR بناء على اللغة الحالية
+        directionality: '{{ app()->getLocale() == "ar" ? "rtl" : "ltr" }}',
 
-    setup: function (editor) {
-        editor.on('change', function () {
-            editor.save();
-        });
-    }
-});
-
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save();
+            });
+        }
+    });
 </script>
 <script>
         function removeImage(name) {
-            const slug = "{{ $news->slug }}";
+            const id = "{{ $news->id }}";
             $.ajax({
-                url: `{{ route('dashboard.nw.removeImage', ':slug') }}`.replace(':slug', slug),
+                url: `{{ route('dashboard.nw.removeImage', ':id') }}`.replace(':id', id),
                 type: 'POST',
                 data: {
                     name: name,

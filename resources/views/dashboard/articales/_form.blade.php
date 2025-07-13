@@ -158,7 +158,7 @@
 
 
     // أهم الإعدادات
-    paste_as_text: true, // لصق كنص عادي (يحل المشكلة)
+    paste_as_text: false, // لصق كنص عادي (يحل المشكلة)
     paste_word_valid_elements: 'b,strong,i,em,u,ul,ol,li,p,br',
     paste_retain_style_properties: '',
 
@@ -177,9 +177,9 @@
 </script>
 <script>
     function removeImage(name) {
-        const slug = "{{ $articals->slug }}";
+        const id = "{{ $articals->id }}";
         $.ajax({
-            url: `{{ route('dashboard.articale.removeImage', ':id') }}`.replace(':id', slug),
+            url: `{{ route('dashboard.articale.removeImage', ':id') }}`.replace(':id', id),
             type: 'POST',
             data: {
                 name: name,

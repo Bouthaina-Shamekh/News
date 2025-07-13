@@ -127,4 +127,59 @@ class HomeController extends Controller
             ? redirect(url(app()->getLocale() . '/publisher/login'))->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);
     }
+
+    public function profile()
+    {
+        $publisher = Auth::guard('publisherGuard')->user();
+        return view('publisher.profile', compact('publisher'));
+    }
+    public function profileUpdate(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email:publishers,email',
+            'password' => 'nullable',
+            'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'phone' => 'required',
+            'birth_of_date' => 'required|date',
+            'address' => 'required',
+            'about' => 'required',
+            'attachmentsFile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+        // Get the old image and attachments paths
+        $old_image = $request->old_image;
+        $old_attachments = $request->old_attachments;
+
+        // Handle image file upload
+        if ($request->hasFile('imageFile')) {
+            $file = $request->file('imageFile'); // upload obj
+            $path = $file->store('uploads', [
+                'disk' => 'public'
+            ]);
+            $request->merge([
+                'image' => $path
+            ]);
+        }
+
+        // Handle attachments file upload
+        if ($request->hasFile('attachmentsFile')) {
+            $file = $request->file('attachmentsFile'); // upload obj
+            $path = $file->store('uploads', [
+                'disk' => 'public'
+            ]);
+            $request->merge([
+                'attachments' => $path
+            ]);
+        }
+
+        $publishers = Publisher::findOrFail(Auth::guard('publisherGuard')->user()->id);
+        // Update the publisher with the validated data
+        if($request->password) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        }else{
+            $request->merge(['password' => $publishers->password]);
+        }
+        $publishers->update($request->all());
+
+        return redirect()->route('publisher.profile')->with('success', __('Publisher updated successfully.'));
+    }
 }
