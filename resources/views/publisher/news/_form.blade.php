@@ -25,7 +25,7 @@
     </div>
     <div class="form-group col-6 mb-3">
         <label for="image">{{__('admin.Image View')}}<span style="color: red">*</span></label>
-        <input type="file" name="img_view" class="form-control" required />
+        <input type="file" name="img_view" class="form-control" accept="image/*" @required($btn_label != 'Update') />
         <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
         @if ($news->img_view)
             <img src="{{ asset('storage/' . $news->img_view) }}" alt="Current Image" width="50">
@@ -33,7 +33,7 @@
     </div>
     <div class="form-group col-6 mb-3">
         <label for="image">{{__('admin.Image In Article')}}</label>
-        <input type="file" name="img_article" class="form-control" />
+        <input type="file" name="img_article" class="form-control" accept="image/*" />
         <span class="text-muted">{{__('admin.Size Image')}}: 1920*1080 (16:9)</span>
         @if ($news->img_article)
             <img src="{{ asset('storage/' . $news->img_article) }}" alt="Current Image" width="50">

@@ -61,8 +61,8 @@
                                                 </div>
                                                 <ul class="nav meta">
                                                     <li>
-                                                        <a href="{{ route('site.publisher', $article->publisher ? $article->publisher->id : 0) }}">
-                                                            {{$article->publisher->name ?? ''}}
+                                                        <a href="{{ route('site.publisher', $new->publisher ? $new->publisher->id : 0) }}">
+                                                            {{$new->publisher->name ?? ''}}
                                                         </a>
                                                     </li>
                                                     <li><a href="#">{{ $new->created_at->format('Y-m-d') }}</a></li>

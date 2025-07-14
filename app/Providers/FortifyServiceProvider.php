@@ -32,41 +32,58 @@ class FortifyServiceProvider extends ServiceProvider
         $request = request();
         $app_local = app()->getLocale();
 
-        Config::set('fortify.prefix',$app_local);
-        if($request->is($app_local . '/dashboard/*') || $request->is('dashboard') || $request->is($app_local . '/dashboard')){
-            Config::set('fortify.guard','admin');
-            Config::set('fortify.passwords','admins');
-            Config::set('fortify.prefix',$app_local . '/dashboard');
-            Config::set('fortify.home','/dashboard/home');
+        Config::set('fortify.prefix', $app_local);
+
+        if (
+            $request->is("{$app_local}/dashboard") ||
+            $request->is("{$app_local}/dashboard/*") ||
+            $request->is('dashboard')
+        ) {
+            Config::set('fortify.guard', 'admin');
+            Config::set('fortify.passwords', 'admins');
+            Config::set('fortify.prefix', "{$app_local}/dashboard");
+            Config::set('fortify.home', '/dashboard/home');
         }
-        if($request->is($app_local . '/publisher/*') || $request->is('publisher') || $request->is($app_local . '/publisher')){
-            Config::set('fortify.guard','publisherGuard');
-            Config::set('fortify.passwords','publishers');
-            Config::set('fortify.prefix', $app_local . '/publisher');
-            Config::set('fortify.home','/publisher/home');
+
+        if (
+            $request->is("{$app_local}/publisher") ||
+            $request->is("{$app_local}/publisher/*") ||
+            $request->is('publisher')
+        ) {
+            Config::set('fortify.guard', 'publisherGuard');
+            Config::set('fortify.passwords', 'publishers');
+            Config::set('fortify.prefix', "{$app_local}/publisher");
+            Config::set('fortify.home', '/publisher/home');
         }
 
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
-                if(Config::get('fortify.guard') == 'admin'){
+                if (Config::get('fortify.guard') === 'admin') {
                     return redirect()->intended('/dashboard/home');
                 }
-                if(Config::get('fortify.guard') == 'publisherGuard'){
+
+                if (Config::get('fortify.guard') === 'publisherGuard') {
                     return redirect()->route('publisher.home');
                 }
+
                 return redirect()->intended('/');
             }
         });
+
         $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
             public function toResponse($request)
             {
-                if(Config::get('fortify.guard') == 'admin'){
-                    return redirect()->intended(app()->getLocale() . '/dashboard/login');
+                $locale = app()->getLocale();
+
+                if (Config::get('fortify.guard') === 'admin') {
+                    return redirect()->intended("{$locale}/dashboard/login");
                 }
-                if(Config::get('fortify.guard') == 'publisherGuard'){
-                    return redirect()->intended(app()->getLocale() . '/publisher/login');
+
+                if (Config::get('fortify.guard') === 'publisherGuard') {
+                    return redirect()->intended("{$locale}/publisher/login");
                 }
+
                 return redirect('/');
             }
         });
@@ -74,10 +91,10 @@ class FortifyServiceProvider extends ServiceProvider
             return new class implements RegisterResponse {
                 public function toResponse($request)
                 {
-                    if (Config::get('fortify.guard') == 'admin') {
+                    if (Config::get('fortify.guard') === 'admin') {
                         return redirect('/dashboard/home');
                     }
-                    if (Config::get('fortify.guard') == 'publisherGuard') {
+                    if (Config::get('fortify.guard') === 'publisherGuard') {
                         return redirect()->route('publisher.home');
                     }
                     return redirect()->intended('/');
@@ -92,17 +109,17 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Fortify::loginView(function () {
-            if(Config::get('fortify.guard') == 'admin'){
+            if (Config::get('fortify.guard') == 'admin') {
                 return view('auth.admins.login');
             }
-            if(Config::get('fortify.guard') == 'publisherGuard'){
+            if (Config::get('fortify.guard') == 'publisherGuard') {
                 return view('auth.publishers.login');
             }
             return view('auth.login');
         });
 
         Fortify::registerView(function () {
-            if(Config::get('fortify.guard') == 'publisherGuard'){
+            if (Config::get('fortify.guard') == 'publisherGuard') {
                 return view('auth.publishers.register');
             }
             return view('auth.register');
@@ -140,7 +157,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });
@@ -150,4 +167,3 @@ class FortifyServiceProvider extends ServiceProvider
         });
     }
 }
-
