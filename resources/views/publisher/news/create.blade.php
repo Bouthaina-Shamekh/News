@@ -22,7 +22,7 @@
                                 {{__('admin.Back')}}
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                {{$btn_label ?? __('admin.Add')}}
+                                {{__('admin.Add')}}
                             </button>
                         </div>
                     </form>
