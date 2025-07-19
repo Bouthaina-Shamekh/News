@@ -524,9 +524,11 @@
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
                                                             </ul>
-                                                            <div class="title" style="height:80px;">
+                                                            <div class="title">
                                                                 <h3 class="text h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                        {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
+                                                                    </a>
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -553,7 +555,9 @@
                                                             </ul>
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                        {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
+                                                                    </a>
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -620,10 +624,11 @@
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
                                                             </ul>
-                                                            <div class="title" style="height:80px;">
+                                                            <div class="title">
                                                                 <h3 class="text h4">
-
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                        {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
+                                                                    </a>
 
                                                                 </h3>
                                                             </div>
@@ -652,7 +657,9 @@
 
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                        {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
+                                                                    </a>
 
                                                                 </h3>
                                                             </div>
@@ -723,11 +730,11 @@
                                                             <ul class="nav meta">
                                                                 <li><a href="author?id=0"></a></li>
                                                             </ul>
-                                                            <div class="title" style="height:80px;">
+                                                            <div class="title">
                                                                 <h3 class="text h4">
-
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
-
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                        {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
+                                                                    </a>
                                                                 </h3>
                                                             </div>
                                                         </div>
@@ -755,7 +762,9 @@
 
                                                             <div class="title" style="height: a;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">{{ $article->$title }}</a>
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                        {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
+                                                                    </a>
 
                                                                 </h3>
                                                             </div>

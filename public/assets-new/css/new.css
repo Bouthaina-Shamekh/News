@@ -29,6 +29,7 @@
     padding: 30px;
     color: #222;
     background-color: #f2f3f5;
+    margin: 0 auto;
 }
 /* لما يكون العرض 768px أو أكثر (آيباد ولابتوب) */
 @media (min-width: 992px) {
