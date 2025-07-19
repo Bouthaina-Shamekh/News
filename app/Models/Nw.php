@@ -36,6 +36,13 @@ class Nw extends Model
         'slug'
     ];
 
+    // Scope
+    public function scopeActive($query)
+    {
+        return $query->where('statu_id', 2);
+    }
+
+    // Relationship
     public function category()
     {
         return $this->belongsTo(Category::class);
