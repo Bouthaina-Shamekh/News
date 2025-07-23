@@ -297,7 +297,7 @@
                                                     aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
                                                     @php
-                                                        $breaking_news = App\Models\Artical::where('place', 'war')->orderby('id','desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Artical::where('place', 'war')->where('status_id', 2)->orderby('id','desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($breaking_news as $newS)
@@ -333,7 +333,7 @@
                                                     role="tabpanel" aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
                                                     @php
-                                                        $latest_news = App\Models\Artical::orderby('id','desc')->get()->take(3);
+                                                        $latest_news = App\Models\Artical::where('status_id', 2)->orderby('id','desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($latest_news as $newS)
@@ -369,7 +369,7 @@
                                                     aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     @php
-                                                        $most_viewed = App\Models\Artical::orderBy('visit', 'asc')->orderby('id','desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Artical::where('status_id', 2)->orderBy('visit', 'asc')->orderby('id','desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($most_viewed as $newS)
