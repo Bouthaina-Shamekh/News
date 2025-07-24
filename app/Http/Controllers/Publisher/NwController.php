@@ -190,7 +190,7 @@ class NwController extends Controller
                 'img_view' => 'nullable|image',
                 'img_article' => 'nullable|image',
                 'text_org' => 'required',
-                'keyword_org' => 'required',
+                'keyword_org' => 'required|max:255',
                 'category_id' => 'required',
             ]);
 

@@ -12,9 +12,9 @@
                 <ul class="nav d-flex justify-content-between">
                     @foreach ($newPalces as $newPalce)
                     <li class="nav-item">
-                        <a href="news?pl={{ $newPalce->id }}" class="nav-link">
+                        <a href="{{ route('site.articles',['pl' => $newPalce['id']]) }}" class="nav-link">
                             <i class="fa fa-heart-o"></i>
-                            <span>{{ $newPalce->$name }}</span>
+                            <span>{{ $newPalce[$name] }}</span>
                         </a>
                     </li>
                     @endforeach
