@@ -31,6 +31,9 @@
     background-color: #f2f3f5;
     margin: 0 auto;
 }
+.post--single .post--content ul , .post--single .post--content ol{
+    padding-right: 30px;
+}
 /* لما يكون العرض 768px أو أكثر (آيباد ولابتوب) */
 @media (min-width: 992px) {
     .grid-container {
