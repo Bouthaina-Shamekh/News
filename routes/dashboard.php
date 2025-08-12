@@ -65,6 +65,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
         Route::get('/about/{id}/edit', [AboutController::class, 'edit'])->name('about.edit');
         Route::put('/about/{id}', [AboutController::class, 'update'])->name('about.update');
+        Route::post('/about/{id}/removeImage', [AboutController::class, 'removeImage'])->name('about.removeImage');
+
 
         Route::get('/setting',[SettingController::class , 'index'])->name('setting.index');
         Route::post('/setting/update',[SettingController::class , 'update'])->name('setting.update');

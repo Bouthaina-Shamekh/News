@@ -85,4 +85,21 @@ class AboutController extends Controller
         }
         return redirect()->route('dashboard.about.index')->with('success', __('Item deleted successfully.'));
     }
+
+    public function removeImage(Request $request, $id)
+    {
+        $abouts = About::findOrFail($id);
+        // Delete the image from storage
+        if ($request->name == 'imgAbout') {
+            if ($abouts->image != null) {
+                Storage::disk('public')->delete($abouts->image);
+            }
+        }
+        // Update the news item
+        $abouts->update([
+            'image' => null
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 }
