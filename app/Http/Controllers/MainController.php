@@ -35,7 +35,7 @@ class MainController extends Controller
         $articlesOne = Artical::active()->where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
         $articlesTwo = Artical::active()->where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
         $articlesThree = Artical::active()->where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
-        return view('site.home', compact('ads', 'sliders','categoryOne', 'categoryTwo', 'categoryThree','articlesOne', 'articlesTwo', 'articlesThree'));
+        return view('site.home', compact('ads', 'sliders', 'categoryOne', 'categoryTwo', 'categoryThree', 'articlesOne', 'articlesTwo', 'articlesThree'));
     }
 
     public function about()
@@ -105,22 +105,22 @@ class MainController extends Controller
     {
         $new = Nw::findOrFail((int)$id);
 
-        $news = Nw::active()->orderby('id','desc')->where('category_id', $new->category_id)->take(5)->get();
+        $news = Nw::active()->orderby('id', 'desc')->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
             'visit' => $new->visit + 1
         ]);
         $comments = Comment::where('news_id', $new->id)->get();
-        return view('site.new', compact('new', 'comments','news'));
+        return view('site.new', compact('new', 'comments', 'news'));
     }
     public function newLike(Request $request, $id)
     {
         $type = $request->type;
         $new = Nw::findOrFail((int)$id);
-        if($type == true){
+        if ($type == true) {
             $new->update([
                 'like' => $new->like + 1
             ]);
-        }else{
+        } else {
             $new->update([
                 'dislike' => $new->dislike + 1
             ]);
@@ -147,27 +147,53 @@ class MainController extends Controller
 
     public function articles(Request $request)
     {
-        $articles = Artical::active()->orderBy('id', 'desc');
+        $articles = Artical::active(); // تأكد إن scopeActive مرجّع Builder
+
         $category = $request->query('c');
-        $search = $request->search;
+        $search   = $request->search;
+        $place    = $request->query('pl');
+
         if ($category) {
-            $articles = $articles->where('category_id', $category);
+            $articles->where('category_id', $category);
         }
+
         if ($search) {
-            $articles = $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
+            $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
+
+        if ($place) {
+            if ($place == 1 || $place == 7) {
+                $articles->orderBy('like', 'desc');
+            } elseif ($place == 2) {
+                $articles->orderBy('dislike', 'desc');
+            } elseif ($place == 3) {
+                $articles->orderBy('visit', 'desc');
+            }
+        } else {
+            $articles->orderBy('id', 'desc');
+        }
+
         $articles = $articles->paginate(10);
         $categories = Category::all();
-        $newPalces = NewPlace::all();
+
+        $newPalces = [
+            ["id" => 1, "name_ar" => "Hot", "name_en" => "Hot"],
+            ["id" => 2, "name_ar" => "عصري", "name_en" => "Trendy"],
+            ["id" => 3, "name_ar" => "الأكثر مشاهدة", "name_en" => "Most Watched"],
+            ["id" => 7, "name_ar" => "الأكثر شهرة", "name_en" => "Most Popular"],
+        ];
+
         return view('site.articles', compact('articles', 'categories', 'newPalces'));
     }
+
+
     public function article($id)
     {
         $article = Artical::findOrFail((int)$id);
         $article->update([
             'visit' => $article->visit + 1
         ]);
-        $articles = Artical::active()->orderby('id','desc')->where('category_id', $article->category_id)->take(5)->get();
+        $articles = Artical::active()->orderby('id', 'desc')->where('category_id', $article->category_id)->take(5)->get();
         return view('site.article', compact('article', 'articles'));
     }
 
@@ -175,11 +201,11 @@ class MainController extends Controller
     {
         $type = $request->type;
         $article = Artical::findOrFail((int)$id);
-        if($type == true){
+        if ($type == true) {
             $article->update([
                 'like' => $article->like + 1
             ]);
-        }else{
+        } else {
             $article->update([
                 'dislike' => $article->dislike + 1
             ]);
@@ -216,9 +242,9 @@ class MainController extends Controller
             'email' => 'required|email',
         ]);
         $email = $request->email;
-        if(DB::table('email')->where('email', $email)->exists()){
+        if (DB::table('email')->where('email', $email)->exists()) {
             return redirect()->back()->with('successAdd', true);
-        }else{
+        } else {
             DB::table('email')->insert([
                 'email' => $email,
             ]);
