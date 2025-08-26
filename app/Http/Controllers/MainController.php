@@ -147,30 +147,33 @@ class MainController extends Controller
 
     public function articles(Request $request)
     {
-        $articles = Artical::active();
+        $articles = Artical::active(); // تأكد إن scopeActive مرجّع Builder
+
         $category = $request->query('c');
-        $search = $request->search;
-        $place = $request->query('pl');
+        $search   = $request->search;
+        $place    = $request->query('pl');
+
         if ($category) {
-            $articles = $articles->where('category_id', $category);
+            $articles->where('category_id', $category);
         }
+
         if ($search) {
-            $articles = $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
+            $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
+
         if ($place) {
             if ($place == 1 || $place == 7) {
-                $articles = $articles->orderBy('like', 'asc');
+                $articles->orderBy('like', 'desc');
             } elseif ($place == 2) {
-                $articles = $articles->orderBy('dislike', 'asc');
+                $articles->orderBy('dislike', 'desc');
             } elseif ($place == 3) {
-                $articles = $articles->orderBy('visit', 'asc');
+                $articles->orderBy('visit', 'desc');
             }
         } else {
-            $articles = $articles->orderBy('id', 'desc');
+            $articles->orderBy('id', 'desc');
         }
 
         $articles = $articles->paginate(10);
-
         $categories = Category::all();
 
         $newPalces = [
@@ -182,6 +185,7 @@ class MainController extends Controller
 
         return view('site.articles', compact('articles', 'categories', 'newPalces'));
     }
+
 
     public function article($id)
     {
