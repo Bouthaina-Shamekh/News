@@ -39,6 +39,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::get('messages', [MessageController::class, 'index'])->name('messages');
         Route::post('/track-visit', [HomeController::class, 'storeVisit'])->name('track_visit');
+        
+        Route::get('/backup', [HomeController::class, 'createBackup'])->name('backup');
 
         Route::get('users/{user}/profile', [UserController::class, 'profile'])->name('users.profile');
 

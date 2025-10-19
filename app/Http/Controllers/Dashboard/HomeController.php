@@ -12,7 +12,7 @@ use App\Models\Artical;
 use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,52 +21,78 @@ class HomeController extends Controller
 {
 
     public function index()
-{
-    $ad_count = Ad::count();
-    $a_count = Artical::count();
-    $n_count = Nw::count();
-    $p_count = Publisher::count();
-    $s_count = Statu::count();
-    $c_count = Category::count();
-    $ab_count = About::count();
+    {
+        $ad_count = Ad::count();
+        $a_count = Artical::count();
+        $n_count = Nw::count();
+        $p_count = Publisher::count();
+        $s_count = Statu::count();
+        $c_count = Category::count();
+        $ab_count = About::count();
 
-    $chartjs = app()->chartjs
-        ->name('doughnutChartTest')
-        ->type('doughnut')
-        ->size(['width' => 1200, 'height' => 600]) // حجم الرسم البياني
-        ->labels(['Articale', 'News', 'News Status', 'Category', 'Ad', 'Publisher', 'About'])
-        ->datasets([
-            [
-                "label" => "Site Data",
-                'backgroundColor' => ["#fedae1", "#fda1b5", "#fd5b8a", "#db1063", "#9b0844", "#6f032d", "#600327"],
-                'data' => [$a_count, $n_count, $s_count, $c_count, $ad_count, $p_count, $ab_count],
-            ]
-        ])
-        ->options([
-            'responsive' => true,
-            'maintainAspectRatio' => false,
-            'animation' => [
-                'duration' => 2000, // مدة الحركة بالمللي ثانية (2 ثانية هنا)
-                'easing' => 'easeInOutQuad', // نوع الحركة
-            ],
-            'plugins' => [
-                'legend' => [
-                    'position' => 'top',
-                    'labels' => [
-                        'usePointStyle' => true,
-                    ]
+        $chartjs = app()->chartjs
+            ->name('doughnutChartTest')
+            ->type('doughnut')
+            ->size(['width' => 1200, 'height' => 600]) // حجم الرسم البياني
+            ->labels(['Articale', 'News', 'News Status', 'Category', 'Ad', 'Publisher', 'About'])
+            ->datasets([
+                [
+                    "label" => "Site Data",
+                    'backgroundColor' => ["#fedae1", "#fda1b5", "#fd5b8a", "#db1063", "#9b0844", "#6f032d", "#600327"],
+                    'data' => [$a_count, $n_count, $s_count, $c_count, $ad_count, $p_count, $ab_count],
                 ]
-            ],
-        ]);
+            ])
+            ->options([
+                'responsive' => true,
+                'maintainAspectRatio' => false,
+                'animation' => [
+                    'duration' => 2000, // مدة الحركة بالمللي ثانية (2 ثانية هنا)
+                    'easing' => 'easeInOutQuad', // نوع الحركة
+                ],
+                'plugins' => [
+                    'legend' => [
+                        'position' => 'top',
+                        'labels' => [
+                            'usePointStyle' => true,
+                        ]
+                    ]
+                ],
+            ]);
 
-    return view('dashboard.index', compact('ad_count', 'a_count', 'n_count', 'p_count', 'chartjs'));
-}
+        return view('dashboard.index', compact('ad_count', 'a_count', 'n_count', 'p_count', 'chartjs'));
+    }
 
     public function edit($id)
     {
         $this->authorize('edit', About::class);
         $abouts = About::findOrFail($id);
         return view('dashboard.abouts.edit', compact('abouts'));
+    }
+
+    public function createBackup()
+    {
+        $database = env('DB_DATABASE');
+        $username = env('DB_USERNAME');
+        $password = env('DB_PASSWORD');
+        $host = env('DB_HOST');
+        $backupFileName = $database . '_' . Carbon::now()->format('Y-m-d_H-i-s') . '.sql';
+        $backupFilePath = storage_path('app/backups/' . $backupFileName);
+
+        $command = "mysqldump --user={$username} --password={$password} --host={$host} {$database} > {$backupFilePath}";
+
+        // code in the win server
+        // $backupFilePath = storage_path('app\backups\financial_management_system_' . $backupFileName);
+        // $command = 'D:\xampp\mysql\bin\mysqldump.exe --user='. $username .' --password='. $password .' --host=' . $host .' '. $database .' >'. $backupFilePath;
+
+        $output = array();
+        $result = null;
+        exec($command, $output, $result);
+
+        if ($result === 0) {
+            return response()->download($backupFilePath)->deleteFileAfterSend(true);
+        } else {
+            return redirect()->route('home')->with('danger', 'حدث خطاء في عملية النسخ الاحتياطي يرجى مراجعة المهندس');
+        }
     }
 
 
@@ -92,21 +118,21 @@ class HomeController extends Controller
 
         $abouts = About::findOrFail($id);
 
-    if ($request->hasFile('image')) {
-        // حذف الصورة القديمة إذا كانت موجودة
-        if ($abouts->image && Storage::exists('uploads/abouts/' . $abouts->image)) {
-            Storage::delete('uploads/abouts/' . $abouts->image);
-        }
+        if ($request->hasFile('image')) {
+            // حذف الصورة القديمة إذا كانت موجودة
+            if ($abouts->image && Storage::exists('uploads/abouts/' . $abouts->image)) {
+                Storage::delete('uploads/abouts/' . $abouts->image);
+            }
 
-        // توليد اسم جديد للصورة وتخزينها
-        $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('uploads/abouts'), $img_name);
-    }
+            // توليد اسم جديد للصورة وتخزينها
+            $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('uploads/abouts'), $img_name);
+        }
 
 
         $abouts::updat([
-             'image' => $img_name,
-             'about_ar' => $request->about_ar,
+            'image' => $img_name,
+            'about_ar' => $request->about_ar,
             'about_en' => $request->about_en,
             'objective_ar' => $request->objective_ar,
             'objective_en' => $request->objective_en,
@@ -118,7 +144,7 @@ class HomeController extends Controller
             'goal_en' => $request->goal_en,
 
 
-    ]);
+        ]);
 
 
 
@@ -147,6 +173,4 @@ class HomeController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
-
 }

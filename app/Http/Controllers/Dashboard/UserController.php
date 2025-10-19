@@ -103,8 +103,8 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|same:confirm_password',
-            'confirm_password' => 'nullable|same:password',
+            'password' => 'nullable',
+            // 'confirm_password' => 'nullable|same:password',
         ]);
         DB::beginTransaction();
         try {
