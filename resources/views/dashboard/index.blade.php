@@ -113,24 +113,28 @@
 
                 </div>
 
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-xl-3 col-md-6 mb-3">
-                        <div class="card border-left-info shadow h-100 py-2 bg-light"> <!-- لون فاتح -->
+                        <div class="card border-left-success shadow h-100 py-2 bg-success-subtle">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             {{ __('admin.Backup') }}
                                         </div>
-                                        @can('admins.backup')
-                                            <a href="{{ route('dashboard.backup') }}" target="_blank" class="btn btn-primary col-md-1 col-sm-3 mr-3">
-                                                {{ __('admin.Backup') }}
-                                                <p class="text-secondary">أخذ نسخة إحتياطية من القاعدة</p>
-                                            </a>
-                                        @endcan
+                                        <div class="mt-2">
+                                            @can('admins.backup')
+                                                <a href="{{ route('dashboard.backup') }}" target="_blank"
+                                                    class="btn btn-success btn-sm">
+                                                    <i class="fas fa-download me-1"></i>
+                                                    {{ __('admin.Backup') }}
+                                                </a>
+                                                <p class="text-muted small mt-1 mb-0">أخذ نسخة إحتياطية من القاعدة</p>
+                                            @endcan
+                                        </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-tags fa-2x text-gray-300"></i>
+                                        <i class="fas fa-database fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -146,12 +150,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
     @push('scripts')
         <script src="{{ asset('assets-dashboard/js/plugins/apexcharts.min.js') }}"></script>
