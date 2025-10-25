@@ -14,7 +14,9 @@ use App\Models\Publisher;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Process\Process;
 
 
 class HomeController extends Controller
@@ -33,7 +35,7 @@ class HomeController extends Controller
         $chartjs = app()->chartjs
             ->name('doughnutChartTest')
             ->type('doughnut')
-            ->size(['width' => 1200, 'height' => 600]) // حجم الرسم البياني
+            ->size(['width' => 1200, 'height' => 600]) // ط­ط¬ظ… ط§ظ„ط±ط³ظ… ط§ظ„ط¨ظٹط§ظ†ظٹ
             ->labels(['Articale', 'News', 'News Status', 'Category', 'Ad', 'Publisher', 'About'])
             ->datasets([
                 [
@@ -46,8 +48,8 @@ class HomeController extends Controller
                 'responsive' => true,
                 'maintainAspectRatio' => false,
                 'animation' => [
-                    'duration' => 2000, // مدة الحركة بالمللي ثانية (2 ثانية هنا)
-                    'easing' => 'easeInOutQuad', // نوع الحركة
+                    'duration' => 2000, // ظ…ط¯ط© ط§ظ„ط­ط±ظƒط© ط¨ط§ظ„ظ…ظ„ظ„ظٹ ط«ط§ظ†ظٹط© (2 ط«ط§ظ†ظٹط© ظ‡ظ†ط§)
+                    'easing' => 'easeInOutQuad', // ظ†ظˆط¹ ط§ظ„ط­ط±ظƒط©
                 ],
                 'plugins' => [
                     'legend' => [
@@ -75,28 +77,47 @@ class HomeController extends Controller
         $username = env('DB_USERNAME');
         $password = env('DB_PASSWORD');
         $host = env('DB_HOST');
-        $backupFileName = $database . '_' . Carbon::now()->format('Y-m-d_H-i-s') . '.sql';
-        $backupFilePath = storage_path('app/backups/' . $backupFileName);
+        $port = env('DB_PORT', 3306);
+        $backupDirectory = 'backups';
 
-        $command = "mysqldump --user={$username} --password={$password} --host={$host} {$database} > {$backupFilePath}";
-
-        // code in the win server
-        // $backupFilePath = storage_path('app\backups\financial_management_system_' . $backupFileName);
-        // $command = 'D:\xampp\mysql\bin\mysqldump.exe --user='. $username .' --password='. $password .' --host=' . $host .' '. $database .' >'. $backupFilePath;
-
-        $output = array();
-        $result = null;
-        exec($command, $output, $result);
-
-        if ($result === 0) {
-            return response()->download($backupFilePath)->deleteFileAfterSend(true);
-        } else {
-            return redirect()->route('home')->with('danger', 'حدث خطاء في عملية النسخ الاحتياطي يرجى مراجعة المهندس');
+        if (!Storage::exists($backupDirectory)) {
+            Storage::makeDirectory($backupDirectory);
         }
+
+        $backupFileName = $database . '_' . Carbon::now()->format('Y-m-d_H-i-s') . '.sql';
+        $backupFilePath = storage_path('app/' . $backupDirectory . '/' . $backupFileName);
+
+        $mysqldumpPath = env('MYSQLDUMP_PATH', 'mysqldump');
+
+        $command = [
+            $mysqldumpPath,
+            "--user={$username}",
+            "--host={$host}",
+            "--port={$port}",
+        ];
+
+        if (!empty($password)) {
+            $command[] = "--password={$password}";
+        }
+
+        $command[] = '--result-file=' . $backupFilePath;
+        $command[] = $database;
+
+        $process = new Process($command);
+        $process->setTimeout(null);
+        $process->run();
+
+        if ($process->isSuccessful()) {
+            return response()->download($backupFilePath)->deleteFileAfterSend(true);
+        }
+
+        Log::error('Database backup failed', [
+            'exit_code' => $process->getExitCode(),
+            'error_output' => $process->getErrorOutput(),
+        ]);
+
+        return redirect()->route('dashboard.home')->with('danger', 'حدث خطاء في عملية النسخ الاحتياطي يرجى مراجعة المهندس');
     }
-
-
-
 
     public function update(Request $request, $id)
     {
@@ -119,12 +140,12 @@ class HomeController extends Controller
         $abouts = About::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            // حذف الصورة القديمة إذا كانت موجودة
+            // ط­ط°ظپ ط§ظ„طµظˆط±ط© ط§ظ„ظ‚ط¯ظٹظ…ط© ط¥ط°ط§ ظƒط§ظ†طھ ظ…ظˆط¬ظˆط¯ط©
             if ($abouts->image && Storage::exists('uploads/abouts/' . $abouts->image)) {
                 Storage::delete('uploads/abouts/' . $abouts->image);
             }
 
-            // توليد اسم جديد للصورة وتخزينها
+            // طھظˆظ„ظٹط¯ ط§ط³ظ… ط¬ط¯ظٹط¯ ظ„ظ„طµظˆط±ط© ظˆطھط®ط²ظٹظ†ظ‡ط§
             $img_name = rand() . time() . $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('uploads/abouts'), $img_name);
         }
