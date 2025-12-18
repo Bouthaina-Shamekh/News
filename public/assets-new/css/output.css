@@ -7767,6 +7767,8 @@ table.rates-table{
         width: auto;
     }
     .hrader_logo_ads{
-        display: block;
+        display: flex;
+        justify-content: center;
+        flex-direction: row-reverse;
     }
 }
