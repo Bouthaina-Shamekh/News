@@ -1,19 +1,22 @@
+@php
+    $settings = \App\Models\Setting::get();
+@endphp
 <div id="stickySocial" class="sticky--right">
     <ul class="nav">
         <li>
-            <a href="https://www.facebook.com/marena.post.news?locale=ar_AR">
+            <a href="{{ $settings->where('key', 'facebook')->first() ? $settings->where('key', 'facebook')->first()->value : '' }}">
                 <i class="fa fa-facebook"></i>
                 <span> Facebook</span>
             </a>
         </li>
         <li>
-            <a href="https://www.instagram.com/mrynbwst/?hl=ar">
+            <a href="{{ $settings->where('key', 'instagram')->first() ? $settings->where('key', 'instagram')->first()->value : '' }}">
                 <i class="fa fa-instagram"></i>
                 <span> Instagram</span>
             </a>
         </li>
         <li>
-            <a href="https://www.youtube.com/@marenapost">
+            <a href="{{ $settings->where('key', 'youtube')->first() ? $settings->where('key', 'youtube')->first()->value : '' }}">
                 <i class="fa fa-youtube-play"></i>
                 <span>Youtube Play</span>
             </a>
