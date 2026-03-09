@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Podcast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,4 +34,14 @@ class Category extends Model
     {
         return $this->hasMany(Artical::class);
     }
+
+    public function podcasts()
+{
+    return $this->hasMany(Podcast::class);
+}
+
+public function videos()
+{
+    return $this->hasMany(Video::class);
+}
 }
