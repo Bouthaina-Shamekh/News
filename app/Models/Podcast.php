@@ -29,8 +29,10 @@ class Podcast extends Model
         return $this->belongsTo(Category::class);
     }
 
+   
+
     public function episodes()
-    {
-        return $this->hasMany(PodcastEpisode::class);
-    }
+{
+    return $this->hasMany(PodcastEpisode::class);
+}
 }

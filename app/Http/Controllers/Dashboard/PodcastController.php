@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Podcast;
 use App\Models\Category;
+use App\Models\PodcastEpisode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -64,8 +65,9 @@ class PodcastController extends Controller
 
         $podcasts = new Podcast();
         $categories = Category::all();
+        $episodes = collect([]);
 
-        return view('dashboard.podcasts.create', compact('podcasts', 'categories'));
+        return view('dashboard.podcasts.create', compact('podcasts', 'categories', 'episodes'));
     }
 
     public function store(Request $request)
@@ -89,13 +91,21 @@ class PodcastController extends Controller
             $keywords_ar_text = '';
             if ($request->keyword_ar != null) {
                 $decoded_ar = json_decode($request->keyword_ar, true);
-                $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+                if (is_array($decoded_ar)) {
+                    $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+                } else {
+                    $keywords_ar_text = $request->keyword_ar;
+                }
             }
 
             $keywords_en_text = '';
             if ($request->keyword_en != null) {
                 $decoded_en = json_decode($request->keyword_en, true);
-                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+                if (is_array($decoded_en)) {
+                    $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+                } else {
+                    $keywords_en_text = $request->keyword_en;
+                }
             }
 
             $slug = $this->generateUniqueSlug(Podcast::class, $request->title_en ?? $request->title_ar);
@@ -116,7 +126,7 @@ class PodcastController extends Controller
                 $imgPodcastPath = $request->file('img_podcast')->store('uploads', 'public');
             }
 
-            Podcast::create([
+            $podcast = Podcast::create([
                 'title_ar' => $request->title_ar,
                 'title_en' => $request->title_en,
                 'keyword_ar' => $request->keyword_ar,
@@ -129,10 +139,79 @@ class PodcastController extends Controller
                 'slug' => $slug,
             ]);
 
+            if ($request->episodes && isset($request->episodes['title_ar'])) {
+                foreach ($request->episodes['title_ar'] as $index => $title) {
+                    if ($title != null) {
+                        $vedioPath = null;
+                        if ($request->hasFile("episodes.vedio.$index")) {
+                            $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
+                        }
+
+                        $audioPath = null;
+                        if ($request->hasFile("episodes.audio.$index")) {
+                            $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
+                        }
+
+                        $imgViewEpisodePath = null;
+                        if ($request->hasFile("episodes.img_view.$index")) {
+                            $imgViewEpisodePath = $request->file("episodes.img_view.$index")->store('uploads', 'public');
+                        }
+
+                        $imgEpisodePath = null;
+                        if ($request->hasFile("episodes.img_episode.$index")) {
+                            $imgEpisodePath = $request->file("episodes.img_episode.$index")->store('uploads', 'public');
+                        }
+
+                        $episodeKeywordsArText = '';
+                        if (isset($request->episodes['keyword_ar'][$index]) && $request->episodes['keyword_ar'][$index] != null) {
+                            $decoded_ar = json_decode($request->episodes['keyword_ar'][$index], true);
+                            if (is_array($decoded_ar)) {
+                                $episodeKeywordsArText = implode('، ', array_column($decoded_ar, 'value'));
+                            } else {
+                                $episodeKeywordsArText = $request->episodes['keyword_ar'][$index];
+                            }
+                        }
+
+                        $episodeKeywordsEnText = '';
+                        if (isset($request->episodes['keyword_en'][$index]) && $request->episodes['keyword_en'][$index] != null) {
+                            $decoded_en = json_decode($request->episodes['keyword_en'][$index], true);
+                            if (is_array($decoded_en)) {
+                                $episodeKeywordsEnText = implode(', ', array_column($decoded_en, 'value'));
+                            } else {
+                                $episodeKeywordsEnText = $request->episodes['keyword_en'][$index];
+                            }
+                        }
+
+                        $episodeSlug = $this->generateUniqueSlug(
+                            PodcastEpisode::class,
+                            $request->episodes['title_en'][$index] ?? $request->episodes['title_ar'][$index]
+                        );
+
+                        PodcastEpisode::create([
+                            'title_ar' => $request->episodes['title_ar'][$index] ?? null,
+                            'title_en' => $request->episodes['title_en'][$index] ?? null,
+                            'slug' => $episodeSlug,
+                            'date' => $request->episodes['date'][$index] ?? null,
+                            'time' => $request->episodes['time'][$index] ?? null,
+                            'type' => $request->episodes['type'][$index] ?? null,
+                            'vedio' => $vedioPath,
+                            'audio' => $audioPath,
+                            'img_view' => $imgViewEpisodePath,
+                            'img_episode' => $imgEpisodePath,
+                            'text_ar' => $request->episodes['text_ar'][$index] ?? null,
+                            'text_en' => $request->episodes['text_en'][$index] ?? null,
+                            'keyword_ar' => $episodeKeywordsArText,
+                            'keyword_en' => $episodeKeywordsEnText,
+                            'podcast_id' => $podcast->id,
+                        ]);
+                    }
+                }
+            }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('danger', $e->getMessage());
+            return redirect()->back()->withInput()->with('danger', $e->getMessage());
         }
 
         return redirect()->route('dashboard.podcast.index')->with('success', __('Item created successfully.'));
@@ -147,10 +226,11 @@ class PodcastController extends Controller
     {
         $this->authorize('edit', Podcast::class);
 
-        $podcasts = Podcast::findOrFail((int)$id);
+        $podcasts = Podcast::with('episodes')->findOrFail((int)$id);
         $categories = Category::all();
+        $episodes = $podcasts->episodes;
 
-        return view('dashboard.podcasts.edit', compact('podcasts', 'categories'));
+        return view('dashboard.podcasts.edit', compact('podcasts', 'categories', 'episodes'));
     }
 
     public function update(Request $request, $id)
@@ -171,18 +251,26 @@ class PodcastController extends Controller
                 'category_id' => 'required',
             ]);
 
-            $podcasts = Podcast::findOrFail((int)$id);
+            $podcasts = Podcast::with('episodes')->findOrFail((int)$id);
 
             $keywords_ar_text = '';
             if ($request->keyword_ar != null) {
                 $decoded_ar = json_decode($request->keyword_ar, true);
-                $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+                if (is_array($decoded_ar)) {
+                    $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+                } else {
+                    $keywords_ar_text = $request->keyword_ar;
+                }
             }
 
             $keywords_en_text = '';
             if ($request->keyword_en != null) {
                 $decoded_en = json_decode($request->keyword_en, true);
-                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+                if (is_array($decoded_en)) {
+                    $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+                } else {
+                    $keywords_en_text = $request->keyword_en;
+                }
             }
 
             $title = $request->title_en ?? $request->title_ar;
@@ -228,10 +316,98 @@ class PodcastController extends Controller
                 'slug' => $slug,
             ]);
 
+            if ($podcasts->episodes->count() > 0) {
+                foreach ($podcasts->episodes as $episode) {
+                    if ($episode->img_view != null) {
+                        Storage::disk('public')->delete($episode->img_view);
+                    }
+                    if ($episode->img_episode != null) {
+                        Storage::disk('public')->delete($episode->img_episode);
+                    }
+                    if ($episode->vedio != null) {
+                        Storage::disk('public')->delete($episode->vedio);
+                    }
+                    if ($episode->audio != null) {
+                        Storage::disk('public')->delete($episode->audio);
+                    }
+                }
+            }
+
+            PodcastEpisode::where('podcast_id', $podcasts->id)->delete();
+
+            if ($request->episodes && isset($request->episodes['title_ar'])) {
+                foreach ($request->episodes['title_ar'] as $index => $episodeTitle) {
+                    if ($episodeTitle != null) {
+                        $vedioPath = null;
+                        if ($request->hasFile("episodes.vedio.$index")) {
+                            $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
+                        }
+
+                        $audioPath = null;
+                        if ($request->hasFile("episodes.audio.$index")) {
+                            $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
+                        }
+
+                        $imgViewEpisodePath = null;
+                        if ($request->hasFile("episodes.img_view.$index")) {
+                            $imgViewEpisodePath = $request->file("episodes.img_view.$index")->store('uploads', 'public');
+                        }
+
+                        $imgEpisodePath = null;
+                        if ($request->hasFile("episodes.img_episode.$index")) {
+                            $imgEpisodePath = $request->file("episodes.img_episode.$index")->store('uploads', 'public');
+                        }
+
+                        $episodeKeywordsArText = '';
+                        if (isset($request->episodes['keyword_ar'][$index]) && $request->episodes['keyword_ar'][$index] != null) {
+                            $decoded_ar = json_decode($request->episodes['keyword_ar'][$index], true);
+                            if (is_array($decoded_ar)) {
+                                $episodeKeywordsArText = implode('، ', array_column($decoded_ar, 'value'));
+                            } else {
+                                $episodeKeywordsArText = $request->episodes['keyword_ar'][$index];
+                            }
+                        }
+
+                        $episodeKeywordsEnText = '';
+                        if (isset($request->episodes['keyword_en'][$index]) && $request->episodes['keyword_en'][$index] != null) {
+                            $decoded_en = json_decode($request->episodes['keyword_en'][$index], true);
+                            if (is_array($decoded_en)) {
+                                $episodeKeywordsEnText = implode(', ', array_column($decoded_en, 'value'));
+                            } else {
+                                $episodeKeywordsEnText = $request->episodes['keyword_en'][$index];
+                            }
+                        }
+
+                        $episodeSlug = $this->generateUniqueSlug(
+                            PodcastEpisode::class,
+                            $request->episodes['title_en'][$index] ?? $request->episodes['title_ar'][$index]
+                        );
+
+                        PodcastEpisode::create([
+                            'title_ar' => $request->episodes['title_ar'][$index] ?? null,
+                            'title_en' => $request->episodes['title_en'][$index] ?? null,
+                            'slug' => $episodeSlug,
+                            'date' => $request->episodes['date'][$index] ?? null,
+                            'time' => $request->episodes['time'][$index] ?? null,
+                            'type' => $request->episodes['type'][$index] ?? null,
+                            'vedio' => $vedioPath,
+                            'audio' => $audioPath,
+                            'img_view' => $imgViewEpisodePath,
+                            'img_episode' => $imgEpisodePath,
+                            'text_ar' => $request->episodes['text_ar'][$index] ?? null,
+                            'text_en' => $request->episodes['text_en'][$index] ?? null,
+                            'keyword_ar' => $episodeKeywordsArText,
+                            'keyword_en' => $episodeKeywordsEnText,
+                            'podcast_id' => $podcasts->id,
+                        ]);
+                    }
+                }
+            }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('danger', $e->getMessage());
+            return redirect()->back()->withInput()->with('danger', $e->getMessage());
         }
 
         return redirect()->route('dashboard.podcast.index')->with('success', __('admin.Item updated successfully.'));
@@ -241,7 +417,7 @@ class PodcastController extends Controller
     {
         $this->authorize('delete', Podcast::class);
 
-        $podcasts = Podcast::findOrFail((int)$id);
+        $podcasts = Podcast::with('episodes')->findOrFail((int)$id);
 
         if ($podcasts->img_view != null) {
             Storage::disk('public')->delete($podcasts->img_view);
@@ -249,6 +425,23 @@ class PodcastController extends Controller
 
         if ($podcasts->img_podcast != null) {
             Storage::disk('public')->delete($podcasts->img_podcast);
+        }
+
+        if ($podcasts->episodes->count() > 0) {
+            foreach ($podcasts->episodes as $episode) {
+                if ($episode->img_view != null) {
+                    Storage::disk('public')->delete($episode->img_view);
+                }
+                if ($episode->img_episode != null) {
+                    Storage::disk('public')->delete($episode->img_episode);
+                }
+                if ($episode->vedio != null) {
+                    Storage::disk('public')->delete($episode->vedio);
+                }
+                if ($episode->audio != null) {
+                    Storage::disk('public')->delete($episode->audio);
+                }
+            }
         }
 
         $podcasts->delete();

@@ -1,24 +1,27 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AboutController;
+use App\Http\Controllers\Dashboard\AdController;
+use App\Http\Controllers\Dashboard\AdPlaceController;
+use App\Http\Controllers\Dashboard\ArticalController;
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\CommentController;
+use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\MessageController;
+use App\Http\Controllers\Dashboard\NewPlaceController;
+use App\Http\Controllers\Dashboard\NwController;
+use App\Http\Controllers\Dashboard\PodcastController;
+use App\Http\Controllers\Dashboard\PodcastEpisodeController;
+use App\Http\Controllers\Dashboard\PublisherController;
+use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\StatusController;
+use App\Http\Controllers\Dashboard\TagController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\VideoController;
+use App\Http\Controllers\MainController;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\Dashboard\AdController;
-use App\Http\Controllers\Dashboard\NwController;
-use App\Http\Controllers\Dashboard\TagController;
-use App\Http\Controllers\Dashboard\HomeController;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\Dashboard\AboutController;
-use App\Http\Controllers\Dashboard\StatusController;
-use App\Http\Controllers\Dashboard\AdPlaceController;
-use App\Http\Controllers\Dashboard\ArticalController;
-use App\Http\Controllers\Dashboard\CommentController;
-use App\Http\Controllers\Dashboard\MessageController;
-use App\Http\Controllers\Dashboard\SettingController;
-use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\Dashboard\NewPlaceController;
-use App\Http\Controllers\Dashboard\PublisherController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -61,6 +64,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
             'adplace' => AdPlaceController::class,
             'newplace' =>NewPlaceController::class,
             'status' => StatusController::class,
+            'podcast' => PodcastController::class,
+            'podcastepisode' => PodcastEpisodeController::class,
+            'video' => VideoController::class,
         ]);
 
 
