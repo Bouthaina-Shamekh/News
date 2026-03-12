@@ -51,6 +51,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::post('/publisher/{id}/accept', [PublisherController::class, 'accept'])->name('publisher.accept');
         Route::post('/nw/{nw}/remove-image', [NwController::class, 'removeImage'])->name('nw.removeImage');
         Route::post('/articale/{articale}/remove-image', [ArticalController::class, 'removeImage'])->name('articale.removeImage');
+        Route::post('/video/{video}/remove-image', [VideoController::class, 'removeImage'])->name('video.removeImage');
 
         Route::resources([
             'users' => UserController::class,

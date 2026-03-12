@@ -1,51 +1,42 @@
 <x-dashboard-layout>
     @push('styles')
-    <link rel="stylesheet" href="{{asset('assets-dashboard/css/media.css')}}">
+        <link rel="stylesheet" href="{{ asset('assets-dashboard/css/media.css') }}">
     @endpush
+
     <x-slot:breadcrumbs>
-        <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a></li>
-        @can('view', 'App\Models\Artical')
-        <li class="breadcrumb-item"><a href="{{route('dashboard.articale.index')}}">{{__('admin.Articals')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a></li>
+        @can('view', 'App\Models\Video')
+            <li class="breadcrumb-item"><a href="{{ route('dashboard.video.index') }}">{{ __('admin.Videos') }}</a></li>
         @endcan
-        <li class="breadcrumb-item" aria-current="page">{{__('admin.Add Articals')}}</li>
-        </x-slot:breadcrumb>
-        <div class="col-span-12 xl:col-span-12">
-            <div class="col-md-12">
-                <div class="card">
-                @can('create', 'App\Models\Artical')
+        <li class="breadcrumb-item" aria-current="page">{{ __('admin.Add Video') }}</li>
+    </x-slot:breadcrumb>
+
+    <div class="col-span-12 xl:col-span-12">
+        <div class="col-md-12">
+            <div class="card">
+                @can('create', 'App\Models\Video')
                     <div class="card-header">
-                        <h5>{{__('admin.Add Articals')}}</h5>
+                        <h5>{{ __('admin.Add Video') }}</h5>
                     </div>
-                    @endcan
-                   
-                    
-                    @can('create', 'App\Models\Artical')
+                @endcan
+
+                @can('create', 'App\Models\Video')
                     <div class="card-body">
-                        <form action="{{route('dashboard.articale.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('dashboard.video.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            @include('dashboard.articales._form')
+                            @include('dashboard.videos._form')
                             <div class="col-span-12 text-left">
-                                <a href="{{route('dashboard.articale.index')}}" class="btn btn-secondary">
-                                    {{__('admin.Back')}}
+                                <a href="{{ route('dashboard.video.index') }}" class="btn btn-secondary">
+                                    {{ __('admin.Back') }}
                                 </a>
                                 <button type="submit" class="btn btn-primary">
-                                    {{$btn_label ?? __('admin.Add')}}
+                                    {{ $btn_label ?? __('admin.Add') }}
                                 </button>
                             </div>
                         </form>
                     </div>
-                    @endcan
-                </div>
+                @endcan
             </div>
         </div>
-
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.
-min.js" referrerpolicy="origin"></script>
-
-<script>
-    tinymce.init({
-      selector: '#mytextarea'
-    });
-  </script> -->
-
+    </div>
 </x-dashboard-layout>
