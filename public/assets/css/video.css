@@ -1,0 +1,899 @@
+/* Reset بسيط */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.h1, .h2, .h3, h1, h2, h3{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Almarai", sans-serif;
+  background: #f3f3f3;
+}
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Main */
+.main-content {
+  min-height: 600px;
+}
+
+/* Sidebar */
+.sidebar {
+  min-height: 600px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    order: 2;
+  }
+
+  .main-content {
+    order: 1;
+  }
+}
+
+
+.video-header {
+  margin-bottom: 25px;
+}
+
+.video-title {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.video-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1E1E1E;
+}
+
+.video-clock {
+  display: flex;
+  align-items: center;
+}
+
+.video-separator {
+  opacity: 0.6;
+}
+
+
+
+/* ===================== */
+/* Article Media */
+/* ===================== */
+
+.article-media {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+.media-wrapper {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.media-wrapper img,
+.media-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.media-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c40000;
+  color: #fff;
+  border: none;
+  width: 42px;
+  height: 28px;
+  font-size: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-info {
+  padding: 20px;
+  background: #2a2a2a;
+}
+
+.media-source {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 10px;
+  border-right: 4px solid #c40000;
+  padding-right: 10px;
+}
+
+.media-info p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #dcdcdc;
+}
+
+/* ===================== */
+/* Playlist */
+/* ===================== */
+
+.vdo_playlist_cont {
+  background: #2a2a2a;
+  padding: 20px;
+  border-top: 1px solid #fff;
+}
+
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.playlist-card {
+  background: #1f1f1f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+}
+
+.playlist-card:hover {
+  transform: translateY(-4px);
+  border-bottom: 2px solid;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c40000;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  width: 42px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.category {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 6px;
+  border-right: 3px solid #c40000;
+  padding-right: 8px;
+  color: #fff;
+}
+
+.playlist-card h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: #fff;
+}
+
+.playlist-card .date {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .playlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 512px) {
+  .playlist-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+/* 
+ */
+
+ 
+/* ============================================
+   Section Container
+   ============================================ */
+.more-videos {
+  padding: 50px 0;  
+  width: 100%;
+}
+
+.more-videos__header {
+  margin-bottom: 35px;
+  
+}
+
+.more-videos__title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.more-videos__title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 36px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+.video-card__time {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background-color: #670006;
+  color: #fff;
+  padding: 2px 4px;
+  font-size: 12px;
+  z-index: 2;
+}
+
+
+/* ============================================
+   Grid Layout - CSS Grid
+   Desktop: 4 أعمدة | Tablet: 2 أعمدة | Mobile: 1 عمود
+   ============================================ */
+.more-videos__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* ============================================
+   News Card Component (Reusable)
+   ============================================ */
+.news-card {
+  display: block;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* ============================================
+   News Card Media Section
+   ============================================ */
+.news-card__media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.news-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-card__image {
+  transform: scale(1.03);
+}
+
+/* ============================================
+   Play Button - زر التشغيل الأحمر (يوتيوب)
+   ============================================ */
+.news-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 28px;
+  background-color: #ff0000;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.news-card__play::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 12px;
+  border-color: transparent transparent transparent #ffffff;
+  margin-left: 3px;
+}
+
+.news-card:hover .news-card__play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ============================================
+   News Card Body Section
+   ============================================ */
+.news-card__body {
+  padding: 16px 18px 18px;
+  background-color: #2D2D2D;
+}
+
+/* ============================================
+   Category مع الخط الأحمر العمودي
+   ============================================ */
+.news-card__category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* الخط الأحمر العمودي بجانب التصنيف */
+.news-card__category::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Title - العنوان
+   ============================================ */
+.news-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+  
+  
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  transition: color 0.3s ease;
+}
+
+.news-card:hover .news-card__title {
+  color: #9c0000;
+}
+
+/* ============================================
+   Meta - التاريخ والأيقونة
+   ============================================ */
+.news-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #888;
+  
+}
+
+/* أيقونة الساعة */
+.news-card__meta-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.news-card__date {
+  font-size: 15px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ============================================
+   Responsive Design - Tablet
+   2 أعمدة بدلاً من 4
+   ============================================ */
+@media (max-width: 992px) {
+  .more-videos__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .more-videos__title {
+    font-size: 24px;
+  }
+  
+  .news-card__title {
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   Responsive Design - Mobile
+   عمود واحد فقط
+   ============================================ */
+@media (max-width: 768px) {
+  .more-videos {
+    padding: 40px 0;
+  }
+  
+  .more-videos__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .more-videos__header {
+    margin-bottom: 25px;
+  }
+  
+  .more-videos__title {
+    font-size: 22px;
+  }
+  
+  .news-card__body {
+    padding: 14px 16px 16px;
+  }
+  
+  .news-card__title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .news-card__category {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .news-card__meta {
+    font-size: 11px;
+  }
+}
+
+/* ============================================
+   Responsive Design - Small Mobile
+   تحسينات إضافية للشاشات الصغيرة جداً
+   ============================================ */
+@media (max-width: 480px) {
+  .more-videos {
+    padding: 30px 0;
+  }
+  
+  .more-videos__title {
+    font-size: 20px;
+  }
+  
+  .news-card__play {
+    width: 58px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  
+  .news-card__play::before {
+    border-width: 8px 0 8px 14px;
+  }
+  
+  .news-card__body {
+    padding: 12px 14px 14px;
+  }
+  
+  .news-card__title {
+    font-size: 15px;
+  }
+  
+  .news-card__category {
+    font-size: 11px;
+  }
+
+}
+
+
+/* ========================== */
+/* Breaking News Sidebar */
+/* ========================== */
+
+.sidebar-breaking {
+  background: #f3f3f3;
+}
+
+/* Header */
+.breaking-header {
+  background: #1f1f1f;
+  color: #f2e400;
+  font-weight: 800;
+  font-size: 22px;
+  padding: 14px 15px;
+  margin-bottom: 15px;
+}
+
+/* Item */
+.breaking-item {
+  margin-bottom: 20px;
+}
+
+/* Time Bar */
+.breaking-time {
+  background: #1f1f1f;
+  color: #f2e400;
+  padding: 9px 12px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Body */
+.breaking-body {
+  background: #cfd3da;
+  padding: 20px 15px;
+}
+
+.breaking-body p {
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.breaking-more-box{
+  display: flex;
+  justify-content: flex-end;
+}
+/* Button */
+.breaking-more {
+  display: inline-block;
+  background: #1f1f1f;
+  color: #f2e400;
+  padding: 8px 16px;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+
+/* ======================= */
+/* Podcast Sidebar */
+/* ======================= */
+
+.sidebar-podcast {
+  margin-top: 30px;
+}
+
+/* Title */
+.podcast-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  position: relative;
+  color: #000;
+}
+
+.podcast-title span {
+  padding-right: 12px;
+  position: relative;
+}
+
+.podcast-title span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 4px;
+  height: 22px;
+  background: #c40000;
+}
+
+/* Wrapper */
+.podcast-wrapper {
+  background: #d6dbe3;
+  padding: 15px;
+}
+
+/* Item */
+.podcast-item {
+  background: #fff;
+  margin-bottom: 15px;
+  min-height: 80px;
+  display: flex;
+}
+
+.podcast-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Thumb */
+.podcast-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  padding: 0 20px;
+}
+
+.play-icon {
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 18px;
+  margin-bottom: 6px;
+  width: 42px;
+  height: 28px;
+  background-color: #ff0000;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.duration {
+  font-size: 13px;
+  color: #000;
+}
+
+/* Content */
+.podcast-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: auto;
+}
+
+.podcast-content h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.podcast-date {
+  font-size: 13px;
+  color: #555;
+}
+
+
+
+/* ========================= */
+/* Trending Sidebar */
+/* ========================= */
+
+.sidebar-trending {
+  margin-top: 30px;
+}
+
+/* Title */
+.trending-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.trending-title span {
+  padding-right: 12px;
+  position: relative;
+}
+
+.trending-title span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 4px;
+  height: 22px;
+  background: #c40000;
+}
+
+/* ================= */
+/* Featured Item */
+/* ================= */
+
+.trending-featured {
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.trending-featured img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.trending-featured .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.trending-featured .play-btn {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c40000;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.featured-content {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  left: 15px;
+  color: #fff;
+}
+
+.featured-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* ================= */
+/* Small Items */
+/* ================= */
+
+.trending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.trending-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 12px;
+  gap: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* Hover خفيف احترافي */
+.trending-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* الصورة */
+.item-thumb {
+  position: relative;
+  width: 95px;
+  height: 70px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* تكبير خفيف للصورة */
+.trending-item:hover .item-thumb img {
+  transform: scale(1.05);
+}
+
+/* زر التشغيل */
+.small-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c40000;
+  width: 28px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.trending-item:hover .small-play {
+  background: #a80000;
+}
+
+/* النص */
+.item-content {
+  flex: 1;
+  text-align: right;
+}
+
+.item-content h4 {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  color: #111;
+}
+
+.item-content p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}

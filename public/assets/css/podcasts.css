@@ -1,0 +1,645 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Almarai", sans-serif !important;
+}
+/* ========================= */
+/* Podcast Section */
+/* ========================= */
+
+.podcast-section {
+  margin: 60px 0;
+}
+
+/* Title */
+.section-header {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.section-header-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-header-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 36px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* Grid 5 أعمدة */
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Card */
+.podcast-one-card {
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.35s ease;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.podcast-one-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+/* Hover Animation */
+.podcast-one-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+         News Card Media Section
+         ============================================ */
+.podcast-one-card__media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 63.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.podcast-one-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.podcast-one-card:hover .podcast-one-card__image {
+  transform: scale(1.03);
+}
+/* ============================================
+         Podcast Card Body Section
+         ============================================ */
+.podcast-one-card__body {
+  padding: 14px 18px 14px;
+  background-color: #ffffff;
+}
+
+/* ============================================
+         Category مع الخط الأحمر العمودي
+         ============================================ */
+.podcast-one-card__category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+
+/* الخط الأحمر العمودي بجانب التصنيف */
+.podcast-one-card__category::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+         Title - العنوان
+         ============================================ */
+.podcast-one-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e1e1e;
+  line-height: 1.5;
+  margin: 0;
+
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition: color 0.3s ease;
+}
+
+.podcast-one-card:hover .podcast-one-card__title {
+  color: #9c0000;
+}
+
+/* ========================= */
+/* Responsive */
+/* ========================= */
+
+@media (max-width: 1400px) {
+  .podcast-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .podcast-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .podcast-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* ============================================
+   Section Container
+   ============================================ */
+.latest-videos {
+  padding: 50px 0;
+  width: 100%;
+}
+
+.latest-videos__header {
+  margin-bottom: 35px;
+}
+
+.latest-videos__title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.latest-videos__title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 36px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+     Grid Layout - CSS Grid
+     Desktop: 4 أعمدة | Tablet: 2 أعمدة | Mobile: 1 عمود
+     ============================================ */
+.latest-videos__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* ============================================
+     News Card Component (Reusable)
+     ============================================ */
+.news-card {
+  display: block;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* ============================================
+     News Card Media Section
+     ============================================ */
+.news-card__media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.news-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-card__image {
+  transform: scale(1.03);
+}
+
+/* ============================================
+     Play Button - زر التشغيل الأحمر (يوتيوب)
+     ============================================ */
+.news-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 48px;
+  background-color: #ff0000;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.news-card__play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent #ffffff;
+  margin-left: 3px;
+}
+
+.news-card:hover .news-card__play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ============================================
+     News Card Body Section
+     ============================================ */
+.news-card__body {
+  padding: 16px 18px 18px;
+  background-color: #ffffff;
+}
+
+/* ============================================
+     Category مع الخط الأحمر العمودي
+     ============================================ */
+.news-card__category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+
+/* الخط الأحمر العمودي بجانب التصنيف */
+.news-card__category::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+     Title - العنوان
+     ============================================ */
+.news-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e1e1e;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition: color 0.3s ease;
+}
+
+.news-card:hover .news-card__title {
+  color: #9c0000;
+}
+
+/* ============================================
+     Meta - التاريخ والأيقونة
+     ============================================ */
+.news-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* أيقونة الساعة */
+.news-card__meta-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.news-card__date {
+  font-size: 15px;
+  color: #1e1e1e;
+  white-space: nowrap;
+}
+
+/* ============================================
+     Responsive Design - Tablet
+     2 أعمدة بدلاً من 4
+     ============================================ */
+@media (max-width: 992px) {
+  .latest-videos__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .latest-videos__title {
+    font-size: 24px;
+  }
+
+  .news-card__title {
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+     Responsive Design - Mobile
+     عمود واحد فقط
+     ============================================ */
+@media (max-width: 768px) {
+  .latest-videos {
+    padding: 40px 0;
+  }
+
+  .latest-videos__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .latest-videos__header {
+    margin-bottom: 25px;
+  }
+
+  .latest-videos__title {
+    font-size: 22px;
+  }
+
+  .news-card__body {
+    padding: 14px 16px 16px;
+  }
+
+  .news-card__title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .news-card__category {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .news-card__meta {
+    font-size: 11px;
+  }
+}
+
+/* ============================================
+     Responsive Design - Small Mobile
+     تحسينات إضافية للشاشات الصغيرة جداً
+     ============================================ */
+@media (max-width: 480px) {
+  .latest-videos {
+    padding: 30px 0;
+  }
+
+  .latest-videos__title {
+    font-size: 20px;
+  }
+
+  .news-card__play {
+    width: 58px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .news-card__play::before {
+    border-width: 8px 0 8px 14px;
+  }
+
+  .news-card__body {
+    padding: 12px 14px 14px;
+  }
+
+  .news-card__title {
+    font-size: 15px;
+  }
+
+  .news-card__category {
+    font-size: 11px;
+  }
+}
+
+/* سليدر للبودكاست */
+
+/* ── Section ── */
+.episodes-section {
+  margin: 60px 0;
+}
+/* ── Grid ── */
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* ── Podcast Card ── */
+.podcast-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: #f2f2f2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+  overflow: hidden;
+}
+
+.podcast-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+/* ── Card Inner (Flex RTL) ── */
+.card-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 14px;
+  gap: 12px;
+}
+
+/* ── Card Content (Left side in RTL = text area) ── */
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+/* ── Title ── */
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.4;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+/* ── Waveform (decorative) ── */
+.waveform {
+  width: 100%;
+  height: 30px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #c8c8c8 0px,
+    #c8c8c8 3px,
+    transparent 3px,
+    transparent 7px
+  );
+  background-size: 10px 100%;
+  /* Simulate varying bar heights using mask */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 36' preserveAspectRatio='none'%3E%3Crect x='0'  y='14' width='3' height='8'/%3E%3Crect x='5'  y='10' width='3' height='16'/%3E%3Crect x='10' y='6'  width='3' height='24'/%3E%3Crect x='15' y='12' width='3' height='12'/%3E%3Crect x='20' y='4'  width='3' height='28'/%3E%3Crect x='25' y='10' width='3' height='16'/%3E%3Crect x='30' y='8'  width='3' height='20'/%3E%3Crect x='35' y='14' width='3' height='8'/%3E%3Crect x='40' y='6'  width='3' height='24'/%3E%3Crect x='45' y='2'  width='3' height='32'/%3E%3Crect x='50' y='10' width='3' height='16'/%3E%3Crect x='55' y='8'  width='3' height='20'/%3E%3Crect x='60' y='14' width='3' height='8'/%3E%3Crect x='65' y='4'  width='3' height='28'/%3E%3Crect x='70' y='12' width='3' height='12'/%3E%3Crect x='75' y='6'  width='3' height='24'/%3E%3Crect x='80' y='10' width='3' height='16'/%3E%3Crect x='85' y='2'  width='3' height='32'/%3E%3Crect x='90' y='8'  width='3' height='20'/%3E%3Crect x='95' y='14' width='3' height='8'/%3E%3Crect x='100' y='6' width='3' height='24'/%3E%3Crect x='105' y='10' width='3' height='16'/%3E%3Crect x='110' y='4'  width='3' height='28'/%3E%3Crect x='115' y='12' width='3' height='12'/%3E%3Crect x='120' y='8'  width='3' height='20'/%3E%3Crect x='125' y='2'  width='3' height='32'/%3E%3Crect x='130' y='14' width='3' height='8'/%3E%3Crect x='135' y='6'  width='3' height='24'/%3E%3Crect x='140' y='10' width='3' height='16'/%3E%3Crect x='145' y='4'  width='3' height='28'/%3E%3Crect x='150' y='8'  width='3' height='20'/%3E%3Crect x='155' y='12' width='3' height='12'/%3E%3Crect x='160' y='2'  width='3' height='32'/%3E%3Crect x='165' y='14' width='3' height='8'/%3E%3Crect x='170' y='6'  width='3' height='24'/%3E%3Crect x='175' y='10' width='3' height='16'/%3E%3Crect x='180' y='4'  width='3' height='28'/%3E%3Crect x='185' y='8'  width='3' height='20'/%3E%3Crect x='190' y='12' width='3' height='12'/%3E%3Crect x='195' y='6'  width='3' height='24'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 36' preserveAspectRatio='none'%3E%3Crect x='0'  y='14' width='3' height='8'/%3E%3Crect x='5'  y='10' width='3' height='16'/%3E%3Crect x='10' y='6'  width='3' height='24'/%3E%3Crect x='15' y='12' width='3' height='12'/%3E%3Crect x='20' y='4'  width='3' height='28'/%3E%3Crect x='25' y='10' width='3' height='16'/%3E%3Crect x='30' y='8'  width='3' height='20'/%3E%3Crect x='35' y='14' width='3' height='8'/%3E%3Crect x='40' y='6'  width='3' height='24'/%3E%3Crect x='45' y='2'  width='3' height='32'/%3E%3Crect x='50' y='10' width='3' height='16'/%3E%3Crect x='55' y='8'  width='3' height='20'/%3E%3Crect x='60' y='14' width='3' height='8'/%3E%3Crect x='65' y='4'  width='3' height='28'/%3E%3Crect x='70' y='12' width='3' height='12'/%3E%3Crect x='75' y='6'  width='3' height='24'/%3E%3Crect x='80' y='10' width='3' height='16'/%3E%3Crect x='85' y='2'  width='3' height='32'/%3E%3Crect x='90' y='8'  width='3' height='20'/%3E%3Crect x='95' y='14' width='3' height='8'/%3E%3Crect x='100' y='6' width='3' height='24'/%3E%3Crect x='105' y='10' width='3' height='16'/%3E%3Crect x='110' y='4'  width='3' height='28'/%3E%3Crect x='115' y='12' width='3' height='12'/%3E%3Crect x='120' y='8'  width='3' height='20'/%3E%3Crect x='125' y='2'  width='3' height='32'/%3E%3Crect x='130' y='14' width='3' height='8'/%3E%3Crect x='135' y='6'  width='3' height='24'/%3E%3Crect x='140' y='10' width='3' height='16'/%3E%3Crect x='145' y='4'  width='3' height='28'/%3E%3Crect x='150' y='8'  width='3' height='20'/%3E%3Crect x='155' y='12' width='3' height='12'/%3E%3Crect x='160' y='2'  width='3' height='32'/%3E%3Crect x='165' y='14' width='3' height='8'/%3E%3Crect x='170' y='6'  width='3' height='24'/%3E%3Crect x='175' y='10' width='3' height='16'/%3E%3Crect x='180' y='4'  width='3' height='28'/%3E%3Crect x='185' y='8'  width='3' height='20'/%3E%3Crect x='190' y='12' width='3' height='12'/%3E%3Crect x='195' y='6'  width='3' height='24'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.card-meta-duration {
+  flex: 1;
+}
+
+/* ── Meta (duration + play button) ── */
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Duration ── */
+.duration {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ── Play Button ── */
+.play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #c40000;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  border-radius: 0;
+  padding: 0;
+}
+
+.play-btn:hover {
+  background: #a00000;
+  transform: scale(1.08);
+}
+
+.play-btn svg {
+  display: block;
+  margin-right: -1px; /* optical center */
+}
+
+/* ── Card Image ── */
+.card-image-wrap {
+  flex-shrink: 0;
+  width: 100px;
+  height: 77px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.32s ease;
+}
+
+.podcast-card:hover .card-img {
+  transform: scale(1.04);
+}
+
+/* ── Responsive: Tablet ── */
+@media (max-width: 960px) {
+  .episodes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Responsive: Mobile ── */
+@media (max-width: 580px) {
+  .episodes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+}

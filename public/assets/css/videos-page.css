@@ -1,0 +1,880 @@
+/* ============================================
+   Featured Videos Section - Videos Page
+   Methodology: BEM (Block Element Modifier)
+   ============================================ */
+
+/* ============================================
+   Section Container
+   ============================================ */
+.featured-videos {
+  padding: 40px 0;
+  width: 100%;
+}
+
+.featured-videos__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #670006;
+  display: inline-block;
+}
+
+/* ============================================
+   Grid Layout - CSS Grid
+   توزيع الأعمدة: 2fr (كبير) | 1fr (متوسط) | 1fr (صغير)
+   ============================================ */
+.featured-videos__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+
+/* ============================================
+   Video Card Component (Reusable)
+   ============================================ */
+.video-card {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.video-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   Video Card Media Section
+   ============================================ */
+.video-card__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #000;
+}
+
+.video-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.video-card:hover .video-card__image {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   Category Badge - أعلى اليمين
+   ============================================ */
+.video-card__category {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #670006;
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
+
+.video-card:hover .video-card__category {
+  background-color: #F01421;
+}
+
+/* ============================================
+   Play Button - في المنتصف
+   ============================================ */
+.video-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: #F01421;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  width: 50px;
+  height: 30px;
+  border-radius: 6px;
+}
+
+.video-card__play::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 4px;
+  border-width: 8px 0 8px 13px;
+}
+
+.video-card:hover .video-card__play {
+  background-color: #670006;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-card:hover .video-card__play::before {
+  border-color: transparent transparent transparent #fff;
+}
+
+/* ============================================
+   Video Card Content Section
+   ============================================ */
+.video-card__content {
+  padding: 10px;
+  background: linear-gradient( to top, rgba(32, 32, 32, 0.68) 0%, rgba(0, 0, 0, 0.5) 50%, #ffffff85 100%);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+
+.video-card__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.5;
+  margin: 0;
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.video-card:hover .video-card__title {
+  transform: translateY(-6px);
+}
+
+/* ============================================
+   Stacked Cards Layout - العمود الأيسر
+   يحتوي على كاردين متراصين عمودياً
+   ============================================ */
+.featured-videos__stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============================================
+   Large Card Modifier - الكارد الكبير
+   ============================================ */
+
+.video-card--large .video-card__content {
+  padding: 20px;
+}
+
+/* ============================================
+   Medium Card Modifier - الكارد المتوسط
+   ============================================ */
+.video-card--medium .video-card__content {
+  padding: 18px;
+}
+
+
+/* ============================================
+   Small Card Modifier - الكارد الصغير
+   ============================================ */
+.video-card--small .video-card__content {
+  padding: 14px;
+}
+
+
+/* ============================================
+   Responsive Design - Tablet
+   عمودين بدلاً من ثلاثة
+   ============================================ */
+@media (max-width: 992px) {
+  .featured-videos__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  /* الكارد الكبير يأخذ عمودين (يمين الصف الأول) */
+  .video-card--large {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  
+  /* العنصران المتراصان في الصف الثاني، كل واحد عمود */
+  .featured-videos__stacked:nth-child(2) {
+    grid-column: 1 / 2;
+    grid-row: 2;
+  }
+  .featured-videos__stacked:nth-child(3) {
+    grid-column: 2 / 3;
+    grid-row: 2;
+  }
+  
+  .featured-videos__title {
+    font-size: 24px;
+  }
+}
+
+/* ============================================
+   Responsive Design - Mobile
+   عمود واحد فقط
+   ============================================ */
+@media (max-width: 768px) {
+  .featured-videos {
+    padding: 30px 0;
+  }
+  
+  .featured-videos__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* الكارد الكبير يظهر أولاً في الموبايل */
+  .video-card--large {
+    order: -1;
+    grid-column: 1;
+  }
+  
+  .featured-videos__stacked {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    gap: 16px;
+  }
+  
+  .featured-videos__title {
+    font-size: 22px;
+  }
+    
+  .video-card--large .video-card__content,
+  .video-card--medium .video-card__content,
+  .video-card--small .video-card__content {
+    padding: 16px;
+  }
+}
+
+/* ============================================
+   Responsive Design - Small Mobile
+   تحسينات إضافية للشاشات الصغيرة جداً
+   ============================================ */
+@media (max-width: 480px) {
+  .featured-videos {
+    padding: 20px 0;
+  }
+  
+  .featured-videos__header {
+    margin-bottom: 20px;
+  }
+  
+  .featured-videos__title {
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+  
+  .video-card__category {
+    font-size: 11px;
+    padding: 5px 10px;
+    top: 8px;
+    right: 8px;
+  }
+  
+  .video-card__title {
+    font-size: 15px;
+  }
+  
+  .video-card__content {
+    padding: 12px;
+  }
+}
+
+/* ============================================
+   Accessibility & Performance
+   ============================================ */
+
+/* تحسين الأداء - استخدام GPU acceleration */
+.video-card,
+.video-card__image,
+.video-card__play,
+.video-card__title {
+  will-change: transform;
+}
+
+/* Focus states للوصولية */
+.video-card:focus {
+  outline: 3px solid #670006;
+  outline-offset: 2px;
+}
+
+.video-card:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* تحسين قراءة النص */
+.video-card__title {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* منع تحديد النص أثناء التفاعل */
+.video-card__play {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* ============================================
+   Latest Videos Section - أحدث الفيديوهات
+   Methodology: BEM (Block Element Modifier)
+   ============================================ */
+
+/* ============================================
+   Section Container
+   ============================================ */
+.latest-videos {
+  padding: 50px 0;  
+  width: 100%;
+}
+
+.latest-videos__header {
+  margin-bottom: 35px;
+  
+}
+
+.latest-videos__title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.latest-videos__title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 36px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+
+/* ============================================
+   Grid Layout - CSS Grid
+   Desktop: 4 أعمدة | Tablet: 2 أعمدة | Mobile: 1 عمود
+   ============================================ */
+.latest-videos__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* ============================================
+   News Card Component (Reusable)
+   ============================================ */
+.news-card {
+  display: block;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* ============================================
+   News Card Media Section
+   ============================================ */
+.news-card__media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.news-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-card__image {
+  transform: scale(1.03);
+}
+
+/* ============================================
+   Play Button - زر التشغيل الأحمر (يوتيوب)
+   ============================================ */
+.news-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 48px;
+  background-color: #ff0000;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+
+.news-card__play::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent #ffffff;
+  margin-left: 3px;
+}
+
+.news-card:hover .news-card__play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* ============================================
+   News Card Body Section
+   ============================================ */
+.news-card__body {
+  padding: 16px 18px 18px;
+  background-color: #ffffff;
+}
+
+/* ============================================
+   Category مع الخط الأحمر العمودي
+   ============================================ */
+.news-card__category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1E1E1E;
+}
+
+/* الخط الأحمر العمودي بجانب التصنيف */
+.news-card__category::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Title - العنوان
+   ============================================ */
+.news-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E1E1E;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+  
+  
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  transition: color 0.3s ease;
+}
+
+.news-card:hover .news-card__title {
+  color: #9c0000;
+}
+
+/* ============================================
+   Meta - التاريخ والأيقونة
+   ============================================ */
+.news-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #888;
+  
+}
+
+/* أيقونة الساعة */
+.news-card__meta-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.news-card__date {
+  font-size: 15px;
+  color: #1E1E1E;
+  white-space: nowrap;
+}
+
+/* ============================================
+   Responsive Design - Tablet
+   2 أعمدة بدلاً من 4
+   ============================================ */
+@media (max-width: 992px) {
+  .latest-videos__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .latest-videos__title {
+    font-size: 24px;
+  }
+  
+  .news-card__title {
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   Responsive Design - Mobile
+   عمود واحد فقط
+   ============================================ */
+@media (max-width: 768px) {
+  .latest-videos {
+    padding: 40px 0;
+  }
+  
+  .latest-videos__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .latest-videos__header {
+    margin-bottom: 25px;
+  }
+  
+  .latest-videos__title {
+    font-size: 22px;
+  }
+  
+  .news-card__body {
+    padding: 14px 16px 16px;
+  }
+  
+  .news-card__title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .news-card__category {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .news-card__meta {
+    font-size: 11px;
+  }
+}
+
+/* ============================================
+   Responsive Design - Small Mobile
+   تحسينات إضافية للشاشات الصغيرة جداً
+   ============================================ */
+@media (max-width: 480px) {
+  .latest-videos {
+    padding: 30px 0;
+  }
+  
+  .latest-videos__title {
+    font-size: 20px;
+  }
+  
+  .news-card__play {
+    width: 58px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  
+  .news-card__play::before {
+    border-width: 8px 0 8px 14px;
+  }
+  
+  .news-card__body {
+    padding: 12px 14px 14px;
+  }
+  
+  .news-card__title {
+    font-size: 15px;
+  }
+  
+  .news-card__category {
+    font-size: 11px;
+  }
+
+}
+
+/* ============================================
+   Most Viewed Videos - Dark Mode Variant
+   Applied to: <section class="latest-videos most-viewed-videos">
+   ============================================ */
+.latest-videos.most-viewed-videos {
+  background-color: #232323;
+}
+
+.latest-videos.most-viewed-videos .latest-videos__title {
+  color: #ffffff;
+}
+
+.latest-videos.most-viewed-videos .news-card {
+  background-color: #2D2D2D;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.latest-videos.most-viewed-videos .news-card__body {
+  background-color: #2b2b2b;
+}
+
+.latest-videos.most-viewed-videos .news-card__category {
+  color: #f1f1f1;
+}
+
+.latest-videos.most-viewed-videos .news-card__title {
+  color: #ffffff;
+}
+
+.latest-videos.most-viewed-videos .news-card__meta,
+.latest-videos.most-viewed-videos .news-card__date {
+  color: #d6d6d6;
+}
+
+.latest-videos.most-viewed-videos .news-card__meta-icon svg path {
+  stroke: #ffffff;
+}
+
+
+
+/* ===== Slider Layout ===== */
+
+.category-slider {
+  padding: 40px 10px;
+}
+
+.category-slider__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.category-slider__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.category-slider__track {
+  display: flex;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+/* ===== Slider Slide Wrapper ===== */
+.slide {
+  flex: 0 0 calc(100% / 3);
+  padding: 0 10px;
+  height: 310px;
+}
+
+/* مهم حتى لا يكسر absolute positioning */
+.slide .video-card {
+  height: 100%;
+}
+.slide .video-card .video-card__title {
+  font-size: 14px;
+}
+.slide .video-card .video-card__content {
+  background: linear-gradient(to top, rgb(32 32 32 / 36%) 0%, rgb(0 0 0 / 11%) 50%, #645c5c17 100%);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .slide {
+    flex: 0 0 calc(100% / 2);
+    height: 210px;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide {
+    flex: 0 0 100%;
+    height: 210px;
+  }
+}
+
+
+.slide__media {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.slide__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.slide__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+.slide__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 35px;
+  background: #ff0000;
+  transform: translate(-50%, -50%);
+  clip-path: polygon(25% 20%, 25% 80%, 75% 50%);
+}
+
+.slide__content {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  left: 15px;
+  color: #fff;
+}
+
+.slide__content h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.slide__date {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===== Hover ===== */
+
+.slide:hover img {
+  transform: scale(1.05);
+}
+
+/* ===== Buttons ===== */
+
+.slider-btn {
+  background: #fff;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  position: absolute;
+  z-index: 10;
+}
+
+.slider-btn--prev {
+  inset-inline-end: -20px;
+  transform: rotate(180deg);
+}
+
+.slider-btn--next {
+  inset-inline-start: -20px;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 992px) {
+  .slider-btn--prev {
+    inset-inline-end: -10px;
+  }
+  .slider-btn--next {
+    inset-inline-start: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-btn--prev {
+    inset-inline-end: 5px;
+  }
+  .slider-btn--next {
+    inset-inline-start: 5px;
+  }
+}
+
+/* ===== Dots ===== */
+
+.slider-dots {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.slider-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 4px;
+  background: #ccc;
+  cursor: pointer;
+}
+
+.slider-dots button.active {
+  background: #9c0000;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 992px) {
+  .slide {
+      flex: 0 0 calc(100% / 2);
+  }
+}
+
+@media (max-width: 600px) {
+  .slide {
+      flex: 0 0 100%;
+  }
+}

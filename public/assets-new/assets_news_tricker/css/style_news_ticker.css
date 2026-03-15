@@ -60,7 +60,6 @@ a:hover {
 
 .acme-news-ticker-box {
     height: 100%;
-    padding-top: 0;
     overflow: hidden;
 }
 
@@ -68,7 +67,6 @@ a:hover {
     .acme-news-ticker-box {
         padding-left: 10px;
         padding-right: 0px;
-        padding-top: 0;
     }
 }
 
@@ -212,12 +210,12 @@ a:hover {
     padding: 0;
     margin: 0;
     white-space: nowrap;
-    animation: ticker-scroll 50s linear infinite;
+    animation: ticker-scroll 12s linear infinite;
 }
 
 .acme-news-ticker-box ul li {
     display: inline-block;
-    padding: 8px 15px;
+    padding: 15px 15px;
 }
 
 .acme-news-ticker-box ul li a {
@@ -230,9 +228,14 @@ a:hover {
 .acme-news-ticker-box ul li a:hover {
     color: #670005;
 }
+@media (max-width: 768px) {
+    .acme-news-ticker-box ul li {
+        padding: 8px 15px;
+    }
+}
 @media (min-width: 768px) {
     .acme-news-ticker-box ul {
-        animation: ticker-scroll 85s linear infinite;
+        animation: ticker-scroll 8s linear infinite;
     }
     .acme-news-ticker-box ul li a {
         font-size: 40px;
@@ -252,7 +255,7 @@ a:hover {
 }
 @media (min-width: 992px) {
     .acme-news-ticker-box ul {
-        animation: ticker-scroll 120s linear infinite;
+            animation: ticker-scroll 12s linear infinite;
     }
     .acme-news-ticker-box ul li a {
         font-size: 18px;
@@ -273,10 +276,10 @@ a:hover {
 
 @keyframes ticker-scroll {
     from {
-        transform: translateX(-100%);
+        transform: translateX(100%);
     }
     to {
-        transform: translateX(700%);
+        transform: translateX(-100%);
     }
 }
 

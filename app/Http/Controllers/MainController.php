@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ad;
-use App\Models\Nw;
-use App\Models\About;
-use App\Models\Visit;
 use App\Mail\SendMail;
 use App\Mail\SubscribeServiceMail;
+use App\Models\About;
+use App\Models\Ad;
 use App\Models\Artical;
-use App\Models\Comment;
-use App\Models\Setting;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Message;
 use App\Models\NewPlace;
+use App\Models\Nw;
+use App\Models\Podcast;
+use App\Models\Setting;
+use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -195,6 +196,34 @@ class MainController extends Controller
         ]);
         $articles = Artical::active()->orderby('id', 'desc')->where('category_id', $article->category_id)->take(5)->get();
         return view('site.article', compact('article', 'articles'));
+    }
+
+    public function podcast($slug){
+        
+         $podcast = Podcast::where('slug',$slug)->with('episodes')->firstOrFail();
+
+        $episodes = $podcast->episodes()->latest()->get();
+
+        $relatedPodcasts = Podcast::where('id','!=',$podcast->id)
+        ->latest()
+        ->take(10)
+        ->get();
+
+        return view('site.podcast',compact(
+        'podcast',
+        'episodes',
+        'relatedPodcasts'
+    ));
+    }
+
+    public function podcasts(){
+        return view('site.podcasts');
+    }
+    public function video(){
+        return view('site.video');
+    }
+    public function videos(){
+        return view('site.videos');
     }
 
     public function articleLike(Request $request, $id)

@@ -1,0 +1,890 @@
+/* الخلفية */
+.podcast-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 400px;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  /* opacity: 0.15; حسب قوة الخلفية */
+}
+
+/* ========================================
+   Podcast Hero Section CSS
+   RTL / Arabic — Sports Theme
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.podcasts-page {
+  position: relative;
+}
+.podcasts-container {
+  position: relative;
+  z-index: 1;
+}
+/* ════════════════════════════════════════
+     Section Wrapper
+  ════════════════════════════════════════ */
+.podcast-hero {
+  display: flex;
+  flex-direction: row; /* RTL: right = image side, left = info */
+  align-items: stretch;
+  max-width: 960px;
+  margin: 10px auto;
+  overflow: hidden;
+  height: 220px; /* Fixed height matching screenshot */
+  background: transparent;
+  gap: 10px;
+}
+
+/* ════════════════════════════════════════
+     Right: Image Panel
+  ════════════════════════════════════════ */
+.hero-image-wrap {
+  position: relative;
+  flex: 0 0 33%;
+  max-width: 33%;
+  overflow: hidden;
+  border: 5px solid #3c3c3c;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Smooth fade from image into dark info panel */
+/* .hero-img-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 100%;
+  background: linear-gradient(to right, #111 0%, transparent 100%);
+  pointer-events: none;
+} */
+
+/* ════════════════════════════════════════
+     Left: Info Panel
+  ════════════════════════════════════════ */
+.hero-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ── Title ── */
+.hero-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+/* ── Description ── */
+.hero-desc {
+  font-size: 13.5px;
+  color: #fff;
+  line-height: 1.85;
+  margin: 8px 0 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Stats ── */
+.hero-stats {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.stats-label {
+  color: #dddddd;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+.stats-number {
+  font-weight: 900;
+  color: #ffffff;
+}
+
+/* ── Bottom Bar ── */
+.hero-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #2a2a2a;
+  padding: 10px;
+  /* الخلفية المتدرجة */
+  background: linear-gradient(
+    to left,
+    rgba(70, 70, 70, 0.95) 0%,
+    rgba(90, 90, 90, 0.9) 50%,
+    rgba(70, 70, 70, 0.95) 100%
+  );
+}
+
+/* ── Platform Icons ── */
+.platforms {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-direction: row-reverse;
+}
+
+.platform-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #2a2a2a;
+  border-radius: 50%;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.platform-icon:hover {
+  background: #3d3d3d;
+  transform: scale(1.12);
+}
+
+.platform-icon svg {
+  display: block;
+  opacity: 0.9;
+}
+
+/* ── Subscribe Button ── */
+.subscribe-btn {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #c40000;
+  letter-spacing: 0.3px;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+  white-space: nowrap;
+}
+
+.subscribe-btn:hover {
+  color: #ff4444;
+  border-color: #ff2222;
+}
+
+/* ════════════════════════════════════════
+     Responsive: Tablet
+  ════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .podcast-hero {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .podcast-bg{
+    height: 600px;
+  }
+
+  .hero-image-wrap {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+    height: 250px;
+  }
+
+  .hero-img-fade {
+    /* Change to bottom fade when stacked */
+    left: unset;
+    top: unset;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, #111 0%, transparent 100%);
+  }
+
+  .hero-info {
+    padding: 16px 18px 14px;
+  }
+
+  .hero-title {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .hero-desc {
+    font-size: 13px;
+    -webkit-line-clamp: 4;
+  }
+
+  .hero-bottom {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+/* Responsive: Mobile small */
+@media (max-width: 400px) {
+  .hero-image-wrap {
+    height: 170px;
+  }
+
+  .hero-title {
+    font-size: 18px;
+  }
+
+  .platform-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .subscribe-btn {
+    font-size: 13px;
+  }
+}
+
+/* ========================================
+   Podcast Section — Full CSS
+   RTL / Arabic Support
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ════════════════════════════
+     A) Section Container
+  ════════════════════════════ */
+.podcast-section {
+  background: #2f2f2f;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 0 22px;
+}
+
+/* ════════════════════════════
+     B) Current Episode Card
+  ════════════════════════════ */
+.episode-card {
+  background: #252525;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+/* Title */
+.episode-title {
+  font-size: 21px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+/* Description */
+.episode-desc {
+  font-size: 14px;
+  color: #d8d8d8;
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+
+/* ── Waveform ── */
+.waveform {
+  width: 100%;
+  height: 38px;
+  margin-bottom: 12px;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0px,
+    transparent 3px,
+    #707070 3px,
+    #707070 5px,
+    transparent 5px,
+    transparent 8px
+  );
+  background-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 38' preserveAspectRatio='none'%3E%3Crect x='0'   y='15' width='4' height='8'/%3E%3Crect x='7'   y='10' width='4' height='18'/%3E%3Crect x='14'  y='5'  width='4' height='28'/%3E%3Crect x='21'  y='12' width='4' height='14'/%3E%3Crect x='28'  y='3'  width='4' height='32'/%3E%3Crect x='35'  y='10' width='4' height='18'/%3E%3Crect x='42'  y='8'  width='4' height='22'/%3E%3Crect x='49'  y='16' width='4' height='6'/%3E%3Crect x='56'  y='6'  width='4' height='26'/%3E%3Crect x='63'  y='2'  width='4' height='34'/%3E%3Crect x='70'  y='11' width='4' height='16'/%3E%3Crect x='77'  y='7'  width='4' height='24'/%3E%3Crect x='84'  y='15' width='4' height='8'/%3E%3Crect x='91'  y='4'  width='4' height='30'/%3E%3Crect x='98'  y='13' width='4' height='12'/%3E%3Crect x='105' y='7'  width='4' height='24'/%3E%3Crect x='112' y='10' width='4' height='18'/%3E%3Crect x='119' y='2'  width='4' height='34'/%3E%3Crect x='126' y='9'  width='4' height='20'/%3E%3Crect x='133' y='15' width='4' height='8'/%3E%3Crect x='140' y='5'  width='4' height='28'/%3E%3Crect x='147' y='11' width='4' height='16'/%3E%3Crect x='154' y='3'  width='4' height='32'/%3E%3Crect x='161' y='13' width='4' height='12'/%3E%3Crect x='168' y='8'  width='4' height='22'/%3E%3Crect x='175' y='2'  width='4' height='34'/%3E%3Crect x='182' y='16' width='4' height='6'/%3E%3Crect x='189' y='6'  width='4' height='26'/%3E%3Crect x='196' y='10' width='4' height='18'/%3E%3Crect x='203' y='4'  width='4' height='30'/%3E%3Crect x='210' y='9'  width='4' height='20'/%3E%3Crect x='217' y='13' width='4' height='12'/%3E%3Crect x='224' y='2'  width='4' height='34'/%3E%3Crect x='231' y='15' width='4' height='8'/%3E%3Crect x='238' y='7'  width='4' height='24'/%3E%3Crect x='245' y='11' width='4' height='16'/%3E%3Crect x='252' y='4'  width='4' height='30'/%3E%3Crect x='259' y='8'  width='4' height='22'/%3E%3Crect x='266' y='12' width='4' height='14'/%3E%3Crect x='273' y='2'  width='4' height='34'/%3E%3Crect x='280' y='15' width='4' height='8'/%3E%3Crect x='287' y='6'  width='4' height='26'/%3E%3Crect x='294' y='10' width='4' height='18'/%3E%3Crect x='301' y='3'  width='4' height='32'/%3E%3Crect x='308' y='13' width='4' height='12'/%3E%3Crect x='315' y='7'  width='4' height='24'/%3E%3Crect x='322' y='2'  width='4' height='34'/%3E%3Crect x='329' y='11' width='4' height='16'/%3E%3Crect x='336' y='15' width='4' height='8'/%3E%3Crect x='343' y='5'  width='4' height='28'/%3E%3Crect x='350' y='9'  width='4' height='20'/%3E%3Crect x='357' y='3'  width='4' height='32'/%3E%3Crect x='364' y='13' width='4' height='12'/%3E%3Crect x='371' y='7'  width='4' height='24'/%3E%3Crect x='378' y='2'  width='4' height='34'/%3E%3Crect x='385' y='11' width='4' height='16'/%3E%3Crect x='392' y='6'  width='4' height='26'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 38' preserveAspectRatio='none'%3E%3Crect x='0'   y='15' width='4' height='8'/%3E%3Crect x='7'   y='10' width='4' height='18'/%3E%3Crect x='14'  y='5'  width='4' height='28'/%3E%3Crect x='21'  y='12' width='4' height='14'/%3E%3Crect x='28'  y='3'  width='4' height='32'/%3E%3Crect x='35'  y='10' width='4' height='18'/%3E%3Crect x='42'  y='8'  width='4' height='22'/%3E%3Crect x='49'  y='16' width='4' height='6'/%3E%3Crect x='56'  y='6'  width='4' height='26'/%3E%3Crect x='63'  y='2'  width='4' height='34'/%3E%3Crect x='70'  y='11' width='4' height='16'/%3E%3Crect x='77'  y='7'  width='4' height='24'/%3E%3Crect x='84'  y='15' width='4' height='8'/%3E%3Crect x='91'  y='4'  width='4' height='30'/%3E%3Crect x='98'  y='13' width='4' height='12'/%3E%3Crect x='105' y='7'  width='4' height='24'/%3E%3Crect x='112' y='10' width='4' height='18'/%3E%3Crect x='119' y='2'  width='4' height='34'/%3E%3Crect x='126' y='9'  width='4' height='20'/%3E%3Crect x='133' y='15' width='4' height='8'/%3E%3Crect x='140' y='5'  width='4' height='28'/%3E%3Crect x='147' y='11' width='4' height='16'/%3E%3Crect x='154' y='3'  width='4' height='32'/%3E%3Crect x='161' y='13' width='4' height='12'/%3E%3Crect x='168' y='8'  width='4' height='22'/%3E%3Crect x='175' y='2'  width='4' height='34'/%3E%3Crect x='182' y='16' width='4' height='6'/%3E%3Crect x='189' y='6'  width='4' height='26'/%3E%3Crect x='196' y='10' width='4' height='18'/%3E%3Crect x='203' y='4'  width='4' height='30'/%3E%3Crect x='210' y='9'  width='4' height='20'/%3E%3Crect x='217' y='13' width='4' height='12'/%3E%3Crect x='224' y='2'  width='4' height='34'/%3E%3Crect x='231' y='15' width='4' height='8'/%3E%3Crect x='238' y='7'  width='4' height='24'/%3E%3Crect x='245' y='11' width='4' height='16'/%3E%3Crect x='252' y='4'  width='4' height='30'/%3E%3Crect x='259' y='8'  width='4' height='22'/%3E%3Crect x='266' y='12' width='4' height='14'/%3E%3Crect x='273' y='2'  width='4' height='34'/%3E%3Crect x='280' y='15' width='4' height='8'/%3E%3Crect x='287' y='6'  width='4' height='26'/%3E%3Crect x='294' y='10' width='4' height='18'/%3E%3Crect x='301' y='3'  width='4' height='32'/%3E%3Crect x='308' y='13' width='4' height='12'/%3E%3Crect x='315' y='7'  width='4' height='24'/%3E%3Crect x='322' y='2'  width='4' height='34'/%3E%3Crect x='329' y='11' width='4' height='16'/%3E%3Crect x='336' y='15' width='4' height='8'/%3E%3Crect x='343' y='5'  width='4' height='28'/%3E%3Crect x='350' y='9'  width='4' height='20'/%3E%3Crect x='357' y='3'  width='4' height='32'/%3E%3Crect x='364' y='13' width='4' height='12'/%3E%3Crect x='371' y='7'  width='4' height='24'/%3E%3Crect x='378' y='2'  width='4' height='34'/%3E%3Crect x='385' y='11' width='4' height='16'/%3E%3Crect x='392' y='6'  width='4' height='26'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* ── Controls Row ── */
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Right side: time + big play */
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.time-display {
+  font-size: 13px;
+  color: #cfcfcf;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.time-current {
+  color: #c40000;
+  font-weight: 700;
+}
+
+.time-sep,
+.time-total {
+  color: #cfcfcf;
+}
+
+/* ── Share Icons ── */
+.share-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-direction: row-reverse; /* LTR order visually in RTL context */
+}
+
+.share-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.share-icon:hover {
+  opacity: 0.8;
+  transform: scale(1.08);
+}
+
+.share-icon--gray {
+  background: #5a5a5a;
+}
+.share-icon--whatsapp {
+  background: #25d366;
+}
+.share-icon--x {
+  background: #1a1a1a;
+}
+.share-icon--facebook {
+  background: #1877f2;
+}
+
+/* ════════════════════════════
+     Play Buttons
+  ════════════════════════════ */
+.play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #c40000;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  flex-shrink: 0;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.play-btn:hover {
+  background: #a00000;
+  transform: scale(1.06);
+}
+
+.play-btn--large {
+  width: 56px;
+  height: 46px;
+}
+
+.play-btn--small {
+  width: 34px;
+  height: 32px;
+}
+
+.play-btn svg {
+  display: block;
+  margin-right: -1px; /* optical alignment */
+}
+
+/* ════════════════════════════
+     C) Episodes List Section
+  ════════════════════════════ */
+.episodes-list-section {
+  margin-bottom: 20px;
+  padding: 0 22px;
+}
+
+/* List Title */
+.list-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.title-bar {
+  display: inline-block;
+  width: 4px;
+  height: 24px;
+  background: #c40000;
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+/* Episodes List */
+.episodes-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Episode Row */
+.ep-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #3a3a3a;
+  padding: 0 12px;
+  height: 50px;
+  text-decoration: none;
+  border-bottom: 1px solid #2a2a2a;
+  transition: background 0.2s ease;
+  /* RTL: rightmost element first */
+  flex-direction: row;
+}
+
+.ep-row:last-child {
+  border-bottom: none;
+}
+
+.ep-row:hover {
+  background: #444444;
+}
+
+/* Episode title — takes remaining space */
+.ep-title {
+  flex: 1;
+  font-size: 14px;
+  color: #eaeaea;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Duration */
+.ep-duration {
+  font-size: 13px;
+  color: #cfcfcf;
+  white-space: nowrap;
+  min-width: 44px;
+  text-align: center;
+}
+
+/* Date */
+.ep-date {
+  font-size: 13px;
+  color: #cfcfcf;
+  white-space: nowrap;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Play button sits at left end in RTL */
+.ep-row .play-btn--small {
+  margin-right: auto; /* push to the left visually */
+  margin-left: 0;
+  /* override: sit at the leftmost side */
+  order: 99;
+}
+
+/* ════════════════════════════
+     D) CTA Button
+  ════════════════════════════ */
+.cta-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: #7a0000;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 12px 36px;
+  border-radius: 2px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.cta-btn:hover {
+  background: #5e0000;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════
+     E) Responsive
+  ════════════════════════════ */
+
+/* Tablet */
+@media (max-width: 600px) {
+  .podcast-section {
+    padding: 14px 0;
+  }
+
+  .episode-title {
+    font-size: 17px;
+  }
+
+  .play-btn--large {
+    width: 46px;
+    height: 40px;
+  }
+
+  .share-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  /* Episode row: stack into two lines */
+  .ep-row {
+    height: auto;
+    padding: 10px 10px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .ep-title {
+    width: 100%;
+    order: 1;
+    font-size: 13px;
+  }
+
+  .ep-duration,
+  .ep-date {
+    order: 2;
+    font-size: 12px;
+    min-width: unset;
+  }
+
+  .ep-row .play-btn--small {
+    order: 0; /* leftmost = first visual in row */
+    margin-right: 0;
+    margin-left: auto;
+    align-self: center;
+  }
+
+  .controls-row {
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .share-icons {
+    flex-direction: row;
+  }
+
+  .list-title {
+    font-size: 17px;
+  }
+}
+
+.episodes-section {
+  margin: 60px 0;
+}
+
+/* Title */
+.section-header {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.section-header-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-header-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 36px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* Grid 5 أعمدة */
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+/* Card */
+
+/* Grid 5 أعمدة */
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Card */
+.podcast-one-card {
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.35s ease;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.podcast-one-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+/* Hover Animation */
+.podcast-one-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+         News Card Media Section
+         ============================================ */
+.podcast-one-card__media {
+  position: relative;
+  width: 100%;
+  padding-bottom: 63.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.podcast-one-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.podcast-one-card:hover .podcast-one-card__image {
+  transform: scale(1.03);
+}
+/* ============================================
+         Podcast Card Body Section
+         ============================================ */
+.podcast-one-card__body {
+  padding: 14px 18px 14px;
+  background-color: #ffffff;
+}
+
+/* ============================================
+         Category مع الخط الأحمر العمودي
+         ============================================ */
+.podcast-one-card__category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e1e1e;
+}
+
+/* الخط الأحمر العمودي بجانب التصنيف */
+.podcast-one-card__category::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  border-radius: 10px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+         Title - العنوان
+         ============================================ */
+.podcast-one-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e1e1e;
+  line-height: 1.5;
+  margin: 0;
+
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition: color 0.3s ease;
+}
+
+.podcast-one-card:hover .podcast-one-card__title {
+  color: #9c0000;
+}
+
+/* ========================= */
+/* Responsive */
+/* ========================= */
+
+@media (max-width: 1400px) {
+  .podcast-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .podcast-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .podcast-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .podcast-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.text {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+.hero-video-player {
+  display: none;
+}
+
+.hero-image-wrap.is-video .hero-img {
+  display: none !important;
+}
+
+.hero-image-wrap.is-video .hero-video-player {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.media-type-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.media-type-badge--audio {
+  background: #2b6cb0;
+  color: #fff;
+}
+
+.media-type-badge--video {
+  background: #c40000;
+  color: #fff;
+}
+
+.ep-type {
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 44px;
+  text-align: center;
+  color: #fff;
+  background: #4a4a4a;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
