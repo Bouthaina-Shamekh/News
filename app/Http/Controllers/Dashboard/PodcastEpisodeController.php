@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Category;
 use App\Models\Podcast;
 use App\Models\PodcastEpisode;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class PodcastEpisodeController extends Controller
 
         $episodes = PodcastEpisode::with(['podcast'])->orderBy('id', 'desc');
         $podcasts = Podcast::get();
+        $categories = Category::get();
         $request = request();
 
         if ($request->ajax()) {
@@ -65,7 +67,7 @@ class PodcastEpisodeController extends Controller
 
         $episodes = $episodes->paginate(10);
 
-        return view('dashboard.podcast_episodes.index', compact('episodes', 'podcasts'));
+        return view('dashboard.podcast_episodes.index', compact('episodes', 'podcasts', 'categories'));
     }
 
     public function create()

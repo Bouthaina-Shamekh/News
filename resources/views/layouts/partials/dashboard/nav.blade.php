@@ -405,6 +405,79 @@
                         </li>
                         @endcan
 
+                    </ul>
+                </li>
+                @endcan
+
+                @can('view', 'App\Models\Podcast')
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-podcast"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.Podcasts')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\Models\Podcast')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.podcast.index')}}">
+                                {{__('admin.View Podcast')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('create', 'App\Models\Podcast')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.podcast.create')}}">
+                                {{__('admin.Add Podcast')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                    </ul>
+                </li>
+                @endcan
+
+                @can('view', 'App\Models\Video')
+                <li class="pc-item pc-hasmenu">
+                    <a href="#!" class="pc-link">
+                        <span class="pc-micon">
+                            <i class="fas fa-video"></i>
+                        </span>
+                        <span class="pc-mtext">
+                            {{__('admin.Videos')}}
+                        </span>
+                        @if (App::getLocale() == 'en')
+                        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        @else
+                        <span class="pc-arrow"><i data-feather="chevron-left"></i></span>
+                        @endif
+                    </a>
+                    <ul class="pc-submenu">
+
+                        @can('view', 'App\Models\Video')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.video.index')}}">
+                                {{__('admin.View Videos')}}
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('create', 'App\Models\Video')
+                        <li class="pc-item">
+                            <a class="pc-link" href="{{route('dashboard.video.create')}}">
+                                {{__('admin.Add Videos')}}
+                            </a>
+                        </li>
+                        @endcan
 
                     </ul>
                 </li>

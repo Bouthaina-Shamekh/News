@@ -1,23 +1,33 @@
+@php
+    $title = 'title_' . app()->getLocale();
+    $text = 'text_' . app()->getLocale();
+    $podcastImg = $podcast->img_view ?? $podcast->img_podcast;
+    $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/in-img/podcasts/6.png');
+@endphp
 
 <x-site-layout>
-
-   
-
-
-       
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('assets/css/podcast.css') }}">
+    @endpush
 
         <div class="main-content--section ">
             <div class="page-wrapper podcasts-page">
-                <div class="podcast-bg" style="background-image: url('../assets/in-img/podcasts/bg.png');"></div>
+                <div class="podcast-bg" style="background-image: url('{{ asset('assets-new/bg.png') }}');"></div>
 
                 <div class="container podcasts-container">
 
                     <section class="podcast-hero">
 
                         <!-- ══ Right: Program Image / Video Player ══ -->
-                        <div class="hero-image-wrap" data-type="video" data-video-src="../assets/0217.mp4"
-                            data-audio-src="../assets/aodio.mp3" data-image-src="../assets/in-img/podcasts/6.png">
-                            <img src="../assets/in-img/podcasts/6.png" alt="أثير الكرة" class="hero-img" />
+                        @php
+                            $heroType = $firstEpisode ? ($firstEpisode->type ?? 'audio') : 'audio';
+                            $heroAudioSrc = $firstEpisode && $firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '';
+                            $heroVideoSrc = $firstEpisode && $firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '';
+                            $heroImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
+                        @endphp
+                        <div class="hero-image-wrap" data-type="{{ $heroType }}" data-video-src="{{ $heroVideoSrc }}"
+                            data-audio-src="{{ $heroAudioSrc }}" data-image-src="{{ $heroImgSrc }}">
+                            <img src="{{ $heroImgSrc }}" alt="{{ $podcast->$title }}" class="hero-img" />
                             <video class="hero-video-player" controls preload="none" playsinline></video>
                             <div class="hero-img-fade"></div>
                         </div>
@@ -26,25 +36,24 @@
                         <div class="hero-info">
 
                             <!-- Title -->
-                            <h2 class="hero-title">أثير الكرة</h2>
+                            <h2 class="hero-title">{{ $podcast->$title }}</h2>
 
                             <!-- Description -->
                             <p class="hero-desc">
-                                بودكاست أثير الكرة.. يغطي كل ما فاتك من أبرز الأحداث في عالم المستديرة، ويناقش مع نخبة
-                                من المحللين والنقاد وحتى نجوم اللعبة، أهم ما يشغل بال متابعي كرة القدم في العالم العربي.
+                                {{ Str::limit($podcast->$text ?? '', 250) }}
                             </p>
 
                             <!-- Stats -->
                             <div class="hero-stats">
-                                <span class="stats-label">مجموع الحلقات:</span>
-                                <span class="stats-number">750</span>
+                                <span class="stats-label">{{ app()->getLocale() == 'ar' ? 'مجموع الحلقات:' : 'Total Episodes:' }}</span>
+                                <span class="stats-number">{{ $episodes->count() }}</span>
                             </div>
 
                             <!-- Bottom bar: platforms + subscribe -->
                             <div class="hero-bottom">
 
                                 <!-- Subscribe button -->
-                                <a href="#" class="subscribe-btn">الإشتراك</a>
+                                <a href="#" class="subscribe-btn">{{ app()->getLocale() == 'ar' ? 'الإشتراك' : 'Subscribe' }}</a>
 
                                 <!-- Platform icons -->
                                 <div class="platforms">
@@ -98,21 +107,29 @@
                         <!-- ══════════════════════════════════
                              A) Current Episode Player Card
                         ══════════════════════════════════ -->
-                        <div class="episode-card" data-type="video" data-audio-src="../assets/aodio.mp3"
-                            data-video-src="../assets/0217.mp4" data-title="2026.. عام ميركاتو المدربين"
-                            data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها، وتقارير تفيد بأن أسماء أخرى على قائمة الإقالات في الفترة المقبلة."
-                            data-image-src="../assets/in-img/podcasts/6.png">
+                        @php
+                            $epType = $firstEpisode->type ?? 'audio';
+                            $epAudioSrc = $firstEpisode && $firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '';
+                            $epVideoSrc = $firstEpisode && $firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '';
+                            $epImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
+                            $epTitle = $firstEpisode ? $firstEpisode->$title : (app()->getLocale() == 'ar' ? 'لا توجد حلقات' : 'No episodes');
+                            $epDesc = $firstEpisode ? ($firstEpisode->$text ?? '') : '';
+                            $epTypeLabel = ($epType === 'video') ? (app()->getLocale() == 'ar' ? 'فيديو' : 'Video') : (app()->getLocale() == 'ar' ? 'صوت' : 'Audio');
+                            $epBadgeClass = $epType === 'video' ? 'media-type-badge--video' : 'media-type-badge--audio';
+                        @endphp
+                        <div class="episode-card" data-type="{{ $epType }}" data-audio-src="{{ $epAudioSrc }}"
+                            data-video-src="{{ $epVideoSrc }}" data-title="{{ $epTitle }}"
+                            data-description="{{ $epDesc }}"
+                            data-image-src="{{ $epImgSrc }}">
 
                             <!-- Title -->
-                            <h2 class="episode-title">2026.. عام ميركاتو المدربين
-                                <span class="media-type-badge media-type-badge--video">فيديو</span>
+                            <h2 class="episode-title">{{ $epTitle }}
+                                <span class="media-type-badge {{ $epBadgeClass }}">{{ $epTypeLabel }}</span>
                             </h2>
 
                             <!-- Description -->
                             <p class="episode-desc">
-                                في الآونة الأخيرة تخلت عدة أندية عن مدربيها، وتقارير تفيد بأن أسماء أخرى على قائمة
-                                الإقالات في الفترة المقبلة.. مشاريع عديدة تستعد لها الأندية فهل تشمل الاستغناء عن المزيد
-                                من المدربين؟
+                                {{ Str::limit($epDesc, 300) }}
                             </p>
 
                             <div style="display: flex; align-items: center; gap: 10px;">
@@ -193,309 +210,77 @@
                              C) Latest Episodes List
                         ══════════════════════════════════ -->
                         <div class="episodes-list-section">
-                            <h3 class="list-title"><span class="title-bar"></span>أحدث حلقات البرنامج</h3>
+                            <h3 class="list-title"><span class="title-bar"></span>{{ app()->getLocale() == 'ar' ? 'أحدث حلقات البرنامج' : 'Latest Episodes' }}</h3>
 
                             <div class="episodes-list">
-
-                                <!-- Row 1 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها، وتقارير تفيد بأن أسماء أخرى على قائمة الإقالات في الفترة المقبلة."
-                                    data-image-src="../assets/in-img/podcasts/6.png">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">6 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 2 -->
-                                <a href="#" class="ep-row" data-type="video" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="../assets/0217.mp4" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها، وتقارير تفيد بأن أسماء أخرى على قائمة الإقالات في الفترة المقبلة."
-                                    data-image-src="../assets/in-img/podcasts/6.png">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">فيديو</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">6 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 3 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها، وتقارير تفيد بأن أسماء أخرى على قائمة الإقالات في الفترة المقبلة."
-                                    data-image-src="../assets/in-img/podcasts/6.png">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">6 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 4 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها، وتقارير تفيد بأن أسماء أخرى على قائمة الإقالات في الفترة المقبلة."
-                                    data-image-src="../assets/in-img/podcasts/6.png">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">6 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 5 -->
-                                <a href="#" class="ep-row" data-type="video" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="../assets/0217.mp4" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها."
-                                    data-image-src="../assets/in-img/podcasts/6.png" style="display: none;">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">فيديو</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">6 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 6 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها."
-                                    data-image-src="../assets/in-img/podcasts/6.png" style="display: none;">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">5 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 7 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها."
-                                    data-image-src="../assets/in-img/podcasts/6.png" style="display: none;">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">4 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 8 -->
-                                <a href="#" class="ep-row" data-type="video" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="../assets/0217.mp4" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها."
-                                    data-image-src="../assets/in-img/podcasts/6.png" style="display: none;">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">فيديو</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">3 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 9 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها."
-                                    data-image-src="../assets/in-img/podcasts/6.png" style="display: none;">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">2 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
-                                <!-- Row 10 -->
-                                <a href="#" class="ep-row" data-type="audio" data-audio-src="../assets/aodio.mp3"
-                                    data-video-src="" data-title="2026.. عام ميركاتو المدربين"
-                                    data-description="في الآونة الأخيرة تخلت عدة أندية عن مدربيها."
-                                    data-image-src="../assets/in-img/podcasts/6.png" style="display: none;">
-                                    <span class="ep-title">2026.. عام ميركاتو المدربين</span>
-                                    <span class="ep-type">صوت</span>
-                                    <span class="ep-duration">25 | 55</span>
-                                    <span class="ep-date">1 فبراير 2026</span>
-                                    <button class="play-btn play-btn--small" aria-label="تشغيل">
-                                        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-                                            <polygon points="6,4 20,12 6,20" />
-                                        </svg>
-                                    </button>
-                                </a>
-
+                                @foreach($episodes as $index => $episode)
+                                    @php
+                                        $episodeType = $episode->type ?? 'audio';
+                                        $episodeAudioSrc = $episode->audio ? asset('storage/' . $episode->audio) : '';
+                                        $episodeVideoSrc = $episode->vedio ? asset('storage/' . $episode->vedio) : '';
+                                        $episodeImgSrc = ($episode->img_episode ?? $episode->img_view) ? asset('storage/' . ($episode->img_episode ?? $episode->img_view)) : $podcastImgUrl;
+                                        $episodeTitle = $episode->$title;
+                                        $episodeDesc = $episode->$text ?? '';
+                                        $episodeTypeLabel = ($episodeType === 'video') ? (app()->getLocale() == 'ar' ? 'فيديو' : 'Video') : (app()->getLocale() == 'ar' ? 'صوت' : 'Audio');
+                                        $episodeDate = $episode->date ? \Carbon\Carbon::parse($episode->date)->translatedFormat(app()->getLocale() == 'ar' ? 'd F Y' : 'M d, Y') : '';
+                                        $isHidden = $index >= 4;
+                                    @endphp
+                                    <a href="#" class="ep-row {{ $isHidden ? 'ep-row--hidden' : '' }}" data-type="{{ $episodeType }}"
+                                        data-audio-src="{{ $episodeAudioSrc }}" data-video-src="{{ $episodeVideoSrc }}"
+                                        data-title="{{ $episodeTitle }}" data-description="{{ $episodeDesc }}"
+                                        data-image-src="{{ $episodeImgSrc }}"
+                                        style="{{ $isHidden ? 'display: none;' : '' }}">
+                                        <span class="ep-title">{{ $episodeTitle }}</span>
+                                        <span class="ep-type">{{ $episodeTypeLabel }}</span>
+                                        <span class="ep-duration">{{ $episode->time ?? '--' }}</span>
+                                        <span class="ep-date">{{ $episodeDate }}</span>
+                                        <button class="play-btn play-btn--small" aria-label="{{ app()->getLocale() == 'ar' ? 'تشغيل' : 'Play' }}">
+                                            <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
+                                                <polygon points="6,4 20,12 6,20" />
+                                            </svg>
+                                        </button>
+                                    </a>
+                                @endforeach
                             </div>
                         </div>
 
                         <!-- ══════════════════════════════════
                              D) CTA Button
                         ══════════════════════════════════ -->
+                        @if($episodes->count() > 4)
                         <div class="cta-wrap">
-                            <a href="#" class="cta-btn">شاهد المزيد</a>
+                            <a href="#" class="cta-btn">{{ app()->getLocale() == 'ar' ? 'شاهد المزيد' : 'Show More' }}</a>
                         </div>
+                        @endif
 
                     </section>
 
                     <section class="episodes-section">
 
                         <div class="section-header">
-                            <h2 class="section-header-title">بودكاست</h2>
+                            <h2 class="section-header-title">{{ app()->getLocale() == 'ar' ? 'بودكاست' : 'Podcasts' }}</h2>
                         </div>
 
                         <div class="podcast-grid">
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/1.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/2.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/3.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/4.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/2.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/3.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/4.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/2.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/3.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
-                            <a href="#" class="podcast-one-card">
-                                <div class="podcast-one-card__media">
-                                    <img src="../assets/in-img/podcasts/4.png"
-                                        alt="نتنياهو يحرب عن علقه من تعاظم قوة الجيش المصري"
-                                        class="podcast-one-card__image">
-
-                                </div>
-                                <div class="podcast-one-card__body">
-                                    <div class="podcast-one-card__category">بودكاست</div>
-                                    <h3 class="podcast-one-card__title">عنوان البودكاست</h3>
-                                </div>
-                            </a>
+                            @foreach($relatedPodcasts as $related)
+                                @php
+                                    $relatedImg = $related->img_view ?? $related->img_podcast;
+                                    $relatedImgUrl = $relatedImg ? asset('storage/' . $relatedImg) : asset('assets/in-img/podcasts/6.png');
+                                    $relatedTitle = $related->$title;
+                                    $relatedUrl = route('site.podcast', $related->slug);
+                                @endphp
+                                <a href="{{ $relatedUrl }}" class="podcast-one-card">
+                                    <div class="podcast-one-card__media">
+                                        <img src="{{ $relatedImgUrl }}"
+                                            alt="{{ $relatedTitle }}"
+                                            class="podcast-one-card__image">
+                                    </div>
+                                    <div class="podcast-one-card__body">
+                                        <div class="podcast-one-card__category">{{ app()->getLocale() == 'ar' ? 'بودكاست' : 'Podcast' }}</div>
+                                        <h3 class="podcast-one-card__title">{{ $relatedTitle }}</h3>
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
 
                     </section>
@@ -506,7 +291,6 @@
 
            
         </div>
-    </div>
    
   
 

@@ -198,22 +198,25 @@ class MainController extends Controller
         return view('site.article', compact('article', 'articles'));
     }
 
-    public function podcast($slug){
-        
-         $podcast = Podcast::where('slug',$slug)->with('episodes')->firstOrFail();
+    public function podcast($slug)
+    {
+        $podcast = Podcast::where('slug', $slug)->orWhere('id', $slug)->with('episodes')->firstOrFail();
 
         $episodes = $podcast->episodes()->latest()->get();
 
-        $relatedPodcasts = Podcast::where('id','!=',$podcast->id)
-        ->latest()
-        ->take(10)
-        ->get();
+        $firstEpisode = $episodes->first();
 
-        return view('site.podcast',compact(
-        'podcast',
-        'episodes',
-        'relatedPodcasts'
-    ));
+        $relatedPodcasts = Podcast::where('id', '!=', $podcast->id)
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return view('site.podcast', compact(
+            'podcast',
+            'episodes',
+            'firstEpisode',
+            'relatedPodcasts'
+        ));
     }
 
     public function podcasts(){

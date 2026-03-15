@@ -316,45 +316,43 @@ class PodcastController extends Controller
                 'slug' => $slug,
             ]);
 
-            if ($podcasts->episodes->count() > 0) {
-                foreach ($podcasts->episodes as $episode) {
-                    if ($episode->img_view != null) {
-                        Storage::disk('public')->delete($episode->img_view);
-                    }
-                    if ($episode->img_episode != null) {
-                        Storage::disk('public')->delete($episode->img_episode);
-                    }
-                    if ($episode->vedio != null) {
-                        Storage::disk('public')->delete($episode->vedio);
-                    }
-                    if ($episode->audio != null) {
-                        Storage::disk('public')->delete($episode->audio);
-                    }
-                }
-            }
-
+            $oldEpisodes = $podcasts->episodes->values()->all();
             PodcastEpisode::where('podcast_id', $podcasts->id)->delete();
 
             if ($request->episodes && isset($request->episodes['title_ar'])) {
                 foreach ($request->episodes['title_ar'] as $index => $episodeTitle) {
                     if ($episodeTitle != null) {
-                        $vedioPath = null;
+                        $oldEpisode = $oldEpisodes[$index] ?? null;
+
+                        $vedioPath = $oldEpisode?->vedio;
                         if ($request->hasFile("episodes.vedio.$index")) {
+                            if ($oldEpisode && $oldEpisode->vedio) {
+                                Storage::disk('public')->delete($oldEpisode->vedio);
+                            }
                             $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
                         }
 
-                        $audioPath = null;
+                        $audioPath = $oldEpisode?->audio;
                         if ($request->hasFile("episodes.audio.$index")) {
+                            if ($oldEpisode && $oldEpisode->audio) {
+                                Storage::disk('public')->delete($oldEpisode->audio);
+                            }
                             $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
                         }
 
-                        $imgViewEpisodePath = null;
+                        $imgViewEpisodePath = $oldEpisode?->img_view;
                         if ($request->hasFile("episodes.img_view.$index")) {
+                            if ($oldEpisode && $oldEpisode->img_view) {
+                                Storage::disk('public')->delete($oldEpisode->img_view);
+                            }
                             $imgViewEpisodePath = $request->file("episodes.img_view.$index")->store('uploads', 'public');
                         }
 
-                        $imgEpisodePath = null;
+                        $imgEpisodePath = $oldEpisode?->img_episode;
                         if ($request->hasFile("episodes.img_episode.$index")) {
+                            if ($oldEpisode && $oldEpisode->img_episode) {
+                                Storage::disk('public')->delete($oldEpisode->img_episode);
+                            }
                             $imgEpisodePath = $request->file("episodes.img_episode.$index")->store('uploads', 'public');
                         }
 
