@@ -314,4 +314,6 @@ return [
     'enter video title' => 'Enter video title',
     'enter video duration' => 'Enter video duration',
     'Edit Video' => 'Edit Video',
+    'Views' => 'Views',
+    'Featured' => 'Featured',
 ];

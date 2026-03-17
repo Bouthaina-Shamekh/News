@@ -140,8 +140,8 @@
         </div>
     </div>
     <div class="header--navbar style--1 navbar bd--color-1 bg--color-1" data-trigger="sticky">
-        <div class="container">
-            <div id="headerNav" class="navbar-collapse collapse float--right " style='margin-right:30%;'>
+        <div class="container" style="display: flex;justify-content: center;align-items: center;">
+            <div id="headerNav" class="navbar-collapse collapse float--right" >
                 <span class="close-menu"><i class="fa fa-times"></i></span>
                 <ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
                     <li class="hidden-md hidden-lg">
@@ -198,6 +198,12 @@
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.about')}}">{{__('site.AboutUs')}}</a>
+                    </li>
+                    <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
+                        <a href="{{route('site.videos')}}">{{__('site.Videos')}}</a>
+                    </li>
+                    <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
+                        <a href="{{route('site.podcasts')}}">{{__('site.Podcasts')}}</a>
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.news')}}">{{__('site.News')}}</a>

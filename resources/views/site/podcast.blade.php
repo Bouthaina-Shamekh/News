@@ -225,7 +225,7 @@
                                         $episodeDate = $episode->date ? \Carbon\Carbon::parse($episode->date)->translatedFormat(app()->getLocale() == 'ar' ? 'd F Y' : 'M d, Y') : '';
                                         $isHidden = $index >= 4;
                                     @endphp
-                                    <a href="#" class="ep-row {{ $isHidden ? 'ep-row--hidden' : '' }}" data-type="{{ $episodeType }}"
+                                    <a href="#" class="ep-row {{ $isHidden ? 'ep-row--hidden' : '' }}" data-episode-id="{{ $episode->id }}" data-type="{{ $episodeType }}"
                                         data-audio-src="{{ $episodeAudioSrc }}" data-video-src="{{ $episodeVideoSrc }}"
                                         data-title="{{ $episodeTitle }}" data-description="{{ $episodeDesc }}"
                                         data-image-src="{{ $episodeImgSrc }}"
@@ -412,6 +412,27 @@
                     updateListPlayButton(item.$btn, item.isPlaying);
                 });
             });
+
+            // ═══════════════════════════════════════════════
+            // Deep link: فتح حلقة محددة وتشغيلها
+            // url: ?episode=ID&autoplay=1
+            // ═══════════════════════════════════════════════
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const epId = params.get('episode');
+                const autoplay = params.get('autoplay');
+                if (epId) {
+                    const $target = $episodeRows.filter('[data-episode-id="' + epId + '"]').first();
+                    if ($target.length) {
+                        $target.trigger('click');
+                        if (autoplay === '1' || autoplay === 'true') {
+                            setTimeout(function () {
+                                $mainPlayBtn.trigger('click');
+                            }, 150);
+                        }
+                    }
+                }
+            } catch (e) {}
 
             function handlePlayAction() {
                 if (currentEpisode.type === 'video') {

@@ -23,6 +23,18 @@
             placeholder="{{ __('admin.enter video duration') }}" :value="$videos->time" />
     </div>
 
+    <div class="form-group col-6 mb-3">
+        <label for="views_count" class="form-label">{{ __('admin.Views') ?? 'Views' }}</label>
+        <input id="views_count" type="number" class="form-control" name="views_count"
+            value="{{ old('views_count', $videos->views_count ?? 0) }}" readonly />
+    </div>
+
+    <div class="form-group col-6 mb-3 d-flex align-items-center gap-2" style="margin-top: 30px;">
+        <input id="is_featured" type="checkbox" class="form-check-input" name="is_featured" value="1"
+            @checked(old('is_featured', (bool) ($videos->is_featured ?? false))) />
+        <label for="is_featured" class="form-check-label">{{ __('admin.Featured') ?? 'Featured' }}</label>
+    </div>
+
     <div class="form-group col-12 mb-3">
         <label for="text_ar" class="form-label">{{ __('admin.Text_AR') }}<span style="color: red">*</span></label>
         <textarea name="text_ar" rows="3" class="form-control mytextarea" required>{{ $videos->text_ar }}</textarea>

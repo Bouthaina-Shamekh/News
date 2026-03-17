@@ -23,6 +23,13 @@ class Video extends Model
         'keyword_en',
         'category_id',
          'slug',
+        'views_count',
+        'is_featured',
+    ];
+
+    protected $casts = [
+        'views_count' => 'integer',
+        'is_featured' => 'boolean',
     ];
 
     public function category()

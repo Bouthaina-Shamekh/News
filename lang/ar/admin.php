@@ -251,6 +251,8 @@ return [
     'enter video title' => 'أدخل عنوان الفيديو',
     'enter video duration' => 'أدخل مدة الفيديو',
     'Edit Video' => 'تعديل الفيديو',
+    'Views' => 'المشاهدات',
+    'Featured' => 'المميز',
 ];
 
 

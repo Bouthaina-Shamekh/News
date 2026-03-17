@@ -96,6 +96,7 @@ class VideoController extends Controller
                 'text_ar' => 'required',
                 'text_en' => 'required',
                 'category_id' => 'required',
+                'is_featured' => 'nullable|boolean',
             ]);
 
             $keywords_ar_text = '';
@@ -143,6 +144,8 @@ class VideoController extends Controller
                 'text_en' => $request->text_en,
                 'category_id' => $request->category_id,
                 'slug' => $slug,
+                'views_count' => 0,
+                'is_featured' => $request->boolean('is_featured'),
             ]);
 
             DB::commit();
@@ -187,6 +190,7 @@ class VideoController extends Controller
                 'text_ar' => 'required',
                 'text_en' => 'required',
                 'category_id' => 'required',
+                'is_featured' => 'nullable|boolean',
             ]);
 
             $videos = Video::findOrFail((int)$id);
@@ -248,6 +252,7 @@ class VideoController extends Controller
                 'text_en' => $request->text_en,
                 'category_id' => $request->category_id,
                 'slug' => $slug,
+                'is_featured' => $request->boolean('is_featured'),
             ]);
 
             DB::commit();

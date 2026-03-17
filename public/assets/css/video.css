@@ -101,6 +101,12 @@ body {
   object-fit: cover;
 }
 
+/* Keep poster image cover, but contain the actual video */
+.media-wrapper video {
+  object-fit: contain;
+  background: #000;
+}
+
 
 .media-overlay {
   position: absolute;

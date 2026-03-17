@@ -19,6 +19,7 @@ use App\Models\Video;
 use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -28,7 +29,7 @@ class MainController extends Controller
     public function home()
     {
         $ads = Ad::orderBy('id', 'desc')->get();
-        $sliders  = Nw::active()->where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
+        $sliders = Nw::active()->where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
 
         // Categories
         $categoryOne = Category::find(6) ?? Category::first();
@@ -106,7 +107,7 @@ class MainController extends Controller
     }
     public function new($id)
     {
-        $new = Nw::findOrFail((int)$id);
+        $new = Nw::findOrFail((int) $id);
 
         $news = Nw::active()->orderby('id', 'desc')->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
@@ -118,7 +119,7 @@ class MainController extends Controller
     public function newLike(Request $request, $id)
     {
         $type = $request->type;
-        $new = Nw::findOrFail((int)$id);
+        $new = Nw::findOrFail((int) $id);
         if ($type == true) {
             $new->update([
                 'like' => $new->like + 1
@@ -153,8 +154,8 @@ class MainController extends Controller
         $articles = Artical::active(); // تأكد إن scopeActive مرجّع Builder
 
         $category = $request->query('c');
-        $search   = $request->search;
-        $place    = $request->query('pl');
+        $search = $request->search;
+        $place = $request->query('pl');
 
         if ($category) {
             $articles->where('category_id', $category);
@@ -192,7 +193,7 @@ class MainController extends Controller
 
     public function article($id)
     {
-        $article = Artical::findOrFail((int)$id);
+        $article = Artical::findOrFail((int) $id);
         $article->update([
             'visit' => $article->visit + 1
         ]);
@@ -206,7 +207,14 @@ class MainController extends Controller
 
         $episodes = $podcast->episodes()->latest()->get();
 
+        $requestedEpisodeId = request()->query('episode');
         $firstEpisode = $episodes->first();
+        if ($requestedEpisodeId) {
+            $selected = $episodes->firstWhere('id', (int) $requestedEpisodeId);
+            if ($selected) {
+                $firstEpisode = $selected;
+            }
+        }
 
         $relatedPodcasts = Podcast::where('id', '!=', $podcast->id)
             ->latest()
@@ -221,60 +229,145 @@ class MainController extends Controller
         ));
     }
 
-    public function podcasts(){
-       $podcasts = Podcast::latest()->take(8)->get();
+    public function podcasts()
+    {
+        $podcasts = Podcast::latest()->take(4)->get();
 
-    $episodes = PodcastEpisode::with('podcast')
-        ->latest()
-        ->take(6)
-        ->get();
+        $episodes = PodcastEpisode::with('podcast')
+            ->latest()
+            ->take(6)
+            ->get();
 
-    $videos = Video::with('category')
-        ->latest()
-        ->take(8)
-        ->get();
+        $videos = Video::with('category')
+            ->latest()
+            ->take(10)
+            ->get();
 
-    return view('site.podcasts',compact(
-        'podcasts',
-        'episodes',
-        'videos'
-    ));
+        return view('site.podcasts', compact(
+            'podcasts',
+            'episodes',
+            'videos'
+        ));
     }
 
-    public function video($slug){
-        $video = Video::where('slug',$slug)->firstOrFail();
+    public function video($slug)
+    {
+        $video = Video::with('category')->where('slug', $slug)->firstOrFail();
 
-    $relatedVideos = Video::where('category_id',$video->category_id)
-        ->where('id','!=',$video->id)
-        ->latest()
-        ->take(4)
-        ->get();
+        $cookieName = 'viewed_videos';
+        $now = Carbon::now();
+        $cutoff = $now->copy()->subHours(2)->timestamp;
+        $viewed = [];
 
-    $moreVideos = Video::latest()->take(8)->get();
+        $raw = request()->cookie($cookieName);
+        if (is_string($raw) && $raw !== '') {
+            $decoded = json_decode($raw, true);
+            if (is_array($decoded)) {
+                $viewed = $decoded;
+            }
+        }
 
-    $breakingNews = Artical::latest()->take(3)->get();
+        // prune old entries
+        foreach ($viewed as $videoId => $ts) {
+            if (!is_numeric($ts) || (int) $ts < $cutoff) {
+                unset($viewed[$videoId]);
+            }
+        }
 
-    $podcasts = Podcast::latest()->take(3)->get();
+        $key = (string) $video->id;
+        if (!array_key_exists($key, $viewed)) {
+            $video->increment('views_count');
+            $viewed[$key] = $now->timestamp;
+        }
 
-    $trending = Video::latest()->take(4)->get();
+        $relatedVideos = Video::with('category')
+            ->where('category_id', $video->category_id)
+            ->where('id', '!=', $video->id)
+            ->latest()
+            ->take(4)
+            ->get();
 
-        return view('site.video' , compact(
-        'video',
-        'relatedVideos',
-        'moreVideos',
-        'breakingNews',
-        'podcasts',
-        'trending'
-    ));
+        $moreVideos = Video::with('category')
+            ->where('id', '!=', $video->id)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $breakingNews = Artical::latest()->take(3)->get();
+
+        $podcasts = Podcast::latest()->take(3)->get();
+
+        $mostViewedVideos = Video::with('category')
+            ->where('id', '!=', $video->id)
+            ->orderByDesc('views_count')
+            ->latest('id')
+            ->take(8)
+            ->get();
+
+        $response = response()->view('site.video', compact(
+            'video',
+            'relatedVideos',
+            'moreVideos',
+            'breakingNews',
+            'podcasts',
+            'mostViewedVideos'
+        ));
+
+        return $response->cookie(
+            $cookieName,
+            json_encode($viewed, JSON_UNESCAPED_UNICODE),
+            120
+        );
     }
-    public function videos(){
-        return view('site.videos');
+    public function videos()
+    {
+        $featured = Video::with('category')
+            ->where('is_featured', true)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        if ($featured->count() < 5) {
+            $needed = 5 - $featured->count();
+            $fallback = Video::with('category')
+                ->orderByDesc('views_count')
+                ->when($featured->isNotEmpty(), fn($q) => $q->whereNotIn('id', $featured->pluck('id')))
+                ->take($needed)
+                ->get();
+
+            $featured = $featured->concat($fallback);
+        }
+
+        $latestVideos = Video::with('category')
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $mostViewedVideos = Video::with('category')
+            ->orderByDesc('views_count')
+            ->latest('id')
+            ->take(8)
+            ->get();
+
+        $categorySliders = Category::whereHas('videos')
+            ->with(['videos' => function ($q) {
+                $q->latest()->take(12);
+            }])
+            ->take(5)
+            ->get();
+
+        return view('site.videos', compact(
+            'featured',
+            'latestVideos',
+            'mostViewedVideos',
+            'categorySliders'
+        ));
     }
 
     public function articleLike(Request $request, $id)
     {
         $type = $request->type;
-        $article = Artical::findOrFail((int)$id);
+        $article = Artical::findOrFail((int) $id);
         if ($type == true) {
             $article->update([
                 'like' => $article->like + 1
