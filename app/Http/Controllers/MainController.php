@@ -13,7 +13,9 @@ use App\Models\Message;
 use App\Models\NewPlace;
 use App\Models\Nw;
 use App\Models\Podcast;
+use App\Models\PodcastEpisode;
 use App\Models\Setting;
+use App\Models\Video;
 use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -217,8 +219,25 @@ class MainController extends Controller
     }
 
     public function podcasts(){
-        return view('site.podcasts');
+       $podcasts = Podcast::latest()->take(8)->get();
+
+    $episodes = PodcastEpisode::with('podcast')
+        ->latest()
+        ->take(6)
+        ->get();
+
+    $videos = Video::with('category')
+        ->latest()
+        ->take(8)
+        ->get();
+
+    return view('site.podcasts',compact(
+        'podcasts',
+        'episodes',
+        'videos'
+    ));
     }
+
     public function video(){
         return view('site.video');
     }

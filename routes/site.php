@@ -20,6 +20,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     // هذا يحول / إلى /ar تلقائيًا بناءً على اللغة الافتراضية
     return redirect(LaravelLocalization::getLocalizedURL('ar'));
@@ -29,10 +30,10 @@ Route::get('/', function () {
 Route::group([
     'prefix' => LaravelLocalization::setLocale()
 
-], function(){
+], function () {
     Route::group([
         'as' => 'site.',
-    ],function(){
+    ], function () {
         Route::get('/', [MainController::class, 'home'])->name('index');
 
 
@@ -50,15 +51,15 @@ Route::group([
         Route::post('/contact', [MainController::class, 'contact_data'])->name('contactdata');
         Route::post('/addEmail', [MainController::class, 'addEmail'])->name('addEmail');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
-        Route::get('podcast', [MainController::class, 'podcast'])->name('podcast');
-        Route::get('podcasts', [MainController::class, 'podcasts'])->name('podcasts');
-        Route::get('video', [MainController::class, 'video'])->name('video');
-        Route::get('videos', [MainController::class, 'videos'])->name('videos');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
 
         Route::get('publisher/{id}/news', [PublisherHomeController::class, 'publisherNews'])->name('publisherNews');
         Route::get('publisher/{id}/profile', [PublisherHomeController::class, 'publisher'])->name('publisher');
 
+        Route::get('podcasts', [MainController::class, 'podcasts'])->name('podcasts');
+        Route::get('podcast/{slug}', [MainController::class, 'podcast'])->name('podcast.show');
+        Route::get('videos', [MainController::class, 'videos'])->name('videos');
+        Route::get('video/{slug}', [MainController::class, 'video'])->name('video.show');
     });
     Route::get('forgot-password', [PublisherHomeController::class, 'forgot_password'])->middleware('guest')->name('publisher.forgot_password');
     Route::post('forgot-password', [PublisherHomeController::class, 'forgot_password_store'])->middleware('guest')->name('publisher.forgot_password_store');
