@@ -1,148 +1,145 @@
 <x-dashboard-layout>
 
-@php
-$name = 'name_' . app()->getLocale();
-$title = 'title_' . app()->getLocale();
-@endphp
+    @php
+        $name = 'name_' . app()->getLocale();
+        $title = 'title_' . app()->getLocale();
+    @endphp
 
-<x-slot:breadcrumbs>
-<li class="breadcrumb-item">
-<a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a>
-</li>
+    <x-slot:breadcrumbs>
+        <li class="breadcrumb-item">
+            <a href="{{ route('dashboard.home') }}">{{ __('admin.Home') }}</a>
+        </li>
 
-<li class="breadcrumb-item">
-{{ __('admin.Podcasts') }}
-</li>
-</x-slot:breadcrumb>
+        <li class="breadcrumb-item">
+            {{ __('admin.Podcasts') }}
+        </li>
+        </x-slot:breadcrumb>
 
-<div class="col-span-12">
+        <div class="col-span-12">
 
-<div class="card table-card">
+            <div class="card table-card">
 
-<div class="card-header">
+                <div class="card-header">
 
-<div class="sm:flex items-center justify-between">
+                    <div class="sm:flex items-center justify-between">
 
-<h5>{{ __('admin.Podcasts') }}</h5>
+                        <h5>{{ __('admin.Podcasts') }}</h5>
 
-@can('create','App\Models\Podcast')
-<a href="{{ route('dashboard.podcast.create') }}"
-class="btn btn-primary">
+                        @can('create', 'App\Models\Podcast')
+                            <a href="{{ route('dashboard.podcast.create') }}" class="btn btn-primary">
 
-{{ __('admin.Add Podcast') }}
+                                {{ __('admin.Add Podcast') }}
 
-</a>
-@endcan
+                            </a>
+                        @endcan
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-@can('view','App\Models\Podcast')
+                @can('view', 'App\Models\Podcast')
 
-<div class="card-body">
+                    <div class="card-body">
 
-<div class="table-responsive">
+                        <div class="table-responsive">
 
-<table class="table table-hover">
+                            <table class="table table-hover">
 
-<thead>
+                                <thead>
 
-<tr>
+                                    <tr>
 
-<th>#</th>
-<th>{{ __('admin.Image') }}</th>
-<th>{{ __('admin.Title') }}</th>
-<th>{{ __('admin.Category') }}</th>
-<th>{{ __('admin.Created') }}</th>
-<th>{{ __('admin.Actions') }}</th>
+                                        <th>#</th>
+                                        <th>{{ __('admin.Image') }}</th>
+                                        <th>{{ __('admin.Title') }}</th>
+                                        <th>{{ __('admin.Category') }}</th>
+                                        <th>{{ __('admin.Created') }}</th>
+                                        <th>{{ __('admin.Actions') }}</th>
 
-</tr>
+                                    </tr>
 
-</thead>
+                                </thead>
 
-<tbody>
+                                <tbody>
 
-@foreach($podcasts as $podcast)
+                                    @foreach($podcasts as $podcast)
 
-<tr>
+                                        <tr>
 
-<td>{{ $loop->iteration }}</td>
+                                            <td>{{ $loop->iteration }}</td>
 
-<td>
+                                            <td>
 
-@if($podcast->img_view)
+                                                @if($podcast->img_view)
 
-<img src="{{ asset('storage/'.$podcast->img_view) }}"
-width="60">
+                                                    <img src="{{ asset('storage/' . $podcast->img_view) }}" width="60">
 
-@endif
+                                                @endif
 
-</td>
+                                            </td>
 
-<td>{{ $podcast->$title }}</td>
+                                            <td>{{ $podcast->$title }}</td>
 
-<td>
+                                            <td>
 
-@if(app()->getLocale()=='ar')
-{{ $podcast->category->name_ar ?? '' }}
-@else
-{{ $podcast->category->name_en ?? '' }}
-@endif
+                                                @if(app()->getLocale() == 'ar')
+                                                    {{ $podcast->category->name_ar ?? '' }}
+                                                @else
+                                                    {{ $podcast->category->name_en ?? '' }}
+                                                @endif
 
-</td>
+                                            </td>
 
-<td>{{ $podcast->created_at->format('Y-m-d') }}</td>
+                                            <td>{{ $podcast->created_at->format('Y-m-d') }}</td>
 
-<td class="d-flex">
+                                            <td class="d-flex">
 
-<a href="{{ route('dashboard.podcast.edit',$podcast->id) }}"
-class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                                <a href="{{ route('dashboard.podcast.edit', $podcast->id) }}"
+                                                    class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
 
-<i class="ti ti-edit text-xl"></i>
+                                                    <i class="ti ti-edit text-xl"></i>
 
-</a>
+                                                </a>
 
-<form action="{{ route('dashboard.podcast.destroy',$podcast->id) }}"
-method="post"
-class="delete-form">
+                                                <form action="{{ route('dashboard.podcast.destroy', $podcast->id) }}"
+                                                    method="post" class="delete-form">
 
-@csrf
-@method('DELETE')
+                                                    @csrf
+                                                    @method('DELETE')
 
-<button type="submit"
-class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                                    <button type="submit"
+                                                        class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
 
-<i class="ti ti-trash text-xl"></i>
+                                                        <i class="ti ti-trash text-xl"></i>
 
-</button>
+                                                    </button>
 
-</form>
+                                                </form>
 
-</td>
+                                            </td>
 
-</tr>
+                                        </tr>
 
-@endforeach
+                                    @endforeach
 
-</tbody>
+                                </tbody>
 
-</table>
+                            </table>
 
-</div>
+                        </div>
 
-<div class="mt-4">
+                        <div class="mt-4">
 
-{{ $podcasts->links() }}
+                            {{ $podcasts->links() }}
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-@endcan
+                @endcan
 
-</div>
+            </div>
 
-</div>
+        </div>
 
 </x-dashboard-layout>

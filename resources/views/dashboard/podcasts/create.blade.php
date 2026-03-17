@@ -1,71 +1,67 @@
 <x-dashboard-layout>
 
-<x-slot:breadcrumbs>
+    <x-slot:breadcrumbs>
 
-<li class="breadcrumb-item">
-<a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a>
-</li>
+        <li class="breadcrumb-item">
+            <a href="{{route('dashboard.home')}}">{{__('admin.Home')}}</a>
+        </li>
 
-<li class="breadcrumb-item">
-<a href="{{route('dashboard.podcast.index')}}">
-{{__('admin.Podcasts')}}
-</a>
-</li>
+        <li class="breadcrumb-item">
+            <a href="{{route('dashboard.podcast.index')}}">
+                {{__('admin.Podcasts')}}
+            </a>
+        </li>
 
-<li class="breadcrumb-item">
-{{__('admin.Add Podcast')}}
-</li>
+        <li class="breadcrumb-item">
+            {{__('admin.Add Podcast')}}
+        </li>
 
-</x-slot:breadcrumb>
+        </x-slot:breadcrumb>
 
-<div class="col-span-12">
+        <div class="col-span-12">
 
-<div class="card">
+            <div class="card">
 
-@can('create','App\Models\Podcast')
+                @can('create', 'App\Models\Podcast')
 
-<div class="card-header">
+                    <div class="card-header">
 
-<h5>{{__('admin.Add Podcast')}}</h5>
+                        <h5>{{__('admin.Add Podcast')}}</h5>
 
-</div>
+                    </div>
 
-<div class="card-body">
+                    <div class="card-body">
 
-<form action="{{route('dashboard.podcast.store')}}"
-method="post"
-enctype="multipart/form-data">
+                        <form action="{{route('dashboard.podcast.store')}}" method="post" enctype="multipart/form-data">
 
-@csrf
+                            @csrf
 
-@include('dashboard.podcasts._form')
+                            @include('dashboard.podcasts._form')
 
-<div class="col-span-12 text-left">
+                            <div class="col-span-12 text-left">
 
-<a href="{{route('dashboard.podcast.index')}}"
-class="btn btn-secondary">
+                                <a href="{{route('dashboard.podcast.index')}}" class="btn btn-secondary">
 
-{{__('admin.Back')}}
+                                    {{__('admin.Back')}}
 
-</a>
+                                </a>
 
-<button type="submit"
-class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary">
 
-{{__('admin.Add')}}
+                                    {{__('admin.Add')}}
 
-</button>
+                                </button>
 
-</div>
+                            </div>
 
-</form>
+                        </form>
 
-</div>
+                    </div>
 
-@endcan
+                @endcan
 
-</div>
+            </div>
 
-</div>
+        </div>
 
 </x-dashboard-layout>

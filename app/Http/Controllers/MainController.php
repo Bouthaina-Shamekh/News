@@ -200,22 +200,25 @@ class MainController extends Controller
         return view('site.article', compact('article', 'articles'));
     }
 
-    public function podcast($slug){
-        
-         $podcast = Podcast::where('slug',$slug)->with('episodes')->firstOrFail();
+    public function podcast($slug)
+    {
+        $podcast = Podcast::where('slug', $slug)->orWhere('id', $slug)->with('episodes')->firstOrFail();
 
         $episodes = $podcast->episodes()->latest()->get();
 
-        $relatedPodcasts = Podcast::where('id','!=',$podcast->id)
-        ->latest()
-        ->take(10)
-        ->get();
+        $firstEpisode = $episodes->first();
 
-        return view('site.podcast',compact(
-        'podcast',
-        'episodes',
-        'relatedPodcasts'
-    ));
+        $relatedPodcasts = Podcast::where('id', '!=', $podcast->id)
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return view('site.podcast', compact(
+            'podcast',
+            'episodes',
+            'firstEpisode',
+            'relatedPodcasts'
+        ));
     }
 
     public function podcasts(){
@@ -238,8 +241,31 @@ class MainController extends Controller
     ));
     }
 
-    public function video(){
-        return view('site.video');
+    public function video($slug){
+        $video = Video::where('slug',$slug)->firstOrFail();
+
+    $relatedVideos = Video::where('category_id',$video->category_id)
+        ->where('id','!=',$video->id)
+        ->latest()
+        ->take(4)
+        ->get();
+
+    $moreVideos = Video::latest()->take(8)->get();
+
+    $breakingNews = Artical::latest()->take(3)->get();
+
+    $podcasts = Podcast::latest()->take(3)->get();
+
+    $trending = Video::latest()->take(4)->get();
+
+        return view('site.video' , compact(
+        'video',
+        'relatedVideos',
+        'moreVideos',
+        'breakingNews',
+        'podcasts',
+        'trending'
+    ));
     }
     public function videos(){
         return view('site.videos');

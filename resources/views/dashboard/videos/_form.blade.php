@@ -59,20 +59,6 @@
     </div>
 
     <div class="form-group col-6 mb-3">
-        <label for="image">{{ __('admin.Image Video') }}</label>
-        <input type="file" name="img_video" class="form-control" accept="image/*" />
-        <span class="text-muted">{{ __('admin.Size Image') }}: 1920*1080 (16:9)</span>
-        @if ($videos->img_video)
-            <div class="d-flex align-items-center justify-content-between mt-3" id="img_video">
-                <img src="{{ asset('storage/' . $videos->img_video) }}" alt="Current Image" width="50">
-                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('img_video')">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
-        @endif
-    </div>
-
-    <div class="form-group col-6 mb-3">
         <label for="image">{{ __('admin.Vedio') }}<span style="color: red">*</span></label>
         @if ($videos->id == null)
             <input type="file" name="vedio" class="form-control" accept="video/mp4,video/webm,video/ogg" required />
@@ -85,13 +71,10 @@
             $check = $vedio ? Storage::disk('public')->exists($videos->vedio) : false;
         @endphp
         @if ($videos->vedio && $check)
-            <div class="d-flex align-items-start justify-content-between mt-3" id="vedio">
-                <video width="320" height="240" controls="controls">
-                    <source src="{{ asset('storage/' . $videos->vedio) }}" type="video/mp4">
-                    <source src="{{ asset('storage/' . $videos->vedio) }}" type="video/webm">
-                    <source src="{{ asset('storage/' . $videos->vedio) }}" type="video/ogg">
-                    Your browser does not support the video tag.
-                </video>
+            <div class="d-flex align-items-center gap-2 mt-3" id="vedio">
+                <button type="button" class="btn btn-sm btn-outline-primary btn-play-video" data-url="{{ asset('storage/' . $videos->vedio) }}">
+                    {{ __('admin.Open_Video') }}
+                </button>
                 <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('vedio')">
                     <i class="fa fa-trash"></i>
                 </button>
@@ -111,6 +94,22 @@
         </select>
     </div>
 </div>
+
+@push('modals')
+<div class="modal fade" id="videoPlayerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ __('admin.Video') }}</h5>
+                <button type="button" class="btn-close" data-pc-modal-dismiss="#videoPlayerModal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <video id="videoPlayerEl" controls preload="none" style="width:100%;max-height:400px;"></video>
+            </div>
+        </div>
+    </div>
+</div>
+@endpush
 
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
@@ -157,6 +156,32 @@
     </script>
 
     <script>
+        $(document).on('click', '.btn-play-video', function() {
+            var url = $(this).data('url');
+            var modal = document.getElementById('videoPlayerModal');
+            var videoEl = document.getElementById('videoPlayerEl');
+            if (!modal || !videoEl) return;
+            videoEl.src = url;
+            modal.classList.add('show');
+            setTimeout(function() { modal.classList.add('animate'); }, 100);
+            var overlay = document.getElementById('modaloverlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.className = 'fixed inset-0 bg-gray-900/20 z-[1028] backdrop-blur-sm';
+                overlay.id = 'modaloverlay';
+                document.body.appendChild(overlay);
+                document.body.classList.add('modal-open');
+                overlay.addEventListener('click', function() {
+                    videoEl.pause();
+                    videoEl.src = '';
+                    if (typeof modalclose === 'function') modalclose();
+                });
+            }
+        });
+        $(document).on('click', '[data-pc-modal-dismiss="#videoPlayerModal"]', function() {
+            var videoEl = document.getElementById('videoPlayerEl');
+            if (videoEl) { videoEl.pause(); videoEl.src = ''; }
+        });
         function removeImage(name) {
             const id = "{{ $videos->id }}";
             $.ajax({

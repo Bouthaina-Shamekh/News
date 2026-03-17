@@ -93,7 +93,6 @@ class VideoController extends Controller
                 'keyword_en' => 'nullable',
                 'vedio' => 'required|file',
                 'img_view' => 'required|image',
-                'img_video' => 'nullable|image',
                 'text_ar' => 'required',
                 'text_en' => 'required',
                 'category_id' => 'required',
@@ -123,11 +122,7 @@ class VideoController extends Controller
             if ($request->hasFile('img_view')) {
                 $imgViewPath = $request->file('img_view')->store('uploads', 'public');
             }
-
-            $imgVideoPath = null;
-            if ($request->hasFile('img_video')) {
-                $imgVideoPath = $request->file('img_video')->store('uploads', 'public');
-            }
+            $imgVideoPath = $imgViewPath;
 
             $vedioPath = null;
             if ($request->hasFile('vedio')) {
@@ -189,7 +184,6 @@ class VideoController extends Controller
                 'keyword_en' => 'nullable',
                 'vedio' => 'nullable|file',
                 'img_view' => 'nullable|image',
-                'img_video' => 'nullable|image',
                 'text_ar' => 'required',
                 'text_en' => 'required',
                 'category_id' => 'required',
@@ -230,14 +224,7 @@ class VideoController extends Controller
                 }
                 $imgViewPath = $request->file('img_view')->store('uploads', 'public');
             }
-
-            $imgVideoPath = $videos->img_video;
-            if ($request->hasFile('img_video')) {
-                if ($videos->img_video != null) {
-                    Storage::disk('public')->delete($videos->img_video);
-                }
-                $imgVideoPath = $request->file('img_video')->store('uploads', 'public');
-            }
+            $imgVideoPath = $imgViewPath;
 
             $vedioPath = $videos->vedio;
             if ($request->hasFile('vedio')) {
@@ -281,8 +268,7 @@ class VideoController extends Controller
         if ($videos->img_view != null) {
             Storage::disk('public')->delete($videos->img_view);
         }
-
-        if ($videos->img_video != null) {
+        if ($videos->img_video != null && $videos->img_video !== $videos->img_view) {
             Storage::disk('public')->delete($videos->img_video);
         }
 
