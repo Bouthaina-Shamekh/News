@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
@@ -16,11 +17,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::create([
+        $user = Admin::create([
             'name' => 'Administrator',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admain'),
             'avatar' => 'default.png',
+        ]);
+
+        Category::create([
+            'name_en' => 'category-test',
+            'name_ar' => 'تصنيف اختياري',
+            'slug' => 'category-test',
+            'image' => null,
+            'created_by' => 1,
         ]);
 
         $this->call(UsersTableSeeder::class);
