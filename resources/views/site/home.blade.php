@@ -6,7 +6,8 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets-new/css/home-media-sections.css') }}">
         <style>
-            .row:after, .row:before {
+            .row:after,
+            .row:before {
                 display: table;
                 content: none !important;
             }
@@ -17,47 +18,51 @@
             <div class="col-xs-12 col-md-3">
                 {{-- slider mobile --}}
                 @if($sliders->count() > 0)
-                <div class="main--content sleder-mob">
-                    <div class="post--items pd--30-0">
-                        <div class="row gutter--15">
-                            <!--slider-->
-                            <div class="col-md-12">
-                                <div class="post--item post--layout-1 post--title-larger">
-                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                        <!-- Indicators -->
-                                        <ol class="carousel-indicators">
-                                            @for ($i = 0; $i < $sliders->count(); $i++)
-                                                <li data-target="#myCarousel" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
-                                            @endfor
-                                        </ol>
-                                        <!-- Wrapper for slides -->
-                                        <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
-                                            @foreach ($sliders as $index => $slider)
-                                                <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.new', $slider->id) }}">
-                                                        <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
-                                                    </a>
-                                                    <div style=" margin: 0%;height: 70px; margin-top: -76px;">
-                                                        <h4 style="   direction: rtl;" class="h4-slider">{{ $slider->$title }}</h4>
+                    <div class="main--content sleder-mob">
+                        <div class="post--items pd--30-0">
+                            <div class="row gutter--15">
+                                <!--slider-->
+                                <div class="col-md-12">
+                                    <div class="post--item post--layout-1 post--title-larger">
+                                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                            <!-- Indicators -->
+                                            <ol class="carousel-indicators">
+                                                @for ($i = 0; $i < $sliders->count(); $i++)
+                                                    <li data-target="#myCarousel" data-slide-to="{{ $i }}"
+                                                        class="{{ $i == 0 ? 'active' : '' }}"></li>
+                                                @endfor
+                                            </ol>
+                                            <!-- Wrapper for slides -->
+                                            <div class="carousel-inner"
+                                                style="    background-color: #67000500;     color: white;">
+                                                @foreach ($sliders as $index => $slider)
+                                                    <div class="item {{ $index == 0 ? 'active' : '' }}">
+                                                        <a href="{{ route('site.new', $slider->id) }}">
+                                                            <img src="{{ asset('storage/' . $slider->img_view) }}"
+                                                                alt="{{ $slider->$title }}" class="slider_img">
+                                                        </a>
+                                                        <div style=" margin: 0%;height: 70px; margin-top: -76px;">
+                                                            <h4 style="   direction: rtl;" class="h4-slider">
+                                                                {{ $slider->$title }}</h4>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
+                                            <!-- Left and right controls -->
+                                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
                                         </div>
-                                        <!-- Left and right controls -->
-                                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endif
                 <!--slider side-->
                 <div class="">
@@ -74,8 +79,8 @@
                                                 <li>
                                                     <a href="#" id="nav-home-tab" data-bs-toggle="tab"
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
-                                                        data-bs-target="#nav-home" role="tab"
-                                                        aria-controls="nav-home" aria-selected="true">
+                                                        data-bs-target="#nav-home" role="tab" aria-controls="nav-home"
+                                                        aria-selected="true">
                                                         {{-- أخبار عاجلة --}}
                                                         {{ __('site.emergency news') }}
                                                     </a>
@@ -106,71 +111,85 @@
                                                     aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
                                                     @php
-                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->where('statu_id', 2)->orderBy('id','desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Nw::where('new_place_id', 6)->where('statu_id', 2)->orderBy('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($breaking_news as $newS)
-                                                        <li>
-                                                            <div class="post--item post--layout-3 post--side-2">
-                                                                <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb">
-                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
-                                                                    </a>
-                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
-                                                                        <ul class="nav meta">
-                                                                            <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
-                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="title">
-                                                                            <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
-                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
-                                                                                </a>
-                                                                            </h3>
+                                                            <li>
+                                                                <div class="post--item post--layout-3 post--side-2">
+                                                                    <div class="post--img"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('site.new', $newS->id)}}"
+                                                                            class="thumb">
+                                                                            <img src="{{ asset('storage/' . $newS->img_view) }}"
+                                                                                alt="" style="object-fit: contain;" />
+                                                                        </a>
+                                                                        <div class="post--info"
+                                                                            style="width: 60%;padding-right: 5px;">
+                                                                            <ul class="nav meta">
+                                                                                <li>
+                                                                                    <a href="{{ route('site.news', ['c' => $newS->category_id]) }}"
+                                                                                        style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                        {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="title">
+                                                                                <h3 class="h4">
+                                                                                    <a href="{{ route('site.new', $newS->id)}}"
+                                                                                        title="{{ $newS->$title }}"
+                                                                                        class="btn-link">
+                                                                                        {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                    </a>
+                                                                                </h3>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane show active" id="nav-profile"
-                                                    role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <div class="tab-pane show active" id="nav-profile" role="tabpanel"
+                                                    aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
                                                     @php
-                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
+                                                        $latest_news = App\Models\Nw::orderBy('id', 'desc')->where('statu_id', 2)->orderby('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($latest_news as $newS)
-                                                        <li>
-                                                            <div class="post--item post--layout-3 post--side-2">
-                                                                <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb">
-                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
-                                                                    </a>
-                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
-                                                                        <ul class="nav meta">
-                                                                            <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
-                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="title">
-                                                                            <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
-                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
-                                                                                </a>
-                                                                            </h3>
+                                                            <li>
+                                                                <div class="post--item post--layout-3 post--side-2">
+                                                                    <div class="post--img"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('site.new', $newS->id)}}"
+                                                                            class="thumb">
+                                                                            <img src="{{ asset('storage/' . $newS->img_view) }}"
+                                                                                alt="" style="object-fit: contain;" />
+                                                                        </a>
+                                                                        <div class="post--info"
+                                                                            style="width: 60%;padding-right: 5px;">
+                                                                            <ul class="nav meta">
+                                                                                <li>
+                                                                                    <a href="{{ route('site.news', ['c' => $newS->category_id]) }}"
+                                                                                        style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                        {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="title">
+                                                                                <h3 class="h4">
+                                                                                    <a href="{{ route('site.new', $newS->id)}}"
+                                                                                        title="{{ $newS->$title }}"
+                                                                                        class="btn-link">
+                                                                                        {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                    </a>
+                                                                                </h3>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -178,42 +197,51 @@
                                                     aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     @php
-                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Nw::where('new_place_id', 3)->where('statu_id', 2)->orderby('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($most_viewed as $newS)
-                                                        <li>
-                                                            <div class="post--item post--layout-3 post--side-2">
-                                                                <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.new', $newS->id)}}" class="thumb">
-                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
-                                                                    </a>
-                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
-                                                                        <ul class="nav meta">
-                                                                            <li>
-                                                                                <a href="{{ route('site.news',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
-                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="title">
-                                                                            <h3 class="h4">
-                                                                                <a href="{{ route('site.new', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
-                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
-                                                                                </a>
-                                                                            </h3>
+                                                            <li>
+                                                                <div class="post--item post--layout-3 post--side-2">
+                                                                    <div class="post--img"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('site.new', $newS->id)}}"
+                                                                            class="thumb">
+                                                                            <img src="{{ asset('storage/' . $newS->img_view) }}"
+                                                                                alt="" style="object-fit: contain;" />
+                                                                        </a>
+                                                                        <div class="post--info"
+                                                                            style="width: 60%;padding-right: 5px;">
+                                                                            <ul class="nav meta">
+                                                                                <li>
+                                                                                    <a href="{{ route('site.news', ['c' => $newS->category_id]) }}"
+                                                                                        style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                        {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="title">
+                                                                                <h3 class="h4">
+                                                                                    <a href="{{ route('site.new', $newS->id)}}"
+                                                                                        title="{{ $newS->$title }}"
+                                                                                        class="btn-link">
+                                                                                        {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                    </a>
+                                                                                </h3>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12  text-center">
-                                            <a href="{{route('site.news')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}} <i class="fa flm fa-angle-double-left"></i></a>
+                                            <a href="{{route('site.news')}}"
+                                                class="btn-link btn-link--secondary-more">{{__('site.More')}} <i
+                                                    class="fa flm fa-angle-double-left"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +263,8 @@
                                         @endphp
                                         <a href="{{ $episodeUrl }}" class="podcast-item">
                                             <div class="podcast-content">
-                                                <h3>{{ Illuminate\Support\Str::words($episode->$title ?? '', 7, '..') }}</h3>
+                                                <h3>{{ Illuminate\Support\Str::words($episode->$title ?? '', 7, '..') }}
+                                                </h3>
                                                 <div class="podcast-date">{{ $episodeDate }}</div>
                                             </div>
                                             <div class="podcast-thumb">
@@ -272,7 +301,9 @@
                                         @endif
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                                <img src="{{ asset('storage/' . $ad->image) }}"
+                                                    style="height: 100%; width: -webkit-fill-available; "
+                                                    alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
@@ -289,13 +320,14 @@
                                 <div class="col-md-12 float-left"
                                     style="padding: 28px 0 0; margin: 5px 0 20px; border-bottom: 1px solid #670005;">
                                     <div class="list--widget list--widget-1">
-                                        <div class="list--widget-nav list--widget-nav-2" style="padding: 7px 2px 15px;" data-ajax="tab">
+                                        <div class="list--widget-nav list--widget-nav-2" style="padding: 7px 2px 15px;"
+                                            data-ajax="tab">
                                             <ul class="nav nav-justified flex space-x-4">
                                                 <li>
                                                     <a href="#" id="nav-home-tab2" data-bs-toggle="tab"
                                                         class="py-2 px-4 text-lg text-gray-600 hover:text-blue-500 cursor-pointer"
-                                                        data-bs-target="#nav-home2" role="tab"
-                                                        aria-controls="nav-home2" aria-selected="true">
+                                                        data-bs-target="#nav-home2" role="tab" aria-controls="nav-home2"
+                                                        aria-selected="true">
                                                         {{-- أخبار عاجلة --}}
                                                         {{ __('site.Miscellaneous Articles') }}
                                                     </a>
@@ -326,71 +358,85 @@
                                                     aria-labelledby="nav-home-tab">
                                                     <!-- Content for أخبار عاجلة -->
                                                     @php
-                                                        $breaking_news = App\Models\Artical::where('place', 'war')->where('statu_id', 2)->orderby('id','desc')->get()->take(3);
+                                                        $breaking_news = App\Models\Artical::where('place', 'war')->where('statu_id', 2)->orderby('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($breaking_news as $newS)
-                                                        <li>
-                                                            <div class="post--item post--layout-3 post--side-2">
-                                                                <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.article', $newS->id)}}" class="thumb">
-                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
-                                                                    </a>
-                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
-                                                                        <ul class="nav meta">
-                                                                            <li>
-                                                                                <a href="{{ route('site.articles',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
-                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="title">
-                                                                            <h3 class="h4">
-                                                                                <a href="{{ route('site.article', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
-                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
-                                                                                </a>
-                                                                            </h3>
+                                                            <li>
+                                                                <div class="post--item post--layout-3 post--side-2">
+                                                                    <div class="post--img"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('site.article', $newS->id)}}"
+                                                                            class="thumb">
+                                                                            <img src="{{ asset('storage/' . $newS->img_view) }}"
+                                                                                alt="" style="object-fit: contain;" />
+                                                                        </a>
+                                                                        <div class="post--info"
+                                                                            style="width: 60%;padding-right: 5px;">
+                                                                            <ul class="nav meta">
+                                                                                <li>
+                                                                                    <a href="{{ route('site.articles', ['c' => $newS->category_id]) }}"
+                                                                                        style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                        {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="title">
+                                                                                <h3 class="h4">
+                                                                                    <a href="{{ route('site.article', $newS->id)}}"
+                                                                                        title="{{ $newS->$title }}"
+                                                                                        class="btn-link">
+                                                                                        {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                    </a>
+                                                                                </h3>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
-                                                <div class="tab-pane show active" id="nav-profile2"
-                                                    role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <div class="tab-pane show active" id="nav-profile2" role="tabpanel"
+                                                    aria-labelledby="nav-profile-tab">
                                                     <!-- Content for أحدث الأخبار -->
                                                     @php
-                                                        $latest_news = App\Models\Artical::where('statu_id', 2)->orderby('id','desc')->get()->take(3);
+                                                        $latest_news = App\Models\Artical::where('statu_id', 2)->orderby('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($latest_news as $newS)
-                                                        <li>
-                                                            <div class="post--item post--layout-3 post--side-2">
-                                                                <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.article', $newS->id)}}" class="thumb">
-                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
-                                                                    </a>
-                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
-                                                                        <ul class="nav meta">
-                                                                            <li>
-                                                                                <a href="{{ route('site.articles',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
-                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="title">
-                                                                            <h3 class="h4">
-                                                                                <a href="{{ route('site.article', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
-                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
-                                                                                </a>
-                                                                            </h3>
+                                                            <li>
+                                                                <div class="post--item post--layout-3 post--side-2">
+                                                                    <div class="post--img"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('site.article', $newS->id)}}"
+                                                                            class="thumb">
+                                                                            <img src="{{ asset('storage/' . $newS->img_view) }}"
+                                                                                alt="" style="object-fit: contain;" />
+                                                                        </a>
+                                                                        <div class="post--info"
+                                                                            style="width: 60%;padding-right: 5px;">
+                                                                            <ul class="nav meta">
+                                                                                <li>
+                                                                                    <a href="{{ route('site.articles', ['c' => $newS->category_id]) }}"
+                                                                                        style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                        {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="title">
+                                                                                <h3 class="h4">
+                                                                                    <a href="{{ route('site.article', $newS->id)}}"
+                                                                                        title="{{ $newS->$title }}"
+                                                                                        class="btn-link">
+                                                                                        {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                    </a>
+                                                                                </h3>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -398,42 +444,51 @@
                                                     aria-labelledby="nav-contact-tab">
                                                     <!-- Content for الأكثر مشاهدة -->
                                                     @php
-                                                        $most_viewed = App\Models\Artical::where('statu_id', 2)->orderBy('visit', 'asc')->orderby('id','desc')->get()->take(3);
+                                                        $most_viewed = App\Models\Artical::where('statu_id', 2)->orderBy('visit', 'asc')->orderby('id', 'desc')->get()->take(3);
                                                     @endphp
                                                     <ul class="nav" data-ajax-content="inner" id="nav_sider">
                                                         @foreach ($most_viewed as $newS)
-                                                        <li>
-                                                            <div class="post--item post--layout-3 post--side-2">
-                                                                <div class="post--img" style="display: flex; align-items: center;">
-                                                                    <a href="{{ route('site.article', $newS->id)}}" class="thumb">
-                                                                        <img src="{{ asset('storage/' . $newS->img_view) }}" alt="" style="object-fit: contain;" />
-                                                                    </a>
-                                                                    <div class="post--info" style="width: 60%;padding-right: 5px;">
-                                                                        <ul class="nav meta">
-                                                                            <li>
-                                                                                <a href="{{ route('site.articles',['c' => $newS->category_id]) }}" style="background-color: #454545; border-radius: 7px; color: #fff;">
-                                                                                    {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                        <div class="title">
-                                                                            <h3 class="h4">
-                                                                                <a href="{{ route('site.article', $newS->id)}}" title="{{ $newS->$title }}" class="btn-link">
-                                                                                    {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
-                                                                                </a>
-                                                                            </h3>
+                                                            <li>
+                                                                <div class="post--item post--layout-3 post--side-2">
+                                                                    <div class="post--img"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('site.article', $newS->id)}}"
+                                                                            class="thumb">
+                                                                            <img src="{{ asset('storage/' . $newS->img_view) }}"
+                                                                                alt="" style="object-fit: contain;" />
+                                                                        </a>
+                                                                        <div class="post--info"
+                                                                            style="width: 60%;padding-right: 5px;">
+                                                                            <ul class="nav meta">
+                                                                                <li>
+                                                                                    <a href="{{ route('site.articles', ['c' => $newS->category_id]) }}"
+                                                                                        style="background-color: #454545; border-radius: 7px; color: #fff;">
+                                                                                        {{ Illuminate\Support\Str::words($newS->category ? $newS->category->$name : '', 2, '..') }}
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="title">
+                                                                                <h3 class="h4">
+                                                                                    <a href="{{ route('site.article', $newS->id)}}"
+                                                                                        title="{{ $newS->$title }}"
+                                                                                        class="btn-link">
+                                                                                        {{ Illuminate\Support\Str::words($newS->$title, 5, '..') }}
+                                                                                    </a>
+                                                                                </h3>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 text-center">
-                                            <a href="{{route('site.articles')}}" class="btn-link btn-link--secondary-more">{{__('site.More')}} <i class="fa flm fa-angle-double-left"></i></a>
+                                            <a href="{{route('site.articles')}}"
+                                                class="btn-link btn-link--secondary-more">{{__('site.More')}} <i
+                                                    class="fa flm fa-angle-double-left"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -465,7 +520,9 @@
                                         @endif
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                                <img src="{{ asset('storage/' . $ad->image) }}"
+                                                    style="height: 100%; width: -webkit-fill-available; "
+                                                    alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
@@ -485,47 +542,51 @@
             </div>
             <div class="col-xs-12 col-md-6">
                 @if($sliders->count() > 0)
-                <div class="main--content sleder-lab">
-                    <div class="post--items pd--30-0">
-                        <div class="row gutter--15">
-                            <!--slider-->
-                            <div class="col-md-12">
-                                <div class="post--item post--layout-1 post--title-larger">
-                                    <div id="myCarouselDesktop" class="carousel slide" data-ride="carousel">
-                                        <!-- Indicators -->
-                                        <ol class="carousel-indicators">
-                                            @for ($i = 0; $i < $sliders->count(); $i++)
-                                                <li data-target="#myCarouselDesktop" data-slide-to="{{ $i }}" class="{{ $i == 0 ? 'active' : '' }}"></li>
-                                            @endfor
-                                        </ol>
-                                        <!-- Wrapper for slides -->
-                                        <div class="carousel-inner" style="    background-color: #67000500;     color: white;">
-                                            @foreach ($sliders as $index => $slider)
-                                                <div class="item {{ $index == 0 ? 'active' : '' }}">
-                                                    <a href="{{ route('site.new', $slider->id) }}">
-                                                        <img src="{{ asset('storage/' . $slider->img_view) }}" alt="{{ $slider->$title }}" class="slider_img">
-                                                    </a>
-                                                    <div style=" margin: 0%;height: 70px; margin-top: -76px;">
-                                                        <h4 style="   direction: rtl;" class="h4-slider">{{ $slider->$title }}</h4>
+                    <div class="main--content sleder-lab">
+                        <div class="post--items pd--30-0">
+                            <div class="row gutter--15">
+                                <!--slider-->
+                                <div class="col-md-12">
+                                    <div class="post--item post--layout-1 post--title-larger">
+                                        <div id="myCarouselDesktop" class="carousel slide" data-ride="carousel">
+                                            <!-- Indicators -->
+                                            <ol class="carousel-indicators">
+                                                @for ($i = 0; $i < $sliders->count(); $i++)
+                                                    <li data-target="#myCarouselDesktop" data-slide-to="{{ $i }}"
+                                                        class="{{ $i == 0 ? 'active' : '' }}"></li>
+                                                @endfor
+                                            </ol>
+                                            <!-- Wrapper for slides -->
+                                            <div class="carousel-inner"
+                                                style="    background-color: #67000500;     color: white;">
+                                                @foreach ($sliders as $index => $slider)
+                                                    <div class="item {{ $index == 0 ? 'active' : '' }}">
+                                                        <a href="{{ route('site.new', $slider->id) }}">
+                                                            <img src="{{ asset('storage/' . $slider->img_view) }}"
+                                                                alt="{{ $slider->$title }}" class="slider_img">
+                                                        </a>
+                                                        <div style=" margin: 0%;height: 70px; margin-top: -76px;">
+                                                            <h4 style="   direction: rtl;" class="h4-slider">
+                                                                {{ $slider->$title }}</h4>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
+                                            <!-- Left and right controls -->
+                                            <a class="left carousel-control" href="#myCarouselDesktop" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#myCarouselDesktop" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
                                         </div>
-                                        <!-- Left and right controls -->
-                                        <a class="left carousel-control" href="#myCarouselDesktop" data-slide="prev">
-                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="right carousel-control" href="#myCarouselDesktop" data-slide="next">
-                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endif
                 <!-- Home Videos Section - في الأخير -->
                 <section>
@@ -539,16 +600,19 @@
                     <div class="home-videos-section">
                         <div class="home-videos-section__featured">
                             @if ($featuredHomeVideo)
-                                <a href="{{ route('site.video.show', $featuredHomeVideo->slug) }}" class="video-card video-card--large">
+                                <a href="{{ route('site.video.show', $featuredHomeVideo->slug) }}"
+                                    class="video-card video-card--large">
                                     <div class="video-card__media">
                                         <img src="{{ $featuredHomeVideo->img_view ? asset('storage/' . $featuredHomeVideo->img_view) : asset('assets/in-img/1.png') }}"
-                                            alt="{{ $featuredHomeVideo->$title }}"
-                                            class="video-card__image">
-                                        <span class="video-card__category">{{ $featuredHomeVideo->category?->$name ?? '' }}</span>
+                                            alt="{{ $featuredHomeVideo->$title }}" class="video-card__image">
+                                        <span
+                                            class="video-card__category">{{ $featuredHomeVideo->category?->$name ?? '' }}</span>
                                         <div class="video-card__play"></div>
                                     </div>
                                     <div class="video-card__content">
-                                        <h3 class="video-card__title">{{ Illuminate\Support\Str::words($featuredHomeVideo->$title ?? '', 10, '..') }}</h3>
+                                        <h3 class="video-card__title">
+                                            {{ Illuminate\Support\Str::words($featuredHomeVideo->$title ?? '', 10, '..') }}
+                                        </h3>
                                     </div>
                                 </a>
                             @endif
@@ -566,17 +630,22 @@
                                                     : optional($video->created_at)->translatedFormat(app()->getLocale() == 'ar' ? 'd F / Y' : 'M d, Y');
                                             @endphp
                                             <div class="slide">
-                                                <a href="{{ route('site.video.show', $video->slug) }}" class="home-videos-section__card">
+                                                <a href="{{ route('site.video.show', $video->slug) }}"
+                                                    class="home-videos-section__card">
                                                     <div class="home-videos-section__card-media">
                                                         <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/2.png') }}"
                                                             alt="{{ $video->$title }}"
                                                             class="home-videos-section__card-img">
                                                         <div class="home-videos-section__card-play"></div>
-                                                        <span class="home-videos-section__card-time">{{ $video->time ?? '00:00' }}</span>
+                                                        <span
+                                                            class="home-videos-section__card-time">{{ $video->time ?? '00:00' }}</span>
                                                     </div>
                                                     <div class="home-videos-section__card-content">
-                                                        <span class="home-videos-section__card-category">{{ $video->category?->$name ?? '' }}</span>
-                                                        <h3 class="home-videos-section__card-title">{{ Illuminate\Support\Str::words($video->$title ?? '', 6, '..') }}</h3>
+                                                        <span
+                                                            class="home-videos-section__card-category">{{ $video->category?->$name ?? '' }}</span>
+                                                        <h3 class="home-videos-section__card-title">
+                                                            {{ Illuminate\Support\Str::words($video->$title ?? '', 6, '..') }}
+                                                        </h3>
                                                         <span class="home-videos-section__card-date">{{ $videoDate }}</span>
                                                     </div>
                                                 </a>
@@ -598,12 +667,14 @@
                             <div class="row">
                                 <div class="col-md-12 ptop--30">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
+                                        <a class="h2" style="direction: rtl; color: #670005;"
+                                            href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
                                             {{ $categoryOne->$name }}
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
+                                <div class="row gutter--15" data-ajax-content="inner"
+                                    style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
                                     @foreach($articlesOne->take(7) as $article)
                                         @if($loop->first)
                                             {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
@@ -611,7 +682,9 @@
                                                 <div class="post--item post--layout-1">
                                                     <div class="post--img mrg-top-m-34">
                                                         <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
-                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}"
+                                                                alt="{{ $article->$title }}" style="object-fit: cover;"
+                                                                class="imgss">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
@@ -619,7 +692,8 @@
                                                             </ul>
                                                             <div class="title">
                                                                 <h3 class="text h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}"
+                                                                        class="btn-link text">
                                                                         {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
                                                                     </a>
                                                                 </h3>
@@ -640,7 +714,8 @@
 
                                                         <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
-                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}"
+                                                                alt="{{ $article->$title }}" class="home-sml-img">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
@@ -648,7 +723,8 @@
                                                             </ul>
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}"
+                                                                        class="btn-link text">
                                                                         {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
                                                                     </a>
                                                                 </h3>
@@ -661,7 +737,9 @@
                                     @endforeach
                                 </div>
                                 <div class="col-md-12">
-                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}"
+                                        class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i
+                                            class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
@@ -669,7 +747,7 @@
                                 <div class="post--items-title" style="padding: 0;" data-ajax="tab">
                                     @php
                                         $ads5 = App\Models\Ad::where('ad_place_id', '1')->orderBy('id', 'desc')->first();
-                                        if($ads5){
+                                        if ($ads5) {
                                             $now = Carbon\Carbon::now();
                                             $startDate = Carbon\Carbon::parse($ads5->date);
                                             $endDate = Carbon\Carbon::parse($ads5->end_date);
@@ -681,27 +759,29 @@
                                         }
                                     @endphp
                                     @if($ads5 && $ads5->status == 'active')
-                                    <a href="{{ $ads5->url }}" title="{{ $ads5->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
-                                            style="border: 1px solid gold;width: 100%;height:100px;">
-                                    </a>
+                                        <a href="{{ $ads5->url }}" title="{{ $ads5->title }}" target="_blank">
+                                            <img src="{{ asset('storage/' . $ads5->image) }}" alt="No Image For Ad"
+                                                style="border: 1px solid gold;width: 100%;height:100px;">
+                                        </a>
                                     @else
-                                    <h2 class="h4" style="direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i>
-                                        <span>{{__('admin.Ad')}}</span>
-                                    </h2>
+                                        <h2 class="h4" style="direction: rtl;">
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            <span>{{__('admin.Ad')}}</span>
+                                        </h2>
                                     @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 ptop--30">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
+                                        <a class="h2" style="direction: rtl; color: #670005;"
+                                            href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
                                             {{ $categoryTwo->$name }}
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
+                                <div class="row gutter--15" data-ajax-content="inner"
+                                    style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
                                     @foreach($articlesTwo->take(7) as $article)
                                         @if($loop->first)
                                             {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
@@ -711,7 +791,9 @@
 
                                                         <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
-                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}"
+                                                                alt="{{ $article->$title }}" style="object-fit: cover;"
+                                                                class="imgss">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
@@ -719,7 +801,8 @@
                                                             </ul>
                                                             <div class="title">
                                                                 <h3 class="text h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}"
+                                                                        class="btn-link text">
                                                                         {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
                                                                     </a>
 
@@ -741,7 +824,8 @@
 
                                                         <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
-                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}"
+                                                                alt="{{ $article->$title }}" class="home-sml-img">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
@@ -750,7 +834,8 @@
 
                                                             <div class="title" style="height: auto;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}"
+                                                                        class="btn-link text">
                                                                         {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
                                                                     </a>
 
@@ -765,7 +850,9 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}"
+                                        class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i
+                                            class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
                             <!-- مساحة اعلانية  -->
@@ -773,7 +860,7 @@
                                 <div class="post--items-title" style="padding: 0; margin: 20px 0;" data-ajax="tab">
                                     @php
                                         $ads6 = App\Models\Ad::where('ad_place_id', 2)->orderBy('id', 'desc')->first();
-                                        if($ads6){
+                                        if ($ads6) {
                                             $now = Carbon\Carbon::now();
                                             $startDate = Carbon\Carbon::parse($ads6->date);
                                             $endDate = Carbon\Carbon::parse($ads6->end_date);
@@ -786,28 +873,30 @@
                                         }
                                     @endphp
                                     @if($ads6 && $ads6->status == 'active')
-                                    <a href="{{ $ads6->url }}" title="{{ $ads6->title }}" target="_blank">
-                                        <img src="{{ asset('storage/' . $ads6->image) }}" alt="No Image For Ad"
-                                            style="border: 1px solid gold;width: 100%;height:100px;">
-                                    </a>
+                                        <a href="{{ $ads6->url }}" title="{{ $ads6->title }}" target="_blank">
+                                            <img src="{{ asset('storage/' . $ads6->image) }}" alt="No Image For Ad"
+                                                style="border: 1px solid gold;width: 100%;height:100px;">
+                                        </a>
                                     @else
-                                    <h2 class="h4" style="direction: rtl;">
-                                        <i class="icon fa fa-bullhorn"></i>
-                                        <span>{{__('admin.Ad')}}</span>
-                                    </h2>
+                                        <h2 class="h4" style="direction: rtl;">
+                                            <i class="icon fa fa-bullhorn"></i>
+                                            <span>{{__('admin.Ad')}}</span>
+                                        </h2>
                                     @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 ptop--30">
                                     <div class="post--items-title" data-ajax="tab">
-                                        <a class="h2" style="direction: rtl; color: #670005;" href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
+                                        <a class="h2" style="direction: rtl; color: #670005;"
+                                            href="{{ route('site.articles', ['c' => $categoryOne->id]) }}">
                                             {{ $categoryThree->$name }}
                                         </a>
                                     </div>
                                 </div>
 
-                                <div class="row gutter--15" data-ajax-content="inner" style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
+                                <div class="row gutter--15" data-ajax-content="inner"
+                                    style="display: flex; flex-wrap: wrap;flex-direction: row-reverse; padding: 0 14px;">
                                     @foreach($articlesThree->take(7) as $article)
                                         @if($loop->first)
                                             {{-- أول عنصر (يأخذ نصف العرض أو أكثر) --}}
@@ -817,7 +906,9 @@
 
                                                         <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
-                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" style="object-fit: cover;" class="imgss">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}"
+                                                                alt="{{ $article->$title }}" style="object-fit: cover;"
+                                                                class="imgss">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
@@ -825,7 +916,8 @@
                                                             </ul>
                                                             <div class="title">
                                                                 <h3 class="text h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}"
+                                                                        class="btn-link text">
                                                                         {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
                                                                     </a>
                                                                 </h3>
@@ -846,7 +938,8 @@
 
                                                         <a href="{{ route('site.article', $article->id ?? 0) }}" class="thumb">
 
-                                                            <img src="{{ asset('storage/' . $article->img_view) }}" alt="{{ $article->$title }}" class="home-sml-img">
+                                                            <img src="{{ asset('storage/' . $article->img_view) }}"
+                                                                alt="{{ $article->$title }}" class="home-sml-img">
                                                         </a>
                                                         <div class="post--info">
                                                             <ul class="nav meta">
@@ -855,7 +948,8 @@
 
                                                             <div class="title" style="height: a;margin-bottom: 7px;">
                                                                 <h3 class="h4">
-                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}" class="btn-link text">
+                                                                    <a href="{{ route('site.article', $article->id ?? 0) }}"
+                                                                        class="btn-link text">
                                                                         {{ Illuminate\Support\Str::words($article->$title, 6, '…') }}
                                                                     </a>
 
@@ -870,13 +964,18 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}" class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i class="fa flm fa-angle-double-left"></i></a>
+                                    <a href="{{ route('site.articles', ['c' => $categoryOne->id]) }}"
+                                        class="btn-link pull-left btn-link--secondary-more">{{ __('site.More') }} <i
+                                            class="fa flm fa-angle-double-left"></i></a>
                                 </div>
                             </div>
-                            {{-- <div class="row" style="display: flex;justify-content: space-between;align-items: center;flex-direction: row-reverse;">
-                                <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
+                            {{-- <div class="row"
+                                style="display: flex;justify-content: space-between;align-items: center;flex-direction: row-reverse;">
+                                <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 "
+                                    style=" background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
                                     <div class="row">
-                                        <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/rr37.png') }}); background-repeat: no-repeat;">
+                                        <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3"
+                                            style="background-image: url({{ asset('assets/img/rr37.png') }}); background-repeat: no-repeat;">
                                             <h5><a href="{{ route('site.news') }}" style="color: #fff;">&nbsp; </a></h5>
                                         </div>
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9">
@@ -888,7 +987,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 " style="  background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
+                                <div class="col-md-4 col-xs-6 col-sm-5  col-lg-4 "
+                                    style="  background-color: #670005; border: 1px solid #670005; border-radius: 19px;margin-bottom: 10px;">
                                     <div class="row">
 
                                         <div class="col-md-9 col-xs-9 col-sm-9  col-lg-9" style="">
@@ -898,8 +998,10 @@
                                                 </a>
                                             </h5>
                                         </div>
-                                        <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3" style="background-image: url({{ asset('assets/img/l37.png') }}); background-repeat: no-repeat;background-position-x: right;">
-                                            <h5><a href="{{ route('site.articles') }}" style="color: #fff;">&nbsp;</a></h5>
+                                        <div class="col-md-3 col-xs-3 col-sm-3  col-lg-3"
+                                            style="background-image: url({{ asset('assets/img/l37.png') }}); background-repeat: no-repeat;background-position-x: right;">
+                                            <h5><a href="{{ route('site.articles') }}" style="color: #fff;">&nbsp;</a>
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -938,7 +1040,9 @@
 
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                                <img src="{{ asset('storage/' . $ad->image) }}"
+                                                    style="height: 100%; width: -webkit-fill-available; "
+                                                    alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
@@ -970,7 +1074,9 @@
                                         </div>
                                         <div class="">
                                             <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
+                                                <img src="{{ asset('storage/' . $ad->image) }}"
+                                                    style="height: 100%; width: -webkit-fill-available; "
+                                                    alt="{{ $ad->title }}">
                                             </a>
                                         </div>
                                     </div>
@@ -1060,7 +1166,12 @@
                                         <i class="icon fa fa-cloud"></i>
                                     </div>
                                     <div class="">
-                                        <a class="weatherwidget-io" href="https://forecast7.com/ar/31d9535d23/palestine/" data-label_1="PALESTINE" data-label_2="WEATHER" data-font='AlarabyTelevision' data-icons="Climacons Animated" data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000" data-suncolor="#a74a4a" >PALESTINE WEATHER</a>
+                                        <a class="weatherwidget-io"
+                                            href="https://forecast7.com/ar/31d9535d23/palestine/"
+                                            data-label_1="PALESTINE" data-label_2="WEATHER"
+                                            data-font='AlarabyTelevision' data-icons="Climacons Animated"
+                                            data-theme="pure" data-basecolor="#f8f8f8" data-textcolor="#000000"
+                                            data-suncolor="#a74a4a">PALESTINE WEATHER</a>
                                         <script>
 
                                         </script>
@@ -1076,38 +1187,42 @@
                                     </div>
                                     <div>
                                         <!-- TradingView Widget BEGIN -->
-                                        <div class="tradingview-widget-container" style="border:1px solid #670005; padding: 10px; border-radius: 5px;">
+                                        <div class="tradingview-widget-container"
+                                            style="border:1px solid #670005; padding: 10px; border-radius: 5px;">
                                             <div class="tradingview-widget-container__widget"></div>
-                                            <div class="tradingview-widget-copyright" style="text-align: center; margin-top: 5px;">
-                                                <a href="https://ar.tradingview.com/" rel="noopener nofollow" target="_blank">
+                                            <div class="tradingview-widget-copyright"
+                                                style="text-align: center; margin-top: 5px;">
+                                                <a href="https://ar.tradingview.com/" rel="noopener nofollow"
+                                                    target="_blank">
                                                     <span class="blue-text">تتبع جميع الأسواق على TradingView</span>
                                                 </a>
                                             </div>
-                                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-                                            {
-                                              "width": "100%",
-                                              "height": 195,
-                                              "currencies": [
-                                                "EUR",
-                                                "USD",
-                                                "JPY",
-                                                "GBP",
-                                                "AUD",
-                                                "TRY",
-                                                "SEK",
-                                                "ILS"
-                                              ],
-                                              "isTransparent": false,
-                                              "colorTheme": "light",
-                                              "locale": "ar_AE",
-                                              "backgroundColor": "#ffffff"
-                                            }
-                                            </script>
+                                            <script type="text/javascript"
+                                                src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js"
+                                                async>
+                                                    {
+                                                        "width": "100%",
+                                                            "height": 195,
+                                                                "currencies": [
+                                                                    "EUR",
+                                                                    "USD",
+                                                                    "JPY",
+                                                                    "GBP",
+                                                                    "AUD",
+                                                                    "TRY",
+                                                                    "SEK",
+                                                                    "ILS"
+                                                                ],
+                                                                    "isTransparent": false,
+                                                                        "colorTheme": "light",
+                                                                            "locale": "ar_AE",
+                                                                                "backgroundColor": "#ffffff"
+                                                    }
+                                                </script>
                                         </div>
                                         <!-- TradingView Widget END -->
                                     </div>
-                                </div
-                                @php
+                                </div @php
                                     $ads = App\Models\Ad::where('ad_place_id', 6)->get();
                                     foreach ($ads as $ad) {
                                         $now = Carbon\Carbon::now();
@@ -1121,30 +1236,123 @@
                                         }
                                     }
                                 @endphp
-                                @forelse ($ads->where('status', 'active') as $index => $ad)
-                                    <div class="widget">
-                                        <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
-                                        </div>
+                                    @forelse ($ads->where('status', 'active') as $index => $ad) <div class="widget">
+                                            <div class="widget--title" style="display: {{ $index == 0 ? 'none' : 'block' }}">
+                                            </div>
 
-                                        <div class="">
-                                            <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
-                                                <img src="{{ asset('storage/' . $ad->image) }}" style="height: 100%; width: -webkit-fill-available; " alt="{{ $ad->title }}">
-                                            </a>
+                                            <div class="">
+                                                <a href="{{ $ad->url }}" title="{{ $ad->title }}" target="_blank">
+                                                    <img src="{{ asset('storage/' . $ad->image) }}"
+                                                        style="height: 100%; width: -webkit-fill-available; "
+                                                        alt="{{ $ad->title }}">
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                @empty
-                                    <div class="widget">
-                                        <h2 class="h4" style="    direction: rtl;">
-                                            <i class="icon fa fa-bullhorn"></i>
-                                            {{__('admin.Ad')}}
-                                        </h2>
-                                    </div>
-                                @endforelse
-                            </div>
+                                    @empty
+                                <div class="widget">
+                                    <h2 class="h4" style="    direction: rtl;">
+                                        <i class="icon fa fa-bullhorn"></i>
+                                        {{__('admin.Ad')}}
+                                    </h2>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
+    @push('scripts')
+        <script>
+            jQuery(function ($) {
+                $('.category-slider').each(function () {
+                    var $slider = $(this);
+                    var $track = $slider.find('.category-slider__track');
+                    var $slides = $slider.find('.slide');
+                    var $nextBtn = $slider.find('.slider-btn--next');
+                    var $prevBtn = $slider.find('.slider-btn--prev');
+                    var $dotsContainer = $slider.find('.slider-dots');
+                    var isRTL = getComputedStyle($slider[0]).direction === 'rtl';
+                    var index = 0;
+
+                    function getVisibleSlides() {
+                        if (window.innerWidth <= 600) return 1;
+                        if (window.innerWidth <= 992) return 2;
+                        return 3;
+                    }
+
+                    function updateSlider() {
+                        var slideWidth = $slides.eq(0).outerWidth();
+                        var gap = parseFloat(getComputedStyle($track[0]).gap) || 10;
+                        if (!slideWidth) return;
+                        var moveValue = index * (slideWidth + gap);
+                        $track.css('transform', isRTL ? 'translateX(' + moveValue + 'px)' : 'translateX(-' + moveValue + 'px)');
+                        updateDots();
+                    }
+
+                    function createDots() {
+                        $dotsContainer.empty();
+                        var visible = getVisibleSlides();
+                        var pages = Math.ceil($slides.length / visible);
+                        for (var i = 0; i < pages; i++) {
+                            (function (pageIdx) {
+                                var $dot = $('<button type="button">');
+                                if (pageIdx === 0) $dot.addClass('active');
+                                $dot.on('click', function () {
+                                    index = pageIdx * getVisibleSlides();
+                                    updateSlider();
+                                });
+                                $dotsContainer.append($dot);
+                            })(i);
+                        }
+                    }
+
+                    function updateDots() {
+                        var visible = getVisibleSlides();
+                        var currentPage = Math.floor(index / visible);
+                        $dotsContainer.find('button').removeClass('active').eq(currentPage).addClass('active');
+                    }
+
+                    $nextBtn.on('click', function () {
+                        var visible = getVisibleSlides();
+                        if (isRTL) {
+                            if (index - visible >= 0) {
+                                index -= visible;
+                            }
+                        } else {
+                            if (index + visible < $slides.length) {
+                                index += visible;
+                            }
+                        }
+                        updateSlider();
+                    });
+
+                    $prevBtn.on('click', function () {
+                        var visible = getVisibleSlides();
+                        if (isRTL) {
+                            if (index + visible < $slides.length) {
+                                index += visible;
+                            }
+                        } else {
+                            if (index - visible >= 0) {
+                                index -= visible;
+                            }
+                        }
+                        updateSlider();
+                    });
+
+                    $(window).on('resize', function () {
+                        index = 0;
+                        createDots();
+                        updateSlider();
+                    });
+
+                    createDots();
+                    updateSlider();
+                });
+            });
+        </script>
+    @endpush
 </x-site-layout>
