@@ -63,7 +63,6 @@ Route::group([
         Route::get('publisher/{id}/profile', [PublisherHomeController::class, 'publisher'])->name('publisher');
 
         Route::get('podcasts', [MainController::class, 'podcasts'])->name('podcasts');
-        Route::get('podcast/{slug}', [MainController::class, 'podcast'])->name('podcast.show');
         Route::get('videos', [MainController::class, 'videos'])->name('videos');
         Route::get('video/{slug}', [MainController::class, 'video'])->name('video.show');
     });
