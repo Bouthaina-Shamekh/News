@@ -4,6 +4,7 @@
         $name = 'name_' . app()->getLocale();
     @endphp
     @push('styles')
+        <link rel="stylesheet" href="{{ asset('assets-new/css/home-media-sections.css') }}">
         <style>
             .row:after, .row:before {
                 display: table;
@@ -217,6 +218,34 @@
                                     </div>
                                 </div>
                             </div>
+                            <section class="sidebar-podcast">
+                                <h2 class="podcast-title">
+                                    <span>{{ __('site.home_podcasts_title') }}</span>
+                                </h2>
+                                <div class="podcast-wrapper">
+                                    @foreach (($homePodcastEpisodes ?? collect())->take(6) as $episode)
+                                        @php
+                                            $episodePodcastSlug = $episode->podcast?->slug ?? $episode->podcast_id;
+                                            $episodeUrl = $episodePodcastSlug
+                                                ? route('site.podcast.show', $episodePodcastSlug) . '?episode=' . $episode->id . '&autoplay=1'
+                                                : route('site.podcasts');
+                                            $episodeDate = $episode->date
+                                                ? Carbon\Carbon::parse($episode->date)->translatedFormat(app()->getLocale() == 'ar' ? 'd F Y' : 'M d, Y')
+                                                : optional($episode->created_at)->translatedFormat(app()->getLocale() == 'ar' ? 'd F Y' : 'M d, Y');
+                                        @endphp
+                                        <a href="{{ $episodeUrl }}" class="podcast-item">
+                                            <div class="podcast-content">
+                                                <h3>{{ Illuminate\Support\Str::words($episode->$title ?? '', 7, '..') }}</h3>
+                                                <div class="podcast-date">{{ $episodeDate }}</div>
+                                            </div>
+                                            <div class="podcast-thumb">
+                                                <div class="play-icon">▶</div>
+                                                <span class="duration">{{ $episode->time ?? '--:--' }}</span>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </section>
 
                             {{-- sidebar ads 1 --}}
                             <div class="sticky-content-inner">
@@ -498,6 +527,70 @@
                     </div>
                 </div>
                 @endif
+                <!-- Home Videos Section - في الأخير -->
+                <section>
+                    @php
+                        $featuredHomeVideo = $homeFeaturedVideo ?? null;
+                        $homeVideoItems = ($homeVideos ?? collect())->values();
+                    @endphp
+                    <div class="home-videos-section__header">
+                        <h2 class="home-videos-section__header-title">{{ __('site.home_videos_title') }}</h2>
+                    </div>
+                    <div class="home-videos-section">
+                        <div class="home-videos-section__featured">
+                            @if ($featuredHomeVideo)
+                                <a href="{{ route('site.video.show', $featuredHomeVideo->slug) }}" class="video-card video-card--large">
+                                    <div class="video-card__media">
+                                        <img src="{{ $featuredHomeVideo->img_view ? asset('storage/' . $featuredHomeVideo->img_view) : asset('assets/in-img/1.png') }}"
+                                            alt="{{ $featuredHomeVideo->$title }}"
+                                            class="video-card__image">
+                                        <span class="video-card__category">{{ $featuredHomeVideo->category?->$name ?? '' }}</span>
+                                        <div class="video-card__play"></div>
+                                    </div>
+                                    <div class="video-card__content">
+                                        <h3 class="video-card__title">{{ Illuminate\Support\Str::words($featuredHomeVideo->$title ?? '', 10, '..') }}</h3>
+                                    </div>
+                                </a>
+                            @endif
+                        </div>
+                        <div class="home-videos-section__carousel category-slider">
+                            <div class="category-slider__wrapper">
+                                <button class="slider-btn slider-btn--prev" type="button"
+                                    aria-label="السابق">&#10095;</button>
+                                <div class="category-slider__viewport">
+                                    <div class="category-slider__track">
+                                        @foreach ($homeVideoItems as $video)
+                                            @php
+                                                $videoDate = $video->date
+                                                    ? Carbon\Carbon::parse($video->date)->translatedFormat(app()->getLocale() == 'ar' ? 'd F / Y' : 'M d, Y')
+                                                    : optional($video->created_at)->translatedFormat(app()->getLocale() == 'ar' ? 'd F / Y' : 'M d, Y');
+                                            @endphp
+                                            <div class="slide">
+                                                <a href="{{ route('site.video.show', $video->slug) }}" class="home-videos-section__card">
+                                                    <div class="home-videos-section__card-media">
+                                                        <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/2.png') }}"
+                                                            alt="{{ $video->$title }}"
+                                                            class="home-videos-section__card-img">
+                                                        <div class="home-videos-section__card-play"></div>
+                                                        <span class="home-videos-section__card-time">{{ $video->time ?? '00:00' }}</span>
+                                                    </div>
+                                                    <div class="home-videos-section__card-content">
+                                                        <span class="home-videos-section__card-category">{{ $video->category?->$name ?? '' }}</span>
+                                                        <h3 class="home-videos-section__card-title">{{ Illuminate\Support\Str::words($video->$title ?? '', 6, '..') }}</h3>
+                                                        <span class="home-videos-section__card-date">{{ $videoDate }}</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <button class="slider-btn slider-btn--next" type="button"
+                                    aria-label="التالي">&#10094;</button>
+                            </div>
+                            <div class="slider-dots"></div>
+                        </div>
+                    </div>
+                </section>
                 <!-- main-->
                 <div class="row">
                     <div class="main--content col-md-12 col-sm-12" data-sticky-content="true" style="float: right;">
@@ -889,6 +982,75 @@
                                         </h2>
                                     </div>
                                 @endforelse
+                                <!-- Home Live Broadcast Section -->
+                                <section class="home-live-section">
+                                    <div class="section-header">
+                                        <h2 class="section-header-title">البث المباشر</h2>
+                                    </div>
+                                    <div class="home-live-section__main">
+                                        <a href="#" class="home-live-section__main-link">
+                                            <img src="../assets/in-img/1.png" alt="البث المباشر">
+                                        </a>
+                                    </div>
+                                    <div class="home-live-section__grid">
+                                        <a href="videos.html" class="home-live-section__grid-item">
+                                            <div class="thumb-wrap">
+                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
+                                                <div class="play-overlay">
+                                                    <svg viewBox="0 0 24 24">
+                                                        <polygon points="6,4 20,12 6,20" fill="white" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="item-body">
+                                                <div class="item-category">أخبار إسرائيل</div>
+                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
+                                            </div>
+                                        </a>
+                                        <a href="videos.html" class="home-live-section__grid-item">
+                                            <div class="thumb-wrap">
+                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
+                                                <div class="play-overlay">
+                                                    <svg viewBox="0 0 24 24">
+                                                        <polygon points="6,4 20,12 6,20" fill="white" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="item-body">
+                                                <div class="item-category">أخبار إسرائيل</div>
+                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
+                                            </div>
+                                        </a>
+                                        <a href="videos.html" class="home-live-section__grid-item">
+                                            <div class="thumb-wrap">
+                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
+                                                <div class="play-overlay">
+                                                    <svg viewBox="0 0 24 24">
+                                                        <polygon points="6,4 20,12 6,20" fill="white" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="item-body">
+                                                <div class="item-category">أخبار إسرائيل</div>
+                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
+                                            </div>
+                                        </a>
+                                        <a href="videos.html" class="home-live-section__grid-item">
+                                            <div class="thumb-wrap">
+                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
+                                                <div class="play-overlay">
+                                                    <svg viewBox="0 0 24 24">
+                                                        <polygon points="6,4 20,12 6,20" fill="white" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="item-body">
+                                                <div class="item-category">أخبار إسرائيل</div>
+                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </section>
                                 <div class="widget">
                                     <div class="widget--title">
                                         <h2 class="h4" style="    direction: rtl;">

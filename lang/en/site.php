@@ -6,9 +6,9 @@ return [
     'Meal Price' => 'Meal Price',
     'Offer' => 'Offer',
     'Favorite Meals' => 'Favorite Meals',
-    'Our List' =>'Our List',
+    'Our List' => 'Our List',
     'Menu' => 'Menu',
-    'ContactUs' =>'Contact Us',
+    'ContactUs' => 'Contact Us',
     'AboutUs' => 'About Us',
     'Terms Of Payment' => 'Terms Of Payment',
 
@@ -123,4 +123,6 @@ return [
     'before' => 'Before',
     'more' => 'More',
     'podcasts' => 'Podcasts',
+    'home_podcasts_title' => 'Podcasts',
+    'home_videos_title' => 'Videos',
 ];

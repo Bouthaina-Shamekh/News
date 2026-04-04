@@ -19,10 +19,8 @@ use App\Models\Video;
 use App\Models\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class MainController extends Controller
 {
@@ -30,6 +28,34 @@ class MainController extends Controller
     {
         $ads = Ad::orderBy('id', 'desc')->get();
         $sliders = Nw::active()->where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
+
+        $homeFeaturedVideo = Video::with('category')
+            ->whereNotNull('slug')
+            ->where('slug', '!=', '')
+            ->where('is_featured', true)
+            ->latest()
+            ->first();
+
+        if (! $homeFeaturedVideo) {
+            $homeFeaturedVideo = Video::with('category')
+                ->whereNotNull('slug')
+                ->where('slug', '!=', '')
+                ->latest()
+                ->first();
+        }
+
+        $homeVideos = Video::with('category')
+            ->whereNotNull('slug')
+            ->where('slug', '!=', '')
+            ->when($homeFeaturedVideo, fn ($q) => $q->where('id', '!=', $homeFeaturedVideo->id))
+            ->latest()
+            ->take(10)
+            ->get();
+
+        $homePodcastEpisodes = PodcastEpisode::with('podcast')
+            ->latest()
+            ->take(6)
+            ->get();
 
         // Categories
         $categoryOne = Category::find(6) ?? Category::first();
@@ -39,12 +65,26 @@ class MainController extends Controller
         $articlesOne = Artical::active()->where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
         $articlesTwo = Artical::active()->where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
         $articlesThree = Artical::active()->where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
-        return view('site.home', compact('ads', 'sliders', 'categoryOne', 'categoryTwo', 'categoryThree', 'articlesOne', 'articlesTwo', 'articlesThree'));
+
+        return view('site.home', compact(
+            'ads',
+            'sliders',
+            'categoryOne',
+            'categoryTwo',
+            'categoryThree',
+            'articlesOne',
+            'articlesTwo',
+            'articlesThree',
+            'homeFeaturedVideo',
+            'homeVideos',
+            'homePodcastEpisodes'
+        ));
     }
 
     public function about()
     {
         $abouts = About::first();
+
         return view('site.about', compact('abouts'));
     }
 
@@ -59,6 +99,7 @@ class MainController extends Controller
     {
         // $abouts = About::first();
         $settings = Setting::whereIn('key', ['about_ar', 'about_en', 'title_ar', 'title_en', 'phone', 'location', 'contact_email'])->get();
+
         return view('site.contact', compact('settings'));
     }
 
@@ -79,8 +120,9 @@ class MainController extends Controller
             'email' => $request->email,
             'addDate' => Carbon::now()->format('Y-m-d'),
             'placename' => '',
-            'phone' => ''
+            'phone' => '',
         ]);
+
         // Mail::to('info@marenapost.com')->send(new SendMail($data));
         return redirect()->back()->with('successSend', true);
     }
@@ -98,37 +140,42 @@ class MainController extends Controller
             $news = $news->where('new_place_id', $place);
         }
         if ($search) {
-            $news = $news->where('title_' . app()->getLocale(), 'like', "%{$search}%");
+            $news = $news->where('title_'.app()->getLocale(), 'like', "%{$search}%");
         }
         $news = $news->paginate(10);
         $categories = Category::all();
         $newPalces = NewPlace::all();
+
         return view('site.news', compact('news', 'categories', 'newPalces'));
     }
+
     public function new($id)
     {
         $new = Nw::findOrFail((int) $id);
 
         $news = Nw::active()->orderby('id', 'desc')->where('category_id', $new->category_id)->take(5)->get();
         $new->update([
-            'visit' => $new->visit + 1
+            'visit' => $new->visit + 1,
         ]);
         $comments = Comment::where('news_id', $new->id)->get();
+
         return view('site.new', compact('new', 'comments', 'news'));
     }
+
     public function newLike(Request $request, $id)
     {
         $type = $request->type;
         $new = Nw::findOrFail((int) $id);
         if ($type == true) {
             $new->update([
-                'like' => $new->like + 1
+                'like' => $new->like + 1,
             ]);
         } else {
             $new->update([
-                'dislike' => $new->dislike + 1
+                'dislike' => $new->dislike + 1,
             ]);
         }
+
         return response()->json([
             'msg' => 'success',
         ]);
@@ -148,7 +195,6 @@ class MainController extends Controller
         return redirect()->route('site.new', $request->nw_id);
     }
 
-
     public function articles(Request $request)
     {
         $articles = Artical::active(); // تأكد إن scopeActive مرجّع Builder
@@ -162,7 +208,7 @@ class MainController extends Controller
         }
 
         if ($search) {
-            $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
+            $articles->where('title_'.app()->getLocale(), 'like', "%{$search}%");
         }
 
         if ($place) {
@@ -181,23 +227,23 @@ class MainController extends Controller
         $categories = Category::all();
 
         $newPalces = [
-            ["id" => 1, "name_ar" => "Hot", "name_en" => "Hot"],
-            ["id" => 2, "name_ar" => "عصري", "name_en" => "Trendy"],
-            ["id" => 3, "name_ar" => "الأكثر مشاهدة", "name_en" => "Most Watched"],
-            ["id" => 7, "name_ar" => "الأكثر شهرة", "name_en" => "Most Popular"],
+            ['id' => 1, 'name_ar' => 'Hot', 'name_en' => 'Hot'],
+            ['id' => 2, 'name_ar' => 'عصري', 'name_en' => 'Trendy'],
+            ['id' => 3, 'name_ar' => 'الأكثر مشاهدة', 'name_en' => 'Most Watched'],
+            ['id' => 7, 'name_ar' => 'الأكثر شهرة', 'name_en' => 'Most Popular'],
         ];
 
         return view('site.articles', compact('articles', 'categories', 'newPalces'));
     }
 
-
     public function article($id)
     {
         $article = Artical::findOrFail((int) $id);
         $article->update([
-            'visit' => $article->visit + 1
+            'visit' => $article->visit + 1,
         ]);
         $articles = Artical::active()->orderby('id', 'desc')->where('category_id', $article->category_id)->take(5)->get();
+
         return view('site.article', compact('article', 'articles'));
     }
 
@@ -269,13 +315,13 @@ class MainController extends Controller
 
         // prune old entries
         foreach ($viewed as $videoId => $ts) {
-            if (!is_numeric($ts) || (int) $ts < $cutoff) {
+            if (! is_numeric($ts) || (int) $ts < $cutoff) {
                 unset($viewed[$videoId]);
             }
         }
 
         $key = (string) $video->id;
-        if (!array_key_exists($key, $viewed)) {
+        if (! array_key_exists($key, $viewed)) {
             $video->increment('views_count');
             $viewed[$key] = $now->timestamp;
         }
@@ -319,6 +365,7 @@ class MainController extends Controller
             120
         );
     }
+
     public function videos()
     {
         $featured = Video::with('category')
@@ -331,7 +378,7 @@ class MainController extends Controller
             $needed = 5 - $featured->count();
             $fallback = Video::with('category')
                 ->orderByDesc('views_count')
-                ->when($featured->isNotEmpty(), fn($q) => $q->whereNotIn('id', $featured->pluck('id')))
+                ->when($featured->isNotEmpty(), fn ($q) => $q->whereNotIn('id', $featured->pluck('id')))
                 ->take($needed)
                 ->get();
 
@@ -370,13 +417,14 @@ class MainController extends Controller
         $article = Artical::findOrFail((int) $id);
         if ($type == true) {
             $article->update([
-                'like' => $article->like + 1
+                'like' => $article->like + 1,
             ]);
         } else {
             $article->update([
-                'dislike' => $article->dislike + 1
+                'dislike' => $article->dislike + 1,
             ]);
         }
+
         return response()->json([
             'msg' => 'success',
         ]);
@@ -417,6 +465,7 @@ class MainController extends Controller
             ]);
             // Mail::to($request->email)->send(new SubscribeServiceMail($email));
         }
+
         return redirect()->back()->with('successAdd', true);
     }
 }

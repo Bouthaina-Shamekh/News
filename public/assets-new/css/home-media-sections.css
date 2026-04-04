@@ -1,0 +1,892 @@
+/* ============================================
+   Home Page Media Sections
+   بودكاست | فيديوهات | البث المباشر
+   Scoped styles for narrow column layout
+   ============================================ */
+
+/* ============================================
+   Section Headers (shared - podcasts & live only)
+   ============================================ */
+.home-podcasts-section .section-header,
+.home-live-section .section-header {
+  display: flex;
+  margin-bottom: 18px;
+}
+
+.home-podcasts-section .section-header-title,
+.home-live-section .section-header-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-podcasts-section .section-header-title::before,
+.home-live-section .section-header-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 28px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Home Podcasts Section (Left Column - col-md-3)
+   Vertical list, compact podcast cards
+   ============================================ */
+.home-podcasts-section {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.home-podcasts-section .episodes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.home-podcasts-section .podcast-card {
+  background: #f8f8f8;
+}
+
+.home-podcasts-section .card-inner {
+  padding: 10px;
+  gap: 10px;
+}
+
+.home-podcasts-section .card-image-wrap {
+  width: 70px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.home-podcasts-section .card-title {
+  font-size: 13px;
+  margin: 8px 0 0;
+}
+
+.home-podcasts-section .card-meta {
+  margin-top: 8px;
+}
+
+.home-podcasts-section .play-btn {
+  width: 28px;
+  height: 28px;
+}
+
+.home-podcasts-section .duration {
+  font-size: 11px;
+}
+
+.home-podcasts-section .card-meta-duration {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============================================
+   Home Videos Section (Center Column - col-md-6)
+   Figma: مرينا محدث - قسم فيديوهات
+   كلاسات فريدة home-videos-section__* فقط - بدون تعارض
+   ============================================ */
+.home-videos-section {
+  margin-top: 0;
+  margin-bottom: 48px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-top: 1px solid #eee;
+  background: #2d2d2d;
+  padding: 19px 15px;
+}
+
+.home-videos-section__header {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.home-videos-section__header-title {
+  color: #000;
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-videos-section__header-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 36px;
+  background-color: #670006;
+  flex-shrink: 0;
+}
+
+/* Featured video (الفيديو الرئيسي) */
+.home-videos-section__featured {
+  margin-bottom: 24px;
+}
+
+.home-videos-section__featured-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Carousel cards */
+.home-videos-section__carousel {
+  position: relative;
+  padding: 0 0;
+}
+
+.home-videos-section__carousel .category-slider__wrapper {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.home-videos-section__carousel .category-slider__viewport {
+  overflow: hidden;
+  width: 100%;
+  flex: 1;
+  padding-inline: 8px;
+  box-sizing: border-box;
+}
+
+.home-videos-section__carousel .category-slider__track {
+  display: flex;
+  gap: 10px;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  width: 300%;
+}
+
+.home-videos-section__carousel .slide {
+  flex: 0 0 calc((100% - 80px) / 9);
+  height: 255px;
+  box-sizing: border-box;
+}
+
+.home-videos-section__card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-videos-section__card-media {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.home-videos-section__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-videos-section__card-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 47px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #ff0000;
+  z-index: 2;
+}
+
+.home-videos-section__card-play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 8px 0 8px 12px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.home-videos-section__card-time {
+  position: absolute;
+  bottom: 5px;
+  inset-inline-end: 3px;
+  z-index: 2;
+  display: inline-block;
+  background-color: #670006;
+  color: #fff;
+  padding: 0px 4px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.home-videos-section__card-content {
+  background: #2d2d2d;
+  flex-shrink: 0;
+  width: 100%;
+  padding: 12px 15px 15px;
+  color: #fff;
+  text-align: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 6px 10px;
+}
+
+.home-videos-section__card-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.home-videos-section__card-category::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 15px;
+  background-color: #670006;
+  flex-shrink: 0;
+}
+
+.home-videos-section__card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.8;
+  margin: 0 0 4px;
+  width: 100%;
+}
+
+.home-videos-section__card-date {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0;
+}
+
+.home-videos-section__carousel .slider-btn {
+  background: #fff;
+  border: none;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 10;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2d2d2d;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.home-videos-section__carousel .slider-btn--prev {
+  right: -8px;
+  left: auto;
+  inset-inline-end: -8px;
+  inset-inline-start: auto;
+}
+
+.home-videos-section__carousel .slider-btn--next {
+  left: -8px;
+  right: auto;
+  inset-inline-start: -8px;
+  inset-inline-end: auto;
+}
+
+.home-videos-section__carousel .slider-btn {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.home-videos-section__carousel .slider-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  min-height: 8px;
+}
+
+.home-videos-section__carousel .slider-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  margin: 0;
+  background: #fff;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.home-videos-section__carousel .slider-dots button.active {
+  background: #670006;
+  border-color: #670006;
+}
+
+/* ============================================
+   Home Live Section (Right Column - col-md-3)
+   Main live + 2x2 grid - Figma design
+   ============================================ */
+.home-live-section {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.home-live-section__main {
+  margin-bottom: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.home-live-section__main img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
+.home-live-section__main-link {
+  display: block;
+  position: relative;
+}
+
+.home-live-section__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.home-live-section__grid-item {
+  display: block;
+  overflow: hidden;
+  background: #fff;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.home-live-section__grid-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.home-live-section__grid-item .thumb-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.home-live-section__grid-item .thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.home-live-section__grid-item:hover .thumb-wrap img {
+  transform: scale(1.03);
+}
+
+.home-live-section__grid-item .play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 43px;
+  height: 28px;
+  background: #ff0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.home-live-section__grid-item:hover .play-overlay {
+  background: #a00000;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.home-live-section__grid-item .play-overlay svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+  margin-right: -2px;
+}
+
+.home-live-section__grid-item .item-body {
+  padding: 12px 10px;
+  background: #fff;
+  text-align: right;
+}
+
+.home-live-section__grid-item .item-category {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e1e1e;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-live-section__grid-item .item-category::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background-color: #9c0000;
+  flex-shrink: 0;
+}
+
+.home-live-section__grid-item .item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 992px) {
+  .home-videos-section__carousel .category-slider__track {
+    width: 450%;
+  }
+
+  .home-videos-section__carousel .slide {
+    flex: 0 0 calc((100% - 80px) / 9);
+    height: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-videos-section__carousel .category-slider__viewport {
+    padding-inline: 12px;
+  }
+
+  .home-videos-section__carousel .category-slider__track {
+    width: 900%;
+  }
+
+  .home-videos-section__carousel .slide {
+    flex: 0 0 calc((100% - 80px) / 9);
+    height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-podcasts-section,
+  .home-live-section {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+
+  .home-videos-section {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px 15px;
+  }
+
+  .home-live-section__grid {
+    gap: 8px;
+  }
+
+  .home-live-section__grid-item .item-body {
+    padding: 8px;
+  }
+
+  .home-live-section__grid-item .item-title {
+    font-size: 11px;
+  }
+}
+
+/* ============================================
+   Sidebar Podcast (قسم البودكاست في الشريط الجانبي)
+   من video.css - للصفحة الرئيسية
+   ============================================ */
+.sidebar-podcast {
+  margin-top: 30px;
+}
+
+.sidebar-podcast .podcast-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  position: relative;
+  color: #000;
+}
+
+.sidebar-podcast .podcast-title span {
+  padding-right: 12px;
+  position: relative;
+}
+
+.sidebar-podcast .podcast-title span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 4px;
+  height: 22px;
+  background: #c40000;
+}
+
+.sidebar-podcast .podcast-wrapper {
+  background: #d6dbe3;
+  padding: 15px;
+}
+
+.sidebar-podcast .podcast-item {
+  background: #fff;
+  margin-bottom: 2px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: row-reverse;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.sidebar-podcast .podcast-item:last-child {
+  margin-bottom: 0;
+}
+.sidebar-podcast .podcast-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-podcast .podcast-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  padding: 0 15px;
+}
+
+.sidebar-podcast .play-icon {
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 18px;
+  margin-bottom: 6px;
+  width: 42px;
+  height: 28px;
+  background-color: #ff0000;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-podcast .duration {
+  font-size: 13px;
+  color: #000;
+}
+
+.sidebar-podcast .podcast-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.sidebar-podcast .podcast-content h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.sidebar-podcast .podcast-date {
+  font-size: 13px;
+  color: #555;
+}
+
+/* ============================================
+   Video Card Component (Reusable)
+   ============================================ */
+.video-card {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.video-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+     Video Card Media Section
+     ============================================ */
+.video-card__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  overflow: hidden;
+  background-color: #000;
+}
+
+.video-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.video-card:hover .video-card__image {
+  transform: scale(1.05);
+}
+
+/* ============================================
+     Category Badge - أعلى اليمين
+     ============================================ */
+.video-card__category {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #670006;
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
+
+.video-card:hover .video-card__category {
+  background-color: #f01421;
+}
+
+/* ============================================
+     Play Button - في المنتصف
+     ============================================ */
+.video-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: #f01421;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  width: 50px;
+  height: 30px;
+  border-radius: 6px;
+}
+
+.video-card__play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 4px;
+  border-width: 8px 0 8px 13px;
+}
+
+.video-card:hover .video-card__play {
+  background-color: #670006;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-card:hover .video-card__play::before {
+  border-color: transparent transparent transparent #fff;
+}
+
+/* ============================================
+     Video Card Content Section
+     ============================================ */
+.video-card__content {
+  padding: 10px;
+  background: linear-gradient(
+    to top,
+    rgba(32, 32, 32, 0.68) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    #ffffff85 100%
+  );
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+}
+
+.video-card__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.5;
+  margin: 0;
+  /* Line Clamp - عرض سطرين فقط */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.video-card:hover .video-card__title {
+  transform: translateY(-6px);
+}
+
+/* ============================================
+     Large Card Modifier - الكارد الكبير
+     ============================================ */
+
+.video-card--large .video-card__content {
+  padding: 20px;
+}
+/* ============================================
+     Responsive Design - Tablet
+     عمودين بدلاً من ثلاثة
+     ============================================ */
+@media (max-width: 992px) {
+  /* الكارد الكبير يأخذ عمودين (يمين الصف الأول) */
+  .video-card--large {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}
+
+/* ============================================
+     Responsive Design - Mobile
+     عمود واحد فقط
+     ============================================ */
+@media (max-width: 768px) {
+  /* الكارد الكبير يظهر أولاً في الموبايل */
+  .video-card--large {
+    order: -1;
+    grid-column: 1;
+  }
+
+  .video-card--large .video-card__content,
+  .video-card--medium .video-card__content,
+  .video-card--small .video-card__content {
+    padding: 16px;
+  }
+}
+
+/* ============================================
+     Responsive Design - Small Mobile
+     تحسينات إضافية للشاشات الصغيرة جداً
+     ============================================ */
+@media (max-width: 480px) {
+  .video-card__category {
+    font-size: 11px;
+    padding: 5px 10px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .video-card__title {
+    font-size: 15px;
+  }
+
+  .video-card__content {
+    padding: 12px;
+  }
+}
+
+/* ============================================
+     Accessibility & Performance
+     ============================================ */
+
+/* تحسين الأداء - استخدام GPU acceleration */
+.video-card,
+.video-card__image,
+.video-card__play,
+.video-card__title {
+  will-change: transform;
+}
+
+/* Focus states للوصولية */
+.video-card:focus {
+  outline: 3px solid #670006;
+  outline-offset: 2px;
+}
+
+.video-card:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* تحسين قراءة النص */
+.video-card__title {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* منع تحديد النص أثناء التفاعل */
+.video-card__play {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+
+@media (min-width: 992px) {
+  .section-left {
+      width: 30%;
+  }
+}

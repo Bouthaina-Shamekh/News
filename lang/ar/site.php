@@ -6,14 +6,14 @@ return [
     'Meal Price' => 'سعر الوجبة',
     'Offer' => 'العروض',
     'Favorite Meals' => 'الوجبات الأكثر شيوعا',
-    'Our List' =>'قائمتنا',
+    'Our List' => 'قائمتنا',
     // 'ContactUs' =>' تواصل معنا',
     // 'AboutUs' => 'معلومات عنا',
     // 'Menu' => ' الوجباتقائمة',
     'Terms Of Payment' => 'الشروط والاحكام',
 
     'Menu' => 'الوجبا قائمة',
-    'ContactUs' =>'تواصل معنا',
+    'ContactUs' => 'تواصل معنا',
     'AboutUs' => 'معلومات عنا',
 
     'Login' => 'تسجيل الدخول ',
@@ -126,5 +126,7 @@ return [
     'before' => 'قبل',
     'more' => 'المزيد',
     'podcasts' => 'بودكاست',
+    'home_podcasts_title' => 'بودكاست',
+    'home_videos_title' => 'فيديوهات',
     '' => '',
 ];
