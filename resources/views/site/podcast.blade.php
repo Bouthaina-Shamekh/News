@@ -267,7 +267,7 @@
                                     $relatedImg = $related->img_view ?? $related->img_podcast;
                                     $relatedImgUrl = $relatedImg ? asset('storage/' . $relatedImg) : asset('assets/in-img/podcasts/6.png');
                                     $relatedTitle = $related->$title;
-                                    $relatedUrl = route('site.podcast', $related->slug);
+                                    $relatedUrl = route('site.podcast.show', $related->slug);
                                 @endphp
                                 <a href="{{ $relatedUrl }}" class="podcast-one-card">
                                     <div class="podcast-one-card__media">

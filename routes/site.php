@@ -52,7 +52,7 @@ Route::group([
         Route::post('/addEmail', [MainController::class, 'addEmail'])->name('addEmail');
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
 
-        Route::get('podcast/{slug}', [MainController::class, 'podcast'])->name('podcast');
+        Route::get('podcast/{slug}', [MainController::class, 'podcast'])->name('podcast.show');
         Route::get('podcasts', [MainController::class, 'podcasts'])->name('podcasts');
         Route::get('video', [MainController::class, 'video'])->name('video');
         Route::get('videos', [MainController::class, 'videos'])->name('videos');
