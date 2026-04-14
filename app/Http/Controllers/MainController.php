@@ -143,7 +143,15 @@ class MainController extends Controller
             $news = $news->where('title_'.app()->getLocale(), 'like', "%{$search}%");
         }
         $news = $news->paginate(10);
-        $categories = Category::all();
+       // $categories = Category::all();
+     $categories = Category::withCount('nw')
+    ->get()
+    ->map(function ($category) {
+        return $category->nw_count > 0 ? $category : null;
+    })
+    ->filter()
+    ->values();
+
         $newPalces = NewPlace::all();
 
         return view('site.news', compact('news', 'categories', 'newPalces'));
@@ -224,7 +232,14 @@ class MainController extends Controller
         }
 
         $articles = $articles->paginate(10);
-        $categories = Category::all();
+       // $categories = Category::all();
+       $categories = Category::withCount('article')
+    ->get()
+    ->map(function ($category) {
+        return $category->article_count > 0 ? $category : null;
+    })
+    ->filter()
+    ->values();
 
         $newPalces = [
             ['id' => 1, 'name_ar' => 'Hot', 'name_en' => 'Hot'],
