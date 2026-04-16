@@ -54,7 +54,7 @@ Route::group([
 
         Route::get('podcast/{slug}', [MainController::class, 'podcast'])->name('podcast.show');
         Route::get('podcasts', [MainController::class, 'podcasts'])->name('podcasts');
-        Route::get('video', [MainController::class, 'video'])->name('video');
+       Route::get('video/{slug}', [MainController::class, 'video'])->name('video');
         Route::get('videos', [MainController::class, 'videos'])->name('videos');
 
         Route::get('/send-mail', [MainController::class, 'send'])->name('sendmail');
