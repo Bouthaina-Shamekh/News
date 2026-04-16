@@ -381,50 +381,41 @@ class MainController extends Controller
         );
     }
 
-    public function videos()
-    {
-        $featured = Video::with('category')
-            ->where('is_featured', true)
-            ->latest()
-            ->take(5)
-            ->get();
+  public function videos()
+{
+    // أحدث 5 فيديوهات (بدل featured + fallback)
+    $featured = Video::with('category')
+        ->latest() // الأحدث حسب created_at
+        ->take(5)
+        ->get();
 
-        if ($featured->count() < 5) {
-            $needed = 5 - $featured->count();
-            $fallback = Video::with('category')
-                ->orderByDesc('views_count')
-                ->when($featured->isNotEmpty(), fn ($q) => $q->whereNotIn('id', $featured->pluck('id')))
-                ->take($needed)
-                ->get();
+    // أحدث 8 فيديوهات
+    $latestVideos = Video::with('category')
+        ->latest()
+        ->take(8)
+        ->get();
 
-            $featured = $featured->concat($fallback);
-        }
+    // بدل الأكثر مشاهدة → نخليها أحدث برضو (لو بدك نفس الفكرة)
+    $mostViewedVideos = Video::with('category')
+        ->latest()
+        ->take(8)
+        ->get();
 
-        $latestVideos = Video::with('category')
-            ->latest()
-            ->take(8)
-            ->get();
+    // سلايدر التصنيفات (أحدث فيديوهات داخل كل تصنيف)
+    $categorySliders = Category::whereHas('videos')
+        ->with(['videos' => function ($q) {
+            $q->latest()->take(12);
+        }])
+        ->take(5)
+        ->get();
 
-        $mostViewedVideos = Video::with('category')
-            ->orderByDesc('views_count')
-            ->latest('id')
-            ->take(8)
-            ->get();
-
-        $categorySliders = Category::whereHas('videos')
-            ->with(['videos' => function ($q) {
-                $q->latest()->take(12);
-            }])
-            ->take(5)
-            ->get();
-
-        return view('site.videos', compact(
-            'featured',
-            'latestVideos',
-            'mostViewedVideos',
-            'categorySliders'
-        ));
-    }
+    return view('site.videos', compact(
+        'featured',
+        'latestVideos',
+        'mostViewedVideos',
+        'categorySliders'
+    ));
+}
 
     public function articleLike(Request $request, $id)
     {
