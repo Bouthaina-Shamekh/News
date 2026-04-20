@@ -23,7 +23,8 @@ class PodcastController extends Controller
 
         while ($model::where($field, $slug)
             ->when($currentId, fn($q) => $q->where('id', '!=', $currentId))
-            ->exists()) {
+            ->exists()
+        ) {
             $slug = Str::limit($original . '-' . $i, $maxLength, '');
             $i++;
         }
@@ -35,7 +36,8 @@ class PodcastController extends Controller
     {
         $this->authorize('view', Podcast::class);
 
-        $podcasts = Podcast::with(['category'])->orderBy('id', 'desc');
+        // $podcasts = Podcast::with(['category'])->orderBy('id', 'desc');
+        $podcasts = Podcast::with(['category', 'episodes'])->orderBy('id', 'desc');
         $categories = Category::get();
         $request = request();
 
@@ -147,9 +149,24 @@ class PodcastController extends Controller
                             $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
                         }
 
+                        // $audioPath = null;
+                        // if ($request->hasFile("episodes.audio.$index")) {
+                        //     $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
+                        // }
+
                         $audioPath = null;
+                        $duration = null;
+
                         if ($request->hasFile("episodes.audio.$index")) {
-                            $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
+                            $audioFile = $request->file("episodes.audio.$index");
+
+                            $audioPath = $audioFile->store('uploads', 'public');
+
+                            // جلب المسار الكامل
+                            $fullPath = storage_path('app/public/' . $audioPath);
+
+                            // حساب المدة
+                            $duration = $this->getAudioDuration($fullPath);
                         }
 
                         $imgViewEpisodePath = null;
@@ -192,7 +209,8 @@ class PodcastController extends Controller
                             'title_en' => $request->episodes['title_en'][$index] ?? null,
                             'slug' => $episodeSlug,
                             'date' => $request->episodes['date'][$index] ?? null,
-                            'time' => $request->episodes['time'][$index] ?? null,
+                            // 'time' => $request->episodes['time'][$index] ?? null,
+                            'time' => $duration,
                             'type' => $request->episodes['type'][$index] ?? null,
                             'vedio' => $vedioPath,
                             'audio' => $audioPath,
@@ -332,12 +350,28 @@ class PodcastController extends Controller
                             $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
                         }
 
+                        // $audioPath = $oldEpisode?->audio;
+                        // if ($request->hasFile("episodes.audio.$index")) {
+                        //     if ($oldEpisode && $oldEpisode->audio) {
+                        //         Storage::disk('public')->delete($oldEpisode->audio);
+                        //     }
+                        //     $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
+                        // }
+
                         $audioPath = $oldEpisode?->audio;
+                        $duration = $oldEpisode?->time;
+
                         if ($request->hasFile("episodes.audio.$index")) {
                             if ($oldEpisode && $oldEpisode->audio) {
                                 Storage::disk('public')->delete($oldEpisode->audio);
                             }
-                            $audioPath = $request->file("episodes.audio.$index")->store('uploads', 'public');
+
+                            $audioFile = $request->file("episodes.audio.$index");
+                            $audioPath = $audioFile->store('uploads', 'public');
+
+                            $fullPath = storage_path('app/public/' . $audioPath);
+
+                            $duration = $this->getAudioDuration($fullPath);
                         }
 
                         $imgViewEpisodePath = $oldEpisode?->img_view;
@@ -386,7 +420,8 @@ class PodcastController extends Controller
                             'title_en' => $request->episodes['title_en'][$index] ?? null,
                             'slug' => $episodeSlug,
                             'date' => $request->episodes['date'][$index] ?? null,
-                            'time' => $request->episodes['time'][$index] ?? null,
+                            // 'time' => $request->episodes['time'][$index] ?? null,
+                            'time' => $duration,
                             'type' => $request->episodes['type'][$index] ?? null,
                             'vedio' => $vedioPath,
                             'audio' => $audioPath,
@@ -468,5 +503,19 @@ class PodcastController extends Controller
         ]);
 
         return response()->json(['success' => true]);
+    }
+
+    private function getAudioDuration($filePath)
+    {
+        $getID3 = new \getID3;
+        $file = $getID3->analyze($filePath);
+
+        if (isset($file['playtime_seconds'])) {
+            $seconds = (int) $file['playtime_seconds'];
+
+            return gmdate("H:i:s", $seconds); // مثل 01:20:35
+        }
+
+        return null;
     }
 }

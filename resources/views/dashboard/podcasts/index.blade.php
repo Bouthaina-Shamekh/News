@@ -1,8 +1,8 @@
 <x-dashboard-layout>
 
     @php
-        $name = 'name_' . app()->getLocale();
-        $title = 'title_' . app()->getLocale();
+    $name = 'name_' . app()->getLocale();
+    $title = 'title_' . app()->getLocale();
     @endphp
 
     <x-slot:breadcrumbs>
@@ -26,11 +26,11 @@
                         <h5>{{ __('admin.Podcasts') }}</h5>
 
                         @can('create', 'App\Models\Podcast')
-                            <a href="{{ route('dashboard.podcast.create') }}" class="btn btn-primary">
+                        <a href="{{ route('dashboard.podcast.create') }}" class="btn btn-primary">
 
-                                {{ __('admin.Add Podcast') }}
+                            {{ __('admin.Add Podcast') }}
 
-                            </a>
+                        </a>
                         @endcan
 
                     </div>
@@ -39,102 +39,121 @@
 
                 @can('view', 'App\Models\Podcast')
 
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <div class="table-responsive">
+                    <div class="table-responsive">
 
-                            <table class="table table-hover">
+                        <table class="table table-hover">
 
-                                <thead>
+                            <thead>
 
-                                    <tr>
+                                <tr>
 
-                                        <th>#</th>
-                                        <th>{{ __('admin.Image') }}</th>
-                                        <th>{{ __('admin.Title') }}</th>
-                                        <th>{{ __('admin.Category') }}</th>
-                                        <th>{{ __('admin.Created') }}</th>
-                                        <th>{{ __('admin.Actions') }}</th>
+                                    <th>#</th>
+                                    <th>{{ __('admin.Image') }}</th>
+                                    <th>{{ __('admin.Title') }}</th>
+                                    <th>{{ __('admin.Category') }}</th>
+                                    <th>{{ __('admin.Duration') }}</th>
+                                    <th>{{ __('admin.Created') }}</th>
+                                    <th>{{ __('admin.Actions') }}</th>
 
-                                    </tr>
+                                </tr>
 
-                                </thead>
+                            </thead>
 
-                                <tbody>
+                            <tbody>
 
-                                    @foreach($podcasts as $podcast)
+                                @foreach($podcasts as $podcast)
 
-                                        <tr>
+                                <tr>
 
-                                            <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}</td>
 
-                                            <td>
+                                    <td>
 
-                                                @if($podcast->img_view)
+                                        @if($podcast->img_view)
 
-                                                    <img src="{{ asset('storage/' . $podcast->img_view) }}" width="60">
+                                        <img src="{{ asset('storage/' . $podcast->img_view) }}" width="60">
 
-                                                @endif
+                                        @endif
 
-                                            </td>
+                                    </td>
 
-                                            <td>{{ $podcast->$title }}</td>
+                                    <td>{{ $podcast->$title }}</td>
 
-                                            <td>
+                                    <td>
 
-                                                @if(app()->getLocale() == 'ar')
-                                                    {{ $podcast->category->name_ar ?? '' }}
-                                                @else
-                                                    {{ $podcast->category->name_en ?? '' }}
-                                                @endif
+                                        @if(app()->getLocale() == 'ar')
+                                        {{ $podcast->category->name_ar ?? '' }}
+                                        @else
+                                        {{ $podcast->category->name_en ?? '' }}
+                                        @endif
 
-                                            </td>
+                                    </td>
 
-                                            <td>{{ $podcast->created_at->format('Y-m-d') }}</td>
 
-                                            <td class="d-flex">
+                                    <td>
+                                        @php
+                                        $totalSeconds = 0;
 
-                                                <a href="{{ route('dashboard.podcast.edit', $podcast->id) }}"
-                                                    class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        foreach ($podcast->episodes as $ep) {
+                                        if ($ep->time) {
+                                        [$h, $m, $s] = array_pad(explode(':', $ep->time), 3, 0);
+                                        $totalSeconds += ($h * 3600) + ($m * 60) + $s;
+                                        }
+                                        }
 
-                                                    <i class="ti ti-edit text-xl"></i>
+                                        $formatted = $totalSeconds > 0 ? gmdate("H:i:s", $totalSeconds) : '-';
+                                        @endphp
 
-                                                </a>
+                                        {{ $formatted }}
+                                    </td>
 
-                                                <form action="{{ route('dashboard.podcast.destroy', $podcast->id) }}"
-                                                    method="post" class="delete-form">
+                                    <td>{{ $podcast->created_at->format('Y-m-d') }}</td>
 
-                                                    @csrf
-                                                    @method('DELETE')
+                                    <td class="d-flex">
 
-                                                    <button type="submit"
-                                                        class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <a href="{{ route('dashboard.podcast.edit', $podcast->id) }}"
+                                            class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
 
-                                                        <i class="ti ti-trash text-xl"></i>
+                                            <i class="ti ti-edit text-xl"></i>
 
-                                                    </button>
+                                        </a>
 
-                                                </form>
+                                        <form action="{{ route('dashboard.podcast.destroy', $podcast->id) }}"
+                                            method="post" class="delete-form">
 
-                                            </td>
+                                            @csrf
+                                            @method('DELETE')
 
-                                        </tr>
+                                            <button type="submit"
+                                                class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
 
-                                    @endforeach
+                                                <i class="ti ti-trash text-xl"></i>
 
-                                </tbody>
+                                            </button>
 
-                            </table>
+                                        </form>
 
-                        </div>
+                                    </td>
 
-                        <div class="mt-4">
+                                </tr>
 
-                            {{ $podcasts->links() }}
+                                @endforeach
 
-                        </div>
+                            </tbody>
+
+                        </table>
 
                     </div>
+
+                    <div class="mt-4">
+
+                        {{ $podcasts->links() }}
+
+                    </div>
+
+                </div>
 
                 @endcan
 
