@@ -14,6 +14,7 @@ class Video extends Model
         'title_en',
         'date',
         'vedio',
+        'video_url',
         'time',
         'img_view',
         'img_video',

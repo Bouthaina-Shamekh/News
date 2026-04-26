@@ -95,6 +95,12 @@
     </div>
 
     <div class="form-group col-6 mb-3">
+    <label>{{ __('admin.Video URL') }}</label>
+    <input type="url" name="video_url" class="form-control"
+        placeholder="https://youtube.com/..." value="{{ old('video_url', $videos->video_url ?? '') }}">
+</div>
+
+    <div class="form-group col-6 mb-3">
         <label for="category_id" class="form-label">{{ __('admin.Categories') }}<span style="color: red">*</span></label>
         <select id="category_id" name="category_id" class="form-control" required>
             <option value="" disabled selected>{{ __('admin.Choose') }}</option>

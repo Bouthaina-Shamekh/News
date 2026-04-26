@@ -95,13 +95,10 @@
                                 placeholder="Title EN">
                         </div>
 
-                       
-                         <div class="form-group col-4 mb-3">
+                        <div class="form-group col-4 mb-3">
                             <label class="form-label">{{ __('admin.Date') }}</label>
                             <input type="date" name="episodes[date][]" class="form-control" value="{{ $episode->date }}">
                         </div>
-
-                       
 
                         <div class="form-group col-4 mb-3">
                             <label class="form-label">{{ __('admin.Type') }}</label>
@@ -248,10 +245,6 @@
                 <div class="form-group col-4 mb-3">
                     <label class="form-label">{{ __('admin.Date') }}</label>
                     <input type="date" name="episodes[date][]" class="form-control">
-                </div>
-                <div class="form-group col-4 mb-3">
-                    <label class="form-label">{{ __('admin.Duration') }}</label>
-                    <input type="text" name="episodes[time][]" class="form-control" placeholder="{{ __('admin.enter Duration') }}">
                 </div>
                 <div class="form-group col-4 mb-3">
                     <label class="form-label">{{ __('admin.Type') }}</label>
