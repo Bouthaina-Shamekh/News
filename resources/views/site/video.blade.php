@@ -1,11 +1,11 @@
 <x-site-layout>
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('assets/css/video.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/video.css') }}">
     @endpush
     @php
-        $titleField = 'title_' . app()->getLocale();
-        $textField = 'text_' . app()->getLocale();
-        $catNameField = 'name_' . app()->getLocale();
+    $titleField = 'title_' . app()->getLocale();
+    $textField = 'text_' . app()->getLocale();
+    $catNameField = 'name_' . app()->getLocale();
     @endphp
 
     <div class="main-content--section">
@@ -52,7 +52,8 @@
                         <section class="article-media">
 
                             <div class="media-wrapper"
-                                 data-video="{{ $video->vedio ? asset('storage/' . $video->vedio) : '' }}">
+                                data-video="{{ $video->vedio ? asset('storage/' . $video->vedio) : '' }}"
+                                data-url="{{ $video->video_url }}"
 
                                 <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/1.png') }}" alt="">
                                 <div class="media-overlay"></div>
@@ -83,28 +84,28 @@
 
                                 @foreach($relatedVideos as $item)
 
-                                    <a href="{{ route('site.video.show', $item->slug) }}" class="playlist-card">
+                                <a href="{{ route('site.video.show', $item->slug) }}" class="playlist-card">
 
-                                        <div class="thumb">
-                                            <img src="{{ asset('storage/' . $item->img_view) }}" alt="">
-                                            <span class="thumb-play">▶</span>
-                                        </div>
+                                    <div class="thumb">
+                                        <img src="{{ asset('storage/' . $item->img_view) }}" alt="">
+                                        <span class="thumb-play">▶</span>
+                                    </div>
 
-                                        <div class="card-content">
+                                    <div class="card-content">
 
-                                            <span class="category">
-                                                {{ $item->category?->$catNameField ?? '' }}
-                                            </span>
+                                        <span class="category">
+                                            {{ $item->category?->$catNameField ?? '' }}
+                                        </span>
 
-                                            <h3>{{ $item->$titleField ?? $item->title_ar ?? $item->title_en ?? '' }}</h3>
+                                        <h3>{{ $item->$titleField ?? $item->title_ar ?? $item->title_en ?? '' }}</h3>
 
-                                            <span class="date">
-                                                <span>{{ optional($item->created_at)->translatedFormat('d F Y') }}</span>
-                                            </span>
+                                        <span class="date">
+                                            <span>{{ optional($item->created_at)->translatedFormat('d F Y') }}</span>
+                                        </span>
 
-                                        </div>
+                                    </div>
 
-                                    </a>
+                                </a>
 
                                 @endforeach
 
@@ -124,41 +125,41 @@
 
                                 @foreach($moreVideos as $item)
 
-                                    <a href="{{ route('site.video.show', $item->slug) }}" class="news-card">
+                                <a href="{{ route('site.video.show', $item->slug) }}" class="news-card">
 
-                                        <div class="news-card__media">
+                                    <div class="news-card__media">
 
-                                            <img src="{{ asset('storage/' . $item->img_view) }}" class="news-card__image">
+                                        <img src="{{ asset('storage/' . $item->img_view) }}" class="news-card__image">
 
-                                            <div class="news-card__play"></div>
+                                        <div class="news-card__play"></div>
 
-                                            <span class="video-card__time">
-                                                {{ $item->time ?? '00:00' }}
+                                        <span class="video-card__time">
+                                            {{ $item->time ?? '00:00' }}
+                                        </span>
+
+                                    </div>
+
+                                    <div class="news-card__body">
+
+                                        <div class="news-card__category">
+                                            {{ $item->category?->$catNameField ?? '' }}
+                                        </div>
+
+                                        <h3 class="news-card__title">
+                                            {{ $item->$titleField ?? $item->title_ar ?? $item->title_en ?? '' }}
+                                        </h3>
+
+                                        <div class="news-card__meta">
+
+                                            <span class="news-card__date">
+                                                {{ optional($item->created_at)->translatedFormat('d F Y') }}
                                             </span>
 
                                         </div>
 
-                                        <div class="news-card__body">
+                                    </div>
 
-                                            <div class="news-card__category">
-                                                {{ $item->category?->$catNameField ?? '' }}
-                                            </div>
-
-                                            <h3 class="news-card__title">
-                                                {{ $item->$titleField ?? $item->title_ar ?? $item->title_en ?? '' }}
-                                            </h3>
-
-                                            <div class="news-card__meta">
-
-                                                <span class="news-card__date">
-                                                    {{ optional($item->created_at)->translatedFormat('d F Y') }}
-                                                </span>
-
-                                            </div>
-
-                                        </div>
-
-                                    </a>
+                                </a>
 
                                 @endforeach
 
@@ -181,25 +182,25 @@
 
                             @foreach($breakingNews as $news)
 
-                                <div class="breaking-item">
+                            <div class="breaking-item">
 
-                                    <div class="breaking-time">
-                                        {{ __('site.before') }} {{ optional($news->created_at)->diffForHumans() }}
-                                    </div>
+                                <div class="breaking-time">
+                                    {{ __('site.before') }} {{ optional($news->created_at)->diffForHumans() }}
+                                </div>
 
-                                    <div class="breaking-body">
+                                <div class="breaking-body">
 
-                                        <p>{{ $news->{'title_' . app()->getLocale()} ?? $news->title_ar ?? $news->title_en ?? '' }}</p>
+                                    <p>{{ $news->{'title_' . app()->getLocale()} ?? $news->title_ar ?? $news->title_en ?? '' }}</p>
 
-                                        <div class="breaking-more-box">
-                                            <a href="{{ route('site.article', $news->id) }}" class="breaking-more">
-                                                {{ __('site.more') }}
-                                            </a>
-                                        </div>
-
+                                    <div class="breaking-more-box">
+                                        <a href="{{ route('site.article', $news->id) }}" class="breaking-more">
+                                            {{ __('site.more') }}
+                                        </a>
                                     </div>
 
                                 </div>
+
+                            </div>
 
                             @endforeach
 
@@ -217,22 +218,22 @@
 
                                 @foreach($podcasts as $pod)
 
-                                    <a href="{{ route('site.podcast.show', $pod->slug) }}" class="podcast-item">
+                                <a href="{{ route('site.podcast.show', $pod->slug) }}" class="podcast-item">
 
-                                        <div class="podcast-content">
-                                            <h3>{{ $pod->{'title_' . app()->getLocale()} ?? $pod->title_ar ?? $pod->title_en ?? '' }}</h3>
+                                    <div class="podcast-content">
+                                        <h3>{{ $pod->{'title_' . app()->getLocale()} ?? $pod->title_ar ?? $pod->title_en ?? '' }}</h3>
 
-                                            <div class="podcast-date">
-                                                {{ optional($pod->created_at)->translatedFormat('d F Y') }}
-                                            </div>
+                                        <div class="podcast-date">
+                                            {{ optional($pod->created_at)->translatedFormat('d F Y') }}
                                         </div>
+                                    </div>
 
-                                        <div class="podcast-thumb">
-                                            <div class="play-icon">▶</div>
-                                            <span class="duration">{{ $pod->duration ?? '00:00' }}</span>
-                                        </div>
+                                    <div class="podcast-thumb">
+                                        <div class="play-icon">▶</div>
+                                        <span class="duration">{{ $pod->duration ?? '00:00' }}</span>
+                                    </div>
 
-                                    </a>
+                                </a>
 
                                 @endforeach
 
@@ -250,18 +251,18 @@
 
                             @foreach(($mostViewedVideos ?? collect()) as $trend)
 
-                                <a href="{{ route('site.video.show', $trend->slug) }}" class="trending-item">
+                            <a href="{{ route('site.video.show', $trend->slug) }}" class="trending-item">
 
-                                    <div class="item-thumb">
-                                        <img src="{{ asset('storage/' . $trend->img_view) }}">
-                                    </div>
+                                <div class="item-thumb">
+                                    <img src="{{ asset('storage/' . $trend->img_view) }}">
+                                </div>
 
-                                    <div class="item-content">
-                                        <h4>{{ $trend->$titleField ?? '' }}</h4>
-                                        <p>{{ $trend->$titleField ?? $trend->title_ar ?? $trend->title_en ?? '' }}</p>
-                                    </div>
+                                <div class="item-content">
+                                    <h4>{{ $trend->$titleField ?? '' }}</h4>
+                                    <p>{{ $trend->$titleField ?? $trend->title_ar ?? $trend->title_en ?? '' }}</p>
+                                </div>
 
-                                </a>
+                            </a>
 
                             @endforeach
 
@@ -280,16 +281,38 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
+   <script>
+    $(document).ready(function () {
 
-            $('.media-wrapper').on('click', '.play-btn', function () {
+        $('.media-wrapper').on('click', '.play-btn', function () {
 
-                let wrapper = $(this).closest('.media-wrapper');
-                let videoSrc = wrapper.data('video');
+            let wrapper = $(this).closest('.media-wrapper');
+            let videoSrc = wrapper.data('video');
+            let videoUrl = wrapper.data('url');
 
-                if (!videoSrc) return;
-                if (wrapper.find('video').length) return;
+            if (wrapper.find('video, iframe').length) return;
+
+            wrapper.find('img, .media-overlay, .play-btn').remove();
+
+          
+            if (videoUrl) {
+
+                let embedUrl = videoUrl.replace("watch?v=", "embed/");
+
+                let iframe = $('<iframe />', {
+                    src: embedUrl,
+                    width: '100%',
+                    height: '400',
+                    frameborder: 0,
+                    allow: 'autoplay; encrypted-media',
+                    allowfullscreen: true
+                });
+
+                wrapper.append(iframe);
+
+            }
+      
+            else if (videoSrc) {
 
                 let video = $('<video />', {
                     src: videoSrc,
@@ -297,13 +320,11 @@
                     autoplay: true
                 });
 
-                wrapper.find('img, .media-overlay, .play-btn').remove();
-
                 wrapper.append(video);
-
-            });
+            }
 
         });
-    </script>
 
+    });
+</script>
 </x-site-layout>

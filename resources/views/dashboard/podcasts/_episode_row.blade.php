@@ -60,6 +60,23 @@
                 <textarea name="episodes[text_ar][]" class="form-control mytextarea">{{ $episode->text_ar ?? '' }}</textarea>
             </div>
 
+            <div class="form-group col-12 mb-3">
+    <label class="form-label">{{ __('admin.Episode_Image') }}</label>
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        @if($episode && $episode->img_episode)
+            <img src="{{ asset('storage/' . $episode->img_episode) }}"
+                 style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
+        @endif
+
+        <input type="file"
+               name="episodes[img_episode][]"
+               class="form-control"
+               style="max-width: 300px;">
+    </div>
+</div>
+
         </div>
 
         <button type="button" class="btn btn-danger removeEpisode">
