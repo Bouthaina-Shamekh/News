@@ -6,6 +6,8 @@
     $titleField = 'title_' . app()->getLocale();
     $textField = 'text_' . app()->getLocale();
     $catNameField = 'name_' . app()->getLocale();
+    $videoTitle = $video->$titleField ?? $video->title_ar ?? $video->title_en ?? '';
+    $pageUrl = url()->current();
     @endphp
 
     <div class="main-content--section">
@@ -16,9 +18,10 @@
                 <section class="video-header">
 
                     <h1 class="video-title">
-                        {{ $video->$titleField ?? $video->title_ar ?? $video->title_en ?? '' }}
+                        {{ $videoTitle }}
                     </h1>
 
+                    <div class="video-header__row">
                     <div class="video-meta">
 
                         <span class="video-clock">
@@ -40,6 +43,29 @@
 
                     </div>
 
+                    <div class="video-share" aria-label="{{ __('site.share') }}">
+                        <a class="video-share__link video-share__link--facebook"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($pageUrl) }}"
+                            target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            f
+                        </a>
+                        <a class="video-share__link video-share__link--whatsapp"
+                            href="https://wa.me/?text={{ urlencode($videoTitle . ' ' . $pageUrl) }}"
+                            target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                            واتساب
+                        </a>
+                        <a class="video-share__link video-share__link--x"
+                            href="https://twitter.com/intent/tweet?url={{ urlencode($pageUrl) }}&text={{ urlencode($videoTitle) }}"
+                            target="_blank" rel="noopener noreferrer" aria-label="X">
+                            X
+                        </a>
+                        <button class="video-share__link video-share__link--copy" type="button"
+                            data-share-url="{{ $pageUrl }}" aria-label="Copy link">
+                            نسخ
+                        </button>
+                    </div>
+                    </div>
+
                 </section>
 
 
@@ -51,12 +77,12 @@
                         <!-- VIDEO -->
                         <section class="article-media">
 
-                            <div class="media-wrapper"
-                                data-video="{{ $video->vedio ? asset('storage/' . $video->vedio) : '' }}"
-                                data-url="{{ $video->video_url }}"
+                             <div class="media-wrapper"
+                                 data-video="{{ $video->vedio ? asset('storage/' . $video->vedio) : '' }}"
+                                 data-url="{{ $video->video_url }}">
 
-                                <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/1.png') }}" alt="">
-                                <div class="media-overlay"></div>
+                                 <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/1.png') }}" alt="">
+                                 <div class="media-overlay"></div>
 
                                 <button class="play-btn">▶</button>
 
@@ -281,50 +307,106 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-   <script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
+            function getYouTubeEmbedUrl(url) {
+                if (!url) return '';
 
-        $('.media-wrapper').on('click', '.play-btn', function () {
+                try {
+                    const parsedUrl = new URL(url);
+                    const host = parsedUrl.hostname.replace('www.', '');
+                    let videoId = '';
 
-            let wrapper = $(this).closest('.media-wrapper');
-            let videoSrc = wrapper.data('video');
-            let videoUrl = wrapper.data('url');
+                    if (host === 'youtu.be') {
+                        videoId = parsedUrl.pathname.split('/').filter(Boolean)[0] || '';
+                    } else if (host === 'youtube.com' || host === 'm.youtube.com' || host === 'youtube-nocookie.com') {
+                        if (parsedUrl.pathname.startsWith('/embed/')) {
+                            videoId = parsedUrl.pathname.split('/').filter(Boolean)[1] || '';
+                        } else if (parsedUrl.pathname.startsWith('/shorts/')) {
+                            videoId = parsedUrl.pathname.split('/').filter(Boolean)[1] || '';
+                        } else {
+                            videoId = parsedUrl.searchParams.get('v') || '';
+                        }
+                    }
 
-            if (wrapper.find('video, iframe').length) return;
-
-            wrapper.find('img, .media-overlay, .play-btn').remove();
-
-          
-            if (videoUrl) {
-
-                let embedUrl = videoUrl.replace("watch?v=", "embed/");
-
-                let iframe = $('<iframe />', {
-                    src: embedUrl,
-                    width: '100%',
-                    height: '400',
-                    frameborder: 0,
-                    allow: 'autoplay; encrypted-media',
-                    allowfullscreen: true
-                });
-
-                wrapper.append(iframe);
-
-            }
-      
-            else if (videoSrc) {
-
-                let video = $('<video />', {
-                    src: videoSrc,
-                    controls: true,
-                    autoplay: true
-                });
-
-                wrapper.append(video);
+                    return videoId ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0` : '';
+                } catch (error) {
+                    return '';
+                }
             }
 
+            function isDirectVideoUrl(url) {
+                return /\.(mp4|webm|ogg)(\?.*)?$/i.test(url || '');
+            }
+
+            $('.media-wrapper').on('click', '.play-btn', function () {
+                let wrapper = $(this).closest('.media-wrapper');
+                let videoSrc = wrapper.data('video');
+                let videoUrl = wrapper.data('url');
+
+                if (wrapper.find('video, iframe').length) return;
+
+                const youtubeEmbedUrl = getYouTubeEmbedUrl(videoUrl);
+
+                if (videoUrl && !youtubeEmbedUrl && !isDirectVideoUrl(videoUrl)) {
+                    window.open(videoUrl, '_blank', 'noopener,noreferrer');
+                    return;
+                }
+
+                if (!youtubeEmbedUrl && !isDirectVideoUrl(videoUrl) && !videoSrc) return;
+
+                wrapper.find('img, .media-overlay, .play-btn').remove();
+
+                if (youtubeEmbedUrl) {
+                    let iframe = $('<iframe />', {
+                        src: youtubeEmbedUrl,
+                        title: @json($videoTitle),
+                        frameborder: 0,
+                        allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+                        allowfullscreen: true
+                    });
+
+                    wrapper.append(iframe);
+                } else if (isDirectVideoUrl(videoUrl)) {
+                    let video = $('<video />', {
+                        src: videoUrl,
+                        controls: true,
+                        autoplay: true,
+                        playsinline: true
+                    });
+
+                    wrapper.append(video);
+                } else if (videoSrc) {
+                    let video = $('<video />', {
+                        src: videoSrc,
+                        controls: true,
+                        autoplay: true,
+                        playsinline: true
+                    });
+
+                    wrapper.append(video);
+                }
+            });
+
+            $('.video-share__link--copy').on('click', async function () {
+                const button = $(this);
+                const shareUrl = button.data('share-url');
+                const originalText = button.text();
+
+                try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    button.text('تم النسخ');
+                } catch (error) {
+                    const input = $('<input />', { value: shareUrl }).appendTo('body').select();
+                    document.execCommand('copy');
+                    input.remove();
+                    button.text('تم النسخ');
+                }
+
+                setTimeout(function () {
+                    button.text(originalText);
+                }, 1600);
+            });
         });
-
-    });
-</script>
+    </script>
 </x-site-layout>

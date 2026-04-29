@@ -4,7 +4,6 @@
     @endpush
 
     @php
-        use Illuminate\Support\Str;
         $titleField = 'title_' . app()->getLocale();
         $name = 'name_' . app()->getLocale();
     @endphp
@@ -27,7 +26,7 @@
                                 <div class="video-card__media">
 
                                  
-                                    @if(Str::endsWith($v0->video, '.mp4'))
+                                    @if(\Illuminate\Support\Str::endsWith($v0->video, '.mp4'))
                                         <video class="video-card__image" controls>
                                             <source src="{{ asset('storage/' . $v0->video) }}" type="video/mp4">
                                         </video>
@@ -66,7 +65,7 @@
                             <div class="news-card__media">
 
                             
-                                @if(Str::endsWith($v->video, '.mp4'))
+                                @if(\Illuminate\Support\Str::endsWith($v->video, '.mp4'))
                                     <video class="news-card__image" controls>
                                         <source src="{{ asset('storage/' . $v->video) }}" type="video/mp4">
                                     </video>

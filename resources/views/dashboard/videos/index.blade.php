@@ -135,6 +135,7 @@
                         {{ $videos->links() }}
                     </div>
                 </div>
+            @endcan
             </div>
         </div>
 
@@ -142,7 +143,6 @@
             data-pc-target="#deleteConfirmModal">
             Launch demo modal
         </button>
-    @endcan
 
     @push('scripts')
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
