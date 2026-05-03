@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Jobs\ConvertVideoToHLS;
 
 class VideoController extends Controller
 {
@@ -91,7 +92,7 @@ class VideoController extends Controller
             'time' => 'nullable',
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
-            'vedio' => 'nullable|file',
+            'vedio' => 'nullable|file|mimetypes:video/mp4,video/mpeg,video/quicktime|max:512000',
             'video_url' => 'nullable|url',
             'img_view' => 'required|image',
             'text_ar' => 'required',
@@ -100,7 +101,6 @@ class VideoController extends Controller
             'is_featured' => 'nullable|boolean',
         ]);
 
-        // 🔥 شرط: لازم فيديو أو رابط
         if (!$request->hasFile('vedio') && !$request->video_url) {
             return back()->with('danger', 'لازم ترفع فيديو أو تضيف رابط')->withInput();
         }
@@ -129,14 +129,21 @@ class VideoController extends Controller
         if ($request->hasFile('img_view')) {
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         }
+
         $imgVideoPath = $imgViewPath;
 
         $vedioPath = null;
+        $originalPath = null;
+
         if ($request->hasFile('vedio')) {
-            $vedioPath = $request->file('vedio')->store('uploads', 'public');
+            // 🔥 نخزن الملف الأصلي بمكان خاص
+            $originalPath = $request->file('vedio')->store('videos/originals', 'public');
+
+            // نحافظ على القديم (لو بدك تعرضه)
+            $vedioPath = $originalPath;
         }
 
-        Video::create([
+        $video = Video::create([
             'title_ar' => $request->title_ar,
             'title_en' => $request->title_en,
             'date' => $request->date,
@@ -144,7 +151,10 @@ class VideoController extends Controller
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
             'vedio' => $vedioPath,
-            'video_url' => $request->video_url, 
+            'original_path' => $originalPath, // ✅ جديد
+            'hls_path' => null,               // ✅ جديد
+            'status' => $request->hasFile('vedio') ? 'pending' : null, // ✅ جديد
+            'video_url' => $request->video_url,
             'img_view' => $imgViewPath,
             'img_video' => $imgVideoPath,
             'text_ar' => $request->text_ar,
@@ -154,6 +164,11 @@ class VideoController extends Controller
             'views_count' => 0,
             'is_featured' => $request->boolean('is_featured'),
         ]);
+
+        // 🔥 إطلاق التحويل فقط إذا في فيديو مرفوع
+        if ($request->hasFile('vedio')) {
+            ConvertVideoToHLS::dispatch($video);
+        }
 
         DB::commit();
     } catch (\Exception $e) {
@@ -179,7 +194,7 @@ class VideoController extends Controller
         return view('dashboard.videos.edit', compact('videos', 'categories'));
     }
 
-    public function update(Request $request, $id)
+   public function update(Request $request, $id)
 {
     $this->authorize('edit', Video::class);
 
@@ -192,7 +207,7 @@ class VideoController extends Controller
             'time' => 'nullable',
             'keyword_ar' => 'nullable',
             'keyword_en' => 'nullable',
-            'vedio' => 'nullable|file',
+            'vedio' => 'nullable|file|mimetypes:video/mp4,video/mpeg,video/quicktime|max:512000',
             'video_url' => 'nullable|url',
             'img_view' => 'nullable|image',
             'text_ar' => 'required',
@@ -203,7 +218,6 @@ class VideoController extends Controller
 
         $videos = Video::findOrFail((int)$id);
 
-      
         if (
             !$request->hasFile('vedio') &&
             !$request->video_url &&
@@ -246,14 +260,22 @@ class VideoController extends Controller
             }
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         }
+
         $imgVideoPath = $imgViewPath;
 
         $vedioPath = $videos->vedio;
+        $originalPath = $videos->original_path;
+        $status = $videos->status;
+
         if ($request->hasFile('vedio')) {
             if ($videos->vedio != null) {
                 Storage::disk('public')->delete($videos->vedio);
             }
-            $vedioPath = $request->file('vedio')->store('uploads', 'public');
+
+            // 🔥 رفع جديد
+            $originalPath = $request->file('vedio')->store('videos/originals', 'public');
+            $vedioPath = $originalPath;
+            $status = 'pending';
         }
 
         $videos->update([
@@ -264,7 +286,9 @@ class VideoController extends Controller
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
             'vedio' => $vedioPath,
-            'video_url' => $request->video_url, 
+            'original_path' => $originalPath, // ✅ جديد
+            'status' => $status,              // ✅ جديد
+            'video_url' => $request->video_url,
             'img_view' => $imgViewPath,
             'img_video' => $imgVideoPath,
             'text_ar' => $request->text_ar,
@@ -273,6 +297,11 @@ class VideoController extends Controller
             'slug' => $slug,
             'is_featured' => $request->boolean('is_featured'),
         ]);
+
+        // 🔥 إعادة التحويل إذا في فيديو جديد
+        if ($request->hasFile('vedio')) {
+            ConvertVideoToHLS::dispatch($videos);
+        }
 
         DB::commit();
     } catch (\Exception $e) {

@@ -312,96 +312,102 @@ class MainController extends Controller
     }
 
     public function video($slug)
-    {
-        $video = Video::with('category')->where('slug', $slug)->firstOrFail();
+{
+    $video = Video::with('category')->where('slug', $slug)->firstOrFail();
 
-        $cookieName = 'viewed_videos';
-        $now = Carbon::now();
-        $cutoff = $now->copy()->subHours(2)->timestamp;
-        $viewed = [];
-
-        $raw = request()->cookie($cookieName);
-        if (is_string($raw) && $raw !== '') {
-            $decoded = json_decode($raw, true);
-            if (is_array($decoded)) {
-                $viewed = $decoded;
-            }
-        }
-
-        // prune old entries
-        foreach ($viewed as $videoId => $ts) {
-            if (! is_numeric($ts) || (int) $ts < $cutoff) {
-                unset($viewed[$videoId]);
-            }
-        }
-
-        $key = (string) $video->id;
-        if (! array_key_exists($key, $viewed)) {
-            $video->increment('views_count');
-            $viewed[$key] = $now->timestamp;
-        }
-
-        $relatedVideos = Video::with('category')
-            ->where('category_id', $video->category_id)
-            ->where('id', '!=', $video->id)
-            ->latest()
-            ->take(4)
-            ->get();
-
-        $moreVideos = Video::with('category')
-            ->where('id', '!=', $video->id)
-            ->latest()
-            ->take(8)
-            ->get();
-
-        $breakingNews = Artical::latest()->take(3)->get();
-
-        $podcasts = Podcast::latest()->take(3)->get();
-
-        $mostViewedVideos = Video::with('category')
-            ->where('id', '!=', $video->id)
-            ->orderByDesc('views_count')
-            ->latest('id')
-            ->take(8)
-            ->get();
-
-        $response = response()->view('site.video', compact(
-            'video',
-            'relatedVideos',
-            'moreVideos',
-            'breakingNews',
-            'podcasts',
-            'mostViewedVideos'
-        ));
-
-        return $response->cookie(
-            $cookieName,
-            json_encode($viewed, JSON_UNESCAPED_UNICODE),
-            120
-        );
+    // ✅ تحديد رابط التشغيل (HLS أو عادي)
+    $videoSource = null;
+    if ($video->hls_path && $video->status === 'ready') {
+        $videoSource = asset('storage/' . $video->hls_path);
+    } elseif ($video->vedio) {
+        $videoSource = asset('storage/' . $video->vedio);
+    } elseif ($video->video_url) {
+        $videoSource = $video->video_url;
     }
 
-  public function videos()
+    $cookieName = 'viewed_videos';
+    $now = Carbon::now();
+    $cutoff = $now->copy()->subHours(2)->timestamp;
+    $viewed = [];
+
+    $raw = request()->cookie($cookieName);
+    if (is_string($raw) && $raw !== '') {
+        $decoded = json_decode($raw, true);
+        if (is_array($decoded)) {
+            $viewed = $decoded;
+        }
+    }
+
+    foreach ($viewed as $videoId => $ts) {
+        if (! is_numeric($ts) || (int) $ts < $cutoff) {
+            unset($viewed[$videoId]);
+        }
+    }
+
+    $key = (string) $video->id;
+    if (! array_key_exists($key, $viewed)) {
+        $video->increment('views_count');
+        $viewed[$key] = $now->timestamp;
+    }
+
+    $relatedVideos = Video::with('category')
+        ->where('category_id', $video->category_id)
+        ->where('id', '!=', $video->id)
+        ->latest()
+        ->take(4)
+        ->get();
+
+    $moreVideos = Video::with('category')
+        ->where('id', '!=', $video->id)
+        ->latest()
+        ->take(8)
+        ->get();
+
+    $breakingNews = Artical::latest()->take(3)->get();
+
+    $podcasts = Podcast::latest()->take(3)->get();
+
+    $mostViewedVideos = Video::with('category')
+        ->where('id', '!=', $video->id)
+        ->orderByDesc('views_count')
+        ->latest('id')
+        ->take(8)
+        ->get();
+
+    $response = response()->view('site.video', compact(
+        'video',
+        'videoSource', // ✅ جديد
+        'relatedVideos',
+        'moreVideos',
+        'breakingNews',
+        'podcasts',
+        'mostViewedVideos'
+    ));
+
+    return $response->cookie(
+        $cookieName,
+        json_encode($viewed, JSON_UNESCAPED_UNICODE),
+        120
+    );
+}
+
+ public function videos()
 {
-    // أحدث 5 فيديوهات (بدل featured + fallback)
     $featured = Video::with('category')
-        ->latest() // الأحدث حسب created_at
+        ->latest()
         ->take(5)
         ->get();
 
-    // أحدث 8 فيديوهات
     $latestVideos = Video::with('category')
         ->latest()
         ->take(8)
         ->get();
 
-    // بدل الأكثر مشاهدة → نخليها أحدث برضو (لو بدك نفس الفكرة)
     $mostViewedVideos = Video::with('category')
         ->latest()
         ->take(8)
         ->get();
 
-    // سلايدر التصنيفات (أحدث فيديوهات داخل كل تصنيف)
     $categorySliders = Category::whereHas('videos')
         ->with(['videos' => function ($q) {
             $q->latest()->take(12);

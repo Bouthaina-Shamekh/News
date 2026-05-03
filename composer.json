@@ -14,6 +14,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "mcamara/laravel-localization": "^2.1",
+        "pbmedia/laravel-ffmpeg": "^8.7",
         "pusher/pusher-php-server": "^7.2",
         "symfony/intl": "*",
         "yajra/laravel-datatables-oracle": "^10.11"
