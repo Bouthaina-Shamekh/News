@@ -84,9 +84,16 @@
         @endphp
         @if ($videos->vedio && $check)
             <div class="d-flex align-items-center gap-2 mt-3" id="vedio">
-                <button type="button" class="btn btn-sm btn-outline-primary btn-play-video" data-url="{{ asset('storage/' . $videos->vedio) }}">
+                <button type="button" class="btn btn-sm btn-outline-primary btn-play-video"
+                    data-url="{{ asset('storage/' . $videos->vedio) }}"
+                    data-hls-url="{{ $videos->hls_path && $videos->status === 'ready' ? asset('storage/' . $videos->hls_path) : '' }}">
                     {{ __('admin.Open_Video') }}
                 </button>
+                @if($videos->status)
+                    <span class="badge bg-{{ $videos->status === 'ready' ? 'success' : ($videos->status === 'failed' ? 'danger' : 'warning') }}">
+                        {{ $videos->status === 'ready' ? 'جاهز' : ($videos->status === 'failed' ? 'فشل التحويل' : 'قيد المعالجة') }}
+                    </span>
+                @endif
                 <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('vedio')">
                     <i class="fa fa-trash"></i>
                 </button>
@@ -122,7 +129,7 @@
                 <button type="button" class="btn-close" data-pc-modal-dismiss="#videoPlayerModal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                <video id="videoPlayerEl" controls preload="none" style="width:100%;max-height:400px;"></video>
+                <video id="videoPlayerEl" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none" style="width:100%;max-height:400px;"></video>
             </div>
         </div>
     </div>
@@ -131,11 +138,13 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.css" referrerpolicy="origin">
+    <link rel="stylesheet" href="https://vjs.zencdn.net/8.6.1/video-js.css">
 @endpush
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.4.1/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.33.2/tagify.min.js" referrerpolicy="origin"></script>
+    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
 
     <script>
         const tagifyElements = document.querySelectorAll('.TagifyBasic');
@@ -174,12 +183,31 @@
     </script>
 
     <script>
+        let dashboardVideoPlayer = null;
+
         $(document).on('click', '.btn-play-video', function() {
             var url = $(this).data('url');
+            var hlsUrl = $(this).data('hls-url');
             var modal = document.getElementById('videoPlayerModal');
             var videoEl = document.getElementById('videoPlayerEl');
             if (!modal || !videoEl) return;
-            videoEl.src = url;
+
+            if (!dashboardVideoPlayer && typeof videojs === 'function') {
+                dashboardVideoPlayer = videojs('videoPlayerEl', {
+                    fluid: true,
+                    responsive: true
+                });
+            }
+
+            if (dashboardVideoPlayer) {
+                dashboardVideoPlayer.src({
+                    src: hlsUrl || url,
+                    type: hlsUrl ? 'application/x-mpegURL' : 'video/mp4'
+                });
+            } else {
+                videoEl.src = url;
+            }
+
             modal.classList.add('show');
             setTimeout(function() { modal.classList.add('animate'); }, 100);
             var overlay = document.getElementById('modaloverlay');
@@ -190,15 +218,23 @@
                 document.body.appendChild(overlay);
                 document.body.classList.add('modal-open');
                 overlay.addEventListener('click', function() {
-                    videoEl.pause();
-                    videoEl.src = '';
+                    if (dashboardVideoPlayer) {
+                        dashboardVideoPlayer.pause();
+                        dashboardVideoPlayer.src({ src: '', type: 'video/mp4' });
+                    } else {
+                        videoEl.pause();
+                        videoEl.src = '';
+                    }
                     if (typeof modalclose === 'function') modalclose();
                 });
             }
         });
         $(document).on('click', '[data-pc-modal-dismiss="#videoPlayerModal"]', function() {
             var videoEl = document.getElementById('videoPlayerEl');
-            if (videoEl) { videoEl.pause(); videoEl.src = ''; }
+            if (dashboardVideoPlayer) {
+                dashboardVideoPlayer.pause();
+                dashboardVideoPlayer.src({ src: '', type: 'video/mp4' });
+            } else if (videoEl) { videoEl.pause(); videoEl.src = ''; }
         });
         function removeImage(name) {
             const id = "{{ $videos->id }}";

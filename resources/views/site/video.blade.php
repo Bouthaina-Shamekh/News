@@ -1,6 +1,7 @@
 <x-site-layout>
     @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/video.css') }}">
+    <link rel="stylesheet" href="https://vjs.zencdn.net/8.6.1/video-js.css">
     @endpush
     @php
     $titleField = 'title_' . app()->getLocale();
@@ -75,18 +76,38 @@
                     <main class="main-content">
 
                         <!-- VIDEO -->
-                        <section class="article-media">
+                         <section class="article-media">
 
-                             <div class="media-wrapper"
-                                 data-video="{{ $video->vedio ? asset('storage/' . $video->vedio) : '' }}"
-                                 data-url="{{ $video->video_url }}">
+                            @if($isReady && $hlsUrl)
+                                <div class="media-wrapper media-wrapper--hls">
+                                    <video
+                                        id="video-hls-player"
+                                        class="video-js vjs-default-skin vjs-big-play-centered"
+                                        controls
+                                        preload="auto"
+                                        data-setup='{}'>
+                                        <source src="{{ $hlsUrl }}" type="application/x-mpegURL">
+                                    </video>
+                                </div>
+                            @elseif($video->status === 'pending')
+                                <div class="media-wrapper media-wrapper--pending">
+                                    <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/1.png') }}" alt="">
+                                    <div class="media-overlay"></div>
+                                    <div class="media-pending">
+                                        ⏳ الفيديو قيد المعالجة، حاول لاحقا...
+                                    </div>
+                                </div>
+                            @else
+                                <div class="media-wrapper"
+                                    data-video="{{ $video->vedio ? asset('storage/' . $video->vedio) : '' }}"
+                                    data-url="{{ $video->video_url }}">
 
-                                 <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/1.png') }}" alt="">
-                                 <div class="media-overlay"></div>
+                                    <img src="{{ $video->img_view ? asset('storage/' . $video->img_view) : asset('assets/in-img/1.png') }}" alt="">
+                                    <div class="media-overlay"></div>
 
-                                <button class="play-btn">▶</button>
-
-                            </div>
+                                    <button class="play-btn">▶</button>
+                                </div>
+                            @endif
 
                             <div class="media-info">
 
@@ -307,8 +328,22 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script src="https://vjs.zencdn.net/8.6.1/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@4/dist/videojs-contrib-quality-levels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@2/dist/videojs-hls-quality-selector.min.js"></script>
+
     <script>
         $(document).ready(function () {
+            if ($('#video-hls-player').length) {
+                const player = videojs('video-hls-player', {
+                    fluid: true,
+                    responsive: true
+                });
+
+                player.qualityLevels();
+                player.hlsQualitySelector({ displayCurrentQuality: true });
+            }
+
             function getYouTubeEmbedUrl(url) {
                 if (!url) return '';
 

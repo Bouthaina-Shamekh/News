@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('videos', function (Blueprint $table) {
-        $table->string('original_path')->nullable()->after('vedio');
-        $table->string('hls_path')->nullable()->after('original_path');
-        $table->string('status')->default('pending')->after('hls_path');
+        $table->string('hls_path')->nullable()->after('vedio');
+        $table->string('status')->nullable()->after('hls_path');
         });
     }
 
@@ -24,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('videos', function (Blueprint $table) {
-                    $table->dropColumn(['original_path', 'hls_path', 'status']);
+                    $table->dropColumn(['hls_path', 'status']);
 
         });
     }

@@ -315,14 +315,11 @@ class MainController extends Controller
 {
     $video = Video::with('category')->where('slug', $slug)->firstOrFail();
 
-    // ✅ تحديد رابط التشغيل (HLS أو عادي)
-    $videoSource = null;
+    $hlsUrl = null;
+    $isReady = false;
     if ($video->hls_path && $video->status === 'ready') {
-        $videoSource = asset('storage/' . $video->hls_path);
-    } elseif ($video->vedio) {
-        $videoSource = asset('storage/' . $video->vedio);
-    } elseif ($video->video_url) {
-        $videoSource = $video->video_url;
+        $hlsUrl = asset('storage/' . $video->hls_path);
+        $isReady = true;
     }
 
     $cookieName = 'viewed_videos';
@@ -376,7 +373,8 @@ class MainController extends Controller
 
     $response = response()->view('site.video', compact(
         'video',
-        'videoSource', // ✅ جديد
+        'hlsUrl',
+        'isReady',
         'relatedVideos',
         'moreVideos',
         'breakingNews',

@@ -26,17 +26,8 @@
                                 <div class="video-card__media">
 
                                  
-                                    @if(\Illuminate\Support\Str::endsWith($v0->video, '.mp4'))
-                                        <video class="video-card__image" controls>
-                                            <source src="{{ asset('storage/' . $v0->video) }}" type="video/mp4">
-                                        </video>
-                                    @else
-                                        <iframe class="video-card__image"
-                                            src="{{ $v0->video }}"
-                                            frameborder="0"
-                                            allowfullscreen>
-                                        </iframe>
-                                    @endif
+                                    <img src="{{ $v0->img_view ? asset('storage/' . $v0->img_view) : asset('assets/in-img/1.png') }}"
+                                        alt="{{ $v0->$titleField ?? '' }}" class="video-card__image">
 
                                     <span class="video-card__category">
                                         {{ $v0->category?->{"name_" . app()->getLocale()} ?? '' }}
@@ -65,17 +56,8 @@
                             <div class="news-card__media">
 
                             
-                                @if(\Illuminate\Support\Str::endsWith($v->video, '.mp4'))
-                                    <video class="news-card__image" controls>
-                                        <source src="{{ asset('storage/' . $v->video) }}" type="video/mp4">
-                                    </video>
-                                @else
-                                    <iframe class="news-card__image"
-                                        src="{{ $v->video }}"
-                                        frameborder="0"
-                                        allowfullscreen>
-                                    </iframe>
-                                @endif
+                                <img src="{{ $v->img_view ? asset('storage/' . $v->img_view) : asset('assets/in-img/1.png') }}"
+                                    alt="{{ $v->$titleField ?? '' }}" class="news-card__image">
 
                                 <div class="news-card__play"></div>
                             </div>

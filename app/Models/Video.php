@@ -26,6 +26,8 @@ class Video extends Model
          'slug',
         'views_count',
         'is_featured',
+        'hls_path',
+        'status',
     ];
 
     protected $casts = [

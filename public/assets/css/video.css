@@ -178,12 +178,66 @@ body {
 .media-wrapper iframe {
   display: block;
   border: 0;
+  background: #000;
+}
+
+.media-wrapper--hls {
+  background: #000;
+}
+
+.media-wrapper--hls .video-js,
+.media-wrapper--hls .vjs-tech {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  inset: 0;
+  padding-top: 0 !important;
+}
+
+.media-wrapper--hls .vjs-tech {
+  object-fit: contain;
+  background: #000;
+}
+
+.media-wrapper--hls {
+  background: #000;
+}
+
+.media-wrapper--pending .media-pending {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+}
+
+.media-wrapper--pending img {
+  filter: grayscale(0.2);
+}
+
+.video-js .vjs-control-bar {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.video-js .vjs-big-play-button {
+  border-radius: 6px;
+  border: 0;
+  background: rgba(196, 0, 0, 0.9);
 }
 
 /* Keep poster image cover, but contain the actual video */
 .media-wrapper video {
   object-fit: contain;
   background: #000;
+}
+
+.media-wrapper iframe {
+  object-fit: contain;
 }
 
 

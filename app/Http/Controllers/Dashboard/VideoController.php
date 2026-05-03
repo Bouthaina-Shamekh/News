@@ -133,14 +133,10 @@ class VideoController extends Controller
         $imgVideoPath = $imgViewPath;
 
         $vedioPath = null;
-        $originalPath = null;
 
         if ($request->hasFile('vedio')) {
             // 🔥 نخزن الملف الأصلي بمكان خاص
-            $originalPath = $request->file('vedio')->store('videos/originals', 'public');
-
-            // نحافظ على القديم (لو بدك تعرضه)
-            $vedioPath = $originalPath;
+            $vedioPath = $request->file('vedio')->store('videos/originals', 'public');
         }
 
         $video = Video::create([
@@ -151,9 +147,8 @@ class VideoController extends Controller
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
             'vedio' => $vedioPath,
-            'original_path' => $originalPath, // ✅ جديد
-            'hls_path' => null,               // ✅ جديد
-            'status' => $request->hasFile('vedio') ? 'pending' : null, // ✅ جديد
+            'hls_path' => null,
+            'status' => $request->hasFile('vedio') ? 'pending' : null,
             'video_url' => $request->video_url,
             'img_view' => $imgViewPath,
             'img_video' => $imgVideoPath,
@@ -264,17 +259,16 @@ class VideoController extends Controller
         $imgVideoPath = $imgViewPath;
 
         $vedioPath = $videos->vedio;
-        $originalPath = $videos->original_path;
         $status = $videos->status;
 
         if ($request->hasFile('vedio')) {
             if ($videos->vedio != null) {
                 Storage::disk('public')->delete($videos->vedio);
             }
+            Storage::disk('public')->deleteDirectory('videos/hls/' . $videos->id);
 
             // 🔥 رفع جديد
-            $originalPath = $request->file('vedio')->store('videos/originals', 'public');
-            $vedioPath = $originalPath;
+            $vedioPath = $request->file('vedio')->store('videos/originals', 'public');
             $status = 'pending';
         }
 
@@ -286,8 +280,8 @@ class VideoController extends Controller
             'keyword_ar' => $request->keyword_ar,
             'keyword_en' => $request->keyword_en,
             'vedio' => $vedioPath,
-            'original_path' => $originalPath, // ✅ جديد
-            'status' => $status,              // ✅ جديد
+            'hls_path' => $request->hasFile('vedio') ? null : $videos->hls_path,
+            'status' => $status,
             'video_url' => $request->video_url,
             'img_view' => $imgViewPath,
             'img_video' => $imgVideoPath,
@@ -328,6 +322,7 @@ class VideoController extends Controller
         if ($videos->vedio != null) {
             Storage::disk('public')->delete($videos->vedio);
         }
+        Storage::disk('public')->deleteDirectory('videos/hls/' . $videos->id);
 
         $videos->delete();
 
@@ -354,10 +349,13 @@ class VideoController extends Controller
             if ($video->vedio != null) {
                 Storage::disk('public')->delete($video->vedio);
             }
+            Storage::disk('public')->deleteDirectory('videos/hls/' . $video->id);
         }
 
         $video->update([
-            $request->name => null
+            $request->name => null,
+            'hls_path' => $request->name == 'vedio' ? null : $video->hls_path,
+            'status' => $request->name == 'vedio' ? null : $video->status,
         ]);
 
         return response()->json(['success' => true]);
