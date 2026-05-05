@@ -69,37 +69,39 @@
             </div>
         @endif
     </div>
+    
+<div class="form-group col-6 mb-3">
+    <label for="image">{{ __('admin.Vedio') }}</label>
 
-    <div class="form-group col-6 mb-3">
-        <label for="image">{{ __('admin.Vedio') }}<span style="color: red">*</span></label>
-        @if ($videos->id == null)
-            <input type="file" name="vedio" class="form-control" accept="video/mp4,video/webm,video/ogg" required />
-        @else
-            <input type="file" name="vedio" class="form-control" accept="video/mp4,video/webm,video/ogg" />
-        @endif
-        <span class="text-muted">{{ __('admin.Size Vedio') }}: 1920*1080 (16:9)</span>
-        @php
-            $vedio = $videos->vedio;
-            $check = $vedio ? Storage::disk('public')->exists($videos->vedio) : false;
-        @endphp
-        @if ($videos->vedio && $check)
-            <div class="d-flex align-items-center gap-2 mt-3" id="vedio">
-                <button type="button" class="btn btn-sm btn-outline-primary btn-play-video"
-                    data-url="{{ asset('storage/' . $videos->vedio) }}"
-                    data-hls-url="{{ $videos->hls_path && $videos->status === 'ready' ? asset('storage/' . $videos->hls_path) : '' }}">
-                    {{ __('admin.Open_Video') }}
-                </button>
-                @if($videos->status)
-                    <span class="badge bg-{{ $videos->status === 'ready' ? 'success' : ($videos->status === 'failed' ? 'danger' : 'warning') }}">
-                        {{ $videos->status === 'ready' ? 'جاهز' : ($videos->status === 'failed' ? 'فشل التحويل' : 'قيد المعالجة') }}
-                    </span>
-                @endif
-                <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('vedio')">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </div>
-        @endif
-    </div>
+    <input type="file" name="vedio" class="form-control" accept="video/mp4,video/webm,video/ogg" />
+
+    <span class="text-muted">{{ __('admin.Size Vedio') }}: 1920*1080 (16:9)</span>
+
+    @php
+        $vedio = $videos->vedio;
+        $check = $vedio ? Storage::disk('public')->exists($videos->vedio) : false;
+    @endphp
+
+    @if ($videos->vedio && $check)
+        <div class="d-flex align-items-center gap-2 mt-3" id="vedio">
+            <button type="button" class="btn btn-sm btn-outline-primary btn-play-video"
+                data-url="{{ asset('storage/' . $videos->vedio) }}"
+                data-hls-url="{{ $videos->hls_path && $videos->status === 'ready' ? asset('storage/' . $videos->hls_path) : '' }}">
+                {{ __('admin.Open_Video') }}
+            </button>
+
+            @if($videos->status)
+                <span class="badge bg-{{ $videos->status === 'ready' ? 'success' : ($videos->status === 'failed' ? 'danger' : 'warning') }}">
+                    {{ $videos->status === 'ready' ? 'جاهز' : ($videos->status === 'failed' ? 'فشل التحويل' : 'قيد المعالجة') }}
+                </span>
+            @endif
+
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeImage('vedio')">
+                <i class="fa fa-trash"></i>
+            </button>
+        </div>
+    @endif
+</div>
 
     <div class="form-group col-6 mb-3">
     <label>{{ __('admin.Video URL') }}</label>
