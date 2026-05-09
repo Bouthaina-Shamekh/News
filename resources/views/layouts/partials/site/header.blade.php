@@ -200,7 +200,7 @@
                         <a href="{{route('site.about')}}">{{__('site.AboutUs')}}</a>
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
-                        <a href="{{route('site.videos')}}">{{__('site.Videos')}}</a>
+                        <a href="{{route('site.video')}}">{{__('site.Video')}}</a>
                     </li>
                     <li class="{{ request()->is(app()->getLocale() . '/') ? 'active' : '' }}">
                         <a href="{{route('site.podcasts')}}">{{__('site.Podcasts')}}</a>

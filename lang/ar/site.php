@@ -116,7 +116,7 @@ return [
     'You are not allowed in this newspaper.' => 'غير مسموح لك بالدخول لهذه الصحفة',
     'A simple error occurred please go back and try again' => 'حدث خطأ بسيط يرجى العودة وإعادة المحاولة',
     'Please contact the engineer at this moment.' => 'حدث بالإتصال بالسيرفر يرجى التواصل مع المهندس بهذا اللحظة',
-    'Videos' => 'الفيديو',
+    'Videos' => 'فيديوهات',
     'Podcasts' => 'بودكاست',
     'Latest Episodes' => 'أحدث الحلقات',
     'Latest Videos' => 'أحدث الفيديوهات',
