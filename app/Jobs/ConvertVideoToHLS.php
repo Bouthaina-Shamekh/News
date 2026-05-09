@@ -39,11 +39,11 @@ class ConvertVideoToHLS implements ShouldQueue
 
         Storage::disk('public')->deleteDirectory($outputDir);
 
-        $media = FFMpeg::fromDisk('public')->open($inputPath);
+        $probeMedia = FFMpeg::fromDisk('public')->open($inputPath);
         $height = null;
 
         try {
-            $stream = $media->getVideoStream();
+            $stream = $probeMedia->getVideoStream();
             if ($stream) {
                 $dimensions = $stream->getDimensions();
                 $height = $dimensions ? $dimensions->getHeight() : null;
@@ -70,6 +70,8 @@ class ConvertVideoToHLS implements ShouldQueue
                 'bitrate' => 300,
             ]];
         }
+
+        $media = FFMpeg::fromDisk('public')->open($inputPath);
 
         $export = $media
             ->exportForHLS()

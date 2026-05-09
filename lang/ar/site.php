@@ -59,7 +59,7 @@ return [
     'Employees' => 'الموظفين',
     'Projects' => 'المشاريع',
 
-    'Video' => 'الفيديو',
+    'Video' => 'فيديو',
     'Demonstration' => 'التوضيح',
     'Pages' => 'الصفحات',
 

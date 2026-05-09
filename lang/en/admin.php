@@ -316,4 +316,5 @@ return [
     'Edit Video' => 'Edit Video',
     'Views' => 'Views',
     'Featured' => 'Featured',
+    'Video URL' => 'Video URL',
 ];
