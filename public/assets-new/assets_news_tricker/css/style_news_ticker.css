@@ -283,5 +283,79 @@ a:hover {
     }
 }
 
+/* Smooth JS-driven ticker. Scoped to data attributes to avoid touching other lists. */
+.acme-news-ticker-box[data-news-ticker] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+    padding-top: 0 !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+}
+
+.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    min-width: max-content;
+    white-space: nowrap;
+    animation: none !important;
+    will-change: transform;
+}
+
+.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    padding: 0 22px;
+}
+
+.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #670005;
+    opacity: 0.45;
+}
+
+.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a {
+    color: #222;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a:hover,
+.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a:focus {
+    color: #670005;
+}
+
+.acme-news-ticker-box[data-news-ticker].is-paused .my-news-ticker[data-news-ticker-track] {
+    will-change: auto;
+}
+
+@media (max-width: 768px) {
+    .acme-news-ticker-box[data-news-ticker] {
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+    }
+
+    .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li {
+        padding: 0 16px;
+    }
+
+    .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a {
+        font-size: 14px;
+    }
+}
+
 
 /*# sourceMappingURL=style.css.map */

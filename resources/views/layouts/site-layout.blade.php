@@ -19,13 +19,15 @@
                             @php
                                 $news = \App\Models\Nw::orderBy('id', 'desc')->where('statu_id', 2)->take(15)->get();
                                 // $title = app()->getLocale() == 'ar' ? 'title_ar' : 'title_en';
-                                $title = 'title_' . app()->getLocale();
+                                $locale = app()->getLocale();
+                                $title = 'title_' . $locale;
+                                $tickerDirection = $locale === 'ar' ? 'right' : 'left';
                             @endphp
-                            <div class="acme-news-ticker-box ">
-                                <ul class="my-news-ticker " style=" text-align: right; ">
+                            <div class="acme-news-ticker-box" data-news-ticker data-ticker-direction="{{ $tickerDirection }}">
+                                <ul class="my-news-ticker" data-news-ticker-track>
                                     @foreach ($news as $new)
                                     <li>
-                                        <a href="{{route('site.new', $new->id)}}" style="text-align: right; ">
+                                        <a href="{{route('site.new', $new->id)}}">
                                             {{ $new->$title }}
                                         </a>
                                     </li>

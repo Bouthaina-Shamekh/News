@@ -50,6 +50,7 @@
     <script type="text/javascript " src="{{ asset('assets-new/assets_news_tricker/js/jquery.js') }}"></script>
     <script type="text/javascript " src="{{ asset('assets-new/assets_news_tricker/js/acmeticker.js') }}"></script>
     <link rel="stylesheet " href="{{ asset('assets-new/assets_news_tricker/css/style_news_ticker.css') }}">
+    <script defer src="{{ asset('assets-new/assets_news_tricker/js/news-ticker.js') }}"></script>
     <link rel="stylesheet " href="{{ asset('assets-new/css/responsive-style.css') }}">
     <link rel="stylesheet " href="{{ asset('assets-new/css/colors/theme-color-1.css') }}" id="changeColorScheme ">
     <link rel="stylesheet " href="{{ asset('assets-new/css/output.css') }}">
