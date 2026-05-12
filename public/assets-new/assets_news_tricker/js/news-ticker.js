@@ -4,165 +4,76 @@
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     var mobileView = window.matchMedia('(max-width: 768px)');
 
-    function cloneItems(items) {
-        return items.map(function (item) {
-            var clone = item.cloneNode(true);
-            clone.setAttribute('data-ticker-clone', 'true');
-            clone.setAttribute('aria-hidden', 'true');
-
-            clone.querySelectorAll('a, button, input, select, textarea').forEach(function (focusable) {
-                focusable.setAttribute('tabindex', '-1');
-            });
-
-            return clone;
-        });
-    }
-
     function setupTicker(root) {
         var track = root.querySelector('[data-news-ticker-track]');
+        var groups = root.querySelectorAll('[data-news-ticker-group]');
 
-        if (!track || reduceMotion.matches) {
+        if (!track || groups.length < 2) {
             return;
         }
 
-        var originalItems = Array.prototype.slice.call(track.children);
+        function syncShortGroups() {
+            var firstGroup = groups[0];
+            var secondGroup = groups[1];
+            var originalItems = Array.prototype.slice.call(firstGroup.querySelectorAll('li:not([data-ticker-extra])'));
 
-        if (originalItems.length < 2) {
-            return;
-        }
-
-        var direction = root.getAttribute('data-ticker-direction') === 'right' ? 'right' : 'left';
-        var speed = mobileView.matches ? 42 : 58;
-        var segmentWidth = 0;
-        var offset = 0;
-        var lastTime = 0;
-        var paused = false;
-        var frameId = null;
-        var resizeFrame = null;
-
-        function removeClones() {
-            track.querySelectorAll('[data-ticker-clone="true"]').forEach(function (clone) {
-                clone.remove();
-            });
-        }
-
-        function fillTrack() {
-            var firstOriginal = originalItems[0];
-            var firstClone = null;
-            var minimumWidth = root.clientWidth;
-
-            removeClones();
-            track.style.transform = 'translate3d(0, 0, 0)';
-
-            cloneItems(originalItems).forEach(function (clone, index) {
-                if (index === 0) {
-                    firstClone = clone;
-                }
-
-                track.appendChild(clone);
+            firstGroup.querySelectorAll('[data-ticker-extra="true"]').forEach(function (item) {
+                item.remove();
             });
 
-            segmentWidth = Math.abs(firstClone.getBoundingClientRect().left - firstOriginal.getBoundingClientRect().left);
+            secondGroup.querySelectorAll('[data-ticker-extra="true"]').forEach(function (item) {
+                item.remove();
+            });
 
-            if (!segmentWidth) {
+            if (!originalItems.length) {
                 return;
             }
 
-            while (track.scrollWidth < segmentWidth + minimumWidth + 1) {
-                cloneItems(originalItems).forEach(function (clone) {
-                    track.appendChild(clone);
+            while (firstGroup.scrollWidth < root.clientWidth) {
+                originalItems.forEach(function (item) {
+                    var firstClone = item.cloneNode(true);
+                    var secondClone = item.cloneNode(true);
+
+                    firstClone.setAttribute('data-ticker-extra', 'true');
+                    secondClone.setAttribute('data-ticker-extra', 'true');
+                    secondClone.querySelectorAll('a, button, input, select, textarea').forEach(function (focusable) {
+                        focusable.setAttribute('tabindex', '-1');
+                    });
+
+                    firstGroup.appendChild(firstClone);
+                    secondGroup.appendChild(secondClone);
                 });
             }
-
-            offset = direction === 'right' ? -segmentWidth : 0;
-            track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
         }
 
-        function tick(time) {
-            if (!lastTime) {
-                lastTime = time;
-            }
+        function setDuration() {
+            var groupWidth = groups[0].scrollWidth;
+            var speed = mobileView.matches ? 70 : 100;
+            var duration = Math.max(28, Math.round(groupWidth / speed));
 
-            var delta = (time - lastTime) / 1000;
-            lastTime = time;
-
-            if (!paused && segmentWidth) {
-                if (direction === 'right') {
-                    offset += speed * delta;
-
-                    if (offset >= 0) {
-                        offset = -segmentWidth + (offset % segmentWidth);
-                    }
-                } else {
-                    offset -= speed * delta;
-
-                    if (offset <= -segmentWidth) {
-                        offset = -(Math.abs(offset) % segmentWidth);
-                    }
-                }
-
-                track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
-            }
-
-            frameId = window.requestAnimationFrame(tick);
+            track.style.setProperty('--ticker-duration', duration + 's');
         }
 
-        function setPaused(value) {
-            paused = value;
-            root.classList.toggle('is-paused', paused);
+        function refresh() {
+            syncShortGroups();
+            setDuration();
         }
 
-        function restart() {
-            speed = mobileView.matches ? 42 : 58;
-            fillTrack();
-            lastTime = 0;
-        }
-
-        function requestRestart() {
-            if (resizeFrame) {
-                window.cancelAnimationFrame(resizeFrame);
-            }
-
-            resizeFrame = window.requestAnimationFrame(function () {
-                resizeFrame = null;
-                restart();
-            });
-        }
-
-        root.addEventListener('mouseenter', function () {
-            setPaused(true);
-        });
-
-        root.addEventListener('mouseleave', function () {
-            setPaused(false);
-        });
-
-        root.addEventListener('focusin', function () {
-            setPaused(true);
-        });
-
-        root.addEventListener('focusout', function () {
-            setPaused(false);
-        });
-
-        fillTrack();
-        frameId = window.requestAnimationFrame(tick);
-
-        if ('ResizeObserver' in window) {
-            new ResizeObserver(requestRestart).observe(root);
-        } else {
-            window.addEventListener('resize', requestRestart);
-        }
+        refresh();
 
         if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(requestRestart);
+            document.fonts.ready.then(refresh);
         }
 
-        reduceMotion.addEventListener && reduceMotion.addEventListener('change', function (event) {
-            if (event.matches && frameId) {
-                window.cancelAnimationFrame(frameId);
-            }
-        });
+        if ('ResizeObserver' in window) {
+            new ResizeObserver(refresh).observe(root);
+        } else {
+            window.addEventListener('resize', refresh);
+        }
+
+        if (reduceMotion.matches) {
+            track.style.animation = 'none';
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function () {

@@ -283,7 +283,7 @@ a:hover {
     }
 }
 
-/* Smooth JS-driven ticker. Scoped to data attributes to avoid touching other lists. */
+/* Smooth ticker. Scoped to data attributes to avoid touching other lists. */
 .acme-news-ticker.news-ticker-shell {
     height: 44px;
     margin-top: 0;
@@ -313,17 +313,44 @@ a:hover {
 }
 
 .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] {
-    display: inline-flex;
+    --ticker-duration: 85s;
+    display: flex;
     align-items: center;
     width: max-content;
     min-width: max-content;
     white-space: nowrap;
     direction: ltr;
-    animation: none !important;
+    animation-duration: var(--ticker-duration);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
     will-change: transform;
 }
 
-.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li {
+.acme-news-ticker-box[data-news-ticker][data-ticker-direction="left"] .my-news-ticker[data-news-ticker-track] {
+    animation-name: news-ticker-left;
+}
+
+.acme-news-ticker-box[data-news-ticker][data-ticker-direction="right"] .my-news-ticker[data-news-ticker-track] {
+    animation-name: news-ticker-right;
+}
+
+.acme-news-ticker-box[data-news-ticker]:hover .my-news-ticker[data-news-ticker-track],
+.acme-news-ticker-box[data-news-ticker]:focus-within .my-news-ticker[data-news-ticker-track] {
+    animation-play-state: paused;
+}
+
+.acme-news-ticker-box[data-news-ticker] .news-ticker-group {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    animation: none !important;
+}
+
+.acme-news-ticker-box[data-news-ticker] .news-ticker-group li {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -331,7 +358,7 @@ a:hover {
     padding: 0 22px;
 }
 
-.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li::after {
+.acme-news-ticker-box[data-news-ticker] .news-ticker-group li::after {
     content: "";
     position: absolute;
     inset-inline-end: 0;
@@ -342,7 +369,7 @@ a:hover {
     opacity: 0.45;
 }
 
-.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a {
+.acme-news-ticker-box[data-news-ticker] .news-ticker-group li a {
     color: #222;
     font-size: 15px;
     font-weight: 700;
@@ -352,23 +379,46 @@ a:hover {
     unicode-bidi: isolate;
 }
 
-.acme-news-ticker-box[data-news-ticker][data-ticker-locale="ar"] .my-news-ticker[data-news-ticker-track] li a {
+.acme-news-ticker-box[data-news-ticker][data-ticker-locale="ar"] .news-ticker-group li a {
     direction: rtl;
     text-align: right;
 }
 
-.acme-news-ticker-box[data-news-ticker][data-ticker-locale="en"] .my-news-ticker[data-news-ticker-track] li a {
+.acme-news-ticker-box[data-news-ticker][data-ticker-locale="en"] .news-ticker-group li a {
     direction: ltr;
     text-align: left;
 }
 
-.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a:hover,
-.acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a:focus {
+.acme-news-ticker-box[data-news-ticker] .news-ticker-group li a:hover,
+.acme-news-ticker-box[data-news-ticker] .news-ticker-group li a:focus {
     color: #670005;
 }
 
-.acme-news-ticker-box[data-news-ticker].is-paused .my-news-ticker[data-news-ticker-track] {
-    will-change: auto;
+@keyframes news-ticker-left {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@keyframes news-ticker-right {
+    from {
+        transform: translate3d(-50%, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] {
+        animation: none !important;
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 @media (max-width: 768px) {
@@ -387,11 +437,11 @@ a:hover {
         mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
     }
 
-    .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li {
+    .acme-news-ticker-box[data-news-ticker] .news-ticker-group li {
         padding: 0 16px;
     }
 
-    .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a {
+    .acme-news-ticker-box[data-news-ticker] .news-ticker-group li a {
         font-size: 14px;
     }
 }

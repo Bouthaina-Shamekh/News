@@ -24,15 +24,26 @@
                                 $tickerDirection = $locale === 'ar' ? 'right' : 'left';
                             @endphp
                             <div class="acme-news-ticker-box" data-news-ticker data-ticker-direction="{{ $tickerDirection }}" data-ticker-locale="{{ $locale }}">
-                                <ul class="my-news-ticker" data-news-ticker-track>
+                                <div class="my-news-ticker" data-news-ticker-track>
+                                    <ul class="news-ticker-group" data-news-ticker-group>
                                     @foreach ($news as $new)
                                     <li>
                                         <a href="{{route('site.new', $new->id)}}">
                                             {{ $new->$title }}
                                         </a>
                                     </li>
-                                        @endforeach
-                                </ul>
+                                    @endforeach
+                                    </ul>
+                                    <ul class="news-ticker-group" data-news-ticker-group aria-hidden="true">
+                                    @foreach ($news as $new)
+                                    <li>
+                                        <a href="{{route('site.new', $new->id)}}" tabindex="-1">
+                                            {{ $new->$title }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
