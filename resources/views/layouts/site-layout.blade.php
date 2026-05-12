@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="row " style=" ">
                     <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
-                        <div class="acme-news-ticker ">
+                        <div class="acme-news-ticker news-ticker-shell">
                             <div class="acme-news-ticker-label ">
                                 {{-- تحديثات الأخبار --}}
                                 {{ __('site.news updates') }}</div>
@@ -23,7 +23,7 @@
                                 $title = 'title_' . $locale;
                                 $tickerDirection = $locale === 'ar' ? 'right' : 'left';
                             @endphp
-                            <div class="acme-news-ticker-box" data-news-ticker data-ticker-direction="{{ $tickerDirection }}">
+                            <div class="acme-news-ticker-box" data-news-ticker data-ticker-direction="{{ $tickerDirection }}" data-ticker-locale="{{ $locale }}">
                                 <ul class="my-news-ticker" data-news-ticker-track>
                                     @foreach ($news as $new)
                                     <li>

@@ -284,11 +284,28 @@ a:hover {
 }
 
 /* Smooth JS-driven ticker. Scoped to data attributes to avoid touching other lists. */
+.acme-news-ticker.news-ticker-shell {
+    height: 44px;
+    margin-top: 0;
+}
+
+.acme-news-ticker.news-ticker-shell .acme-news-ticker-label {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
 .acme-news-ticker-box[data-news-ticker] {
     position: relative;
     display: flex;
     align-items: center;
+    flex: 1 1 auto;
     height: 100%;
+    min-width: 0;
     overflow: hidden;
     padding-top: 0 !important;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
@@ -301,6 +318,7 @@ a:hover {
     width: max-content;
     min-width: max-content;
     white-space: nowrap;
+    direction: ltr;
     animation: none !important;
     will-change: transform;
 }
@@ -331,6 +349,17 @@ a:hover {
     line-height: 1.4;
     text-decoration: none;
     transition: color 0.2s ease;
+    unicode-bidi: isolate;
+}
+
+.acme-news-ticker-box[data-news-ticker][data-ticker-locale="ar"] .my-news-ticker[data-news-ticker-track] li a {
+    direction: rtl;
+    text-align: right;
+}
+
+.acme-news-ticker-box[data-news-ticker][data-ticker-locale="en"] .my-news-ticker[data-news-ticker-track] li a {
+    direction: ltr;
+    text-align: left;
 }
 
 .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a:hover,
@@ -343,6 +372,16 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+    .acme-news-ticker.news-ticker-shell {
+        height: 42px;
+    }
+
+    .acme-news-ticker.news-ticker-shell .acme-news-ticker-label {
+        position: static;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
     .acme-news-ticker-box[data-news-ticker] {
         -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
         mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
@@ -354,6 +393,26 @@ a:hover {
 
     .acme-news-ticker-box[data-news-ticker] .my-news-ticker[data-news-ticker-track] li a {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .acme-news-ticker.news-ticker-shell {
+        height: auto;
+        min-height: 74px;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .acme-news-ticker.news-ticker-shell .acme-news-ticker-label {
+        justify-content: center;
+        min-height: 32px;
+        width: 100%;
+    }
+
+    .acme-news-ticker-box[data-news-ticker] {
+        min-height: 42px;
+        width: 100%;
     }
 }
 

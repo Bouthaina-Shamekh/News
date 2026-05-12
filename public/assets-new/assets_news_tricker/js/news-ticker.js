@@ -38,6 +38,7 @@
         var lastTime = 0;
         var paused = false;
         var frameId = null;
+        var resizeFrame = null;
 
         function removeClones() {
             track.querySelectorAll('[data-ticker-clone="true"]').forEach(function (clone) {
@@ -46,21 +47,32 @@
         }
 
         function fillTrack() {
-            var minimumWidth = root.clientWidth * 2;
+            var firstOriginal = originalItems[0];
+            var firstClone = null;
+            var minimumWidth = root.clientWidth;
 
             removeClones();
             track.style.transform = 'translate3d(0, 0, 0)';
-            segmentWidth = track.scrollWidth;
+
+            cloneItems(originalItems).forEach(function (clone, index) {
+                if (index === 0) {
+                    firstClone = clone;
+                }
+
+                track.appendChild(clone);
+            });
+
+            segmentWidth = Math.abs(firstClone.getBoundingClientRect().left - firstOriginal.getBoundingClientRect().left);
 
             if (!segmentWidth) {
                 return;
             }
 
-            do {
+            while (track.scrollWidth < segmentWidth + minimumWidth + 1) {
                 cloneItems(originalItems).forEach(function (clone) {
                     track.appendChild(clone);
                 });
-            } while (track.scrollWidth < minimumWidth + segmentWidth);
+            }
 
             offset = direction === 'right' ? -segmentWidth : 0;
             track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
@@ -79,13 +91,13 @@
                     offset += speed * delta;
 
                     if (offset >= 0) {
-                        offset -= segmentWidth;
+                        offset = -segmentWidth + (offset % segmentWidth);
                     }
                 } else {
                     offset -= speed * delta;
 
                     if (offset <= -segmentWidth) {
-                        offset += segmentWidth;
+                        offset = -(Math.abs(offset) % segmentWidth);
                     }
                 }
 
@@ -104,6 +116,17 @@
             speed = mobileView.matches ? 42 : 58;
             fillTrack();
             lastTime = 0;
+        }
+
+        function requestRestart() {
+            if (resizeFrame) {
+                window.cancelAnimationFrame(resizeFrame);
+            }
+
+            resizeFrame = window.requestAnimationFrame(function () {
+                resizeFrame = null;
+                restart();
+            });
         }
 
         root.addEventListener('mouseenter', function () {
@@ -126,9 +149,13 @@
         frameId = window.requestAnimationFrame(tick);
 
         if ('ResizeObserver' in window) {
-            new ResizeObserver(restart).observe(root);
+            new ResizeObserver(requestRestart).observe(root);
         } else {
-            window.addEventListener('resize', restart);
+            window.addEventListener('resize', requestRestart);
+        }
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(requestRestart);
         }
 
         reduceMotion.addEventListener && reduceMotion.addEventListener('change', function (event) {
