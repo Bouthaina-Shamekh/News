@@ -35,6 +35,14 @@ Author URI  : https://themeforest.net/user/themelooks
         padding-left: 7.5px;
         padding-right: 7.5px
     }
+    .header--navbar>.container>.header--search-form .form-control {
+        left: 13px;
+        right: auto;
+    }
+    .header--navbar>.container>.header--search-form.active .form-control {
+        left: 13px;
+        right: auto;
+    }
 }
 
 @media screen and (min-width:992px) {
@@ -155,6 +163,60 @@ Author URI  : https://themeforest.net/user/themelooks
     .header--menu-links>.megamenu.posts>.dropdown-menu,
     .header--menu-links>.megamenu.posts>.dropdown-toggle>i {
         display: none
+    }
+    #stickySocial {
+        display: block !important;
+        top: auto !important;
+        right: 0 !important;
+        bottom: 95px !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        z-index: 998;
+    }
+    #stickySocial .nav>li>a>i {
+        width: 34px !important;
+        line-height: 34px !important;
+        background-color: rgba(245, 246, 247, .94);
+    }
+    #stickySocial .nav>li>a>span {
+        display: none !important;
+    }
+    .header--navbar>.container {
+        position: relative;
+        min-height: 58px;
+    }
+    .header--navbar>.container>.header--search-form {
+        position: absolute;
+        display: block !important;
+        top: 0;
+        left: 15px;
+        right: 15px;
+        width: auto;
+        min-width: 0;
+        height: 58px;
+    }
+    .header--navbar>.container>.header--search-form.active .form-control {
+        width: calc(100% - 42px);
+        left: auto;
+        right: 0;
+    }
+    .header--navbar>.container>.header--search-form .form-control {
+        left: auto;
+        right: 0;
+    }
+    .header--navbar>.container>.header--search-form .btn {
+        float: right;
+    }
+    #headerNav .header--search-form {
+        width: 100%;
+        min-height: 58px;
+    }
+    #headerNav .header--search-form .form-control {
+        left: auto;
+        right: 13px;
+    }
+    #headerNav .header--search-form.active .form-control {
+        width: calc(100% - 72px);
     }
     .header--menu-links>.megamenu>.dropdown-menu>.dropdown {
         float: none;

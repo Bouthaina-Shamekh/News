@@ -187,8 +187,8 @@
 
 .home-videos-section__card-media {
   position: relative;
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 120px;
+  height: 120px;
   overflow: hidden;
 }
 
@@ -196,6 +196,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -237,8 +238,10 @@
 
 .home-videos-section__card-content {
   background: #2d2d2d;
-  flex-shrink: 0;
+  flex: 1 1 auto;
   width: 100%;
+  min-height: 0;
+  overflow: hidden;
   padding: 12px 15px 15px;
   color: #fff;
   text-align: inherit;
@@ -274,6 +277,10 @@
   line-height: 1.8;
   margin: 0 0 4px;
   width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .home-videos-section__card-date {
@@ -498,6 +505,15 @@
     flex: 0 0 calc((100% - 80px) / 9);
     height: 240px;
   }
+
+  .home-videos-section__card-media {
+    flex-basis: 110px;
+    height: 110px;
+  }
+
+  .home-videos-section__card-content {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 600px) {
@@ -512,6 +528,16 @@
   .home-videos-section__carousel .slide {
     flex: 0 0 calc((100% - 80px) / 9);
     height: 220px;
+  }
+
+  .home-videos-section__card-media {
+    flex-basis: 105px;
+    height: 105px;
+  }
+
+  .home-videos-section__card-content {
+    min-height: 0;
+    padding: 10px 12px 12px;
   }
 }
 
@@ -643,6 +669,43 @@
 .sidebar-podcast .podcast-date {
   font-size: 13px;
   color: #555;
+}
+
+@media (max-width: 991px) {
+  .sidebar-podcast .podcast-title {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+
+  .sidebar-podcast .podcast-wrapper {
+    padding: 12px;
+  }
+
+  .sidebar-podcast .podcast-item {
+    min-height: 72px;
+  }
+
+  .sidebar-podcast .podcast-content h3 {
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-podcast .podcast-date,
+  .sidebar-podcast .duration {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar-podcast .podcast-content h3 {
+    font-size: 16px;
+  }
+
+  .sidebar-podcast .podcast-thumb {
+    padding: 0 10px;
+  }
 }
 
 /* ============================================

@@ -50,6 +50,7 @@
         <label>{{ __('admin.Image View') }}</label>
 
         <input type="file" name="img_view" class="form-control">
+        <small class="text-muted d-block mt-1">{{ __('admin.Podcast image size hint') }}</small>
 
         @if ($podcasts->img_view)
             <img src="{{ asset('storage/' . $podcasts->img_view) }}" width="80">
@@ -145,6 +146,7 @@
                                 <input type="file" name="episodes[img_episode][]" class="form-control"
                                     style="max-width: 300px;">
                             </div>
+                            <small class="text-muted d-block mt-1">@lang('admin.Episode image size hint')</small>
                         </div>
 
                     </div>
@@ -292,6 +294,7 @@
                     <div class="d-flex gap-2 align-items-center flex-wrap">
                         <input type="file" name="episodes[img_episode][]" class="form-control" style="max-width: 300px;">
                     </div>
+                    <small class="text-muted d-block mt-1">@lang('admin.Episode image size hint')</small>
                 </div>
             </div>
         </div>

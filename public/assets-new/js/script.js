@@ -1,10 +1,14 @@
 $(document).ready(function() {
     $(".header--search-btn").click(function(event) {
         // event.preventDefault(); // Prevent form submission
+        var $form = $(this).closest(".header--search-form");
 
-        $(".header--search-form").addClass("active");
-        $('.btn-header-1').hide();
-        $('.btn-header-2').show();
+        $(".header--search-form").not($form).removeClass("active");
+        $(".header--search-form").not($form).find('.btn-header-1').show();
+        $(".header--search-form").not($form).find('.btn-header-2').hide();
+        $form.addClass("active");
+        $form.find('.btn-header-1').hide();
+        $form.find('.btn-header-2').show();
         // $(this).attr('type','submit');
     });
 
@@ -12,6 +16,8 @@ $(document).ready(function() {
     $(document).click(function(event) {
         if (!$(event.target).closest(".header--search-form").length) {
             $(".header--search-form").removeClass("active");
+            $(".header--search-form .btn-header-1").show();
+            $(".header--search-form .btn-header-2").hide();
         }
     });
 });

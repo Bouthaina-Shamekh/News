@@ -7414,6 +7414,14 @@ ul.scrollmenu a:hover {
     }
 }
 
+@media (min-width:720px) and (max-width:991px) {
+    .header--navbar.bg--color-1 {
+        background-color: #670006;
+        border-color: #670006;
+        box-shadow: 0 3px 7px rgba(0, 0, 0, .2);
+    }
+}
+
 @media (min-width:992px) {
     .carousel-inner{
         height: 357px !important;
@@ -7513,9 +7521,9 @@ ul.scrollmenu a:hover {
     .header--top{
         display: block;
     }
-    .main--content .sticky-content-inner{
+    /* .main--content .sticky-content-inner{
         display: block;
-    }
+    } */
     .btn-link--secondary-more{
         font-size: 18px;
         margin-top: 17px;

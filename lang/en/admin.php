@@ -292,6 +292,8 @@ return [
     'Action' => 'Action',
 
     'Podcasts' => 'Podcasts',
+    'Podcast image size hint' => 'Recommended podcast image size: 1920x1080 or the same 16:9 ratio.',
+    'Episode image size hint' => 'Recommended episode image size: 1920x1080 or the same 16:9 ratio.',
     'Podcast Episodes' => 'Podcast Episodes',
     'View Podcast' => 'View Podcast',
     'Add Podcast' => 'Add Podcast',
@@ -317,4 +319,5 @@ return [
     'Views' => 'Views',
     'Featured' => 'Featured',
     'Video URL' => 'Video URL',
+    'Episode_Image' => 'Episode Image',
 ];
