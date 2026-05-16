@@ -31,29 +31,89 @@
                 </select>
             </div>
 
-            <div class="form-group col-12 mb-3 episode-audio-field" style="{{ ($episode->type ?? 'audio') == 'video' ? 'display:none' : '' }}">
-                <label class="form-label">{{ __('admin.Audio') }}</label>
-                <div class="d-flex gap-2 align-items-center flex-wrap">
-                    @if($episode && $episode->audio)
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-play-media" data-url="{{ asset('storage/' . $episode->audio) }}" data-type="audio">
-                            {{ __('admin.Open_Audio') }}
-                        </button>
-                    @endif
-                    <input type="file" name="episodes[audio][]" class="form-control" style="max-width: 300px;">
-                </div>
-            </div>
+           <div class="form-group col-12 mb-3 episode-audio-field"
+    style="{{ ($episode->type ?? 'audio') == 'video' ? 'display:none' : '' }}">
 
-            <div class="form-group col-12 mb-3 episode-video-field" style="{{ ($episode->type ?? 'audio') == 'audio' ? 'display:none' : '' }}">
-                <label class="form-label">{{ __('admin.Video') }}</label>
-                <div class="d-flex gap-2 align-items-center flex-wrap">
-                    @if($episode && $episode->vedio)
-                        <button type="button" class="btn btn-sm btn-outline-primary btn-play-media" data-url="{{ asset('storage/' . $episode->vedio) }}" data-type="video">
-                            {{ __('admin.Open_Video') }}
-                        </button>
-                    @endif
-                    <input type="file" name="episodes[vedio][]" class="form-control" style="max-width: 300px;">
-                </div>
-            </div>
+    <label class="form-label">{{ __('admin.Audio') }}</label>
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        @if($episode && $episode->audio)
+            <button type="button"
+                class="btn btn-sm btn-outline-primary btn-play-media"
+                data-url="{{ asset('storage/' . $episode->audio) }}"
+                data-type="audio">
+
+                {{ __('admin.Open_Audio') }}
+            </button>
+        @endif
+
+        @if($episode && $episode->audio_url)
+            <a href="{{ $episode->audio_url }}"
+               target="_blank"
+               class="btn btn-sm btn-outline-success">
+
+                {{ __('admin.Open_External_Audio') }}
+            </a>
+        @endif
+
+        <input type="file"
+               name="episodes[audio][]"
+               class="form-control"
+               style="max-width: 300px;">
+    </div>
+
+    <div class="mt-2">
+        <input type="url"
+               name="episodes[audio_url][]"
+               class="form-control"
+               placeholder="External Audio URL"
+               value="{{ $episode->audio_url ?? '' }}">
+    </div>
+
+</div>
+
+          <div class="form-group col-12 mb-3 episode-video-field"
+    style="{{ ($episode->type ?? 'audio') == 'audio' ? 'display:none' : '' }}">
+
+    <label class="form-label">{{ __('admin.Video') }}</label>
+
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+
+        @if($episode && $episode->vedio)
+            <button type="button"
+                class="btn btn-sm btn-outline-primary btn-play-media"
+                data-url="{{ asset('storage/' . $episode->vedio) }}"
+                data-type="video">
+
+                {{ __('admin.Open_Video') }}
+            </button>
+        @endif
+
+        @if($episode && $episode->video_url)
+            <a href="{{ $episode->video_url }}"
+               target="_blank"
+               class="btn btn-sm btn-outline-success">
+
+                {{ __('admin.Open_External_Video') }}
+            </a>
+        @endif
+
+        <input type="file"
+               name="episodes[vedio][]"
+               class="form-control"
+               style="max-width: 300px;">
+    </div>
+
+    <div class="mt-2">
+        <input type="url"
+               name="episodes[video_url][]"
+               class="form-control"
+               placeholder="External Video URL"
+               value="{{ $episode->video_url ?? '' }}">
+    </div>
+
+</div>
 
             <div class="form-group col-12 mb-3">
                 <label class="form-label">{{ __('admin.Description') }}</label>

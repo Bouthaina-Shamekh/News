@@ -25,61 +25,103 @@ use Illuminate\Support\Facades\Mail;
 class MainController extends Controller
 {
     public function home()
-    {
-        $ads = Ad::orderBy('id', 'desc')->get();
-        $sliders = Nw::active()->where('new_place_id', 4)->orderBy('id', 'desc')->take(5)->get();
+{
+    $ads = Ad::orderBy('id', 'desc')->get();
 
+    $sliders = Nw::active()
+        ->where('new_place_id', 4)
+        ->orderBy('id', 'desc')
+        ->take(5)
+        ->get();
+
+    $homeFeaturedVideo = Video::with('category')
+        ->whereNotNull('slug')
+        ->where('slug', '!=', '')
+        ->where('is_featured', true)
+        ->latest()
+        ->first();
+
+    if (! $homeFeaturedVideo) {
         $homeFeaturedVideo = Video::with('category')
             ->whereNotNull('slug')
             ->where('slug', '!=', '')
-            ->where('is_featured', true)
             ->latest()
             ->first();
-
-        if (! $homeFeaturedVideo) {
-            $homeFeaturedVideo = Video::with('category')
-                ->whereNotNull('slug')
-                ->where('slug', '!=', '')
-                ->latest()
-                ->first();
-        }
-
-        $homeVideos = Video::with('category')
-            ->whereNotNull('slug')
-            ->where('slug', '!=', '')
-            ->when($homeFeaturedVideo, fn ($q) => $q->where('id', '!=', $homeFeaturedVideo->id))
-            ->latest()
-            ->take(10)
-            ->get();
-
-        $homePodcastEpisodes = PodcastEpisode::with('podcast')
-            ->latest()
-            ->take(6)
-            ->get();
-
-        // Categories
-        $categoryOne = Category::find(6) ?? Category::first();
-        $categoryTwo = Category::find(4) ?? Category::first();
-        $categoryThree = Category::find(1) ?? Category::first();
-
-        $articlesOne = Artical::active()->where('category_id', $categoryOne->id)->orderBy('id', 'desc')->get();
-        $articlesTwo = Artical::active()->where('category_id', $categoryTwo->id)->orderBy('id', 'desc')->get();
-        $articlesThree = Artical::active()->where('category_id', $categoryThree->id)->orderBy('id', 'desc')->get();
-
-        return view('site.home', compact(
-            'ads',
-            'sliders',
-            'categoryOne',
-            'categoryTwo',
-            'categoryThree',
-            'articlesOne',
-            'articlesTwo',
-            'articlesThree',
-            'homeFeaturedVideo',
-            'homeVideos',
-            'homePodcastEpisodes'
-        ));
     }
+
+    $homeVideos = Video::with('category')
+        ->whereNotNull('slug')
+        ->where('slug', '!=', '')
+        ->when($homeFeaturedVideo, fn ($q) => $q->where('id', '!=', $homeFeaturedVideo->id))
+        ->latest()
+        ->take(10)
+        ->get();
+
+    $homePodcastEpisodes = PodcastEpisode::with('podcast')
+        ->latest()
+        ->take(6)
+        ->get();
+
+    // Categories
+    $categoryOne = Category::find(6) ?? Category::first();
+    $categoryTwo = Category::find(4) ?? Category::first();
+    $categoryThree = Category::find(1) ?? Category::first();
+
+
+    $locale = app()->getLocale();
+
+    $titleColumn = $locale === 'ar' ? 'title_ar' : 'title_en';
+
+    $articlesOne = Artical::active()
+        ->where('category_id', $categoryOne->id)
+        ->whereNotNull($titleColumn)
+        ->where($titleColumn, '!=', '')
+        ->orderBy('views', 'desc')
+        ->orderBy('id', 'desc')
+        ->get()
+        ->unique(function ($item) use ($titleColumn) {
+            return trim(mb_strtolower($item->{$titleColumn}));
+        })
+        ->values();
+
+    $articlesTwo = Artical::active()
+        ->where('category_id', $categoryTwo->id)
+        ->whereNotNull($titleColumn)
+        ->where($titleColumn, '!=', '')
+        ->orderBy('views', 'desc')
+        ->orderBy('id', 'desc')
+        ->get()
+        ->unique(function ($item) use ($titleColumn) {
+            return trim(mb_strtolower($item->{$titleColumn}));
+        })
+        ->values();
+
+    $articlesThree = Artical::active()
+        ->where('category_id', $categoryThree->id)
+        ->whereNotNull($titleColumn)
+        ->where($titleColumn, '!=', '')
+        ->orderBy('views', 'desc')
+        ->orderBy('id', 'desc')
+        ->get()
+        ->unique(function ($item) use ($titleColumn) {
+            return trim(mb_strtolower($item->{$titleColumn}));
+        })
+        ->values();
+
+    return view('site.home', compact(
+        'ads',
+        'sliders',
+        'categoryOne',
+        'categoryTwo',
+        'categoryThree',
+        'articlesOne',
+        'articlesTwo',
+        'articlesThree',
+        'homeFeaturedVideo',
+        'homeVideos',
+        'homePodcastEpisodes'
+    ));
+}
 
     public function about()
     {

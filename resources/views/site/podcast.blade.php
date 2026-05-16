@@ -21,8 +21,13 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     <!-- ══ Right: Program Image / Video Player ══ -->
                     @php
                     $heroType = $firstEpisode ? ($firstEpisode->type ?? 'audio') : 'audio';
-                    $heroAudioSrc = $firstEpisode && $firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '';
-                    $heroVideoSrc = $firstEpisode && $firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '';
+                    $heroAudioSrc = $firstEpisode
+                    ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : ''))
+                    : '';
+
+                    $heroVideoSrc = $firstEpisode
+                    ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : ''))
+                    : '';
                     $heroImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
                     @endphp
                     <div class="hero-image-wrap" data-type="{{ $heroType }}" data-video-src="{{ $heroVideoSrc }}"
@@ -109,8 +114,13 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                         ══════════════════════════════════ -->
                     @php
                     $epType = $firstEpisode->type ?? 'audio';
-                    $epAudioSrc = $firstEpisode && $firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '';
-                    $epVideoSrc = $firstEpisode && $firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '';
+                    $epAudioSrc = $firstEpisode
+                    ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : ''))
+                    : '';
+
+                    $epVideoSrc = $firstEpisode
+                    ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : ''))
+                    : '';
                     $epImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
                     $epTitle = $firstEpisode ? $firstEpisode->$title : (app()->getLocale() == 'ar' ? 'لا توجد حلقات' : 'No episodes');
                     $epDesc = $firstEpisode ? ($firstEpisode->$text ?? '') : '';
@@ -158,49 +168,49 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
                                     <!-- Left side: share icons -->
 
-                                 <div class="share-icons">
+                                    <div class="share-icons">
 
-    <!-- Share generic -->
-    <a href="#" onclick="shareNative(event)" class="share-icon share-icon--gray" title="مشاركة">
-        <svg viewBox="0 0 24 24" fill="white" width="15" height="15">
-            <circle cx="18" cy="5" r="3" fill="none" stroke="white" stroke-width="2"/>
-            <circle cx="6" cy="12" r="3" fill="none" stroke="white" stroke-width="2"/>
-            <circle cx="18" cy="19" r="3" fill="none" stroke="white" stroke-width="2"/>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="white" stroke-width="2"/>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="white" stroke-width="2"/>
-        </svg>
-    </a>
+                                        <!-- Share generic -->
+                                        <a href="#" onclick="shareNative(event)" class="share-icon share-icon--gray" title="مشاركة">
+                                            <svg viewBox="0 0 24 24" fill="white" width="15" height="15">
+                                                <circle cx="18" cy="5" r="3" fill="none" stroke="white" stroke-width="2" />
+                                                <circle cx="6" cy="12" r="3" fill="none" stroke="white" stroke-width="2" />
+                                                <circle cx="18" cy="19" r="3" fill="none" stroke="white" stroke-width="2" />
+                                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="white" stroke-width="2" />
+                                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="white" stroke-width="2" />
+                                            </svg>
+                                        </a>
 
-    <!-- WhatsApp -->
-    <a href="https://wa.me/?text={{ urlencode($epTitle . ' ' . request()->fullUrl()) }}" 
-       target="_blank"
-       class="share-icon share-icon--whatsapp" title="واتساب">
-        <svg viewBox="0 0 24 24" fill="white" width="15" height="15">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-            <path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.82.487 3.53 1.338 5.007L2.04 22l5.113-1.268A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.522 2 12 2zm0 18.182a8.154 8.154 0 01-4.162-1.136l-.298-.177-3.035.752.785-2.966-.194-.305A8.182 8.182 0 1112 20.182z"/>
-        </svg>
-    </a>
+                                        <!-- WhatsApp -->
+                                        <a href="https://wa.me/?text={{ urlencode($epTitle . ' ' . request()->fullUrl()) }}"
+                                            target="_blank"
+                                            class="share-icon share-icon--whatsapp" title="واتساب">
+                                            <svg viewBox="0 0 24 24" fill="white" width="15" height="15">
+                                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                                                <path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.82.487 3.53 1.338 5.007L2.04 22l5.113-1.268A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.522 2 12 2zm0 18.182a8.154 8.154 0 01-4.162-1.136l-.298-.177-3.035.752.785-2.966-.194-.305A8.182 8.182 0 1112 20.182z" />
+                                            </svg>
+                                        </a>
 
-    <!-- X -->
-    <a href="https://twitter.com/intent/tweet?text={{ urlencode($epTitle) }}&url={{ urlencode(request()->fullUrl()) }}" 
-       target="_blank"
-       class="share-icon share-icon--x" title="X">
-        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.74-8.857L2.134 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
-        </svg>
-    </a>
+                                        <!-- X -->
+                                        <a href="https://twitter.com/intent/tweet?text={{ urlencode($epTitle) }}&url={{ urlencode(request()->fullUrl()) }}"
+                                            target="_blank"
+                                            class="share-icon share-icon--x" title="X">
+                                            <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
+                                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.74-8.857L2.134 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+                                            </svg>
+                                        </a>
 
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" 
-       target="_blank"
-       class="share-icon share-icon--facebook" title="فيسبوك">
-        <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-    </a>
+                                        <!-- Facebook -->
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                                            target="_blank"
+                                            class="share-icon share-icon--facebook" title="فيسبوك">
+                                            <svg viewBox="0 0 24 24" fill="white" width="14" height="14">
+                                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                            </svg>
+                                        </a>
 
-</div>
-                                  
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -217,8 +227,8 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                             @foreach($episodes as $index => $episode)
                             @php
                             $episodeType = $episode->type ?? 'audio';
-                            $episodeAudioSrc = $episode->audio ? asset('storage/' . $episode->audio) : '';
-                            $episodeVideoSrc = $episode->vedio ? asset('storage/' . $episode->vedio) : '';
+                            $episodeAudioSrc = $episode->audio_url ?: ($episode->audio ? asset('storage/' . $episode->audio) : '');
+                            $episodeVideoSrc = $episode->video_url ?: ($episode->vedio ? asset('storage/' . $episode->vedio) : '');
                             $episodeImgSrc = ($episode->img_episode ?? $episode->img_view) ? asset('storage/' . ($episode->img_episode ?? $episode->img_view)) : $podcastImgUrl;
                             $episodeTitle = $episode->$title;
                             $episodeDesc = $episode->$text ?? '';
@@ -673,22 +683,22 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
     </script>
 
     <script>
-function shareNative(e) {
-    e.preventDefault();
+        function shareNative(e) {
+            e.preventDefault();
 
-    const url = "{{ request()->fullUrl() }}";
-    const title = "{{ $epTitle }}";
+            const url = "{{ request()->fullUrl() }}";
+            const title = "{{ $epTitle }}";
 
-    if (navigator.share) {
-        navigator.share({
-            title: title,
-            url: url
-        });
-    } else {
-        window.open("https://wa.me/?text=" + encodeURIComponent(title + " " + url), "_blank");
-    }
-}
-</script>
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    url: url
+                });
+            } else {
+                window.open("https://wa.me/?text=" + encodeURIComponent(title + " " + url), "_blank");
+            }
+        }
+    </script>
 
 
 

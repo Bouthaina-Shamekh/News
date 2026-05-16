@@ -48,10 +48,12 @@
                         @foreach($episodes as $episode)
                             @php
                                 $p = $episode->podcast;
-                                $pSlug = $p?->slug ?? $episode->podcast_id;
+                                $pSlug = $p?->slug;
                                 $episodeImg = ($episode->img_episode ?? $episode->img_view) ?: ($p?->img_view ?? $p?->img_podcast);
                                 $episodeImgUrl = $episodeImg ? asset('storage/' . $episodeImg) : asset('assets/in-img/podcasts/6.png');
-                                $episodeUrl = route('site.podcast.show', $pSlug) . '?episode=' . $episode->id . '&autoplay=1';
+                                $episodeUrl = $pSlug
+    ? route('site.podcast.show', ['slug' => $pSlug]) . '?episode=' . $episode->id . '&autoplay=1'
+    : '#';
                             @endphp
                             <a href="{{ $episodeUrl }}" class="podcast-card">
                                 <div class="card-inner">
