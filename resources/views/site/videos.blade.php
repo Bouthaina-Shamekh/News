@@ -202,4 +202,113 @@
             @endif
         @endforeach
     </div>
+
+    @push('scripts')
+        <script>
+            document.querySelectorAll('.category-slider').forEach(slider => {
+
+                const track = slider.querySelector('.category-slider__track');
+                const slides = slider.querySelectorAll('.slide');
+                const nextBtn = slider.querySelector('.slider-btn--next');
+                const prevBtn = slider.querySelector('.slider-btn--prev');
+                const dotsContainer = slider.querySelector('.slider-dots');
+
+                // 🔎 كشف الاتجاه
+                const isRTL = getComputedStyle(slider).direction === "rtl";
+
+                let index = 0;
+
+                function getVisibleSlides() {
+                    if (window.innerWidth <= 600) return 1;
+                    if (window.innerWidth <= 992) return 2;
+                    return 3;
+                }
+
+                function updateSlider() {
+                    const slideWidth = slides[0].offsetWidth;
+                    const moveValue = index * slideWidth;
+
+                    track.style.transform = isRTL ?
+                        `translateX(${moveValue}px)` :
+                        `translateX(-${moveValue}px)`;
+
+                    updateDots();
+                }
+
+                function createDots() {
+                    dotsContainer.innerHTML = '';
+                    const visible = getVisibleSlides();
+                    const pages = Math.ceil(slides.length / visible);
+
+                    for (let i = 0; i < pages; i++) {
+                        const dot = document.createElement('button');
+
+                        if (i === 0) dot.classList.add('active');
+
+                        dot.addEventListener('click', () => {
+                            index = i * visible;
+                            updateSlider();
+                        });
+
+                        dotsContainer.appendChild(dot);
+                    }
+                }
+
+                function updateDots() {
+                    const visible = getVisibleSlides();
+                    const currentPage = Math.floor(index / visible);
+                    const dots = dotsContainer.querySelectorAll('button');
+
+                    dots.forEach(d => d.classList.remove('active'));
+
+                    if (dots[currentPage]) {
+                        dots[currentPage].classList.add('active');
+                    }
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    const visible = getVisibleSlides();
+
+                    if (isRTL) {
+                        if (index - visible >= 0) {
+                            index -= visible;
+                        }
+                    } else {
+                        if (index + visible < slides.length) {
+                            index += visible;
+                        }
+                    }
+
+                    updateSlider();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    const visible = getVisibleSlides();
+
+                    if (isRTL) {
+                        if (index + visible < slides.length) {
+                            index += visible;
+                        }
+                    } else {
+                        if (index - visible >= 0) {
+                            index -= visible;
+                        }
+                    }
+
+                    updateSlider();
+                });
+
+                window.addEventListener('resize', () => {
+                    index = 0;
+                    createDots();
+                    updateSlider();
+                });
+
+                // init
+                createDots();
+                updateSlider();
+
+            });
+        </script>
+    @endpush
 </x-site-layout>
