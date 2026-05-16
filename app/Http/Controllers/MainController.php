@@ -76,7 +76,6 @@ class MainController extends Controller
         ->where('category_id', $categoryOne->id)
         ->whereNotNull($titleColumn)
         ->where($titleColumn, '!=', '')
-        ->orderBy('views', 'desc')
         ->orderBy('id', 'desc')
         ->get()
         ->unique(function ($item) use ($titleColumn) {
@@ -88,7 +87,6 @@ class MainController extends Controller
         ->where('category_id', $categoryTwo->id)
         ->whereNotNull($titleColumn)
         ->where($titleColumn, '!=', '')
-        ->orderBy('views', 'desc')
         ->orderBy('id', 'desc')
         ->get()
         ->unique(function ($item) use ($titleColumn) {
@@ -100,7 +98,6 @@ class MainController extends Controller
         ->where('category_id', $categoryThree->id)
         ->whereNotNull($titleColumn)
         ->where($titleColumn, '!=', '')
-        ->orderBy('views', 'desc')
         ->orderBy('id', 'desc')
         ->get()
         ->unique(function ($item) use ($titleColumn) {
