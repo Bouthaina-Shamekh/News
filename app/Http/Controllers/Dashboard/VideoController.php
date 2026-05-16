@@ -194,6 +194,7 @@ class VideoController extends Controller
     $this->authorize('edit', Video::class);
 
     DB::beginTransaction();
+
     try {
         $request->validate([
             'title_ar' => 'required',
@@ -211,11 +212,11 @@ class VideoController extends Controller
             'is_featured' => 'nullable|boolean',
         ]);
 
-        $videos = Video::findOrFail((int)$id);
+        $videos = Video::findOrFail((int) $id);
 
         if (
             !$request->hasFile('vedio') &&
-            !$request->video_url &&
+            !$request->filled('video_url') &&
             !$videos->vedio &&
             !$videos->video_url
         ) {
@@ -225,13 +226,17 @@ class VideoController extends Controller
         $keywords_ar_text = '';
         if ($request->keyword_ar != null) {
             $decoded_ar = json_decode($request->keyword_ar, true);
-            $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+            $keywords_ar_text = is_array($decoded_ar)
+                ? implode('، ', array_column($decoded_ar, 'value'))
+                : $request->keyword_ar;
         }
 
         $keywords_en_text = '';
         if ($request->keyword_en != null) {
             $decoded_en = json_decode($request->keyword_en, true);
-            $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+            $keywords_en_text = is_array($decoded_en)
+                ? implode(', ', array_column($decoded_en, 'value'))
+                : $request->keyword_en;
         }
 
         $title = $request->title_en ?? $request->title_ar;
@@ -242,34 +247,49 @@ class VideoController extends Controller
             $slug = $videos->slug;
         }
 
-        $request->merge([
-            'keyword_ar' => $keywords_ar_text ?? '',
-            'keyword_en' => $keywords_en_text ?? '',
-            'slug' => $slug
-        ]);
-
         $imgViewPath = $videos->img_view;
+
         if ($request->hasFile('img_view')) {
             if ($videos->img_view != null) {
                 Storage::disk('public')->delete($videos->img_view);
             }
+
             $imgViewPath = $request->file('img_view')->store('uploads', 'public');
         }
 
         $imgVideoPath = $imgViewPath;
 
         $vedioPath = $videos->vedio;
+        $videoUrl = $videos->video_url;
+        $hlsPath = $videos->hls_path;
         $status = $videos->status;
 
+        
         if ($request->hasFile('vedio')) {
             if ($videos->vedio != null) {
                 Storage::disk('public')->delete($videos->vedio);
             }
+
             Storage::disk('public')->deleteDirectory('videos/hls/' . $videos->id);
 
-            // 🔥 رفع جديد
             $vedioPath = $request->file('vedio')->store('videos/originals', 'public');
+            $videoUrl = null;
+            $hlsPath = null;
             $status = 'pending';
+        }
+
+       
+        if ($request->filled('video_url')) {
+            if ($videos->vedio != null) {
+                Storage::disk('public')->delete($videos->vedio);
+            }
+
+            Storage::disk('public')->deleteDirectory('videos/hls/' . $videos->id);
+
+            $vedioPath = null;
+            $videoUrl = $request->video_url;
+            $hlsPath = null;
+            $status = null;
         }
 
         $videos->update([
@@ -277,12 +297,12 @@ class VideoController extends Controller
             'title_en' => $request->title_en,
             'date' => $request->date,
             'time' => $request->time,
-            'keyword_ar' => $request->keyword_ar,
-            'keyword_en' => $request->keyword_en,
+            'keyword_ar' => $keywords_ar_text,
+            'keyword_en' => $keywords_en_text,
             'vedio' => $vedioPath,
-            'hls_path' => $request->hasFile('vedio') ? null : $videos->hls_path,
+            'hls_path' => $hlsPath,
             'status' => $status,
-            'video_url' => $request->video_url,
+            'video_url' => $videoUrl,
             'img_view' => $imgViewPath,
             'img_video' => $imgVideoPath,
             'text_ar' => $request->text_ar,
@@ -292,18 +312,24 @@ class VideoController extends Controller
             'is_featured' => $request->boolean('is_featured'),
         ]);
 
-        // 🔥 إعادة التحويل إذا في فيديو جديد
         if ($request->hasFile('vedio')) {
             ConvertVideoToHLS::dispatch($videos);
         }
 
         DB::commit();
+
+        return redirect()
+            ->route('dashboard.video.index')
+            ->with('success', __('admin.Item updated successfully.'));
+
     } catch (\Exception $e) {
         DB::rollBack();
-        return redirect()->back()->with('danger', $e->getMessage());
-    }
 
-    return redirect()->route('dashboard.video.index')->with('success', __('admin.Item updated successfully.'));
+        return redirect()
+            ->back()
+            ->with('danger', $e->getMessage())
+            ->withInput();
+    }
 }
 
     public function destroy($id)

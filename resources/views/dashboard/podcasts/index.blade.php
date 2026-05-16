@@ -1,8 +1,8 @@
 <x-dashboard-layout>
 
     @php
-        $name = 'name_' . app()->getLocale();
-        $title = 'title_' . app()->getLocale();
+    $name = 'name_' . app()->getLocale();
+    $title = 'title_' . app()->getLocale();
     @endphp
 
     <x-slot:breadcrumbs>
@@ -13,31 +13,31 @@
         <li class="breadcrumb-item">
             {{ __('admin.Podcasts') }}
         </li>
-    </x-slot:breadcrumb>
+        </x-slot:breadcrumb>
 
-    <div class="col-span-12">
+        <div class="col-span-12">
 
-        <div class="card table-card">
+            <div class="card table-card">
 
-            <div class="card-header">
+                <div class="card-header">
 
-                <div class="sm:flex items-center justify-between">
+                    <div class="sm:flex items-center justify-between">
 
-                    <h5>{{ __('admin.Podcasts') }}</h5>
+                        <h5>{{ __('admin.Podcasts') }}</h5>
 
-                    @can('create', 'App\Models\Podcast')
+                        @can('create', 'App\Models\Podcast')
                         <a href="{{ route('dashboard.podcast.create') }}" class="btn btn-primary">
 
                             {{ __('admin.Add Podcast') }}
 
                         </a>
-                    @endcan
+                        @endcan
+
+                    </div>
 
                 </div>
 
-            </div>
-
-            @can('view', 'App\Models\Podcast')
+                @can('view', 'App\Models\Podcast')
 
                 <div class="card-body">
 
@@ -64,94 +64,97 @@
                             <tbody>
 
                                 @foreach ($podcasts as $podcast)
-                                    <tr>
+                                <tr>
 
-                                        <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}</td>
 
-                                        <td>
+                                    <td>
 
-                                            @if ($podcast->img_view)
-                                                <img src="{{ asset('storage/' . $podcast->img_view) }}" width="60">
-                                            @endif
+                                        @if ($podcast->img_view)
+                                        <img src="{{ asset('storage/' . $podcast->img_view) }}" width="60">
+                                        @endif
 
-                                        </td>
+                                    </td>
 
-                                        <td>{{ $podcast->$title }}</td>
+                                    <td>{{ $podcast->$title }}</td>
 
-                                        <td>
+                                    <td>
 
-                                            @if (app()->getLocale() == 'ar')
-                                                {{ $podcast->category->name_ar ?? '' }}
-                                            @else
-                                                {{ $podcast->category->name_en ?? '' }}
-                                            @endif
+                                        @if (app()->getLocale() == 'ar')
+                                        {{ $podcast->category->name_ar ?? '' }}
+                                        @else
+                                        {{ $podcast->category->name_en ?? '' }}
+                                        @endif
 
-                                        </td>
+                                    </td>
 
 
-                                        <td>
-                                            @php
-                                                $totalSeconds = 0;
+                                    <td>
+                                        @php
+                                        $totalSeconds = 0;
 
-                                                foreach ($podcast->episodes as $ep) {
-                                                    if (!empty($ep->time)) {
-                                                        $parts = explode(':', trim($ep->time));
+                                        foreach ($podcast->episodes as $ep) {
+                                        if (!empty($ep->time)) {
+                                        $parts = explode(':', trim($ep->time));
 
-                                                        // لو الوقت mm:ss
-                                                        if (count($parts) === 2) {
-                                                            [$m, $s] = $parts;
-                                                            $h = 0;
-                                                        }
-                                                        // لو الوقت hh:mm:ss
-                                                        elseif (count($parts) === 3) {
-                                                            [$h, $m, $s] = $parts;
-                                                        } else {
-                                                            continue;
-                                                        }
+                                        // لو الوقت mm:ss
+                                        if (count($parts) === 2) {
+                                        [$m, $s] = $parts;
+                                        $h = 0;
+                                        }
+                                        // لو الوقت hh:mm:ss
+                                        elseif (count($parts) === 3) {
+                                        [$h, $m, $s] = $parts;
+                                        } else {
+                                        continue;
+                                        }
 
-                                                        $h = (int) $h;
-                                                        $m = (int) $m;
-                                                        $s = (int) $s;
+                                        $h = (int) $h;
+                                        $m = (int) $m;
+                                        $s = (int) $s;
 
-                                                        $totalSeconds += $h * 3600 + $m * 60 + $s;
-                                                    }
-                                                }
+                                        $totalSeconds += $h * 3600 + $m * 60 + $s;
+                                        }
+                                        }
 
-                                                $formatted = $totalSeconds > 0 ? gmdate('H:i:s', $totalSeconds) : '-';
-                                            @endphp
+                                        $formatted = $totalSeconds > 0 ? gmdate('H:i:s', $totalSeconds) : '-';
+                                        @endphp
 
-                                            {{ $formatted }}
-                                        </td>
+                                        {{ $formatted }}
+                                    </td>
 
-                                        <td>{{ $podcast->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $podcast->created_at->format('Y-m-d') }}</td>
 
-                                        <td class="d-flex">
+                                    <td class="d-flex">
 
-                                            <a href="{{ route('dashboard.podcast.edit', $podcast->id) }}"
-                                                class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                        <a href="{{ route('dashboard.podcast.edit', $podcast->id) }}"
+                                            class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
 
-                                                <i class="ti ti-edit text-xl"></i>
+                                            <i class="ti ti-edit text-xl"></i>
 
-                                            </a>
+                                        </a>
 
-                                            <form action="{{ route('dashboard.podcast.destroy', $podcast->id) }}"
-                                                method="post" class="delete-form">
+                                        <form action="{{ route('dashboard.podcast.destroy', $podcast->id) }}"
+                                            method="post"
+                                            class="delete-form"
+                                            id="delete-form-{{ $podcast->id }}">
 
-                                                @csrf
-                                                @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
 
-                                                <button type="submit"
-                                                    class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary">
+                                            <button type="button"
+                                                class="w-8 h-8 rounded-xl inline-flex items-center justify-center btn-link-secondary"
+                                                onclick="confirmDelete({{ $podcast->id }})">
 
-                                                    <i class="ti ti-trash text-xl"></i>
+                                                <i class="ti ti-trash text-xl"></i>
 
-                                                </button>
+                                            </button>
 
-                                            </form>
+                                        </form>
 
-                                        </td>
+                                    </td>
 
-                                    </tr>
+                                </tr>
                                 @endforeach
 
                             </tbody>
@@ -168,10 +171,31 @@
 
                 </div>
 
-            @endcan
+                @endcan
+
+            </div>
 
         </div>
 
-    </div>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: 'لن تستطيع استرجاع البيانات بعد الحذف!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'نعم، احذف',
+            cancelButtonText: 'إلغاء'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        });
+    }
+</script>
 
 </x-dashboard-layout>

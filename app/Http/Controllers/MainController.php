@@ -391,6 +391,9 @@ class MainController extends Controller
 
  public function videos()
 {
+    $locale = app()->getLocale();
+    $titleColumn = $locale === 'en' ? 'title_en' : 'title_ar';
+
     $featured = Video::with('category')
         ->latest()
         ->take(5)
@@ -402,7 +405,18 @@ class MainController extends Controller
         ->get();
 
     $mostViewedVideos = Video::with('category')
-        ->latest()
+        ->whereNotNull($titleColumn)
+        ->where($titleColumn, '!=', '')
+        ->select('videos.*')
+        ->whereIn('id', function ($query) use ($titleColumn) {
+            $query->selectRaw('MAX(id)')
+                ->from('videos')
+                ->whereNotNull($titleColumn)
+                ->where($titleColumn, '!=', '')
+                ->groupBy($titleColumn);
+        })
+        ->orderByDesc('views_count')
+        ->latest('id')
         ->take(8)
         ->get();
 
