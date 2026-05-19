@@ -14,39 +14,29 @@
 
     <div class="form-group col-12 mb-3">
         <label>{{ __('admin.Text_AR') }}</label>
-
         <textarea name="text_ar" class="form-control mytextarea">{{ $podcasts->text_ar }}</textarea>
-
     </div>
 
     <div class="form-group col-12 mb-3">
         <label>{{ __('admin.Text_EN') }}</label>
-
         <textarea name="text_en" class="form-control mytextarea">{{ $podcasts->text_en }}</textarea>
     </div>
 
     <div class="form-group col-6 mb-3">
-
         <label>{{ __('admin.Categories') }}</label>
 
         <select name="category_id" class="form-control" required>
-
             <option value="">{{ __('admin.Choose') }}</option>
 
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" @selected($podcasts->category_id == $category->id)>
-
                     {{ $category->$name }}
-
                 </option>
             @endforeach
-
         </select>
-
     </div>
 
     <div class="form-group col-6 mb-3">
-
         <label>{{ __('admin.Image View') }}</label>
 
         <input type="file" name="img_view" class="form-control">
@@ -55,7 +45,6 @@
         @if ($podcasts->img_view)
             <img src="{{ asset('storage/' . $podcasts->img_view) }}" width="80">
         @endif
-
     </div>
 
 </div>
@@ -103,16 +92,43 @@
                             </select>
                         </div>
 
+                        <div class="form-group col-12 mb-3 episode-audio-url-field"
+                            style="{{ $episode->type == 'video' ? 'display:none' : '' }}">
+                            <label class="form-label">رابط صوت خارجي</label>
+                            <input type="url" name="episodes[audio_url][]" class="form-control"
+                                value="{{ $episode->audio_url }}"
+                                placeholder="https://example.com/audio.mp3">
+                            <small class="text-muted d-block mt-1">
+                                إذا وضعت رابط خارجي سيتم استخدامه بدل ملف الصوت المرفوع.
+                            </small>
+                        </div>
+
+                        <div class="form-group col-12 mb-3 episode-video-url-field"
+                            style="{{ $episode->type == 'audio' ? 'display:none' : '' }}">
+                            <label class="form-label">رابط فيديو خارجي</label>
+                            <input type="url" name="episodes[video_url][]" class="form-control"
+                                value="{{ $episode->video_url }}"
+                                placeholder="https://example.com/video.mp4">
+                            <small class="text-muted d-block mt-1">
+                                إذا وضعت رابط خارجي سيتم استخدامه بدل ملف الفيديو المرفوع.
+                            </small>
+                        </div>
+
                         <div class="form-group col-12 mb-3 episode-audio-field"
                             style="{{ $episode->type == 'video' ? 'display:none' : '' }}">
                             <label class="form-label">{{ __('admin.Audio') }}</label>
                             <div class="d-flex gap-2 align-items-center flex-wrap">
-                                @if ($episode->audio)
+                                @php
+                                    $audioPreviewUrl = $episode->audio_url ?: ($episode->audio ? asset('storage/' . $episode->audio) : null);
+                                @endphp
+
+                                @if ($audioPreviewUrl)
                                     <button type="button" class="btn btn-sm btn-outline-primary btn-play-media"
-                                        data-url="{{ asset('storage/' . $episode->audio) }}" data-type="audio">
+                                        data-url="{{ $audioPreviewUrl }}" data-type="audio">
                                         {{ __('admin.Open_Audio') }}
                                     </button>
                                 @endif
+
                                 <input type="file" name="episodes[audio][]" class="form-control"
                                     style="max-width: 300px;">
                             </div>
@@ -122,12 +138,17 @@
                             style="{{ $episode->type == 'audio' ? 'display:none' : '' }}">
                             <label class="form-label">{{ __('admin.Video') }}</label>
                             <div class="d-flex gap-2 align-items-center flex-wrap">
-                                @if ($episode->vedio)
+                                @php
+                                    $videoPreviewUrl = $episode->video_url ?: ($episode->vedio ? asset('storage/' . $episode->vedio) : null);
+                                @endphp
+
+                                @if ($videoPreviewUrl)
                                     <button type="button" class="btn btn-sm btn-outline-primary btn-play-media"
-                                        data-url="{{ asset('storage/' . $episode->vedio) }}" data-type="video">
+                                        data-url="{{ $videoPreviewUrl }}" data-type="video">
                                         {{ __('admin.Open_Video') }}
                                     </button>
                                 @endif
+
                                 <input type="file" name="episodes[vedio][]" class="form-control"
                                     style="max-width: 300px;">
                             </div>
@@ -161,11 +182,8 @@
 </div>
 
 <button type="button" class="btn btn-success" id="addEpisode">
-
     + {{ __('admin.Add Episode') }}
-
 </button>
-
 
 @push('modals')
     <div class="modal fade" id="mediaPlayerModal" tabindex="-1" aria-hidden="true">
@@ -191,17 +209,23 @@
         (function() {
             function toggleEpisodeMedia(item) {
                 var type = $(item).find('.episode-type-select').val();
+
                 $(item).find('.episode-audio-field').toggle(type === 'audio');
+                $(item).find('.episode-audio-url-field').toggle(type === 'audio');
+
                 $(item).find('.episode-video-field').toggle(type === 'video');
+                $(item).find('.episode-video-url-field').toggle(type === 'video');
             }
 
             function clearMediaPlayer() {
                 var a = document.getElementById('mediaPlayerAudio');
                 var v = document.getElementById('mediaPlayerVideo');
+
                 if (a) {
                     a.pause();
                     a.src = '';
                 }
+
                 if (v) {
                     v.pause();
                     v.src = '';
@@ -221,6 +245,10 @@
 
                 audioEl.pause();
                 videoEl.pause();
+
+                audioEl.removeAttribute('src');
+                videoEl.removeAttribute('src');
+
                 audioEl.style.display = 'none';
                 videoEl.style.display = 'none';
 
@@ -235,19 +263,26 @@
                 }
 
                 modal.classList.add('show');
+
                 setTimeout(function() {
                     modal.classList.add('animate');
                 }, 100);
+
                 var overlay = document.getElementById('modaloverlay');
+
                 if (!overlay) {
                     overlay = document.createElement('div');
                     overlay.className = 'fixed inset-0 bg-gray-900/20 z-[1028] backdrop-blur-sm';
                     overlay.id = 'modaloverlay';
                     document.body.appendChild(overlay);
                     document.body.classList.add('modal-open');
+
                     overlay.addEventListener('click', function() {
                         clearMediaPlayer();
-                        if (typeof modalclose === 'function') modalclose();
+
+                        if (typeof modalclose === 'function') {
+                            modalclose();
+                        }
                     });
                 }
             });
@@ -266,14 +301,17 @@
                     <label class="form-label">{{ __('admin.Title_AR') }}</label>
                     <input type="text" name="episodes[title_ar][]" class="form-control" placeholder="Title AR">
                 </div>
+
                 <div class="form-group col-6 mb-3">
                     <label class="form-label">{{ __('admin.Title_EN') }}</label>
                     <input type="text" name="episodes[title_en][]" class="form-control" placeholder="Title EN">
                 </div>
+
                 <div class="form-group col-4 mb-3">
                     <label class="form-label">{{ __('admin.Date') }}</label>
                     <input type="date" name="episodes[date][]" class="form-control">
                 </div>
+
                 <div class="form-group col-4 mb-3">
                     <label class="form-label">{{ __('admin.Type') }}</label>
                     <select name="episodes[type][]" class="form-control episode-type-select">
@@ -281,14 +319,35 @@
                         <option value="video">{{ __('admin.Video') }}</option>
                     </select>
                 </div>
+
+                <div class="form-group col-12 mb-3 episode-audio-url-field">
+                    <label class="form-label">رابط صوت خارجي</label>
+                    <input type="url" name="episodes[audio_url][]" class="form-control"
+                        placeholder="https://example.com/audio.mp3">
+                    <small class="text-muted d-block mt-1">
+                        إذا وضعت رابط خارجي سيتم استخدامه بدل ملف الصوت المرفوع.
+                    </small>
+                </div>
+
+                <div class="form-group col-12 mb-3 episode-video-url-field" style="display:none">
+                    <label class="form-label">رابط فيديو خارجي</label>
+                    <input type="url" name="episodes[video_url][]" class="form-control"
+                        placeholder="https://example.com/video.mp4">
+                    <small class="text-muted d-block mt-1">
+                        إذا وضعت رابط خارجي سيتم استخدامه بدل ملف الفيديو المرفوع.
+                    </small>
+                </div>
+
                 <div class="form-group col-12 mb-3 episode-audio-field">
                     <label class="form-label">{{ __('admin.Audio') }}</label>
                     <input type="file" name="episodes[audio][]" class="form-control" style="max-width: 300px;">
                 </div>
+
                 <div class="form-group col-12 mb-3 episode-video-field" style="display:none">
                     <label class="form-label">{{ __('admin.Video') }}</label>
                     <input type="file" name="episodes[vedio][]" class="form-control" style="max-width: 300px;">
                 </div>
+
                 <div class="form-group col-12 mb-3">
                     <label class="form-label">{{ __('admin.Episode_Image') }}</label>
                     <div class="d-flex gap-2 align-items-center flex-wrap">

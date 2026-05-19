@@ -26,6 +26,8 @@ class PodcastEpisode extends Model
         'keyword_en',
         'podcast_id',
          'slug',
+         'audio_url',
+         'video_url',
     ];
 
     public function podcast()
