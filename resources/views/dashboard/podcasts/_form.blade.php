@@ -60,6 +60,9 @@
     @if (isset($episodes))
 
         @foreach ($episodes as $episode)
+            @php
+                $episodeSource = ($episode->type == 'video' ? $episode->video_url : $episode->audio_url) ? 'url' : 'upload';
+            @endphp
             <div class="card mb-3 episode-item">
 
                 <div class="card-body">
@@ -92,8 +95,16 @@
                             </select>
                         </div>
 
+                        <div class="form-group col-4 mb-3">
+                            <label class="form-label">مصدر الحلقة</label>
+                            <select name="episodes[source][]" class="form-control episode-source-select">
+                                <option value="upload" @selected($episodeSource == 'upload')>رفع ملف</option>
+                                <option value="url" @selected($episodeSource == 'url')>رابط خارجي</option>
+                            </select>
+                        </div>
+
                         <div class="form-group col-12 mb-3 episode-audio-url-field"
-                            style="{{ $episode->type == 'video' ? 'display:none' : '' }}">
+                            style="{{ $episode->type == 'video' || $episodeSource != 'url' ? 'display:none' : '' }}">
                             <label class="form-label">رابط صوت خارجي</label>
                             <input type="url" name="episodes[audio_url][]" class="form-control"
                                 value="{{ $episode->audio_url }}"
@@ -104,7 +115,7 @@
                         </div>
 
                         <div class="form-group col-12 mb-3 episode-video-url-field"
-                            style="{{ $episode->type == 'audio' ? 'display:none' : '' }}">
+                            style="{{ $episode->type == 'audio' || $episodeSource != 'url' ? 'display:none' : '' }}">
                             <label class="form-label">رابط فيديو خارجي</label>
                             <input type="url" name="episodes[video_url][]" class="form-control"
                                 value="{{ $episode->video_url }}"
@@ -115,7 +126,7 @@
                         </div>
 
                         <div class="form-group col-12 mb-3 episode-audio-field"
-                            style="{{ $episode->type == 'video' ? 'display:none' : '' }}">
+                            style="{{ $episode->type == 'video' || $episodeSource != 'upload' ? 'display:none' : '' }}">
                             <label class="form-label">{{ __('admin.Audio') }}</label>
                             <div class="d-flex gap-2 align-items-center flex-wrap">
                                 @php
@@ -135,7 +146,7 @@
                         </div>
 
                         <div class="form-group col-12 mb-3 episode-video-field"
-                            style="{{ $episode->type == 'audio' ? 'display:none' : '' }}">
+                            style="{{ $episode->type == 'audio' || $episodeSource != 'upload' ? 'display:none' : '' }}">
                             <label class="form-label">{{ __('admin.Video') }}</label>
                             <div class="d-flex gap-2 align-items-center flex-wrap">
                                 @php
@@ -209,12 +220,13 @@
         (function() {
             function toggleEpisodeMedia(item) {
                 var type = $(item).find('.episode-type-select').val();
+                var source = $(item).find('.episode-source-select').val() || 'upload';
 
-                $(item).find('.episode-audio-field').toggle(type === 'audio');
-                $(item).find('.episode-audio-url-field').toggle(type === 'audio');
+                $(item).find('.episode-audio-field').toggle(type === 'audio' && source === 'upload');
+                $(item).find('.episode-audio-url-field').toggle(type === 'audio' && source === 'url');
 
-                $(item).find('.episode-video-field').toggle(type === 'video');
-                $(item).find('.episode-video-url-field').toggle(type === 'video');
+                $(item).find('.episode-video-field').toggle(type === 'video' && source === 'upload');
+                $(item).find('.episode-video-url-field').toggle(type === 'video' && source === 'url');
             }
 
             function clearMediaPlayer() {
@@ -233,6 +245,10 @@
             }
 
             $(document).on('change', '.episode-type-select', function() {
+                toggleEpisodeMedia($(this).closest('.episode-item'));
+            });
+
+            $(document).on('change', '.episode-source-select', function() {
                 toggleEpisodeMedia($(this).closest('.episode-item'));
             });
 
@@ -320,7 +336,15 @@
                     </select>
                 </div>
 
-                <div class="form-group col-12 mb-3 episode-audio-url-field">
+                <div class="form-group col-4 mb-3">
+                    <label class="form-label">مصدر الحلقة</label>
+                    <select name="episodes[source][]" class="form-control episode-source-select">
+                        <option value="upload">رفع ملف</option>
+                        <option value="url">رابط خارجي</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-12 mb-3 episode-audio-url-field" style="display:none">
                     <label class="form-label">رابط صوت خارجي</label>
                     <input type="url" name="episodes[audio_url][]" class="form-control"
                         placeholder="https://example.com/audio.mp3">

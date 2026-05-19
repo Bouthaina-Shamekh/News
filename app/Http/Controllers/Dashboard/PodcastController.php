@@ -92,6 +92,7 @@ class PodcastController extends Controller
             'category_id' => 'required',
 
             'episodes.img_episode.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'episodes.source.*' => 'nullable|in:upload,url',
             'episodes.audio_url.*' => 'nullable|url',
             'episodes.video_url.*' => 'nullable|url',
         ]);
@@ -148,14 +149,22 @@ class PodcastController extends Controller
 
                 if ($title != null) {
 
-                    $vedioPath = $request->hasFile("episodes.vedio.$index")
-                        ? $request->file("episodes.vedio.$index")->store('uploads', 'public')
-                        : null;
-
+                    $episodeType = $request->episodes['type'][$index] ?? 'audio';
+                    $audioUrl = $request->episodes['audio_url'][$index] ?? null;
+                    $videoUrl = $request->episodes['video_url'][$index] ?? null;
+                    $mediaSource = $request->episodes['source'][$index]
+                        ?? (($episodeType === 'video' ? $videoUrl : $audioUrl) ? 'url' : 'upload');
+                    $vedioPath = null;
                     $audioPath = null;
                     $duration = null;
+                    $audioUrl = $episodeType === 'audio' && $mediaSource === 'url' ? $audioUrl : null;
+                    $videoUrl = $episodeType === 'video' && $mediaSource === 'url' ? $videoUrl : null;
 
-                    if ($request->hasFile("episodes.audio.$index")) {
+                    if ($episodeType === 'video' && $mediaSource === 'upload' && $request->hasFile("episodes.vedio.$index")) {
+                        $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
+                    }
+
+                    if ($episodeType === 'audio' && $mediaSource === 'upload' && $request->hasFile("episodes.audio.$index")) {
 
                         $audioFile = $request->file("episodes.audio.$index");
 
@@ -207,11 +216,11 @@ class PodcastController extends Controller
                         'slug' => $episodeSlug,
                         'date' => $request->episodes['date'][$index] ?? null,
                         'time' => $duration,
-                        'type' => $request->episodes['type'][$index] ?? null,
+                        'type' => $episodeType,
                         'vedio' => $vedioPath,
                         'audio' => $audioPath,
-                        'audio_url' => $request->episodes['audio_url'][$index] ?? null,
-                        'video_url' => $request->episodes['video_url'][$index] ?? null,
+                        'audio_url' => $audioUrl,
+                        'video_url' => $videoUrl,
                         'img_view' => $imgViewEpisodePath,
                         'img_episode' => $imgEpisodePath,
                         'text_ar' => $request->episodes['text_ar'][$index] ?? null,
@@ -275,6 +284,7 @@ class PodcastController extends Controller
             'category_id' => 'required',
 
             'episodes.img_episode.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'episodes.source.*' => 'nullable|in:upload,url',
             'episodes.audio_url.*' => 'nullable|url',
             'episodes.video_url.*' => 'nullable|url',
         ]);
@@ -370,33 +380,34 @@ class PodcastController extends Controller
                 if ($episodeTitle != null) {
 
                     $oldEpisode = $oldEpisodes[$index] ?? null;
+                    $episodeType = $request->episodes['type'][$index] ?? 'audio';
+                    $requestAudioUrl = $request->episodes['audio_url'][$index] ?? null;
+                    $requestVideoUrl = $request->episodes['video_url'][$index] ?? null;
+                    $mediaSource = $request->episodes['source'][$index]
+                        ?? (($episodeType === 'video' ? $requestVideoUrl : $requestAudioUrl) ? 'url' : 'upload');
 
-                    $vedioPath = $oldEpisode?->vedio;
+                    $vedioPath = $episodeType === 'video' && $mediaSource === 'upload' ? $oldEpisode?->vedio : null;
+                    $audioPath = $episodeType === 'audio' && $mediaSource === 'upload' ? $oldEpisode?->audio : null;
+                    $duration = $episodeType === 'audio' && $mediaSource === 'upload' ? $oldEpisode?->time : null;
+                    $audioUrl = $episodeType === 'audio' && $mediaSource === 'url' ? $requestAudioUrl : null;
+                    $videoUrl = $episodeType === 'video' && $mediaSource === 'url' ? $requestVideoUrl : null;
 
-                    if ($request->hasFile("episodes.vedio.$index")) {
+                    if ($oldEpisode && ($episodeType !== 'video' || $mediaSource !== 'upload' || $request->hasFile("episodes.vedio.$index")) && $oldEpisode->vedio) {
+                        Storage::disk('public')->delete($oldEpisode->vedio);
+                    }
 
-                        if ($oldEpisode && $oldEpisode->vedio) {
-                            Storage::disk('public')->delete($oldEpisode->vedio);
-                        }
+                    if ($oldEpisode && ($episodeType !== 'audio' || $mediaSource !== 'upload' || $request->hasFile("episodes.audio.$index")) && $oldEpisode->audio) {
+                        Storage::disk('public')->delete($oldEpisode->audio);
+                    }
 
+                    if ($episodeType === 'video' && $mediaSource === 'upload' && $request->hasFile("episodes.vedio.$index")) {
                         $vedioPath = $request->file("episodes.vedio.$index")->store('uploads', 'public');
                     }
 
-                    $audioPath = $oldEpisode?->audio;
-                    $duration = $oldEpisode?->time;
-
-                    if ($request->hasFile("episodes.audio.$index")) {
-
-                        if ($oldEpisode && $oldEpisode->audio) {
-                            Storage::disk('public')->delete($oldEpisode->audio);
-                        }
-
+                    if ($episodeType === 'audio' && $mediaSource === 'upload' && $request->hasFile("episodes.audio.$index")) {
                         $audioFile = $request->file("episodes.audio.$index");
-
                         $audioPath = $audioFile->store('uploads', 'public');
-
                         $fullPath = storage_path('app/public/' . $audioPath);
-
                         $duration = $this->getAudioDuration($fullPath);
                     }
 
@@ -461,11 +472,11 @@ class PodcastController extends Controller
                         'slug' => $episodeSlug,
                         'date' => $request->episodes['date'][$index] ?? null,
                         'time' => $duration,
-                        'type' => $request->episodes['type'][$index] ?? null,
+                        'type' => $episodeType,
                         'vedio' => $vedioPath,
                         'audio' => $audioPath,
-                        'audio_url' => $request->episodes['audio_url'][$index] ?? null,
-                        'video_url' => $request->episodes['video_url'][$index] ?? null,
+                        'audio_url' => $audioUrl,
+                        'video_url' => $videoUrl,
                         'img_view' => $imgViewEpisodePath,
                         'img_episode' => $imgEpisodePath,
                         'text_ar' => $request->episodes['text_ar'][$index] ?? null,

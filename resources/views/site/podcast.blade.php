@@ -20,14 +20,14 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
                     <!-- ══ Right: Program Image / Video Player ══ -->
                     @php
-                    $heroType = $firstEpisode ? ($firstEpisode->type ?? 'audio') : 'audio';
-                    $heroAudioSrc = $firstEpisode
-                    ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : ''))
-                    : '';
+                     $heroType = $firstEpisode ? ($firstEpisode->type ?? 'audio') : 'audio';
+                     $heroAudioSrc = $firstEpisode
+                     ? ($heroType === 'audio' ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '')) : '')
+                     : '';
 
-                    $heroVideoSrc = $firstEpisode
-                    ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : ''))
-                    : '';
+                     $heroVideoSrc = $firstEpisode
+                     ? ($heroType === 'video' ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '')) : '')
+                     : '';
                     $heroImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
                     @endphp
                     <div class="hero-image-wrap" data-type="{{ $heroType }}" data-video-src="{{ $heroVideoSrc }}"
@@ -113,14 +113,14 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                              A) Current Episode Player Card
                         ══════════════════════════════════ -->
                     @php
-                    $epType = $firstEpisode->type ?? 'audio';
-                    $epAudioSrc = $firstEpisode
-                    ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : ''))
-                    : '';
+                     $epType = $firstEpisode->type ?? 'audio';
+                     $epAudioSrc = $firstEpisode
+                     ? ($epType === 'audio' ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '')) : '')
+                     : '';
 
-                    $epVideoSrc = $firstEpisode
-                    ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : ''))
-                    : '';
+                     $epVideoSrc = $firstEpisode
+                     ? ($epType === 'video' ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '')) : '')
+                     : '';
                     $epImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
                     $epTitle = $firstEpisode ? $firstEpisode->$title : (app()->getLocale() == 'ar' ? 'لا توجد حلقات' : 'No episodes');
                     $epDesc = $firstEpisode ? ($firstEpisode->$text ?? '') : '';
@@ -225,10 +225,10 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
                         <div class="episodes-list">
                             @foreach($episodes as $index => $episode)
-                            @php
-                            $episodeType = $episode->type ?? 'audio';
-                            $episodeAudioSrc = $episode->audio_url ?: ($episode->audio ? asset('storage/' . $episode->audio) : '');
-                            $episodeVideoSrc = $episode->video_url ?: ($episode->vedio ? asset('storage/' . $episode->vedio) : '');
+                             @php
+                             $episodeType = $episode->type ?? 'audio';
+                             $episodeAudioSrc = $episodeType === 'audio' ? ($episode->audio_url ?: ($episode->audio ? asset('storage/' . $episode->audio) : '')) : '';
+                             $episodeVideoSrc = $episodeType === 'video' ? ($episode->video_url ?: ($episode->vedio ? asset('storage/' . $episode->vedio) : '')) : '';
                             $episodeImgSrc = ($episode->img_episode ?? $episode->img_view) ? asset('storage/' . ($episode->img_episode ?? $episode->img_view)) : $podcastImgUrl;
                             $episodeTitle = $episode->$title;
                             $episodeDesc = $episode->$text ?? '';
