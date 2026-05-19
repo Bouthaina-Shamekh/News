@@ -211,6 +211,9 @@ Author URI  : https://themeforest.net/user/themelooks
         width: 100%;
         min-height: 58px;
     }
+    #headerNav .header--menu-links>li.hidden-md.hidden-lg:first-child {
+        min-height: 58px;
+    }
     #headerNav .header--search-form .form-control {
         left: auto;
         right: 13px;

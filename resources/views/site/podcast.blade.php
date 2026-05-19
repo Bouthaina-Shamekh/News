@@ -303,12 +303,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
     </div>
 
-
-
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    @push('scripts')
     <script>
         $(document).ready(function() {
             // ═══════════════════════════════════════════════
@@ -699,6 +694,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
             }
         }
     </script>
+    @endpush
 
 
 

@@ -716,12 +716,26 @@
 .slide {
   flex: 0 0 calc(100% / 3);
   padding: 0 10px;
-  height: 310px;
+  height: auto;
 }
 
 /* مهم حتى لا يكسر absolute positioning */
 .slide .video-card {
   height: 100%;
+}
+
+.category-slider .video-card__media {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  padding-bottom: 0;
+}
+
+.category-slider .video-card__image {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .slide .video-card .video-card__title {
   font-size: 14px;
@@ -734,14 +748,14 @@
 @media (max-width: 992px) {
   .slide {
     flex: 0 0 calc(100% / 2);
-    height: 210px;
+    height: auto;
   }
 }
 
 @media (max-width: 600px) {
   .slide {
     flex: 0 0 100%;
-    height: 210px;
+    height: auto;
   }
 }
 

@@ -47,16 +47,11 @@
     <link rel="stylesheet " href="{{ asset('assets-new/css/font-awesome.min.css') }}">
     <link rel="stylesheet " href="{{ asset('assets-new/css/bootstrap.min.css') }}">
     <link rel="stylesheet " href="{{ asset('assets-new/css/fontawesome-stars-o.min.css') }}">
-    <script type="text/javascript " src="{{ asset('assets-new/assets_news_tricker/js/jquery.js') }}"></script>
-    <script type="text/javascript " src="{{ asset('assets-new/assets_news_tricker/js/acmeticker.js') }}"></script>
     <link rel="stylesheet " href="{{ asset('assets-new/assets_news_tricker/css/style_news_ticker.css') }}">
-    <script defer src="{{ asset('assets-new/assets_news_tricker/js/news-ticker.js') }}"></script>
     <link rel="stylesheet " href="{{ asset('assets-new/css/responsive-style.css') }}">
     <link rel="stylesheet " href="{{ asset('assets-new/css/colors/theme-color-1.css') }}" id="changeColorScheme ">
     <link rel="stylesheet " href="{{ asset('assets-new/css/output.css') }}">
     <!--   <link rel="stylesheet " href="rtl-style.css"> -->
-    <script src="{{ asset('asset/js/plugins/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     @stack('styles')
     <link rel="stylesheet" href="{{ asset('fonts/style.css') }}">
 </head>
