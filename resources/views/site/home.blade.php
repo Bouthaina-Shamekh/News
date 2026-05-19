@@ -1094,67 +1094,8 @@
                                         <h2 class="section-header-title">البث المباشر</h2>
                                     </div>
                                     <div class="home-live-section__main">
-                                        <a href="#" class="home-live-section__main-link">
-                                            <img src="../assets/in-img/1.png" alt="البث المباشر">
-                                        </a>
-                                    </div>
-                                    <div class="home-live-section__grid">
-                                        <a href="videos.html" class="home-live-section__grid-item">
-                                            <div class="thumb-wrap">
-                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
-                                                <div class="play-overlay">
-                                                    <svg viewBox="0 0 24 24">
-                                                        <polygon points="6,4 20,12 6,20" fill="white" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="item-body">
-                                                <div class="item-category">أخبار إسرائيل</div>
-                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
-                                            </div>
-                                        </a>
-                                        <a href="videos.html" class="home-live-section__grid-item">
-                                            <div class="thumb-wrap">
-                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
-                                                <div class="play-overlay">
-                                                    <svg viewBox="0 0 24 24">
-                                                        <polygon points="6,4 20,12 6,20" fill="white" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="item-body">
-                                                <div class="item-category">أخبار إسرائيل</div>
-                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
-                                            </div>
-                                        </a>
-                                        <a href="videos.html" class="home-live-section__grid-item">
-                                            <div class="thumb-wrap">
-                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
-                                                <div class="play-overlay">
-                                                    <svg viewBox="0 0 24 24">
-                                                        <polygon points="6,4 20,12 6,20" fill="white" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="item-body">
-                                                <div class="item-category">أخبار إسرائيل</div>
-                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
-                                            </div>
-                                        </a>
-                                        <a href="videos.html" class="home-live-section__grid-item">
-                                            <div class="thumb-wrap">
-                                                <img src="../assets/in-img/2.png" alt="أخبار إسرائيل">
-                                                <div class="play-overlay">
-                                                    <svg viewBox="0 0 24 24">
-                                                        <polygon points="6,4 20,12 6,20" fill="white" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div class="item-body">
-                                                <div class="item-category">أخبار إسرائيل</div>
-                                                <h3 class="item-title">نتنياهو يعرب عن تعاظم</h3>
-                                            </div>
-                                        </a>
+                                        <img src="{{ asset('assets-new/img/live-broadcast-coming-soon.png') }}"
+                                            alt="البث المباشر قريباً">
                                     </div>
                                 </section>
                                 <div class="widget">
