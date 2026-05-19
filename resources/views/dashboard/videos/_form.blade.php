@@ -37,12 +37,18 @@
 
     <div class="form-group col-12 mb-3">
         <label for="text_ar" class="form-label">{{ __('admin.Text_AR') }}<span style="color: red">*</span></label>
-        <textarea name="text_ar" rows="3" class="form-control mytextarea" required>{{ $videos->text_ar }}</textarea>
+        <textarea name="text_ar" rows="3" class="form-control mytextarea">{{ $videos->text_ar }}</textarea>
+        <div class="invalid-feedback d-none" data-editor-error="text_ar">
+            {{ __('validation.required', ['attribute' => __('admin.Text_AR')]) }}
+        </div>
     </div>
 
     <div class="form-group col-12 mb-3">
         <label for="text_en" class="form-label">{{ __('admin.Text_EN') }}<span style="color: red">*</span></label>
-        <textarea name="text_en" rows="3" class="form-control mytextarea" required>{{ $videos->text_en }}</textarea>
+        <textarea name="text_en" rows="3" class="form-control mytextarea">{{ $videos->text_en }}</textarea>
+        <div class="invalid-feedback d-none" data-editor-error="text_en">
+            {{ __('validation.required', ['attribute' => __('admin.Text_EN')]) }}
+        </div>
     </div>
 
     <div class="form-group col-6 mb-3">
@@ -180,8 +186,72 @@
                 editor.on('change', function() {
                     editor.save();
                 });
+
+                editor.on('input keyup change', function() {
+                    clearEditorRequiredError(editor.targetElm.name);
+                });
             }
         });
+
+        function clearEditorRequiredError(name) {
+            const textarea = document.querySelector(`textarea[name="${name}"]`);
+            const error = document.querySelector(`[data-editor-error="${name}"]`);
+            const editorContainer = textarea ? document.getElementById(`${textarea.id}_ifr`)?.closest('.tox-tinymce') : null;
+
+            if (error) {
+                error.classList.add('d-none');
+            }
+
+            if (editorContainer) {
+                editorContainer.classList.remove('is-invalid');
+                editorContainer.style.borderColor = '';
+            }
+        }
+
+        function showEditorRequiredError(name) {
+            const textarea = document.querySelector(`textarea[name="${name}"]`);
+            const error = document.querySelector(`[data-editor-error="${name}"]`);
+            const editorContainer = textarea ? document.getElementById(`${textarea.id}_ifr`)?.closest('.tox-tinymce') : null;
+
+            if (error) {
+                error.classList.remove('d-none');
+                error.style.display = 'block';
+            }
+
+            if (editorContainer) {
+                editorContainer.style.borderColor = '#dc3545';
+            }
+        }
+
+        document.addEventListener('submit', function(event) {
+            const form = event.target;
+
+            if (!form.querySelector('textarea.mytextarea')) {
+                return;
+            }
+
+            tinymce.triggerSave();
+
+            const requiredEditors = ['text_ar', 'text_en'];
+            const firstInvalidName = requiredEditors.find(function(name) {
+                const editor = tinymce.get(document.querySelector(`textarea[name="${name}"]`)?.id);
+                const content = editor ? editor.getContent({ format: 'text' }).trim() : document.querySelector(`textarea[name="${name}"]`)?.value.trim();
+
+                if (!content) {
+                    showEditorRequiredError(name);
+                    return true;
+                }
+
+                clearEditorRequiredError(name);
+                return false;
+            });
+
+            if (firstInvalidName) {
+                event.preventDefault();
+                event.stopPropagation();
+                tinymce.get(document.querySelector(`textarea[name="${firstInvalidName}"]`).id)?.focus();
+            }
+        }, true);
     </script>
 
     <script>
