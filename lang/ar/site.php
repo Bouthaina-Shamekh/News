@@ -122,6 +122,7 @@ return [
     'Latest Videos' => 'أحدث الفيديوهات',
     'more_videos' => 'المزيد من الفيديوهات',
     'breaking_news' => 'الأخبار العاجلة',
+    'latest_published_articles' => 'آخر ما تم نشره من المقالات',
     'most_viewed_videos' => 'الأكثر مشاهدة',
     'before' => 'قبل',
     'more' => 'المزيد',

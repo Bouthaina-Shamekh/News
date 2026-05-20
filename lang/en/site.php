@@ -119,6 +119,7 @@ return [
     'Latest Videos' => 'Latest Videos',
     'more_videos' => 'More videos',
     'breaking_news' => 'Breaking news',
+    'latest_published_articles' => 'Latest Published Articles',
     'most_viewed_videos' => 'Most viewed',
     'before' => 'Before',
     'more' => 'More',

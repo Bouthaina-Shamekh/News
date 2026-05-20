@@ -127,7 +127,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     $epTypeLabel = ($epType === 'video') ? (app()->getLocale() == 'ar' ? 'فيديو' : 'Video') : (app()->getLocale() == 'ar' ? 'صوت' : 'Audio');
                     $epBadgeClass = $epType === 'video' ? 'media-type-badge--video' : 'media-type-badge--audio';
                     @endphp
-                    <div class="episode-card" data-type="{{ $epType }}" data-audio-src="{{ $epAudioSrc }}"
+                    <div class="episode-card" data-episode-id="{{ $firstEpisode->id ?? '' }}" data-type="{{ $epType }}" data-audio-src="{{ $epAudioSrc }}"
                         data-video-src="{{ $epVideoSrc }}" data-title="{{ $epTitle }}"
                         data-description="{{ $epDesc }}"
                         data-image-src="{{ $epImgSrc }}">
@@ -340,6 +340,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
             const listAudios = {};
 
             const currentEpisode = {
+                id: $episodeCard.attr('data-episode-id') || '',
                 type: normalizeType($episodeCard.attr('data-type')),
                 audioSrc: $episodeCard.attr('data-audio-src') || '',
                 videoSrc: $episodeCard.attr('data-video-src') || '',
@@ -349,6 +350,18 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
             };
 
             setMainEpisodeMedia(currentEpisode);
+
+            if (heroVideoPlayer) {
+                heroVideoPlayer.addEventListener('play', function() {
+                    updateCurrentPlayButtons(true);
+                });
+                heroVideoPlayer.addEventListener('pause', function() {
+                    updateCurrentPlayButtons(false);
+                });
+                heroVideoPlayer.addEventListener('ended', function() {
+                    updateCurrentPlayButtons(false);
+                });
+            }
 
             $mainPlayBtn.on('click', function(e) {
                 e.preventDefault();
@@ -389,33 +402,11 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     e.preventDefault();
                     e.stopPropagation();
 
-                    setEpisodeFromElement($row);
-
-                    if (currentEpisode.type === 'video') {
-                        stopAllListAudios();
-                        playHeroVideo();
-                        return;
+                    if (($row.attr('data-episode-id') || '') !== currentEpisode.id) {
+                        setEpisodeFromElement($row);
                     }
 
-                    if (mainAudio && isMainPlaying) {
-                        mainAudio.pause();
-                        isMainPlaying = false;
-                        updateMainPlayButton(false);
-                    }
-
-                    stopAllListAudios(index);
-                    const item = listAudios[index];
-                    if (!item) return;
-
-                    if (item.isPlaying) {
-                        item.audio.pause();
-                        item.isPlaying = false;
-                    } else {
-                        item.audio.play();
-                        item.isPlaying = true;
-                    }
-
-                    updateListPlayButton(item.$btn, item.isPlaying);
+                    handlePlayAction();
                 });
             });
 
@@ -443,6 +434,19 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
             function handlePlayAction() {
                 if (currentEpisode.type === 'video') {
                     stopAllListAudios();
+
+                    if (heroVideoPlayer && $heroWrap.hasClass('is-video') && !heroVideoPlayer.paused) {
+                        heroVideoPlayer.pause();
+                        return;
+                    }
+
+                    if (heroVideoPlayer && $heroWrap.hasClass('is-video') && heroVideoPlayer.src) {
+                        heroVideoPlayer.play().then(function() {
+                            updateCurrentPlayButtons(true);
+                        }).catch(function() {});
+                        return;
+                    }
+
                     playHeroVideo();
                     return;
                 }
@@ -463,7 +467,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     mainAudio.addEventListener('ended', function() {
                         if (!mainAudio) return;
                         isMainPlaying = false;
-                        updateMainPlayButton(false);
+                        updateCurrentPlayButtons(false);
                     });
                 }
 
@@ -477,7 +481,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     isMainPlaying = true;
                 }
 
-                updateMainPlayButton(isMainPlaying);
+                updateCurrentPlayButtons(isMainPlaying);
             }
 
             function playHeroVideo() {
@@ -500,7 +504,9 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
                 function doLoadAndPlay() {
                     heroVideoPlayer.load();
-                    heroVideoPlayer.play().catch(function() {});
+                    heroVideoPlayer.play().then(function() {
+                        updateCurrentPlayButtons(true);
+                    }).catch(function() {});
                 }
                 if (window.requestAnimationFrame) {
                     requestAnimationFrame(function() {
@@ -513,10 +519,12 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
             function setEpisodeFromElement($sourceEl) {
                 const media = getMediaFromElement($sourceEl);
+                const id = $sourceEl.attr('data-episode-id') || '';
                 const title = $sourceEl.attr('data-title') || $sourceEl.find('.ep-title').first().text().trim();
                 const description = $sourceEl.attr('data-description') || '';
                 const imageSrc = $sourceEl.attr('data-image-src') || '';
 
+                currentEpisode.id = id;
                 currentEpisode.type = media.type;
                 currentEpisode.audioSrc = media.audioSrc;
                 currentEpisode.videoSrc = media.videoSrc;
@@ -524,6 +532,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                 currentEpisode.description = description;
                 currentEpisode.imageSrc = imageSrc;
 
+                $episodeCard.attr('data-episode-id', id);
                 $episodeCard.attr('data-type', media.type);
                 $episodeCard.attr('data-audio-src', media.audioSrc);
                 $episodeCard.attr('data-video-src', media.videoSrc);
@@ -541,6 +550,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
 
             function setMainEpisodeMedia(ep) {
                 const type = normalizeType(ep.type);
+                currentEpisode.id = ep.id || currentEpisode.id || '';
                 currentEpisode.type = type;
                 currentEpisode.audioSrc = ep.audioSrc || '';
                 currentEpisode.videoSrc = ep.videoSrc || '';
@@ -548,6 +558,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                 currentEpisode.title = ep.title || '';
                 currentEpisode.description = ep.description || '';
 
+                $episodeCard.attr('data-episode-id', currentEpisode.id);
                 $episodeCard.attr('data-type', type);
                 $episodeCard.attr('data-audio-src', currentEpisode.audioSrc);
                 $episodeCard.attr('data-video-src', currentEpisode.videoSrc);
@@ -576,7 +587,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     mainAudio = null;
                 }
                 isMainPlaying = false;
-                updateMainPlayButton(false);
+                updateCurrentPlayButtons(false);
                 updateWaveform(0);
                 resetMainTimes();
 
@@ -595,7 +606,7 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                     mainAudio.addEventListener('ended', function() {
                         if (!mainAudio) return;
                         isMainPlaying = false;
-                        updateMainPlayButton(false);
+                        updateCurrentPlayButtons(false);
                     });
                 }
             }
@@ -622,6 +633,24 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
                 } else {
                     $svg.html('<polygon points="6,4 20,12 6,20" />');
                     $mainPlayBtn.attr('aria-label', 'تشغيل');
+                }
+            }
+
+            function updateCurrentPlayButtons(isPlaying) {
+                updateMainPlayButton(isPlaying);
+                $episodeRows.find('.play-btn--small').each(function() {
+                    updateListPlayButton($(this), false);
+                });
+
+                if (!currentEpisode.id) return;
+
+                const $activeBtn = $episodeRows
+                    .filter('[data-episode-id="' + currentEpisode.id + '"]')
+                    .first()
+                    .find('.play-btn--small');
+
+                if ($activeBtn.length) {
+                    updateListPlayButton($activeBtn, isPlaying);
                 }
             }
 
@@ -681,8 +710,18 @@ $podcastImgUrl = $podcastImg ? asset('storage/' . $podcastImg) : asset('assets/i
         function shareNative(e) {
             e.preventDefault();
 
-            const url = "{{ request()->fullUrl() }}";
-            const title = "{{ $epTitle }}";
+            const episodeCard = document.querySelector('.episode-card');
+            const episodeId = episodeCard ? episodeCard.getAttribute('data-episode-id') : '';
+            const fallbackTitle = @json($epTitle);
+            const title = episodeCard ? (episodeCard.getAttribute('data-title') || fallbackTitle) : fallbackTitle;
+            const shareUrl = new URL(window.location.href);
+
+            if (episodeId) {
+                shareUrl.searchParams.set('episode', episodeId);
+                shareUrl.searchParams.set('autoplay', '1');
+            }
+
+            const url = shareUrl.toString();
 
             if (navigator.share) {
                 navigator.share({

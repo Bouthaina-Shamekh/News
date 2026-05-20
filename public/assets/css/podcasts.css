@@ -608,10 +608,11 @@ body {
 /* ── Card Image ── */
 .card-image-wrap {
   flex-shrink: 0;
-  width: 100px;
-  height: 77px;
+  width: 112px;
   aspect-ratio: 16 / 9;
+  height: auto;
   overflow: hidden;
+  background: #ddd;
 }
 
 .card-img {

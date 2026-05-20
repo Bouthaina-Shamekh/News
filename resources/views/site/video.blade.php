@@ -224,7 +224,7 @@
                         <section class="sidebar-breaking">
 
                             <div class="breaking-header">
-                                {{ __('site.breaking_news') }}
+                                {{ __('site.latest_published_articles') }}
                             </div>
 
                             @foreach($breakingNews as $news)
@@ -232,7 +232,7 @@
                             <div class="breaking-item">
 
                                 <div class="breaking-time">
-                                    {{ __('site.before') }} {{ optional($news->created_at)->diffForHumans() }}
+                                    {{ optional($news->created_at)->diffForHumans() }}
                                 </div>
 
                                 <div class="breaking-body">
@@ -305,8 +305,8 @@
                                 </div>
 
                                 <div class="item-content">
-                                    <h4>{{ $trend->$titleField ?? '' }}</h4>
-                                    <p>{{ $trend->$titleField ?? $trend->title_ar ?? $trend->title_en ?? '' }}</p>
+                                    <h4>{{ $trend->$titleField ?? $trend->title_ar ?? $trend->title_en ?? '' }}</h4>
+                                    <p>{{ \Illuminate\Support\Str::limit(strip_tags($trend->$textField ?? $trend->text_ar ?? $trend->text_en ?? ''), 90) }}</p>
                                 </div>
 
                             </a>
