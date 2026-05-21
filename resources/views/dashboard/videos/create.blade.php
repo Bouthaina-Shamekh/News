@@ -9,6 +9,20 @@
             <li class="breadcrumb-item"><a href="{{ route('dashboard.video.index') }}">{{ __('admin.Videos') }}</a></li>
         @endcan
         <li class="breadcrumb-item" aria-current="page">{{ __('admin.Add Video') }}</li>
+
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    </div>
+@endif
+
+@if (session('danger'))
+    <div class="alert alert-danger">
+        {{ session('danger') }}
+    </div>
+@endif
     </x-slot:breadcrumb>
 
     <div class="col-span-12 xl:col-span-12">

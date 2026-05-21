@@ -83,9 +83,8 @@ class VideoController extends Controller
 {
     $this->authorize('create', Video::class);
 
-    DB::beginTransaction();
     try {
-        $request->validate([
+        $validated = $request->validate([
             'title_ar' => 'required',
             'title_en' => 'required',
             'date' => 'required|date',
@@ -97,45 +96,40 @@ class VideoController extends Controller
             'img_view' => 'required|image',
             'text_ar' => 'required',
             'text_en' => 'required',
-            'category_id' => 'required',
-            'is_featured' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
+            'is_featured' => 'nullable',
         ]);
 
-        if (!$request->hasFile('vedio') && !$request->video_url) {
-            return back()->with('danger', 'لازم ترفع فيديو أو تضيف رابط')->withInput();
+        if (!$request->hasFile('vedio') && !$request->filled('video_url')) {
+            return back()->withErrors([
+                'vedio' => 'لازم ترفع فيديو أو تضيف رابط فيديو'
+            ])->withInput();
         }
 
+        DB::beginTransaction();
+
         $keywords_ar_text = '';
-        if ($request->keyword_ar != null) {
+        if ($request->filled('keyword_ar')) {
             $decoded_ar = json_decode($request->keyword_ar, true);
-            $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+            if (is_array($decoded_ar)) {
+                $keywords_ar_text = implode('، ', array_column($decoded_ar, 'value'));
+            }
         }
 
         $keywords_en_text = '';
-        if ($request->keyword_en != null) {
+        if ($request->filled('keyword_en')) {
             $decoded_en = json_decode($request->keyword_en, true);
-            $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+            if (is_array($decoded_en)) {
+                $keywords_en_text = implode(', ', array_column($decoded_en, 'value'));
+            }
         }
 
         $slug = $this->generateUniqueSlug(Video::class, $request->title_en ?? $request->title_ar);
 
-        $request->merge([
-            'keyword_ar' => $keywords_ar_text ?? '',
-            'keyword_en' => $keywords_en_text ?? '',
-            'slug' => $slug
-        ]);
-
-        $imgViewPath = null;
-        if ($request->hasFile('img_view')) {
-            $imgViewPath = $request->file('img_view')->store('uploads', 'public');
-        }
-
-        $imgVideoPath = $imgViewPath;
+        $imgViewPath = $request->file('img_view')->store('uploads', 'public');
 
         $vedioPath = null;
-
         if ($request->hasFile('vedio')) {
-            // 🔥 نخزن الملف الأصلي بمكان خاص
             $vedioPath = $request->file('vedio')->store('videos/originals', 'public');
         }
 
@@ -144,34 +138,36 @@ class VideoController extends Controller
             'title_en' => $request->title_en,
             'date' => $request->date,
             'time' => $request->time,
-            'keyword_ar' => $request->keyword_ar,
-            'keyword_en' => $request->keyword_en,
+            'keyword_ar' => $keywords_ar_text,
+            'keyword_en' => $keywords_en_text,
             'vedio' => $vedioPath,
             'hls_path' => null,
             'status' => $request->hasFile('vedio') ? 'pending' : null,
             'video_url' => $request->video_url,
             'img_view' => $imgViewPath,
-            'img_video' => $imgVideoPath,
+            'img_video' => $imgViewPath,
             'text_ar' => $request->text_ar,
             'text_en' => $request->text_en,
             'category_id' => $request->category_id,
             'slug' => $slug,
             'views_count' => 0,
-            'is_featured' => $request->boolean('is_featured'),
+            'is_featured' => $request->has('is_featured') ? 1 : 0,
         ]);
 
-        // 🔥 إطلاق التحويل فقط إذا في فيديو مرفوع
         if ($request->hasFile('vedio')) {
             ConvertVideoToHLS::dispatch($video);
         }
 
         DB::commit();
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return redirect()->back()->with('danger', $e->getMessage());
-    }
 
-    return redirect()->route('dashboard.video.index')->with('success', __('Item created successfully.'));
+        return redirect()->route('dashboard.video.index')
+            ->with('success', __('Item created successfully.'));
+
+    } catch (\Throwable $e) {
+        DB::rollBack();
+
+        return back()->withInput()->with('danger', $e->getMessage());
+    }
 }
 
     public function show(string $id)
