@@ -119,9 +119,9 @@
                             <label class="form-label">رابط فيديو خارجي</label>
                             <input type="url" name="episodes[video_url][]" class="form-control"
                                 value="{{ $episode->video_url }}"
-                                placeholder="https://example.com/video.mp4">
+                                placeholder="https://example.com/video.mp4 أو https://youtube.com/watch?v=...">
                             <small class="text-muted d-block mt-1">
-                                إذا وضعت رابط خارجي سيتم استخدامه بدل ملف الفيديو المرفوع.
+                                يقبل ملف فيديو مباشر أو رابط منصة مثل YouTube/Vimeo/Facebook.
                             </small>
                         </div>
 
@@ -209,6 +209,9 @@
                     <audio id="mediaPlayerAudio" controls preload="none" style="width:100%;display:none;"></audio>
                     <video id="mediaPlayerVideo" controls preload="none"
                         style="width:100%;max-height:400px;display:none;"></video>
+                    <iframe id="mediaPlayerIframe" style="width:100%;height:400px;border:0;display:none;"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -232,15 +235,20 @@
             function clearMediaPlayer() {
                 var a = document.getElementById('mediaPlayerAudio');
                 var v = document.getElementById('mediaPlayerVideo');
+                var iframe = document.getElementById('mediaPlayerIframe');
 
                 if (a) {
                     a.pause();
-                    a.src = '';
+                    a.removeAttribute('src');
                 }
 
                 if (v) {
                     v.pause();
-                    v.src = '';
+                    v.removeAttribute('src');
+                }
+
+                if (iframe) {
+                    iframe.removeAttribute('src');
                 }
             }
 
@@ -258,23 +266,32 @@
                 var modal = document.getElementById('mediaPlayerModal');
                 var audioEl = document.getElementById('mediaPlayerAudio');
                 var videoEl = document.getElementById('mediaPlayerVideo');
+                var iframeEl = document.getElementById('mediaPlayerIframe');
+
+                if (!modal || !audioEl || !videoEl || !iframeEl) return;
 
                 audioEl.pause();
                 videoEl.pause();
 
                 audioEl.removeAttribute('src');
                 videoEl.removeAttribute('src');
+                iframeEl.removeAttribute('src');
 
                 audioEl.style.display = 'none';
                 videoEl.style.display = 'none';
+                iframeEl.style.display = 'none';
 
                 if (type === 'audio') {
                     audioEl.src = url;
                     audioEl.style.display = 'block';
                     document.getElementById('mediaPlayerModalLabel').textContent = '{{ __('admin.Audio') }}';
-                } else {
+                } else if (isDirectVideoUrl(url)) {
                     videoEl.src = url;
                     videoEl.style.display = 'block';
+                    document.getElementById('mediaPlayerModalLabel').textContent = '{{ __('admin.Video') }}';
+                } else {
+                    iframeEl.src = getEmbedVideoUrl(url) || url;
+                    iframeEl.style.display = 'block';
                     document.getElementById('mediaPlayerModalLabel').textContent = '{{ __('admin.Video') }}';
                 }
 
@@ -356,9 +373,9 @@
                 <div class="form-group col-12 mb-3 episode-video-url-field" style="display:none">
                     <label class="form-label">رابط فيديو خارجي</label>
                     <input type="url" name="episodes[video_url][]" class="form-control"
-                        placeholder="https://example.com/video.mp4">
+                        placeholder="https://example.com/video.mp4 أو https://youtube.com/watch?v=...">
                     <small class="text-muted d-block mt-1">
-                        إذا وضعت رابط خارجي سيتم استخدامه بدل ملف الفيديو المرفوع.
+                        يقبل ملف فيديو مباشر أو رابط منصة مثل YouTube/Vimeo/Facebook.
                     </small>
                 </div>
 
@@ -386,6 +403,52 @@
             $('#addEpisode').click(function() {
                 $('#episodes-wrapper').append(newEpisodeHtml);
             });
+
+            function isDirectVideoUrl(url) {
+                try {
+                    var parsedUrl = new URL(url, window.location.href);
+                    return /\.(mp4|m4v|webm|ogg|ogv|mov|m3u8)(\?.*)?$/i.test(parsedUrl.pathname + parsedUrl.search);
+                } catch (e) {
+                    return /\.(mp4|m4v|webm|ogg|ogv|mov|m3u8)(\?.*)?$/i.test(url || '');
+                }
+            }
+
+            function getEmbedVideoUrl(url) {
+                if (!url) return '';
+
+                try {
+                    var parsedUrl = new URL(url);
+                    var host = parsedUrl.hostname.replace('www.', '');
+                    var path = parsedUrl.pathname;
+
+                    if (host.indexOf('youtube.com') !== -1) {
+                        if (path.indexOf('/embed/') !== -1) return url;
+                        if (path.indexOf('/shorts/') !== -1) {
+                            var shortId = path.split('/shorts/')[1].split('/')[0];
+                            return shortId ? 'https://www.youtube.com/embed/' + shortId : '';
+                        }
+
+                        var id = parsedUrl.searchParams.get('v');
+                        return id ? 'https://www.youtube.com/embed/' + id : '';
+                    }
+
+                    if (host.indexOf('youtu.be') !== -1) {
+                        var youtuBeId = path.replace('/', '').split('?')[0];
+                        return youtuBeId ? 'https://www.youtube.com/embed/' + youtuBeId : '';
+                    }
+
+                    if (host.indexOf('vimeo.com') !== -1) {
+                        var vimeoId = path.replace('/', '').split('/')[0];
+                        return vimeoId ? 'https://player.vimeo.com/video/' + vimeoId : '';
+                    }
+
+                    if (host.indexOf('facebook.com') !== -1 || host.indexOf('fb.watch') !== -1) {
+                        return 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=false';
+                    }
+                } catch (e) {}
+
+                return '';
+            }
         })();
     </script>
 @endpush

@@ -64,7 +64,7 @@ body {
   color: inherit;
 }
 
-.podcast-one-card img {
+.podcast-one-card > img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -83,7 +83,7 @@ body {
 .podcast-one-card__media {
   position: relative;
   width: 100%;
-  padding-bottom: 63.25%; /* Aspect Ratio 16:9 */
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
   overflow: hidden;
   background-color: #e0e0e0;
 }
@@ -94,7 +94,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  aspect-ratio: auto;
+  object-fit: cover !important;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
@@ -513,7 +515,7 @@ body {
 .card-inner {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
   padding: 14px;
   gap: 12px;
 }
@@ -608,9 +610,9 @@ body {
 /* ── Card Image ── */
 .card-image-wrap {
   flex-shrink: 0;
-  width: 112px;
+  width: 128px;
+  height: 72px;
   aspect-ratio: 16 / 9;
-  height: auto;
   overflow: hidden;
   background: #ddd;
 }
@@ -618,7 +620,8 @@ body {
 .card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover !important;
+  object-position: center;
   display: block;
   transition: transform 0.32s ease;
 }

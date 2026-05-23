@@ -14,15 +14,6 @@ if ($metaEpisode) {
     $metaUrl .= '?' . http_build_query(['episode' => $metaEpisode->id]);
 }
 $ogLocale = app()->getLocale() === 'ar' ? 'ar_AR' : 'en_US';
-$mediaUrl = function ($path) {
-    if (!$path) {
-        return '';
-    }
-
-    return \Illuminate\Support\Str::startsWith($path, ['http://', 'https://'])
-        ? $path
-        : asset('storage/' . ltrim($path, '/'));
-};
 @endphp
 
 <x-site-layout>
@@ -65,7 +56,6 @@ $mediaUrl = function ($path) {
             <div class="podcast-bg" style="background-image: url('{{ asset('assets-new/bg.png') }}');"></div>
 
             <div class="container podcasts-container">
-               
 
                 <section class="podcast-hero">
 
@@ -73,11 +63,11 @@ $mediaUrl = function ($path) {
                     @php
                      $heroType = $firstEpisode ? ($firstEpisode->type ?? 'audio') : 'audio';
                      $heroAudioSrc = $firstEpisode
-                     ? ($heroType === 'audio' ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? $mediaUrl($firstEpisode->audio) : '')) : '')
+                     ? ($heroType === 'audio' ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '')) : '')
                      : '';
 
                      $heroVideoSrc = $firstEpisode
-                     ? ($heroType === 'video' ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? $mediaUrl($firstEpisode->vedio) : '')) : '')
+                     ? ($heroType === 'video' ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '')) : '')
                      : '';
                     $heroImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
                     @endphp
@@ -85,14 +75,6 @@ $mediaUrl = function ($path) {
                         data-audio-src="{{ $heroAudioSrc }}" data-image-src="{{ $heroImgSrc }}">
                         <img src="{{ $heroImgSrc }}" alt="{{ $podcast->$title }}" class="hero-img" />
                         <video class="hero-video-player" controls preload="none" playsinline></video>
-                        <iframe class="hero-video-iframe"
-                            style="display:none; width:100%; height:100%; border:0;"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen>
-                        </iframe>
-                        <div class="hero-media-error"
-                            style="display:none; position:absolute; inset:0; align-items:center; justify-content:center; padding:20px; text-align:center; color:#fff; background:rgba(0,0,0,.72); z-index:3;">
-                        </div>
                         <div class="hero-img-fade"></div>
                     </div>
 
@@ -174,11 +156,11 @@ $mediaUrl = function ($path) {
                     @php
                      $epType = $firstEpisode->type ?? 'audio';
                      $epAudioSrc = $firstEpisode
-                     ? ($epType === 'audio' ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? $mediaUrl($firstEpisode->audio) : '')) : '')
+                     ? ($epType === 'audio' ? ($firstEpisode->audio_url ?: ($firstEpisode->audio ? asset('storage/' . $firstEpisode->audio) : '')) : '')
                      : '';
 
                      $epVideoSrc = $firstEpisode
-                     ? ($epType === 'video' ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? $mediaUrl($firstEpisode->vedio) : '')) : '')
+                     ? ($epType === 'video' ? ($firstEpisode->video_url ?: ($firstEpisode->vedio ? asset('storage/' . $firstEpisode->vedio) : '')) : '')
                      : '';
                     $epImgSrc = $firstEpisode && ($firstEpisode->img_episode ?? $firstEpisode->img_view) ? asset('storage/' . ($firstEpisode->img_episode ?? $firstEpisode->img_view)) : $podcastImgUrl;
                     $epTitle = $firstEpisode ? $firstEpisode->$title : (app()->getLocale() == 'ar' ? 'لا توجد حلقات' : 'No episodes');
@@ -286,8 +268,8 @@ $mediaUrl = function ($path) {
                             @foreach($episodes as $index => $episode)
                              @php
                              $episodeType = $episode->type ?? 'audio';
-                             $episodeAudioSrc = $episodeType === 'audio' ? ($episode->audio_url ?: ($episode->audio ? $mediaUrl($episode->audio) : '')) : '';
-                             $episodeVideoSrc = $episodeType === 'video' ? ($episode->video_url ?: ($episode->vedio ? $mediaUrl($episode->vedio) : '')) : '';
+                             $episodeAudioSrc = $episodeType === 'audio' ? ($episode->audio_url ?: ($episode->audio ? asset('storage/' . $episode->audio) : '')) : '';
+                             $episodeVideoSrc = $episodeType === 'video' ? ($episode->video_url ?: ($episode->vedio ? asset('storage/' . $episode->vedio) : '')) : '';
                             $episodeImgSrc = ($episode->img_episode ?? $episode->img_view) ? asset('storage/' . ($episode->img_episode ?? $episode->img_view)) : $podcastImgUrl;
                             $episodeTitle = $episode->$title;
                             $episodeDesc = $episode->$text ?? '';
@@ -365,6 +347,9 @@ $mediaUrl = function ($path) {
     @push('scripts')
     <script>
         $(document).ready(function() {
+            // ═══════════════════════════════════════════════
+            // المهمة الأولى: زر "شاهد المزيد"
+            // ═══════════════════════════════════════════════
             let visibleCount = 4;
             const itemsPerLoad = 2;
             const $episodeRows = $('.ep-row');
@@ -375,24 +360,24 @@ $mediaUrl = function ($path) {
                 e.preventDefault();
                 visibleCount += itemsPerLoad;
                 $episodeRows.slice(0, visibleCount).fadeIn(400);
-                if (visibleCount >= totalRows) $(this).fadeOut(300);
+                if (visibleCount >= totalRows) {
+                    $(this).fadeOut(300);
+                }
             });
 
+            // ═══════════════════════════════════════════════
+            // المهمة الثانية: تشغيل ديناميكي صوت/فيديو (inline في الهيرو)
+            // ═══════════════════════════════════════════════
             const $episodeCard = $('.episode-card');
             const $mainPlayBtn = $episodeCard.find('.play-btn--large');
             const $heroWrap = $('.hero-image-wrap');
             const $heroImg = $heroWrap.find('.hero-img');
             const heroVideoPlayer = $heroWrap.find('.hero-video-player')[0];
-            const heroVideoIframe = $heroWrap.find('.hero-video-iframe')[0];
-            const $heroMediaError = $heroWrap.find('.hero-media-error');
+            const $mediaBadge = $episodeCard.find('.media-type-badge');
             const $waveform = $('.waveform');
-            const mediaErrorText = @json(app()->getLocale() == 'ar' ? 'تعذر تشغيل هذه الحلقة. جرّب حلقة أخرى أو افتح الرابط مباشرة.' : 'This episode could not be played. Try another episode or open the link directly.');
-            const missingMediaText = @json(app()->getLocale() == 'ar' ? 'لا يوجد مصدر وسائط لهذه الحلقة.' : 'This episode has no media source.');
 
             let mainAudio = null;
             let isMainPlaying = false;
-            let isIframePlaying = false;
-            let isClearingHeroVideo = false;
             const listAudios = {};
 
             const currentEpisode = {
@@ -409,12 +394,14 @@ $mediaUrl = function ($path) {
             updateEpisodeShareLinks();
 
             if (heroVideoPlayer) {
-                heroVideoPlayer.addEventListener('play', function() { updateCurrentPlayButtons(true); });
-                heroVideoPlayer.addEventListener('pause', function() { updateCurrentPlayButtons(false); });
-                heroVideoPlayer.addEventListener('ended', function() { updateCurrentPlayButtons(false); });
-                heroVideoPlayer.addEventListener('error', function() {
-                    if (isClearingHeroVideo) return;
-                    showMediaError(mediaErrorText, currentEpisode.videoSrc);
+                heroVideoPlayer.addEventListener('play', function() {
+                    updateCurrentPlayButtons(true);
+                });
+                heroVideoPlayer.addEventListener('pause', function() {
+                    updateCurrentPlayButtons(false);
+                });
+                heroVideoPlayer.addEventListener('ended', function() {
+                    updateCurrentPlayButtons(false);
                 });
             }
 
@@ -424,6 +411,9 @@ $mediaUrl = function ($path) {
                 handlePlayAction();
             });
 
+            // ═══════════════════════════════════════════════
+            // المهمة الثالثة: أزرار القائمة
+            // ═══════════════════════════════════════════════
             $episodeRows.each(function(index) {
                 const $row = $(this);
                 const rowType = normalizeType($row.attr('data-type'));
@@ -432,7 +422,12 @@ $mediaUrl = function ($path) {
 
                 if (rowType === 'audio' && rowAudioSrc) {
                     const audio = new Audio(rowAudioSrc);
-                    listAudios[index] = { audio, isPlaying: false, $btn: $playBtn };
+                    listAudios[index] = {
+                        audio: audio,
+                        isPlaying: false,
+                        $btn: $playBtn
+                    };
+
                     audio.addEventListener('ended', function() {
                         listAudios[index].isPlaying = false;
                         updateListPlayButton($playBtn, false);
@@ -448,11 +443,19 @@ $mediaUrl = function ($path) {
                 $playBtn.on('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    if (($row.attr('data-episode-id') || '') !== currentEpisode.id) setEpisodeFromElement($row);
+
+                    if (($row.attr('data-episode-id') || '') !== currentEpisode.id) {
+                        setEpisodeFromElement($row);
+                    }
+
                     handlePlayAction();
                 });
             });
 
+            // ═══════════════════════════════════════════════
+            // Deep link: فتح حلقة محددة وتشغيلها
+            // url: ?episode=ID&autoplay=1
+            // ═══════════════════════════════════════════════
             try {
                 const params = new URLSearchParams(window.location.search);
                 const epId = params.get('episode');
@@ -462,7 +465,9 @@ $mediaUrl = function ($path) {
                     if ($target.length) {
                         $target.trigger('click');
                         if (autoplay === '1' || autoplay === 'true') {
-                            setTimeout(function() { $mainPlayBtn.trigger('click'); }, 150);
+                            setTimeout(function() {
+                                $mainPlayBtn.trigger('click');
+                            }, 150);
                         }
                     }
                 }
@@ -472,17 +477,15 @@ $mediaUrl = function ($path) {
                 if (currentEpisode.type === 'video') {
                     stopAllListAudios();
 
-                    if (isIframePlaying && heroVideoIframe) {
-                        heroVideoIframe.src = '';
-                        heroVideoIframe.style.display = 'none';
-                        isIframePlaying = false;
-                        updateCurrentPlayButtons(false);
-                        showHeroImage();
+                    if (heroVideoPlayer && $heroWrap.hasClass('is-video') && !heroVideoPlayer.paused) {
+                        heroVideoPlayer.pause();
                         return;
                     }
 
-                    if (heroVideoPlayer && $heroWrap.hasClass('is-video') && heroVideoPlayer.style.display !== 'none' && !heroVideoPlayer.paused) {
-                        heroVideoPlayer.pause();
+                    if (heroVideoPlayer && $heroWrap.hasClass('is-video') && heroVideoPlayer.src) {
+                        heroVideoPlayer.play().then(function() {
+                            updateCurrentPlayButtons(true);
+                        }).catch(function() {});
                         return;
                     }
 
@@ -491,118 +494,68 @@ $mediaUrl = function ($path) {
                 }
 
                 stopAllListAudios();
-                stopHeroVideo();
-
-                if (!mainAudio && currentEpisode.audioSrc) initMainAudio(currentEpisode.audioSrc);
-                if (!mainAudio) {
-                    showMediaError(missingMediaText);
-                    return;
+                if (!mainAudio && currentEpisode.audioSrc) {
+                    mainAudio = new Audio(currentEpisode.audioSrc);
+                    mainAudio.addEventListener('loadedmetadata', function() {
+                        if (!mainAudio) return;
+                        $episodeCard.find('.time-total').text(formatTime(mainAudio.duration));
+                    });
+                    mainAudio.addEventListener('timeupdate', function() {
+                        if (!mainAudio) return;
+                        $episodeCard.find('.time-current').text(formatTime(mainAudio.currentTime));
+                        const progress = mainAudio.duration ? (mainAudio.currentTime / mainAudio.duration) * 100 : 0;
+                        updateWaveform(progress);
+                    });
+                    mainAudio.addEventListener('ended', function() {
+                        if (!mainAudio) return;
+                        isMainPlaying = false;
+                        updateCurrentPlayButtons(false);
+                    });
                 }
+
+                if (!mainAudio) return;
 
                 if (isMainPlaying) {
                     mainAudio.pause();
                     isMainPlaying = false;
                 } else {
-                    mainAudio.play().then(function() {
-                        isMainPlaying = true;
-                        updateCurrentPlayButtons(true);
-                    }).catch(function() {
-                        isMainPlaying = false;
-                        updateCurrentPlayButtons(false);
-                        showMediaError(mediaErrorText, currentEpisode.audioSrc);
-                    });
-                    return;
+                    mainAudio.play();
+                    isMainPlaying = true;
                 }
 
                 updateCurrentPlayButtons(isMainPlaying);
             }
 
             function playHeroVideo() {
-                if (!currentEpisode.videoSrc) {
-                    showMediaError(missingMediaText);
-                    return;
-                }
-
-                if (mainAudio) {
+                if (!currentEpisode.videoSrc || !heroVideoPlayer) return;
+                if (mainAudio && isMainPlaying) {
                     mainAudio.pause();
                     isMainPlaying = false;
+                    updateMainPlayButton(false);
                 }
-
                 $heroWrap.addClass('is-video');
                 $heroImg.hide();
-                hideMediaError();
-
-                const videoUrl = currentEpisode.videoSrc.trim();
-                const embedUrl = getEmbedVideoUrl(videoUrl);
-
-                if (!isDirectVideoUrl(videoUrl) && heroVideoIframe) {
-                    if (heroVideoPlayer) {
-                        heroVideoPlayer.pause();
-                        heroVideoPlayer.removeAttribute('src');
-                        heroVideoPlayer.load();
-                        heroVideoPlayer.style.setProperty('display', 'none', 'important');
-                    }
-
-                    heroVideoIframe.src = embedUrl || videoUrl;
-                    heroVideoIframe.style.display = 'block';
-                    isIframePlaying = true;
-                    updateCurrentPlayButtons(true);
-                    return;
+                /* تأخير التحميل حتى يصبح الفيديو ظاهراً (بعض المتصفحات لا تحمّل جيداً والعنصر مخفي) */
+                var videoUrl = currentEpisode.videoSrc;
+                /* إذا كان للفيديو مصدر سابق (مثلاً بعد العودة من الصوت) نضيف كسر كاش لفرض إعادة التحميل */
+                if (heroVideoPlayer.src && heroVideoPlayer.src.length > 0) {
+                    var sep = videoUrl.indexOf('?') >= 0 ? '&' : '?';
+                    videoUrl = videoUrl + sep + '_=' + (Date.now ? Date.now() : new Date().getTime());
                 }
-
-                if (!heroVideoPlayer) return;
-
-                if (heroVideoIframe) {
-                    heroVideoIframe.src = '';
-                    heroVideoIframe.style.display = 'none';
-                }
-
-                isIframePlaying = false;
-                heroVideoPlayer.style.setProperty('display', 'block', 'important');
                 heroVideoPlayer.src = videoUrl;
-                heroVideoPlayer.load();
-                heroVideoPlayer.play().then(function() {
-                    updateCurrentPlayButtons(true);
-                }).catch(function() {
-                    showMediaError(mediaErrorText, videoUrl);
-                });
-            }
 
-            function getEmbedVideoUrl(url) {
-                if (!url) return '';
-
-                try {
-                    const parsedUrl = new URL(url);
-                    const host = parsedUrl.hostname.replace('www.', '');
-                    const path = parsedUrl.pathname;
-
-                    if (host.includes('youtube.com')) {
-                        if (path.includes('/embed/')) return url + (url.includes('?') ? '&' : '?') + 'autoplay=1';
-                        if (path.includes('/shorts/')) {
-                            const id = path.split('/shorts/')[1].split('/')[0];
-                            return id ? 'https://www.youtube.com/embed/' + id + '?autoplay=1' : '';
-                        }
-                        const id = parsedUrl.searchParams.get('v');
-                        return id ? 'https://www.youtube.com/embed/' + id + '?autoplay=1' : '';
-                    }
-
-                    if (host.includes('youtu.be')) {
-                        const id = path.replace('/', '').split('?')[0];
-                        return id ? 'https://www.youtube.com/embed/' + id + '?autoplay=1' : '';
-                    }
-
-                    if (host.includes('vimeo.com')) {
-                        const id = path.replace('/', '').split('/')[0];
-                        return id ? 'https://player.vimeo.com/video/' + id + '?autoplay=1' : '';
-                    }
-
-                    if (host.includes('facebook.com') || host.includes('fb.watch')) {
-                        return 'https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(url) + '&show_text=false&autoplay=true';
-                    }
-
-                    return '';
-                } catch (e) {
-                    return '';
+                function doLoadAndPlay() {
+                    heroVideoPlayer.load();
+                    heroVideoPlayer.play().then(function() {
+                        updateCurrentPlayButtons(true);
+                    }).catch(function() {});
+                }
+                if (window.requestAnimationFrame) {
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(doLoadAndPlay);
+                    });
+                } else {
+                    setTimeout(doLoadAndPlay, 50);
                 }
             }
 
@@ -679,103 +632,46 @@ $mediaUrl = function ($path) {
                 $heroWrap.attr('data-image-src', currentEpisode.imageSrc);
 
                 updateMediaBadge(type);
-                stopHeroVideo();
-                showHeroImage();
-                hideMediaError();
 
-                if (currentEpisode.imageSrc) $heroImg.attr('src', currentEpisode.imageSrc);
+                /* دائماً نعرض الصورة أولاً، الفيديو يظهر فقط عند الضغط على تشغيل */
+                $heroWrap.removeClass('is-video');
+                $heroImg.show();
+                if (currentEpisode.imageSrc) {
+                    $heroImg.attr('src', currentEpisode.imageSrc);
+                }
+                if (heroVideoPlayer) {
+                    heroVideoPlayer.pause();
+                    /* لا نمسح src — تغييره لسلسلة فارغة يسبب Invalid URI حتى بدون load() */
+                }
 
                 if (mainAudio) {
                     mainAudio.pause();
                     mainAudio.currentTime = 0;
                     mainAudio = null;
                 }
-
                 isMainPlaying = false;
                 updateCurrentPlayButtons(false);
                 updateWaveform(0);
                 resetMainTimes();
 
-                if (type === 'audio' && currentEpisode.audioSrc) initMainAudio(currentEpisode.audioSrc);
-            }
-
-            function initMainAudio(src) {
-                mainAudio = new Audio(src);
-                mainAudio.addEventListener('loadedmetadata', function() {
-                    if (!mainAudio) return;
-                    $episodeCard.find('.time-total').text(formatTime(mainAudio.duration));
-                });
-                mainAudio.addEventListener('timeupdate', function() {
-                    if (!mainAudio) return;
-                    $episodeCard.find('.time-current').text(formatTime(mainAudio.currentTime));
-                    const progress = mainAudio.duration ? (mainAudio.currentTime / mainAudio.duration) * 100 : 0;
-                    updateWaveform(progress);
-                });
-                mainAudio.addEventListener('ended', function() {
-                    isMainPlaying = false;
-                    updateCurrentPlayButtons(false);
-                });
-                mainAudio.addEventListener('error', function() {
-                    isMainPlaying = false;
-                    updateCurrentPlayButtons(false);
-                    showMediaError(mediaErrorText, src);
-                });
-            }
-
-            function showHeroImage() {
-                $heroWrap.removeClass('is-video');
-                $heroImg.show();
-            }
-
-            function stopHeroVideo() {
-                isIframePlaying = false;
-
-                if (heroVideoIframe) {
-                    heroVideoIframe.src = '';
-                    heroVideoIframe.style.display = 'none';
+                if (type === 'audio' && currentEpisode.audioSrc) {
+                    mainAudio = new Audio(currentEpisode.audioSrc);
+                    mainAudio.addEventListener('loadedmetadata', function() {
+                        if (!mainAudio) return;
+                        $episodeCard.find('.time-total').text(formatTime(mainAudio.duration));
+                    });
+                    mainAudio.addEventListener('timeupdate', function() {
+                        if (!mainAudio) return;
+                        $episodeCard.find('.time-current').text(formatTime(mainAudio.currentTime));
+                        const progress = mainAudio.duration ? (mainAudio.currentTime / mainAudio.duration) * 100 : 0;
+                        updateWaveform(progress);
+                    });
+                    mainAudio.addEventListener('ended', function() {
+                        if (!mainAudio) return;
+                        isMainPlaying = false;
+                        updateCurrentPlayButtons(false);
+                    });
                 }
-
-                if (heroVideoPlayer) {
-                    isClearingHeroVideo = true;
-                    heroVideoPlayer.pause();
-                    heroVideoPlayer.removeAttribute('src');
-                    heroVideoPlayer.load();
-                    heroVideoPlayer.style.setProperty('display', 'none', 'important');
-                    setTimeout(function() { isClearingHeroVideo = false; }, 0);
-                }
-            }
-
-            function showMediaError(message, url) {
-                stopHeroVideo();
-                $heroWrap.addClass('is-video');
-                $heroImg.hide();
-                isMainPlaying = false;
-                updateCurrentPlayButtons(false);
-
-                const link = url ? '<br><a href="' + escapeHtml(url) + '" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">' + (document.documentElement.lang === 'ar' ? 'فتح الرابط' : 'Open link') + '</a>' : '';
-                $heroMediaError.html('<div>' + escapeHtml(message) + link + '</div>').css('display', 'flex');
-            }
-
-            function hideMediaError() {
-                $heroMediaError.hide().empty();
-            }
-
-            function isDirectVideoUrl(url) {
-                try {
-                    const parsedUrl = new URL(url, window.location.href);
-                    return /\.(mp4|m4v|webm|ogg|ogv|mov|m3u8)(\?.*)?$/i.test(parsedUrl.pathname + parsedUrl.search);
-                } catch (e) {
-                    return /\.(mp4|m4v|webm|ogg|ogv|mov|m3u8)(\?.*)?$/i.test(url || '');
-                }
-            }
-
-            function escapeHtml(value) {
-                return String(value || '')
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#039;');
             }
 
             function stopAllListAudios(exceptIndex = -1) {
@@ -816,7 +712,9 @@ $mediaUrl = function ($path) {
                     .first()
                     .find('.play-btn--small');
 
-                if ($activeBtn.length) updateListPlayButton($activeBtn, isPlaying);
+                if ($activeBtn.length) {
+                    updateListPlayButton($activeBtn, isPlaying);
+                }
             }
 
             function updateListPlayButton($btn, isPlaying) {
@@ -836,8 +734,9 @@ $mediaUrl = function ($path) {
             }
 
             function updateMediaBadge(type) {
-                const badgeText = type === 'video' ? 'فيديو' : 'صوت';
-                const badgeClass = type === 'video' ? 'media-type-badge--video' : 'media-type-badge--audio';
+                const isVideo = type === 'video';
+                const badgeText = isVideo ? 'فيديو' : 'صوت';
+                const badgeClass = isVideo ? 'media-type-badge--video' : 'media-type-badge--audio';
                 $episodeCard.find('.media-type-badge')
                     .text(badgeText)
                     .removeClass('media-type-badge--video media-type-badge--audio')
@@ -888,7 +787,10 @@ $mediaUrl = function ($path) {
             const url = shareUrl.toString();
 
             if (navigator.share) {
-                navigator.share({ title, url });
+                navigator.share({
+                    title: title,
+                    url: url
+                });
             } else {
                 window.open("https://wa.me/?text=" + encodeURIComponent(title + " " + url), "_blank");
             }
