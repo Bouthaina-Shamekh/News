@@ -57,10 +57,11 @@ class MainController extends Controller
         ->take(10)
         ->get();
 
-    $homePodcastEpisodes = PodcastEpisode::with('podcast')
-        ->latest()
-        ->take(6)
-        ->get();
+   $homePodcasts = Podcast::whereNotNull('slug')
+    ->where('slug', '!=', '')
+    ->latest()
+    ->take(6)
+    ->get();
 
     // Categories
     $categoryOne = Category::find(6) ?? Category::first();
@@ -116,7 +117,7 @@ class MainController extends Controller
         'articlesThree',
         'homeFeaturedVideo',
         'homeVideos',
-        'homePodcastEpisodes'
+        'homePodcasts',
     ));
 }
 

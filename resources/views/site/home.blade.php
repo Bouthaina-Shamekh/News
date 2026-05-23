@@ -251,7 +251,7 @@
                                     <span>{{ __('site.home_podcasts_title') }}</span>
                                 </h2>
                                 <div class="podcast-wrapper">
-                                    @foreach (($homePodcastEpisodes ?? collect())->take(6) as $episode)
+                                    @foreach (($homePodcasts ?? collect())->take(6) as $episode)
                                         @php
                                             $episodePodcastSlug = $episode->podcast?->slug ?? $episode->podcast_id;
                                             $episodeUrl = $episodePodcastSlug
