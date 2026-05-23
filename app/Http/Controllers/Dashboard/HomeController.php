@@ -73,11 +73,18 @@ class HomeController extends Controller
 
     public function createBackup()
     {
-        $database = env('DB_DATABASE');
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
-        $host = env('DB_HOST');
-        $port = env('DB_PORT', 3306);
+        $connection = config('database.default');
+        $databaseConfig = config("database.connections.{$connection}");
+
+        if (($databaseConfig['driver'] ?? null) !== 'mysql') {
+            return redirect()->route('dashboard.home')->with('danger', 'Database backup is only supported for MySQL connections.');
+        }
+
+        $database = $databaseConfig['database'];
+        $username = $databaseConfig['username'];
+        $password = $databaseConfig['password'];
+        $host = $databaseConfig['host'];
+        $port = $databaseConfig['port'] ?? 3306;
         $backupDirectory = 'backups';
 
         if (!Storage::exists($backupDirectory)) {
@@ -87,13 +94,16 @@ class HomeController extends Controller
         $backupFileName = $database . '_' . Carbon::now()->format('Y-m-d_H-i-s') . '.sql';
         $backupFilePath = storage_path('app/' . $backupDirectory . '/' . $backupFileName);
 
-        $mysqldumpPath = env('MYSQLDUMP_PATH', 'mysqldump');
+        $mysqldumpPath = $this->resolveMysqlDumpPath();
 
         $command = [
             $mysqldumpPath,
             "--user={$username}",
             "--host={$host}",
             "--port={$port}",
+            '--single-transaction',
+            '--routines',
+            '--triggers',
         ];
 
         if (!empty($password)) {
@@ -104,6 +114,7 @@ class HomeController extends Controller
         $command[] = $database;
 
         $process = new Process($command);
+        $process->setEnv($this->mysqlDumpEnvironment());
         $process->setTimeout(null);
         $process->run();
 
@@ -114,9 +125,76 @@ class HomeController extends Controller
         Log::error('Database backup failed', [
             'exit_code' => $process->getExitCode(),
             'error_output' => $process->getErrorOutput(),
+            'mysqldump_path' => $mysqldumpPath,
         ]);
 
         return redirect()->route('dashboard.home')->with('danger', 'حدث خطاء في عملية النسخ الاحتياطي يرجى مراجعة المهندس');
+    }
+
+    private function resolveMysqlDumpPath(): string
+    {
+        $configuredPath = env('MYSQLDUMP_PATH');
+
+        if ($configuredPath && is_file($configuredPath)) {
+            return $configuredPath;
+        }
+
+        foreach ($this->mysqlDumpCandidates() as $candidate) {
+            if (is_file($candidate)) {
+                return $candidate;
+            }
+        }
+
+        return $configuredPath ?: 'mysqldump';
+    }
+
+    private function mysqlDumpCandidates(): array
+    {
+        $candidates = [];
+        $executable = PHP_OS_FAMILY === 'Windows' ? 'mysqldump.exe' : 'mysqldump';
+
+        foreach (explode(PATH_SEPARATOR, (string) getenv('PATH')) as $path) {
+            if ($path !== '') {
+                $candidates[] = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $executable;
+            }
+        }
+
+        if (PHP_OS_FAMILY === 'Windows') {
+            $patterns = [
+                'C:/laragon/bin/mysql/*/bin/mysqldump.exe',
+                'D:/laragon/bin/mysql/*/bin/mysqldump.exe',
+                'E:/laragon/bin/mysql/*/bin/mysqldump.exe',
+                'F:/laragon/bin/mysql/*/bin/mysqldump.exe',
+                'C:/xampp/mysql/bin/mysqldump.exe',
+                'D:/xampp/mysql/bin/mysqldump.exe',
+                'C:/wamp64/bin/mysql/mysql*/bin/mysqldump.exe',
+                'C:/Program Files/MySQL/MySQL Server */bin/mysqldump.exe',
+                'C:/Program Files (x86)/MySQL/MySQL Server */bin/mysqldump.exe',
+            ];
+
+            foreach ($patterns as $pattern) {
+                foreach (glob($pattern) ?: [] as $path) {
+                    $candidates[] = $path;
+                }
+            }
+        }
+
+        return array_values(array_unique($candidates));
+    }
+
+    private function mysqlDumpEnvironment(): array
+    {
+        if (PHP_OS_FAMILY !== 'Windows') {
+            return [];
+        }
+
+        $windowsDirectory = getenv('SystemRoot') ?: getenv('WINDIR') ?: 'C:\\Windows';
+
+        return [
+            'SystemRoot' => $windowsDirectory,
+            'WINDIR' => $windowsDirectory,
+            'PATH' => getenv('PATH') ?: '',
+        ];
     }
 
     public function update(Request $request, $id)
