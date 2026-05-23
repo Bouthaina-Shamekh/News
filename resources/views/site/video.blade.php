@@ -8,8 +8,42 @@
     $textField = 'text_' . app()->getLocale();
     $catNameField = 'name_' . app()->getLocale();
     $videoTitle = $video->$titleField ?? $video->title_ar ?? $video->title_en ?? '';
-    $pageUrl = url()->current();
+    $videoDescription = Str::limit(strip_tags($video->$textField ?? $video->text_ar ?? $video->text_en ?? ''), 160);
+    $videoImagePath = $video->img_video ?: $video->img_view;
+    $videoImage = $videoImagePath ? asset('storage/' . $videoImagePath) : asset('assets/in-img/1.png');
+    $pageUrl = route('site.video.show', $video->slug);
+    $ogLocale = app()->getLocale() === 'ar' ? 'ar_AR' : 'en_US';
     @endphp
+
+    @push('meta')
+        @section('has_custom_meta', true)
+
+        <title>{{ $videoTitle }}</title>
+        <meta name="description" content="{{ $videoDescription }}">
+        <meta name="keywords" content="{{ $video->{'keyword_' . app()->getLocale()} ?? $video->keyword_ar ?? $video->keyword_en ?? '' }}">
+        <link rel="canonical" href="{{ $pageUrl }}">
+        <meta name="robots" content="index, follow">
+
+        <!-- OG -->
+        <meta property="og:title" content="{{ $videoTitle }}">
+        <meta property="og:description" content="{{ $videoDescription }}">
+        <meta property="og:image" content="{{ $videoImage }}">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:url" content="{{ $pageUrl }}">
+        <meta property="og:type" content="video.other">
+        <meta property="og:site_name" content="مارينا بوست">
+        <meta property="og:locale" content="{{ $ogLocale }}">
+        <meta property="og:image:alt" content="{{ $videoTitle }}">
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $videoTitle }}">
+        <meta name="twitter:description" content="{{ $videoDescription }}">
+        <meta name="twitter:image" content="{{ $videoImage }}">
+        <meta name="twitter:url" content="{{ $pageUrl }}">
+    @endpush
 
     <div class="main-content--section">
         <div class="page-wrapper">

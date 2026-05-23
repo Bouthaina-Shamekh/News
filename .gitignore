@@ -17,3 +17,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.playwright-mcp
+resources/views/site/podcast.blade copy.php
