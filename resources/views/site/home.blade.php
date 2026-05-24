@@ -6,14 +6,68 @@
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets-new/css/home-media-sections.css') }}">
         <style>
-            .row:after,
-            .row:before {
+            .home-page .row:after,
+            .home-page .row:before {
                 display: table;
                 content: none !important;
             }
+
+            .home-page .home-slider-item {
+                position: relative;
+                overflow: hidden;
+                border-radius: 8px;
+            }
+
+            .home-page .home-slider-caption {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                padding: 54px 24px 32px;
+                background: linear-gradient(0deg, rgba(0, 0, 0, .74), rgba(0, 0, 0, .36) 58%, rgba(0, 0, 0, 0));
+                pointer-events: none;
+                z-index: 2;
+            }
+
+            .home-page .home-slider-title {
+                display: -webkit-box;
+                max-width: 92%;
+                margin: 0 auto;
+                overflow: hidden;
+                color: #fff;
+                direction: rtl;
+                text-align: center;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, .9);
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                line-height: 1.28;
+            }
+
+            .home-page .home-slider-carousel .carousel-indicators {
+                bottom: 8px;
+                z-index: 3;
+            }
+
+            @media (max-width: 991px) {
+                .home-page .home-slider-caption {
+                    padding: 48px 18px 30px;
+                }
+
+                .home-page .home-slider-title {
+                    max-width: 88%;
+                    font-size: clamp(24px, 5.4vw, 40px) !important;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .home-page .home-slider-title {
+                    font-size: clamp(22px, 1.85vw, 32px) !important;
+                }
+            }
         </style>
     @endpush
-    <div class="container">
+    <div class="container home-page">
         <div class="row container2">
             <div class="col-xs-12 col-md-3">
                 {{-- slider mobile --}}
@@ -24,7 +78,7 @@
                                 <!--slider-->
                                 <div class="col-md-12">
                                     <div class="post--item post--layout-1 post--title-larger">
-                                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                        <div id="myCarousel" class="carousel slide home-slider-carousel" data-ride="carousel">
                                             <!-- Indicators -->
                                             <ol class="carousel-indicators">
                                                 @for ($i = 0; $i < $sliders->count(); $i++)
@@ -36,14 +90,14 @@
                                             <div class="carousel-inner"
                                                 style="    background-color: #67000500;     color: white;">
                                                 @foreach ($sliders as $index => $slider)
-                                                    <div class="item {{ $index == 0 ? 'active' : '' }}">
+                                                    <div class="item home-slider-item {{ $index == 0 ? 'active' : '' }}">
                                                         <a href="{{ route('site.new', $slider->id) }}">
                                                             <img src="{{ asset('storage/' . $slider->img_view) }}"
                                                                 alt="{{ $slider->$title }}" class="slider_img">
                                                         </a>
-                                                        <div style=" margin: 0%;height: 70px; margin-top: -76px;">
-                                                            <h4 style="   direction: rtl;" class="h4-slider">
-                                                                {{ $slider->$title }}</h4>
+                                                        <div class="home-slider-caption">
+                                                            <h4 class="home-slider-title">
+                                                                {{ Illuminate\Support\Str::words($slider->$title, 10, '...') }}</h4>
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -548,7 +602,7 @@
                                 <!--slider-->
                                 <div class="col-md-12">
                                     <div class="post--item post--layout-1 post--title-larger">
-                                        <div id="myCarouselDesktop" class="carousel slide" data-ride="carousel">
+                                        <div id="myCarouselDesktop" class="carousel slide home-slider-carousel" data-ride="carousel">
                                             <!-- Indicators -->
                                             <ol class="carousel-indicators">
                                                 @for ($i = 0; $i < $sliders->count(); $i++)
@@ -560,14 +614,14 @@
                                             <div class="carousel-inner"
                                                 style="    background-color: #67000500;     color: white;">
                                                 @foreach ($sliders as $index => $slider)
-                                                    <div class="item {{ $index == 0 ? 'active' : '' }}">
+                                                    <div class="item home-slider-item {{ $index == 0 ? 'active' : '' }}">
                                                         <a href="{{ route('site.new', $slider->id) }}">
                                                             <img src="{{ asset('storage/' . $slider->img_view) }}"
                                                                 alt="{{ $slider->$title }}" class="slider_img">
                                                         </a>
-                                                        <div style=" margin: 0%;height: 70px; margin-top: -76px;">
-                                                            <h4 style="   direction: rtl;" class="h4-slider">
-                                                                {{ $slider->$title }}</h4>
+                                                        <div class="home-slider-caption">
+                                                            <h4 class="home-slider-title">
+                                                                {{ Illuminate\Support\Str::words($slider->$title, 10, '...') }}</h4>
                                                         </div>
                                                     </div>
                                                 @endforeach
