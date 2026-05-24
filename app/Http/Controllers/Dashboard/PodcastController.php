@@ -545,6 +545,35 @@ class PodcastController extends Controller
         ->with('success', __('Item deleted successfully.'));
 }
 
+public function destroyEpisode($id)
+{
+    $this->authorize('delete', Podcast::class);
+
+    $episode = PodcastEpisode::findOrFail((int) $id);
+
+    if ($episode->img_view) {
+        Storage::disk('public')->delete($episode->img_view);
+    }
+
+    if ($episode->img_episode) {
+        Storage::disk('public')->delete($episode->img_episode);
+    }
+
+    if ($episode->vedio) {
+        Storage::disk('public')->delete($episode->vedio);
+    }
+
+    if ($episode->audio) {
+        Storage::disk('public')->delete($episode->audio);
+    }
+
+    $episode->delete();
+
+    return redirect()
+        ->back()
+        ->with('success', __('Item deleted successfully.'));
+}
+
     public function removeImage(Request $request, $id)
     {
         $podcast = Podcast::findOrFail((int)$id);

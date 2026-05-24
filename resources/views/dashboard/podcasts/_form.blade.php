@@ -65,6 +65,18 @@
             @endphp
             <div class="card mb-3 episode-item">
 
+    <input type="hidden" name="episodes[id][]" value="{{ $episode->id }}">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>{{ $episode->title_ar ?? $episode->title_en }}</strong>
+
+        <button type="button"
+            class="btn btn-danger btn-sm btn-delete-episode"
+            data-url="{{ route('dashboard.podcast.episode.destroy', $episode->id) }}">
+            حذف الحلقة
+        </button>
+    </div>
+
                 <div class="card-body">
 
                     <div class="row">
@@ -327,7 +339,17 @@
             });
 
             var newEpisodeHtml = `
-    <div class="card mb-3 episode-item">
+  <div class="card mb-3 episode-item">
+
+    <input type="hidden" name="episodes[id][]" value="">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>حلقة جديدة</strong>
+
+        <button type="button" class="btn btn-danger btn-sm btn-remove-new-episode">
+            حذف الحلقة
+        </button>
+    </div>
         <div class="card-body">
             <div class="row">
                 <div class="form-group col-6 mb-3">
@@ -449,6 +471,34 @@
 
                 return '';
             }
+      
+      $(document).on('click', '.btn-remove-new-episode', function() {
+    $(this).closest('.episode-item').remove();
+});
+
+$(document).on('click', '.btn-delete-episode', function() {
+    if (!confirm('هل أنت متأكد من حذف هذه الحلقة؟')) {
+        return;
+    }
+
+    var button = $(this);
+    var url = button.data('url');
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            _method: 'DELETE'
+        },
+        success: function() {
+            button.closest('.episode-item').remove();
+        },
+        error: function() {
+            alert('حدث خطأ أثناء حذف الحلقة');
+        }
+    });
+});
         })();
     </script>
 @endpush
