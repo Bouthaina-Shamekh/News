@@ -18,12 +18,24 @@
                 border-radius: 8px;
             }
 
+            .home-page #myCarousel .carousel-inner {
+                height: auto !important;
+            }
+
+            .home-page #myCarousel .slider_img {
+                display: block;
+                width: 100%;
+                height: auto !important;
+                aspect-ratio: 16 / 9;
+                object-fit: cover;
+            }
+
             .home-page #myCarousel .home-slider-caption {
                 position: absolute;
                 right: 0;
-                bottom: 0;
+                bottom: 40px;
                 left: 0;
-                padding: 54px 24px 32px;
+                padding: 46px 20px 0;
                 background: linear-gradient(0deg, rgba(0, 0, 0, .74), rgba(0, 0, 0, .36) 58%, rgba(0, 0, 0, 0));
                 pointer-events: none;
                 z-index: 2;
@@ -45,18 +57,19 @@
             }
 
             .home-page #myCarousel .carousel-indicators {
-                bottom: 8px;
+                bottom: 15px;
                 z-index: 3;
             }
 
             @media (max-width: 991px) {
                 .home-page #myCarousel .home-slider-caption {
-                    padding: 48px 18px 30px;
+                    bottom: 0;
+                    padding: 42px 16px 50px;
                 }
 
                 .home-page #myCarousel .home-slider-title {
                     max-width: 88%;
-                    font-size: clamp(24px, 5.4vw, 40px) !important;
+                    font-size: clamp(20px, 4.4vw, 32px) !important;
                 }
             }
         </style>
@@ -615,7 +628,7 @@
                                                             <img src="{{ asset('storage/' . $slider->img_view) }}"
                                                                 alt="{{ $slider->$title }}" class="slider_img">
                                                         </a>
-                                                        <div style=" margin: 0%;height: 70px; margin-top: -76px;">
+                                                        <div style=" margin: 0%;height: 63px; margin-top: -97px;">
                                                             <h4 style="   direction: rtl;" class="h4-slider">
                                                                 {{ $slider->$title }}</h4>
                                                         </div>
