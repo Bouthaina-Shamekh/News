@@ -72,7 +72,9 @@
 
         <button type="button"
             class="btn btn-danger btn-sm btn-delete-episode"
-            data-url="{{ route('dashboard.podcast.episode.destroy', $episode->id) }}">
+            data-id="{{ $episode->id }}"
+            data-url="{{ route('dashboard.podcast.episode.destroy', $episode->id) }}"
+            onclick="return deletePodcastEpisode(this, event)">
             حذف الحلقة
         </button>
     </div>
@@ -233,6 +235,47 @@
 @push('scripts')
     <script>
         (function() {
+            window.deletePodcastEpisode = function(button, event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                if (!confirm('هل أنت متأكد من حذف هذه الحلقة؟')) {
+                    return false;
+                }
+
+                var deleteUrl = button.dataset.url;
+
+                if (!deleteUrl && button.dataset.id) {
+                    deleteUrl = @json(route('dashboard.podcast.episode.destroy', ['id' => '__EPISODE_ID__']));
+                    deleteUrl = deleteUrl.replace('__EPISODE_ID__', button.dataset.id);
+                }
+
+                if (!deleteUrl || deleteUrl === window.location.href || deleteUrl.indexOf('/edit') !== -1) {
+                    alert('رابط حذف الحلقة غير صحيح');
+                    return false;
+                }
+
+                fetch(deleteUrl, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                }).then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('Delete failed');
+                    }
+
+                    button.closest('.episode-item').remove();
+                }).catch(function() {
+                    alert('حدث خطأ أثناء حذف الحلقة');
+                });
+
+                return false;
+            };
+
             function toggleEpisodeMedia(item) {
                 var type = $(item).find('.episode-type-select').val();
                 var source = $(item).find('.episode-source-select').val() || 'upload';
@@ -476,28 +519,8 @@
     $(this).closest('.episode-item').remove();
 });
 
-$(document).on('click', '.btn-delete-episode', function() {
-    if (!confirm('هل أنت متأكد من حذف هذه الحلقة؟')) {
-        return;
-    }
-
-    var button = $(this);
-    var url = button.data('url');
-
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: {
-            _token: '{{ csrf_token() }}',
-            _method: 'DELETE'
-        },
-        success: function() {
-            button.closest('.episode-item').remove();
-        },
-        error: function() {
-            alert('حدث خطأ أثناء حذف الحلقة');
-        }
-    });
+$(document).on('click', '.btn-delete-episode', function(event) {
+    deletePodcastEpisode(this, event);
 });
         })();
     </script>

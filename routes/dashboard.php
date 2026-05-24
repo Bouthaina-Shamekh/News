@@ -52,6 +52,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
         Route::post('/nw/{nw}/remove-image', [NwController::class, 'removeImage'])->name('nw.removeImage');
         Route::post('/articale/{articale}/remove-image', [ArticalController::class, 'removeImage'])->name('articale.removeImage');
         Route::post('/video/{video}/remove-image', [VideoController::class, 'removeImage'])->name('video.removeImage');
+        Route::delete('/podcast/episode/{id}', [PodcastController::class, 'destroyEpisode'])->name('podcast.episode.destroy');
 
         Route::resources([
             'users' => UserController::class,
@@ -85,4 +86,3 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
     });
 });
-

@@ -545,7 +545,7 @@ class PodcastController extends Controller
         ->with('success', __('Item deleted successfully.'));
 }
 
-public function destroyEpisode($id)
+public function destroyEpisode(Request $request, $id)
 {
     $this->authorize('delete', Podcast::class);
 
@@ -568,6 +568,10 @@ public function destroyEpisode($id)
     }
 
     $episode->delete();
+
+    if ($request->expectsJson() || $request->ajax()) {
+        return response()->noContent();
+    }
 
     return redirect()
         ->back()
