@@ -462,7 +462,7 @@ class MainController extends Controller
 
         $categorySliders = Category::whereHas('videos')
             ->with(['videos' => function ($q) {
-                $q->latest()->take(12);
+                $q->latest();
             }])
             ->get();
 
