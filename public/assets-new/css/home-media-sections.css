@@ -247,9 +247,10 @@
   text-align: inherit;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 6px 10px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 8px;
+  direction: rtl;
 }
 
 .home-videos-section__card-category {
@@ -259,6 +260,8 @@
   font-size: 15px;
   font-weight: 700;
   color: #fff;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .home-videos-section__card-category::before {
@@ -274,20 +277,26 @@
   font-size: 15px;
   font-weight: 700;
   color: #fff;
-  line-height: 1.8;
-  margin: 0 0 4px;
+  line-height: 1.65;
+  margin: 0;
   width: 100%;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  text-align: right;
 }
 
 .home-videos-section__card-date {
+  display: block;
+  width: 100%;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
-  margin-top: 0;
+  line-height: 1.4;
+  margin-top: 2px;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .home-videos-section__carousel .slider-btn {
