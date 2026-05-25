@@ -315,7 +315,7 @@ class PodcastController extends Controller
 
         $title = $request->title_en ?? $request->title_ar;
 
-        if (Str::slug($title) !== Str::slug($podcasts->title_en ?? $podcasts->title_ar)) {
+        if (! $podcasts->slug || Str::slug($title) !== Str::slug($podcasts->title_en ?? $podcasts->title_ar)) {
 
             $slug = $this->generateUniqueSlug(
                 Podcast::class,

@@ -9,7 +9,8 @@ $metaDescriptionSource = $metaEpisode ? ($metaEpisode->$text ?? $podcast->$text 
 $metaDescription = Str::limit(strip_tags($metaDescriptionSource), 160);
 $metaImagePath = $metaEpisode ? ($metaEpisode->img_episode ?? $metaEpisode->img_view ?? $podcastImg) : $podcastImg;
 $metaImage = $metaImagePath ? asset('storage/' . $metaImagePath) : asset('assets/in-img/podcasts/6.png');
-$metaUrl = route('site.podcast.show', $podcast->slug);
+$podcastRouteKey = $podcast->slug ?: $podcast->id;
+$metaUrl = route('site.podcast.show', $podcastRouteKey);
 if ($metaEpisode) {
     $metaUrl .= '?' . http_build_query(['episode' => $metaEpisode->id]);
 }
@@ -337,7 +338,7 @@ $mediaUrl = function ($path) {
                         $relatedImg = $related->img_view ?? $related->img_podcast;
                         $relatedImgUrl = $relatedImg ? asset('storage/' . $relatedImg) : asset('assets/in-img/podcasts/6.png');
                         $relatedTitle = $related->$title;
-                        $relatedUrl = route('site.podcast.show', $related->slug);
+                        $relatedUrl = route('site.podcast.show', $related->slug ?: $related->id);
                         @endphp
                         <a href="{{ $relatedUrl }}" class="podcast-one-card">
                             <div class="podcast-one-card__media">

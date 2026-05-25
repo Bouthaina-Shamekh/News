@@ -22,7 +22,7 @@
                             @php
                                 $img = $podcast->img_view ?? $podcast->img_podcast;
                                 $imgUrl = $img ? asset('storage/' . $img) : asset('assets/in-img/podcasts/6.png');
-                                $podcastUrl = route('site.podcast.show', $podcast->slug);
+                                $podcastUrl = route('site.podcast.show', $podcast->slug ?: $podcast->id);
                             @endphp
                             <a href="{{ $podcastUrl }}" class="podcast-one-card">
                                 <div class="podcast-one-card__media">
@@ -48,12 +48,12 @@
                         @foreach($episodes as $episode)
                             @php
                                 $p = $episode->podcast;
-                                $pSlug = $p?->slug;
+                                $podcastKey = $p ? ($p->slug ?: $p->id) : null;
                                 $episodeImg = ($episode->img_episode ?? $episode->img_view) ?: ($p?->img_view ?? $p?->img_podcast);
                                 $episodeImgUrl = $episodeImg ? asset('storage/' . $episodeImg) : asset('assets/in-img/podcasts/6.png');
-                                $episodeUrl = $pSlug
-    ? route('site.podcast.show', ['slug' => $pSlug]) . '?episode=' . $episode->id . '&autoplay=1'
-    : '#';
+                                $episodeUrl = $podcastKey
+                                    ? route('site.podcast.show', ['slug' => $podcastKey]) . '?episode=' . $episode->id . '&autoplay=1'
+                                    : '#';
                             @endphp
                             <a href="{{ $episodeUrl }}" class="podcast-card">
                                 <div class="card-inner">
