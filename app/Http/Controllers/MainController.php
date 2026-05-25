@@ -25,101 +25,101 @@ use Illuminate\Support\Facades\Mail;
 class MainController extends Controller
 {
     public function home()
-{
-    $ads = Ad::orderBy('id', 'desc')->get();
+    {
+        $ads = Ad::orderBy('id', 'desc')->get();
 
-    $sliders = Nw::active()
-        ->where('new_place_id', 4)
-        ->orderBy('id', 'desc')
-        ->take(5)
-        ->get();
+        $sliders = Nw::active()
+            ->where('new_place_id', 4)
+            ->orderBy('id', 'desc')
+            ->take(5)
+            ->get();
 
-    $homeFeaturedVideo = Video::with('category')
-        ->whereNotNull('slug')
-        ->where('slug', '!=', '')
-        ->where('is_featured', true)
-        ->latest()
-        ->first();
-
-    if (! $homeFeaturedVideo) {
         $homeFeaturedVideo = Video::with('category')
             ->whereNotNull('slug')
             ->where('slug', '!=', '')
+            ->where('is_featured', true)
             ->latest()
             ->first();
+
+        if (! $homeFeaturedVideo) {
+            $homeFeaturedVideo = Video::with('category')
+                ->whereNotNull('slug')
+                ->where('slug', '!=', '')
+                ->latest()
+                ->first();
+        }
+
+        $homeVideos = Video::with('category')
+            ->whereNotNull('slug')
+            ->where('slug', '!=', '')
+            ->when($homeFeaturedVideo, fn($q) => $q->where('id', '!=', $homeFeaturedVideo->id))
+            ->latest()
+            ->take(10)
+            ->get();
+
+        $homePodcasts = Podcast::whereNotNull('slug')
+            ->where('slug', '!=', '')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        // Categories
+        $categoryOne = Category::find(6) ?? Category::first();
+        $categoryTwo = Category::find(4) ?? Category::first();
+        $categoryThree = Category::find(1) ?? Category::first();
+
+
+        $locale = app()->getLocale();
+
+        $titleColumn = $locale === 'ar' ? 'title_ar' : 'title_en';
+
+        $articlesOne = Artical::active()
+            ->where('category_id', $categoryOne->id)
+            ->whereNotNull($titleColumn)
+            ->where($titleColumn, '!=', '')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->unique(function ($item) use ($titleColumn) {
+                return trim(mb_strtolower($item->{$titleColumn}));
+            })
+            ->values();
+
+        $articlesTwo = Artical::active()
+            ->where('category_id', $categoryTwo->id)
+            ->whereNotNull($titleColumn)
+            ->where($titleColumn, '!=', '')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->unique(function ($item) use ($titleColumn) {
+                return trim(mb_strtolower($item->{$titleColumn}));
+            })
+            ->values();
+
+        $articlesThree = Artical::active()
+            ->where('category_id', $categoryThree->id)
+            ->whereNotNull($titleColumn)
+            ->where($titleColumn, '!=', '')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->unique(function ($item) use ($titleColumn) {
+                return trim(mb_strtolower($item->{$titleColumn}));
+            })
+            ->values();
+
+        return view('site.home', compact(
+            'ads',
+            'sliders',
+            'categoryOne',
+            'categoryTwo',
+            'categoryThree',
+            'articlesOne',
+            'articlesTwo',
+            'articlesThree',
+            'homeFeaturedVideo',
+            'homeVideos',
+            'homePodcasts',
+        ));
     }
-
-    $homeVideos = Video::with('category')
-        ->whereNotNull('slug')
-        ->where('slug', '!=', '')
-        ->when($homeFeaturedVideo, fn ($q) => $q->where('id', '!=', $homeFeaturedVideo->id))
-        ->latest()
-        ->take(10)
-        ->get();
-
-   $homePodcasts = Podcast::whereNotNull('slug')
-    ->where('slug', '!=', '')
-    ->latest()
-    ->take(6)
-    ->get();
-
-    // Categories
-    $categoryOne = Category::find(6) ?? Category::first();
-    $categoryTwo = Category::find(4) ?? Category::first();
-    $categoryThree = Category::find(1) ?? Category::first();
-
-
-    $locale = app()->getLocale();
-
-    $titleColumn = $locale === 'ar' ? 'title_ar' : 'title_en';
-
-    $articlesOne = Artical::active()
-        ->where('category_id', $categoryOne->id)
-        ->whereNotNull($titleColumn)
-        ->where($titleColumn, '!=', '')
-        ->orderBy('id', 'desc')
-        ->get()
-        ->unique(function ($item) use ($titleColumn) {
-            return trim(mb_strtolower($item->{$titleColumn}));
-        })
-        ->values();
-
-    $articlesTwo = Artical::active()
-        ->where('category_id', $categoryTwo->id)
-        ->whereNotNull($titleColumn)
-        ->where($titleColumn, '!=', '')
-        ->orderBy('id', 'desc')
-        ->get()
-        ->unique(function ($item) use ($titleColumn) {
-            return trim(mb_strtolower($item->{$titleColumn}));
-        })
-        ->values();
-
-    $articlesThree = Artical::active()
-        ->where('category_id', $categoryThree->id)
-        ->whereNotNull($titleColumn)
-        ->where($titleColumn, '!=', '')
-        ->orderBy('id', 'desc')
-        ->get()
-        ->unique(function ($item) use ($titleColumn) {
-            return trim(mb_strtolower($item->{$titleColumn}));
-        })
-        ->values();
-
-    return view('site.home', compact(
-        'ads',
-        'sliders',
-        'categoryOne',
-        'categoryTwo',
-        'categoryThree',
-        'articlesOne',
-        'articlesTwo',
-        'articlesThree',
-        'homeFeaturedVideo',
-        'homeVideos',
-        'homePodcasts',
-    ));
-}
 
     public function about()
     {
@@ -180,17 +180,17 @@ class MainController extends Controller
             $news = $news->where('new_place_id', $place);
         }
         if ($search) {
-            $news = $news->where('title_'.app()->getLocale(), 'like', "%{$search}%");
+            $news = $news->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
         $news = $news->paginate(10);
-       // $categories = Category::all();
-     $categories = Category::withCount('nw')
-    ->get()
-    ->map(function ($category) {
-        return $category->nw_count > 0 ? $category : null;
-    })
-    ->filter()
-    ->values();
+        // $categories = Category::all();
+        $categories = Category::withCount('nw')
+            ->get()
+            ->map(function ($category) {
+                return $category->nw_count > 0 ? $category : null;
+            })
+            ->filter()
+            ->values();
 
         $newPalces = NewPlace::all();
 
@@ -256,7 +256,7 @@ class MainController extends Controller
         }
 
         if ($search) {
-            $articles->where('title_'.app()->getLocale(), 'like', "%{$search}%");
+            $articles->where('title_' . app()->getLocale(), 'like', "%{$search}%");
         }
 
         if ($place) {
@@ -272,14 +272,14 @@ class MainController extends Controller
         }
 
         $articles = $articles->paginate(10);
-       // $categories = Category::all();
-       $categories = Category::withCount('article')
-    ->get()
-    ->map(function ($category) {
-        return $category->article_count > 0 ? $category : null;
-    })
-    ->filter()
-    ->values();
+        // $categories = Category::all();
+        $categories = Category::withCount('article')
+            ->get()
+            ->map(function ($category) {
+                return $category->article_count > 0 ? $category : null;
+            })
+            ->filter()
+            ->values();
 
         $newPalces = [
             ['id' => 1, 'name_ar' => 'Hot', 'name_en' => 'Hot'],
@@ -352,128 +352,127 @@ class MainController extends Controller
     }
 
     public function video($slug)
-{
-    $video = Video::with('category')->where('slug', $slug)->firstOrFail();
+    {
+        $video = Video::with('category')->where('slug', $slug)->firstOrFail();
 
-    $hlsUrl = null;
-    $isReady = false;
-    if ($video->hls_path && $video->status === 'ready') {
-        $hlsUrl = asset('storage/' . $video->hls_path);
-        $isReady = true;
-    }
-
-    $cookieName = 'viewed_videos';
-    $now = Carbon::now();
-    $cutoff = $now->copy()->subHours(2)->timestamp;
-    $viewed = [];
-
-    $raw = request()->cookie($cookieName);
-    if (is_string($raw) && $raw !== '') {
-        $decoded = json_decode($raw, true);
-        if (is_array($decoded)) {
-            $viewed = $decoded;
+        $hlsUrl = null;
+        $isReady = false;
+        if ($video->hls_path && $video->status === 'ready') {
+            $hlsUrl = asset('storage/' . $video->hls_path);
+            $isReady = true;
         }
-    }
 
-    foreach ($viewed as $videoId => $ts) {
-        if (! is_numeric($ts) || (int) $ts < $cutoff) {
-            unset($viewed[$videoId]);
+        $cookieName = 'viewed_videos';
+        $now = Carbon::now();
+        $cutoff = $now->copy()->subHours(2)->timestamp;
+        $viewed = [];
+
+        $raw = request()->cookie($cookieName);
+        if (is_string($raw) && $raw !== '') {
+            $decoded = json_decode($raw, true);
+            if (is_array($decoded)) {
+                $viewed = $decoded;
+            }
         }
+
+        foreach ($viewed as $videoId => $ts) {
+            if (! is_numeric($ts) || (int) $ts < $cutoff) {
+                unset($viewed[$videoId]);
+            }
+        }
+
+        $key = (string) $video->id;
+        if (! array_key_exists($key, $viewed)) {
+            $video->increment('views_count');
+            $viewed[$key] = $now->timestamp;
+        }
+
+        $relatedVideos = Video::with('category')
+            ->where('category_id', $video->category_id)
+            ->where('id', '!=', $video->id)
+            ->latest()
+            ->take(4)
+            ->get();
+
+        $moreVideos = Video::with('category')
+            ->where('id', '!=', $video->id)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $breakingNews = Artical::latest()->take(3)->get();
+
+        $podcasts = Podcast::latest()->take(3)->get();
+
+        $mostViewedVideos = Video::with('category')
+            ->where('id', '!=', $video->id)
+            ->orderByDesc('views_count')
+            ->latest('id')
+            ->take(8)
+            ->get();
+
+        $response = response()->view('site.video', compact(
+            'video',
+            'hlsUrl',
+            'isReady',
+            'relatedVideos',
+            'moreVideos',
+            'breakingNews',
+            'podcasts',
+            'mostViewedVideos'
+        ));
+
+        return $response->cookie(
+            $cookieName,
+            json_encode($viewed, JSON_UNESCAPED_UNICODE),
+            120
+        );
     }
 
-    $key = (string) $video->id;
-    if (! array_key_exists($key, $viewed)) {
-        $video->increment('views_count');
-        $viewed[$key] = $now->timestamp;
+    public function videos()
+    {
+        $locale = app()->getLocale();
+        $titleColumn = $locale === 'en' ? 'title_en' : 'title_ar';
+
+        $featured = Video::with('category')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $latestVideos = Video::with('category')
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $mostViewedVideos = Video::with('category')
+            ->whereNotNull($titleColumn)
+            ->where($titleColumn, '!=', '')
+            ->select('videos.*')
+            ->whereIn('id', function ($query) use ($titleColumn) {
+                $query->selectRaw('MAX(id)')
+                    ->from('videos')
+                    ->whereNotNull($titleColumn)
+                    ->where($titleColumn, '!=', '')
+                    ->groupBy($titleColumn);
+            })
+            ->orderByDesc('views_count')
+            ->latest('id')
+            ->take(8)
+            ->get();
+
+        $categorySliders = Category::whereHas('videos')
+            ->with(['videos' => function ($q) {
+                $q->latest()->take(12);
+            }])
+            ->get();
+
+        return view('site.videos', compact(
+            'featured',
+            'latestVideos',
+            'mostViewedVideos',
+            'categorySliders'
+        ));
     }
-
-    $relatedVideos = Video::with('category')
-        ->where('category_id', $video->category_id)
-        ->where('id', '!=', $video->id)
-        ->latest()
-        ->take(4)
-        ->get();
-
-    $moreVideos = Video::with('category')
-        ->where('id', '!=', $video->id)
-        ->latest()
-        ->take(8)
-        ->get();
-
-    $breakingNews = Artical::latest()->take(3)->get();
-
-    $podcasts = Podcast::latest()->take(3)->get();
-
-    $mostViewedVideos = Video::with('category')
-        ->where('id', '!=', $video->id)
-        ->orderByDesc('views_count')
-        ->latest('id')
-        ->take(8)
-        ->get();
-
-    $response = response()->view('site.video', compact(
-        'video',
-        'hlsUrl',
-        'isReady',
-        'relatedVideos',
-        'moreVideos',
-        'breakingNews',
-        'podcasts',
-        'mostViewedVideos'
-    ));
-
-    return $response->cookie(
-        $cookieName,
-        json_encode($viewed, JSON_UNESCAPED_UNICODE),
-        120
-    );
-}
-
- public function videos()
-{
-    $locale = app()->getLocale();
-    $titleColumn = $locale === 'en' ? 'title_en' : 'title_ar';
-
-    $featured = Video::with('category')
-        ->latest()
-        ->take(5)
-        ->get();
-
-    $latestVideos = Video::with('category')
-        ->latest()
-        ->take(8)
-        ->get();
-
-    $mostViewedVideos = Video::with('category')
-        ->whereNotNull($titleColumn)
-        ->where($titleColumn, '!=', '')
-        ->select('videos.*')
-        ->whereIn('id', function ($query) use ($titleColumn) {
-            $query->selectRaw('MAX(id)')
-                ->from('videos')
-                ->whereNotNull($titleColumn)
-                ->where($titleColumn, '!=', '')
-                ->groupBy($titleColumn);
-        })
-        ->orderByDesc('views_count')
-        ->latest('id')
-        ->take(8)
-        ->get();
-
-    $categorySliders = Category::whereHas('videos')
-        ->with(['videos' => function ($q) {
-            $q->latest()->take(12);
-        }])
-        ->take(5)
-        ->get();
-
-    return view('site.videos', compact(
-        'featured',
-        'latestVideos',
-        'mostViewedVideos',
-        'categorySliders'
-    ));
-}
 
     public function articleLike(Request $request, $id)
     {
